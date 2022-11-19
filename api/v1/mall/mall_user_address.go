@@ -1,6 +1,8 @@
 package mall
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"main.go/global"
@@ -27,6 +29,8 @@ func (m *MallUserAddressApi) AddressList(c *gin.Context) {
 func (m *MallUserAddressApi) SaveUserAddress(c *gin.Context) {
 	var req mallReq.AddAddressParam
 	_ = c.ShouldBindJSON(&req)
+	byte, _ := json.Marshal(req)
+	fmt.Println(string(byte))
 	token := c.GetHeader("token")
 	err := mallUserAddressService.SaveUserAddress(token, req)
 	if err != nil {

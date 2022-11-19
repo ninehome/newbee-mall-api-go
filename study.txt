@@ -14,3 +14,6 @@ https://app.dacast.com/analytics/dashboard
 
 //开源IM SDK
 https://github.com/OpenIMSDK/Open-IM-Server
+
+//go 设计模式
+http://lailin.xyz/post/observer.html
