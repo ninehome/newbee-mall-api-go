@@ -13,4 +13,5 @@ func main() {
 	global.GVA_DB = initialize.Gorm() // gorm连接数据库
 	core.RunWindowsServer()           //设置路由,启动端口监听
 
+	//测试git更新
 }
