@@ -6,8 +6,13 @@ mysql:
   port: "3306"
   config: charset=utf8mb4&parseTime=True&loc=Local
   db-name: test
-  username: nine
-  password: 123qwe
+#  home mysql
+#  username: nine
+#  password: 123qwe
+
+#  work mysql
+  username: root
+  password: stan183183
   max-idle-conns: 0
   max-open-conns: 0
   log-mode: ""
