@@ -1,6 +1,7 @@
 package manage
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"main.go/global"
@@ -83,6 +84,7 @@ func (m *ManageAdminUserApi) AdminUserProfile(c *gin.Context) {
 func (m *ManageAdminUserApi) AdminLogin(c *gin.Context) {
 	var adminLoginParams manageReq.MallAdminLoginParam
 	_ = c.ShouldBindJSON(&adminLoginParams)
+	fmt.Println(adminLoginParams)
 	if err, _, adminToken := mallAdminUserService.AdminLogin(adminLoginParams); err != nil {
 		response.FailWithMessage("登陆失败", c)
 	} else {

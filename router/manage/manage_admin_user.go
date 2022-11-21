@@ -12,6 +12,7 @@ type ManageAdminUserRouter struct {
 func (r *ManageAdminUserRouter) InitManageAdminUserRouter(Router *gin.RouterGroup) {
 	mallAdminUserRouter := Router.Group("v1").Use(middleware.AdminJWTAuth())
 	mallAdminUserWithoutRouter := Router.Group("v1")
+	//http://localhost:8888/manage-api/v1/adminUser/login
 	var mallAdminUserApi = v1.ApiGroupApp.ManageApiGroup.ManageAdminUserApi
 	{
 		mallAdminUserRouter.POST("createMallAdminUser", mallAdminUserApi.CreateAdminUser) // 新建MallAdminUser
@@ -22,7 +23,7 @@ func (r *ManageAdminUserRouter) InitManageAdminUserRouter(Router *gin.RouterGrou
 		mallAdminUserRouter.GET("adminUser/profile", mallAdminUserApi.AdminUserProfile) // 根据ID获取 admin详情
 		mallAdminUserRouter.DELETE("logout", mallAdminUserApi.AdminLogout)
 		mallAdminUserRouter.POST("upload/file", mallAdminUserApi.UploadFile) //上传图片
-
+		//mallAdminUserWithoutRouter.POST("adminUser/login", mallAdminUserApi.AdminLogin) //管理员登陆
 	}
 	{
 		mallAdminUserWithoutRouter.POST("adminUser/login", mallAdminUserApi.AdminLogin) //管理员登陆
