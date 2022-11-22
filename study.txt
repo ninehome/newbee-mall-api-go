@@ -33,3 +33,17 @@ https://t66y.com/read.php?tid=1648542
 
 ssh 客户端
 https://codemutex.com/nextssh
+
+
+
+
+//图片直接存储在项目文件目录
+https://blog.51cto.com/heian99/5185762?articleABtest=0
+
+
+//基于 gin 做的图床服务
+https://github.com/hezhizheng/repo-image-hosting
+
+
+//vue + electron
+https://simulatedgreg.gitbooks.io/electron-vue/content/cn/
