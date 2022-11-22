@@ -31,54 +31,36 @@ func (m *MallUserAddressService) SaveUserAddress(token string, req mallReq.AddAd
 	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
 		return errors.New("不存在的用户")
 	}
-
 	var defaultAddress mall.MallUserAddress
-	//byte, _ := json.Marshal(defaultAddress)
-	//fmt.Println("uid ===>>> ")
-	//fmt.Println(string(byte))
-	//{"addressId":0,"userId":7,"userName":"大拉开距离","userPhone":"发的发到付","defaultFlag":1,"provinceName":"211","cityName":"231","regionName":"241","detailAddress":"moa 发送到发 moa","isDeleted":0,"createTime":"2022-11-19 16:22:35","updateTime":"2022-11-19 16:22:35"}
-
+	var newAddress mall.MallUserAddress
 	fmt.Println("uid ===>>> ")
 	// 是否新增了默认地址，将之前的默认地址设置为非默认
-	if req.DefaultFlag == 1 {
-		if err = global.GVA_DB.Where("user_id=? and default_flag =1 and is_deleted = 0", userToken.UserId).First(&defaultAddress).Error; err != nil {
-			//没有查到记录 ,新增记录
-			copier.Copy(&defaultAddress, &req)
-			defaultAddress.CreateTime = common.JSONTime{Time: time.Now()}
-			defaultAddress.UpdateTime = common.JSONTime{Time: time.Now()}
-			defaultAddress.UserId = userToken.UserId
-			err = global.GVA_DB.Create(&defaultAddress).Error
-			if err != nil {
-				return
-			}
-		} else {
-			//更新 记录
-			copier.Copy(&defaultAddress, &req)
-			defaultAddress.CreateTime = common.JSONTime{Time: time.Now()}
-			defaultAddress.UpdateTime = common.JSONTime{Time: time.Now()}
-			defaultAddress.UserId = userToken.UserId
 
-			if defaultAddress != (mall.MallUserAddress{}) {
-				defaultAddress.UpdateTime = common.JSONTime{time.Now()}
-				err = global.GVA_DB.Save(&defaultAddress).Error
-				if err != nil {
-					return errors.New("save address is worry: " + err.Error())
-				}
-			}
-
-		}
-
-	} else {
-		//新增地址记录
-		copier.Copy(&defaultAddress, &req)
-		defaultAddress.CreateTime = common.JSONTime{Time: time.Now()}
-		defaultAddress.UpdateTime = common.JSONTime{Time: time.Now()}
-		defaultAddress.UserId = userToken.UserId
-		err = global.GVA_DB.Create(&defaultAddress).Error
+	if err = global.GVA_DB.Where("user_id=? and default_flag =1 and is_deleted = 0", userToken.UserId).First(&defaultAddress).Error; err != nil {
+		//没有查到记录 ,新增记录
+		copier.Copy(&newAddress, &req)
+		newAddress.CreateTime = common.JSONTime{Time: time.Now()}
+		newAddress.UpdateTime = common.JSONTime{Time: time.Now()}
+		newAddress.UserId = userToken.UserId
+		err = global.GVA_DB.Create(&newAddress).Error
 		if err != nil {
 			return
 		}
+	} else {
+		//先更新 之前的记录 再新增
+		global.GVA_DB.Model(&mall.MallUserAddress{}).Where("address_id =?", defaultAddress.AddressId).Update("default_flag", 0)
+
+		copier.Copy(&newAddress, &req)
+		newAddress.CreateTime = common.JSONTime{Time: time.Now()}
+		newAddress.UpdateTime = common.JSONTime{Time: time.Now()}
+		newAddress.UserId = userToken.UserId
+		err = global.GVA_DB.Create(&newAddress).Error
+		if err != nil {
+			return
+		}
+
 	}
+
 	return
 }
 
