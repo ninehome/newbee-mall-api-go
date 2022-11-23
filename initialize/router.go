@@ -25,6 +25,8 @@ func Routers() *gin.Engine {
 	manageRouter := router.RouterGroupApp.Manage
 	ManageGroup := Router.Group("manage-api")
 
+	//
+	//https://wizardforcel.gitbooks.io/go42/content/content/42_42_gin.html
 	//读取本地图片
 	//http://localhost:8888/getImage?imageName=./001.png
 	Router.GET("/getImage", func(c *gin.Context) {
