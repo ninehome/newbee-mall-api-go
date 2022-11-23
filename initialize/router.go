@@ -2,6 +2,7 @@ package initialize
 
 import (
 	"github.com/gin-gonic/gin"
+	"io/ioutil"
 	"main.go/global"
 	"main.go/middleware"
 	"main.go/router"
@@ -10,7 +11,10 @@ import (
 
 func Routers() *gin.Engine {
 	var Router = gin.Default()
+
+	//这里读取了静态文件
 	Router.StaticFS(global.GVA_CONFIG.Local.Path, http.Dir(global.GVA_CONFIG.Local.Path)) // 为用户头像和文件提供静态地址
+
 	//Router.Use(middleware.LoadTls())  // 打开就能玩https了
 	global.GVA_LOG.Info("use middleware logger")
 	// 跨域
@@ -20,6 +24,12 @@ func Routers() *gin.Engine {
 	//商城后管路由
 	manageRouter := router.RouterGroupApp.Manage
 	ManageGroup := Router.Group("manage-api")
+
+	//读取本地图片
+	Router.GET("/getImage", func(c *gin.Context) {
+		getImage(c)
+	}) // 读取图片
+
 	PublicGroup := Router.Group("")
 
 	{
@@ -52,4 +62,10 @@ func Routers() *gin.Engine {
 	}
 	global.GVA_LOG.Info("router register success")
 	return Router
+}
+
+func getImage(c *gin.Context) {
+	imageName := c.Query("imageName")
+	file, _ := ioutil.ReadFile(imageName)
+	c.Writer.WriteString(string(file))
 }

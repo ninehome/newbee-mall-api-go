@@ -8,8 +8,8 @@ type ImageHttpRouter struct {
 }
 
 func (m *ImageHttpRouter) InitImageRouter(Router *gin.RouterGroup) {
-	mallCarouselRouter := Router.Group("v1")
-	{
-		mallCarouselRouter.Static("/img", "./static-files/newbee-mall.png") // 读取图片
-	}
+	//mallCarouselRouter := Router.Group("v1")
+	//{
+	//	mallCarouselRouter.Static("/static/", "./static-files/img") // 读取图片
+	//}
 }
