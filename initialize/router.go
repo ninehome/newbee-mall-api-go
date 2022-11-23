@@ -26,6 +26,7 @@ func Routers() *gin.Engine {
 	ManageGroup := Router.Group("manage-api")
 
 	//读取本地图片
+	//http://localhost:8888/getImage?imageName=./001.png
 	Router.GET("/getImage", func(c *gin.Context) {
 		getImage(c)
 	}) // 读取图片
