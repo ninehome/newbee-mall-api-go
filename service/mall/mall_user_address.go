@@ -129,6 +129,7 @@ func (m *MallUserAddressService) DeleteUserAddress(token string, id int) (err er
 	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
 		return errors.New("不存在的用户")
 	}
+	fmt.Println(id)
 	var userAddress mall.MallUserAddress
 	if err = global.GVA_DB.Where("address_id =?", id).First(&userAddress).Error; err != nil {
 		return errors.New("不存在的用户地址")
