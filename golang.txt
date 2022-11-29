@@ -41,6 +41,9 @@ https://t66y.com/read.php?tid=1648542
 ssh 客户端
 https://codemutex.com/nextssh
 
+push key
+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
+
 
 
 
