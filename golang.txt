@@ -72,3 +72,6 @@ ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpMeXBWNlVVcTN0Nlo@43.156.199.246:37584/?outli
 七牛
 账号：nine183183@icloud.com
 密码：Aa123456789@
+
+push go code
+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
