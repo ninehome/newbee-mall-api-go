@@ -11,6 +11,7 @@ import (
 	"main.go/model/manage"
 	manageReq "main.go/model/manage/request"
 	"main.go/utils"
+	"net/http"
 	"strconv"
 )
 
@@ -84,6 +85,7 @@ func (m *ManageAdminUserApi) AdminUserProfile(c *gin.Context) {
 func (m *ManageAdminUserApi) AdminLogin(c *gin.Context) {
 	var adminLoginParams manageReq.MallAdminLoginParam
 	_ = c.ShouldBindJSON(&adminLoginParams)
+
 	fmt.Println(adminLoginParams)
 	if err, _, adminToken := mallAdminUserService.AdminLogin(adminLoginParams); err != nil {
 		response.FailWithMessage("登陆失败", c)
@@ -152,4 +154,16 @@ func (m *ManageAdminUserApi) UploadFile(c *gin.Context) {
 	}
 	//这里直接使用本地的url
 	response.OkWithData("http://localhost:8888/"+file.Url, c)
+}
+
+func (m *ManageAdminUserApi) Upload(c *gin.Context) {
+	file, fileheader, _ := c.Request.FormFile("file")
+	filesize := fileheader.Size
+	url, code := utils.UploadToQiNiu(file, filesize)
+
+	c.JSONP(http.StatusOK, gin.H{
+		"status":  code,
+		"message": "",
+		"url":     url,
+	})
 }

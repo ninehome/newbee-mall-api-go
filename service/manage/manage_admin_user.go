@@ -69,7 +69,8 @@ func (m *ManageAdminUserService) GetMallAdminUser(token string) (err error, mall
 }
 
 // AdminLogin 管理员登陆
-func (m *ManageAdminUserService) AdminLogin(params manageReq.MallAdminLoginParam) (err error, mallAdminUser manage.MallAdminUser, adminToken manage.MallAdminUserToken) {
+func (m *ManageAdminUserService) AdminLogin(params manageReq.MallAdminLoginParam) (err error, ad manage.MallAdminUser, adminToken manage.MallAdminUserToken) {
+	var mallAdminUser manage.MallAdminUser
 	err = global.GVA_DB.Where("login_user_name=? AND login_password=?", params.UserName, params.PasswordMd5).First(&mallAdminUser).Error
 	if mallAdminUser != (manage.MallAdminUser{}) {
 		token := getNewToken(time.Now().UnixNano()/1e6, int(mallAdminUser.AdminUserId))
