@@ -37,3 +37,12 @@ zap:
 token:
   token-time: "72h"
 
+qiniu:
+  access-key: 81HD1oGmq8NsGxgVQWWVJ5TBAVYbpjis1pcsM09U
+  sercet-key: xefgAk3TVFPTgV_jg-P4TJMoQb2BtGeHmSy5mXDc
+  bucket: goods-mall
+  qiniu-server: http://rl8iaz21y.bkt.gdipper.com/
+
+
+
+
