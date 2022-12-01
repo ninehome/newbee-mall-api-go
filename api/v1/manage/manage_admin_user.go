@@ -156,14 +156,15 @@ func (m *ManageAdminUserApi) UploadFile(c *gin.Context) {
 	response.OkWithData("http://localhost:8888/"+file.Url, c)
 }
 
+// 上传七牛
 func (m *ManageAdminUserApi) Upload(c *gin.Context) {
 	file, fileheader, _ := c.Request.FormFile("file")
 	filesize := fileheader.Size
-	url, code := utils.UploadToQiNiu(file, filesize)
+	code, url := utils.UploadToQiNiu(file, filesize)
 
 	c.JSONP(http.StatusOK, gin.H{
-		"status":  code,
-		"message": "",
-		"url":     url,
+		"resultCode": code,
+		"message":    "",
+		"data":       url,
 	})
 }
