@@ -107,6 +107,7 @@ https://www.freepik.com/search?format=search&query=space
 //mac 打包go
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
 
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go
 
 
 //宝塔安装go 环境
