@@ -10,7 +10,7 @@ mysql:
 #  username: nine
 #  password: 123qwe
 
-#  work mysql
+#  work mysql  , dev
   username: root
   password: stan183183
   max-idle-conns: 0
