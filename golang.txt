@@ -99,13 +99,23 @@ https://www.freepik.com/search?format=search&query=space
 
  windos 打包 go
 
- set CGO_ENABLED=0 //禁用CGO
- set GOOS=linux //目标平台为linux
- set GOARCH=amd64 //目标处理器架构是amd64
- go build -o name //编译可执行文件到当前目录 （-o：自定义文件名）
+ set CGO_ENABLED=0       //禁用CGO
+ set GOOS=linux        //目标平台为linux
+ set GOARCH=amd64       //目标处理器架构是amd64    set GOARCH=x86_64
+ go build -o goapi.exe main.go      //编译可执行文件到当前目录 （-o：自定义文件名）
+
+
+ 方式二
+ set CGO_ENABLED=0
+ set GOOS=linux
+ set GOARCH=amd64
+ go build -o main-linux main.go    //main-linux =>文件名
+
+
 
 //mac 打包go
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
+
 
 
 
