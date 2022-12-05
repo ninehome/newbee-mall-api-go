@@ -10,7 +10,7 @@ mysql:
 #  username: nine
 #  password: 123qwe
 
-#  work mysql
+#  work mysql  , dev
   username: root
   password: stan183183
   max-idle-conns: 0
@@ -18,7 +18,7 @@ mysql:
   log-mode: ""
   log-zap: false
 system:
-  addr: 8888
+  addr: 9191
   db-type: mysql
   oss-type: local
   use-multipoint: false

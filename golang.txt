@@ -116,6 +116,7 @@ https://www.freepik.com/search?format=search&query=space
 //mac 打包go
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
 
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go
 
 
 
@@ -130,3 +131,14 @@ tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
  //检测是否安装成功
  go version
+
+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
+
+
+
+宝塔 部署 vue
+https://www.bilibili.com/video/BV1H34y1H7L1/?spm_id_from=333.788.recommend_more_video.-1&vd_source=219bcaec1bec9d591cd548fd46fb2c02
+
+
+俄罗斯购物网站
+https://www.extrabux.com/chs/guide/7035127
