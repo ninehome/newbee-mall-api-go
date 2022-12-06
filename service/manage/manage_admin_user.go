@@ -38,6 +38,19 @@ func (m *ManageAdminUserService) UpdateMallAdminName(token string, req manageReq
 	return err
 }
 
+func (m *ManageAdminUserService) UpdateMallAdminMoneyAndLevel(token string, req manageReq.MallUpdateMoneyLevelParam) (err error) {
+	var adminUserToken manage.MallAdminUserToken
+	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
+	if err != nil {
+		return errors.New("不存在的用户")
+	}
+	err = global.GVA_DB.Where("user_id = ?", req.UserId).Updates(&manage.MallUser{
+		UserMoney: req.UserMoney,
+		UserLevel: req.UserLevel,
+	}).Error
+	return err
+}
+
 func (m *ManageAdminUserService) UpdateMallAdminPassWord(token string, req manageReq.MallUpdatePasswordParam) (err error) {
 	var adminUserToken manage.MallAdminUserToken
 	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error

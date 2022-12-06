@@ -49,6 +49,13 @@ func (m *MallUserApi) GetUserInfo(c *gin.Context) {
 func (m *MallUserApi) UserLogin(c *gin.Context) {
 	var req mallReq.UserLoginParam
 	_ = c.ShouldBindJSON(&req)
+
+	reqIP := c.ClientIP()
+	if reqIP == "::1" {
+		reqIP = "127.0.0.1"
+	}
+	req.UserIpAddr = reqIP
+
 	if err, _, adminToken := mallUserService.UserLogin(req); err != nil {
 		response.FailWithMessage("登陆失败", c)
 	} else {

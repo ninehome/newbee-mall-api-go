@@ -142,3 +142,13 @@ https://www.bilibili.com/video/BV1H34y1H7L1/?spm_id_from=333.788.recommend_more_
 
 俄罗斯购物网站
 https://www.extrabux.com/chs/guide/7035127
+
+
+//获取ip
+func GetRequestIP(c *gin.Context)string{
+    reqIP := c.ClientIP()
+  if reqIP == "::1" {
+      reqIP = "127.0.0.1"
+  }
+    return reqIP
+}
