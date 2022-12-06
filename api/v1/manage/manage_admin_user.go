@@ -69,6 +69,18 @@ func (m *ManageAdminUserApi) UpdateAdminUserName(c *gin.Context) {
 	}
 }
 
+func (m *ManageAdminUserApi) UpdateAdminMoneyAndLevel(c *gin.Context) {
+	var req manageReq.MallUpdateMoneyLevelParam
+	_ = c.ShouldBindJSON(&req)
+	userToken := c.GetHeader("token")
+	if err := mallAdminUserService.UpdateMallAdminMoneyAndLevel(userToken, req); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败", c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
+}
+
 // AdminUserProfile 用id查询AdminUser
 func (m *ManageAdminUserApi) AdminUserProfile(c *gin.Context) {
 	adminToken := c.GetHeader("token")

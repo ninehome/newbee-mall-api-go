@@ -92,6 +92,12 @@ func (m *MallUserService) UserLogin(params mallReq.UserLoginParam) (err error, u
 				return
 			}
 		}
+		errS := global.GVA_DB.Where("user_id =?", user.UserId).First(&user).Error
+		if errS != nil {
+
+		}
+
+		//更新 IP 地址
 	}
 	return err, user, userToken
 }
