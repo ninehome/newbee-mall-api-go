@@ -93,6 +93,19 @@ func (m *ManageAdminUserApi) AdminUserProfile(c *gin.Context) {
 	}
 }
 
+// UserProfile 用id查询User
+func (m *ManageAdminUserApi) UserProfile(c *gin.Context) {
+	var userParams manageReq.MallUserParam
+	_ = c.ShouldBindJSON(&userParams)
+
+	if err, mallAdminUser := mallAdminUserService.GetMallUser(userParams.UserId); err != nil {
+		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
+		response.FailWithMessage("未查询到记录", c)
+	} else {
+		response.OkWithData(mallAdminUser, c)
+	}
+}
+
 // AdminLogin 管理员登陆
 func (m *ManageAdminUserApi) AdminLogin(c *gin.Context) {
 	var adminLoginParams manageReq.MallAdminLoginParam

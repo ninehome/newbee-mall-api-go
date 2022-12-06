@@ -23,6 +23,7 @@ func (r *ManageAdminUserRouter) InitManageAdminUserRouter(Router *gin.RouterGrou
 		mallAdminUserRouter.GET("users", mallAdminUserApi.UserList)
 		mallAdminUserRouter.PUT("users/:lockStatus", mallAdminUserApi.LockUser)
 		mallAdminUserRouter.GET("adminUser/profile", mallAdminUserApi.AdminUserProfile) // 根据ID获取 admin详情
+		mallAdminUserRouter.POST("user/profile", mallAdminUserApi.UserProfile)          // 根据ID获取 malluser
 		mallAdminUserRouter.DELETE("logout", mallAdminUserApi.AdminLogout)
 		mallAdminUserRouter.POST("upload/file", mallAdminUserApi.UploadFile) //上传图片
 		mallAdminUserRouter.POST("upload/filev2", mallAdminUserApi.Upload)   //上传图片 七牛

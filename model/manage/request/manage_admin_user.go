@@ -27,3 +27,9 @@ type MallUpdatePasswordParam struct {
 	OriginalPassword string `json:"originalPassword"`
 	NewPassword      string `json:"newPassword"`
 }
+
+type MallUserParam struct {
+	UserMoney int    `json:"userMoney"`
+	UserLevel int    `json:"userLevel"`
+	UserId    string `json:"userId"`
+}

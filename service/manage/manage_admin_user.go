@@ -81,6 +81,15 @@ func (m *ManageAdminUserService) GetMallAdminUser(token string) (err error, mall
 	return err, mallAdminUser
 }
 
+func (m *ManageAdminUserService) GetMallUser(id string) (err error, mallAdminUser manage.MallUser) {
+	var adminToken manage.MallUser
+	if errors.Is(global.GVA_DB.Where("user_id =? ", id).First(&adminToken).Error, gorm.ErrRecordNotFound) {
+		return errors.New("不存在的用户"), adminToken
+	}
+	//err = global.GVA_DB.Where("admin_user_id = ?", adminToken.AdminUserId).First(&mallAdminUser).Error
+	return err, adminToken
+}
+
 // AdminLogin 管理员登陆
 func (m *ManageAdminUserService) AdminLogin(params manageReq.MallAdminLoginParam) (err error, ad manage.MallAdminUser, adminToken manage.MallAdminUserToken) {
 	var mallAdminUser manage.MallAdminUser
