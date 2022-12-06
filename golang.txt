@@ -42,8 +42,8 @@ ssh 客户端
 https://codemutex.com/nextssh
 
 push key
-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
 
+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
 
 
 
