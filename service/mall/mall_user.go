@@ -33,6 +33,47 @@ func (m *MallUserService) RegisterUser(req mallReq.RegisterUserParam) (err error
 
 }
 
+// 注册提款
+func (m *MallUserService) UserWithdrawal(token string, req mallReq.WithdrawalParam) (err error, userw mallRes.WithdrawResponse) {
+	var userToken mall.MallUserToken
+	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
+	if err != nil {
+		return errors.New("不存在的用户"), userw
+	}
+
+	var userInfo mall.MallUser
+	err = global.GVA_DB.Where("user_id =?", userToken.UserId).First(&userInfo).Error
+	if err != nil {
+		return errors.New("用户信息获取失败"), userw
+	}
+
+	//赋值 写入数据库
+	userw.WithdrawMoney = req.WithdrawMoney
+	userw.CreateTime = common.JSONTime{Time: time.Now()}
+	if userInfo.UserMoney > req.WithdrawMoney {
+		return errors.New("余额不足"), userw
+	}
+
+	userw.UserMoney = userInfo.UserMoney - req.WithdrawMoney //余额
+	userw.DealFlag = 0
+	userw.UserId = userInfo.UserId
+	userw.LoginName = userInfo.LoginName
+
+	err = global.GVA_DB.Create(&userw).Error
+	if err != nil {
+		return errors.New("提款订单生成失败"), userw
+	}
+
+	userInfo.UserMoney = userw.UserMoney
+	err = global.GVA_DB.Where("user_id =?", userToken.UserId).First(&userInfo).Error
+	if err != nil {
+		return errors.New("扣款失败"), userw
+	}
+
+	return err, userw
+
+}
+
 func (m *MallUserService) UpdateUserInfo(token string, req mallReq.UpdateUserInfoParam) (err error) {
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error

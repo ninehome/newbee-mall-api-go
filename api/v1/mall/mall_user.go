@@ -28,17 +28,27 @@ func (m *MallUserApi) UserRegister(c *gin.Context) {
 
 // 用户提款
 func (m *MallUserApi) UserWithdrawal(c *gin.Context) {
-	var req mallReq.RegisterUserParam
+	var req mallReq.WithdrawalParam
 	_ = c.ShouldBindJSON(&req)
-	if err := utils.Verify(req, utils.MallUserRegisterVerify); err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
+	token := c.GetHeader("token")
+	if err, uw := mallUserService.UserWithdrawal(token, req); err != nil {
+		global.GVA_LOG.Error("提款失败", zap.Error(err))
+		response.FailWithMessage("提款失败", c)
+	} else {
+		response.OkWithData(uw, c)
 	}
-	if err := mallUserService.RegisterUser(req); err != nil {
-		global.GVA_LOG.Error("创建失败", zap.Error(err))
-		response.FailWithMessage("创建失败:"+err.Error(), c)
-	}
-	response.OkWithMessage("创建成功", c)
+
+	//var req mallReq.RegisterUserParam
+	//_ = c.ShouldBindJSON(&req)
+	//if err := utils.Verify(req, utils.MallUserRegisterVerify); err != nil {
+	//	response.FailWithMessage(err.Error(), c)
+	//	return
+	//}
+	//if err := mallUserService.RegisterUser(req); err != nil {
+	//	global.GVA_LOG.Error("创建失败", zap.Error(err))
+	//	response.FailWithMessage("创建失败:"+err.Error(), c)
+	//}
+	//response.OkWithMessage("创建成功", c)
 }
 
 func (m *MallUserApi) UserInfoUpdate(c *gin.Context) {

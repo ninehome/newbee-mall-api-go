@@ -18,3 +18,8 @@ type UserLoginParam struct {
 	PasswordMd5 string `json:"passwordMd5"`
 	UserIpAddr  string `json:"userIpAddr"`
 }
+
+// 用户提款
+type WithdrawalParam struct {
+	WithdrawMoney int `json:"withdrawMoney"`
+}

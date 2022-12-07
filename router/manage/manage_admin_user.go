@@ -15,9 +15,8 @@ func (r *ManageAdminUserRouter) InitManageAdminUserRouter(Router *gin.RouterGrou
 	//http://localhost:8888/manage-api/v1/adminUser/login
 	var mallAdminUserApi = v1.ApiGroupApp.ManageApiGroup.ManageAdminUserApi
 	{
-		mallAdminUserRouter.POST("createMallAdminUser", mallAdminUserApi.CreateAdminUser) // 新建MallAdminUser
-		mallAdminUserRouter.PUT("adminUser/name", mallAdminUserApi.UpdateAdminUserName)   // 更新MallAdminUser
-		//mallAdminUserRouter.PUT("adminUser/moneyAndLevel", mallAdminUserApi.UpdateAdminMoneyAndLevel)  // 更新MallAdminUser 的等级和余额
+		mallAdminUserRouter.POST("createMallAdminUser", mallAdminUserApi.CreateAdminUser)              // 新建MallAdminUser
+		mallAdminUserRouter.PUT("adminUser/name", mallAdminUserApi.UpdateAdminUserName)                // 更新MallAdminUser
 		mallAdminUserRouter.POST("adminUser/moneyAndLevel", mallAdminUserApi.UpdateAdminMoneyAndLevel) // 更新MallAdminUser 的等级和余额
 		mallAdminUserRouter.PUT("adminUser/password", mallAdminUserApi.UpdateAdminUserPassword)
 		mallAdminUserRouter.GET("users", mallAdminUserApi.UserList)
