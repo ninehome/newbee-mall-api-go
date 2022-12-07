@@ -72,6 +72,9 @@ func (m *ManageAdminUserApi) UpdateAdminUserName(c *gin.Context) {
 func (m *ManageAdminUserApi) UpdateAdminMoneyAndLevel(c *gin.Context) {
 	var req manageReq.MallUpdateMoneyLevelParam
 	_ = c.ShouldBindJSON(&req)
+	fmt.Println(1111111111111111)
+	fmt.Println(&req)
+	fmt.Println(222222222222222)
 	userToken := c.GetHeader("token")
 	if err := mallAdminUserService.UpdateMallAdminMoneyAndLevel(userToken, req); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
