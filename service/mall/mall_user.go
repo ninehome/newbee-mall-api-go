@@ -50,7 +50,7 @@ func (m *MallUserService) UserWithdrawal(token string, req mallReq.WithdrawalPar
 	//赋值 写入数据库
 	userw.WithdrawMoney = req.WithdrawMoney
 	userw.CreateTime = common.JSONTime{Time: time.Now()}
-	if userInfo.UserMoney > req.WithdrawMoney {
+	if userInfo.UserMoney < req.WithdrawMoney {
 		return errors.New("余额不足"), userw
 	}
 

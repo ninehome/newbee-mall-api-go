@@ -33,7 +33,7 @@ func (m *MallUserApi) UserWithdrawal(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err, uw := mallUserService.UserWithdrawal(token, req); err != nil {
 		global.GVA_LOG.Error("提款失败", zap.Error(err))
-		response.FailWithMessage("提款失败", c)
+		response.FailWithMessage(err.Error(), c)
 	} else {
 		response.OkWithData(uw, c)
 	}
