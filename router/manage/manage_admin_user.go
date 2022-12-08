@@ -24,8 +24,9 @@ func (r *ManageAdminUserRouter) InitManageAdminUserRouter(Router *gin.RouterGrou
 		mallAdminUserRouter.GET("adminUser/profile", mallAdminUserApi.AdminUserProfile) // 根据ID获取 admin详情
 		mallAdminUserRouter.POST("user/profile", mallAdminUserApi.UserProfile)          // 根据ID获取 malluser
 		mallAdminUserRouter.DELETE("logout", mallAdminUserApi.AdminLogout)
-		mallAdminUserRouter.POST("upload/file", mallAdminUserApi.UploadFile) //上传图片
-		mallAdminUserRouter.POST("upload/filev2", mallAdminUserApi.Upload)   //上传图片 七牛
+		mallAdminUserRouter.POST("upload/file", mallAdminUserApi.UploadFile)               //上传图片
+		mallAdminUserRouter.POST("upload/filev2", mallAdminUserApi.Upload)                 //上传图片 七牛
+		mallAdminUserRouter.POST("/users/withdrawals", mallAdminUserApi.WithdrawalHistory) //提款列表
 
 		//mallAdminUserWithoutRouter.POST("adminUser/login", mallAdminUserApi.AdminLogin) //管理员登陆
 	}

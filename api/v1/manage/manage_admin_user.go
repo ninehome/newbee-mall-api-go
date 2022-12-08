@@ -72,9 +72,6 @@ func (m *ManageAdminUserApi) UpdateAdminUserName(c *gin.Context) {
 func (m *ManageAdminUserApi) UpdateAdminMoneyAndLevel(c *gin.Context) {
 	var req manageReq.MallUpdateMoneyLevelParam
 	_ = c.ShouldBindJSON(&req)
-	fmt.Println(1111111111111111)
-	fmt.Println(&req)
-	fmt.Println(222222222222222)
 	userToken := c.GetHeader("token")
 	if err := mallAdminUserService.UpdateMallAdminMoneyAndLevel(userToken, req); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
@@ -146,6 +143,26 @@ func (m *ManageAdminUserApi) UserList(c *gin.Context) {
 			TotalCount: total,
 			CurrPage:   pageInfo.PageNumber,
 			PageSize:   pageInfo.PageSize,
+		}, "获取成功", c)
+	}
+}
+
+// 用户提款列表
+func (m *ManageAdminUserApi) WithdrawalHistory(c *gin.Context) {
+	//var pageInfo manageReq.WithdrawalSearch
+	var param manageReq.PageInfo
+	//获取分页参数
+	_ = c.ShouldBindQuery(&param)
+
+	if err, list, total := mallUserService.GetMallUserWithdrawaList(param); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:       list,
+			TotalCount: total,
+			CurrPage:   param.PageNumber,
+			PageSize:   param.PageSize,
 		}, "获取成功", c)
 	}
 }

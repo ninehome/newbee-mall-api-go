@@ -36,3 +36,20 @@ func (m *ManageUserService) GetMallUserInfoList(info manageReq.MallUserSearch) (
 	err = db.Limit(limit).Offset(offset).Order("create_time desc").Find(&mallUsers).Error
 	return err, mallUsers, total
 }
+
+// 获取 用户提款 列表
+
+func (m *ManageUserService) GetMallUserWithdrawaList(info manageReq.PageInfo) (err error, list interface{}, total int64) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.PageNumber - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&manage.MallUserWithdraw{})
+	var mallUsers []manage.MallUserWithdraw
+	// 如果有条件搜索 下方会自动创建搜索语句
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+	err = db.Limit(limit).Offset(offset).Order("create_time desc").Find(&mallUsers).Error
+	return err, mallUsers, total
+}
