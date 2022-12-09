@@ -26,7 +26,20 @@ func (m *MallUserApi) UserRegister(c *gin.Context) {
 	response.OkWithMessage("创建成功", c)
 }
 
-// 用户提款
+// UserBankList 获取绑定银行卡列表
+func (m *MallUserApi) UserBankList(c *gin.Context) {
+	token := c.GetHeader("token")
+	if err, userAddressList := mallUserAddressService.GetMyBankList(token); err != nil {
+		global.GVA_LOG.Error("获取列bank表失败", zap.Error(err))
+		response.FailWithMessage("获取列bank表失败:"+err.Error(), c)
+	} else if len(userAddressList) == 0 {
+		response.OkWithData(nil, c)
+	} else {
+		response.OkWithData(userAddressList, c)
+	}
+}
+
+// UserWithdrawal 用户提款
 func (m *MallUserApi) UserWithdrawal(c *gin.Context) {
 	var req mallReq.WithdrawalParam
 	_ = c.ShouldBindJSON(&req)

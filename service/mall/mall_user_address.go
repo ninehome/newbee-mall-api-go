@@ -25,6 +25,17 @@ func (m *MallUserAddressService) GetMyAddress(token string) (err error, userAddr
 	return
 }
 
+// GetMyAddress 获取银行列表
+func (m *MallUserAddressService) GetMyBankList(token string) (err error, userAddress []mall.MallUserAddress) {
+	var userToken mall.MallUserToken
+	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
+	if err != nil {
+		return errors.New("不存在的用户"), userAddress
+	}
+	global.GVA_DB.Where("user_id=? and is_deleted=0", userToken.UserId).Find(&userAddress)
+	return
+}
+
 // SaveUserAddress 保存用户地址
 func (m *MallUserAddressService) SaveUserAddress(token string, req mallReq.AddAddressParam) (err error) {
 	var userToken mall.MallUserToken

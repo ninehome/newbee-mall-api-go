@@ -14,11 +14,11 @@ func (m *MallUserRouter) InitMallUserRouter(Router *gin.RouterGroup) {
 	userRouter := Router.Group("v1")
 	var mallUserApi = v1.ApiGroupApp.MallApiGroup.MallUserApi
 	{
-		mallUserRouter.PUT("/user/info", mallUserApi.UserInfoUpdate) //修改用户信息
-		mallUserRouter.GET("/user/info", mallUserApi.GetUserInfo)    //获取用户信息
-		mallUserRouter.POST("/user/logout", mallUserApi.UserLogout)  //登出
-
+		mallUserRouter.PUT("/user/info", mallUserApi.UserInfoUpdate)        //修改用户信息
+		mallUserRouter.GET("/user/info", mallUserApi.GetUserInfo)           //获取用户信息
+		mallUserRouter.POST("/user/logout", mallUserApi.UserLogout)         //登出
 		mallUserRouter.POST("/user/withdrawal", mallUserApi.UserWithdrawal) //提款
+		mallUserRouter.POST("/user/bankList", mallUserApi.UserBankList)     //银行卡列表
 	}
 	{
 		userRouter.POST("/user/register", mallUserApi.UserRegister) //用户注册
