@@ -22,4 +22,5 @@ type UserLoginParam struct {
 // 用户提款
 type WithdrawalParam struct {
 	WithdrawMoney int `json:"withdrawMoney"`
+	BankId        int `json:"bankId"`
 }

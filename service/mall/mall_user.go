@@ -33,7 +33,7 @@ func (m *MallUserService) RegisterUser(req mallReq.RegisterUserParam) (err error
 
 }
 
-// 注册提款
+// 提款
 func (m *MallUserService) UserWithdrawal(token string, req mallReq.WithdrawalParam) (err error, userw mall.MallUserWithdraw) {
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
