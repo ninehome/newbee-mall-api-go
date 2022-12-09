@@ -156,3 +156,9 @@ func GetRequestIP(c *gin.Context)string{
 
 //go 每日新闻
 https://github.com/Han-Ya-Jun/gocn_news_set
+流媒体服务器
+
+https://www.cxyzjd.com/article/qq_44291044/99703150
+
+
+M3O—开源AWS的替代方案

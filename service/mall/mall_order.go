@@ -61,7 +61,7 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 				var goodsInfo manage.MallGoodsInfo
 				global.GVA_DB.Where("goods_id =?", stockNumDTO.GoodsId).First(&goodsInfo)
 				if err = global.GVA_DB.Where("goods_id =? and stock_num>= ? and goods_sell_status = 0", stockNumDTO.GoodsId, stockNumDTO.GoodsCount).Updates(manage.MallGoodsInfo{StockNum: goodsInfo.StockNum - stockNumDTO.GoodsCount}).Error; err != nil {
-					return errors.New("库存不足！"), orderNo
+					return errors.New("库存不足！" + err.Error()), orderNo
 				}
 			}
 			//生成订单号
@@ -76,7 +76,7 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 				priceTotal = priceTotal + newBeeMallShoppingCartItemVO.GoodsCount*newBeeMallShoppingCartItemVO.SellingPrice
 			}
 			if priceTotal < 1 {
-				return errors.New("订单价格异常！"), orderNo
+				return errors.New("订单价格异常！priceTotal < 1"), orderNo
 			}
 			newBeeMallOrder.CreateTime = common.JSONTime{Time: time.Now()}
 			newBeeMallOrder.UpdateTime = common.JSONTime{Time: time.Now()}
@@ -84,7 +84,7 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 			newBeeMallOrder.ExtraInfo = ""
 			//生成订单项并保存订单项纪录
 			if err = global.GVA_DB.Save(&newBeeMallOrder).Error; err != nil {
-				return errors.New("订单入库失败！"), orderNo
+				return errors.New("订单入库失败！" + err.Error()), orderNo
 			}
 			//生成订单收货地址快照，并保存至数据库
 			var newBeeMallOrderAddress mall.MallOrderAddress
@@ -199,7 +199,7 @@ func (m *MallOrderService) GetOrderDetailByOrderNo(token string, orderNo string)
 		return errors.New("未查询到记录！"), orderDetail
 	}
 	if mallOrder.UserId != userToken.UserId {
-		return errors.New("禁止该操作！"), orderDetail
+		return errors.New("禁止该操作！用户登录id 不一致"), orderDetail
 	}
 	var orderItems []manage.MallOrderItem
 	err = global.GVA_DB.Where("order_id = ?", mallOrder.OrderId).Find(&orderItems).Error
