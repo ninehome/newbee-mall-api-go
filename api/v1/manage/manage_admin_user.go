@@ -149,6 +149,7 @@ func (m *ManageAdminUserApi) UserList(c *gin.Context) {
 
 // 用户提款列表
 func (m *ManageAdminUserApi) WithdrawalHistory(c *gin.Context) {
+
 	//var pageInfo manageReq.WithdrawalSearch
 	var param manageReq.PageInfo
 	//获取分页参数

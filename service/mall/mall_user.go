@@ -56,6 +56,7 @@ func (m *MallUserService) UserWithdrawal(token string, req mallReq.WithdrawalPar
 
 	userw.UserMoney = userInfo.UserMoney - req.WithdrawMoney //余额
 	userw.DealFlag = 0
+	userw.BankId = req.BankId
 	userw.UserId = userInfo.UserId
 	userw.LoginName = userInfo.LoginName
 
@@ -64,9 +65,10 @@ func (m *MallUserService) UserWithdrawal(token string, req mallReq.WithdrawalPar
 		return errors.New("提款订单生成失败 " + err.Error()), userw
 	}
 
-	userInfo.UserMoney = userw.UserMoney
+	//userInfo.UserMoney = userw.UserMoney
 	//err = global.GVA_DB.Where("user_id =?", userToken.UserId).First(&userInfo).Error
 
+	//更新 账户余额
 	err = global.GVA_DB.Model(&mall.MallUser{}).Where("user_id = ?", userInfo.UserId).Update("user_money", userw.UserMoney).Error
 	if err != nil {
 		return errors.New("扣款失败"), userw
