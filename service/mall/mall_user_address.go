@@ -36,6 +36,45 @@ func (m *MallUserAddressService) GetMyBankList(token string) (err error, userBan
 	return
 }
 
+// 保存 银行账户
+func (m *MallUserAddressService) SaveUserBank(token string, req mallReq.BankParam) (err error) {
+	var userToken mall.MallUserToken
+	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
+		return errors.New("不存在的用户")
+	}
+	var defaultAddress mall.MallUserBank
+	var newAddress mall.MallUserBank
+	fmt.Println("uid ===>>> ")
+	// 是否新增了默认地址，将之前的默认地址设置为非默认
+
+	if err = global.GVA_DB.Where("user_id=? and default =1 and is_deleted = 0", userToken.UserId).First(&defaultAddress).Error; err != nil {
+		//没有查到记录 ,新增记录
+		copier.Copy(&newAddress, &req)
+		//newAddress.CreateTime = common.JSONTime{Time: time.Now()}
+		//newAddress.UpdateTime = common.JSONTime{Time: time.Now()}
+		newAddress.UserId = userToken.UserId
+		err = global.GVA_DB.Create(&newAddress).Error
+		if err != nil {
+			return
+		}
+	} else {
+		//先更新 之前的记录 再新增
+		global.GVA_DB.Model(&mall.MallUserAddress{}).Where("bank_id =?", defaultAddress.BankId).Update("default", 0)
+
+		copier.Copy(&newAddress, &req)
+		//newAddress.CreateTime = common.JSONTime{Time: time.Now()}
+		//newAddress.UpdateTime = common.JSONTime{Time: time.Now()}
+		newAddress.UserId = userToken.UserId
+		err = global.GVA_DB.Create(&newAddress).Error
+		if err != nil {
+			return
+		}
+
+	}
+
+	return
+}
+
 // SaveUserAddress 保存用户地址
 func (m *MallUserAddressService) SaveUserAddress(token string, req mallReq.AddAddressParam) (err error) {
 	var userToken mall.MallUserToken
@@ -168,7 +207,7 @@ func (m *MallUserAddressService) DeleteUserAddress(token string, id int) (err er
 
 }
 
-func (m *MallUserAddressService) DeleteUserBank(token string, id int) (err error) {
+func (m *MallUserAddressService) DeleteUserBank(token string, id string) (err error) {
 	var userToken mall.MallUserToken
 	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
 		return errors.New("不存在的用户")
@@ -182,6 +221,9 @@ func (m *MallUserAddressService) DeleteUserBank(token string, id int) (err error
 		return errors.New("禁止该操作！")
 	}
 	err = global.GVA_DB.Delete(&userBank).Error
+	if err != nil {
+		return errors.New("删除失败" + err.Error())
+	}
 	return
 
 }

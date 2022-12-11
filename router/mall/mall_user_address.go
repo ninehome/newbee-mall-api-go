@@ -19,7 +19,10 @@ func (m *MallUserRouter) InitMallUserAddressRouter(Router *gin.RouterGroup) {
 		mallUserAddressRouter.GET("/address/:addressId", mallUserAddressApi.GetMallUserAddress)     //获取地址详情
 		mallUserAddressRouter.GET("/address/default", mallUserAddressApi.GetMallUserDefaultAddress) //获取默认地址
 		mallUserAddressRouter.DELETE("/address/:addressId", mallUserAddressApi.DeleteUserAddress)   //删除地址
-		mallUserAddressRouter.DELETE("/delete/bank/:bankId", mallUserAddressApi.DeleteUserBank)     //删除地址
+
+		mallUserAddressRouter.DELETE("/delete/bank/:bankId", mallUserAddressApi.DeleteUserBank) //银行账户删
+		mallUserAddressRouter.POST("/addBank", mallUserAddressApi.SaveUserBank)                 //添加银行
+		mallUserAddressRouter.PUT("/addBank", mallUserAddressApi.SaveUserBank)                  //修改用户银行
 
 	}
 

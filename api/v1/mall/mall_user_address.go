@@ -42,6 +42,22 @@ func (m *MallUserAddressApi) SaveUserAddress(c *gin.Context) {
 
 }
 
+func (m *MallUserAddressApi) SaveUserBank(c *gin.Context) {
+	var req mallReq.BankParam
+	_ = c.ShouldBindJSON(&req)
+	byte, _ := json.Marshal(req)
+	fmt.Println(string(byte))
+	token := c.GetHeader("token")
+	err := mallUserAddressService.SaveUserBank(token, req)
+	if err != nil {
+		global.GVA_LOG.Error("添加银行账户失败", zap.Error(err))
+		response.FailWithMessage("添加银行账户失败:"+err.Error(), c)
+		return
+	}
+	response.OkWithMessage("创建成功", c)
+
+}
+
 func (m *MallUserAddressApi) UpdateMallUserAddress(c *gin.Context) {
 	var req mallReq.UpdateAddressParam
 	_ = c.ShouldBindJSON(&req)
@@ -88,7 +104,10 @@ func (m *MallUserAddressApi) DeleteUserAddress(c *gin.Context) {
 }
 
 func (m *MallUserAddressApi) DeleteUserBank(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Param("bankId"))
+	id := c.Param("bankId")
+	fmt.Println(111111111)
+	fmt.Println(id)
+	fmt.Println(111111111)
 	token := c.GetHeader("token")
 	err := mallUserAddressService.DeleteUserBank(token, id)
 	if err != nil {
