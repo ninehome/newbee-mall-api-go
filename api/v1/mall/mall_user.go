@@ -7,6 +7,7 @@ import (
 	"main.go/model/common/response"
 	mallReq "main.go/model/mall/request"
 	"main.go/utils"
+	"strconv"
 )
 
 type MallUserApi struct {
@@ -36,6 +37,17 @@ func (m *MallUserApi) UserBankList(c *gin.Context) {
 		response.OkWithData(nil, c)
 	} else {
 		response.OkWithData(userAddressList, c)
+	}
+}
+
+func (m *MallUserApi) GetMallUserBank(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("bankId"))
+	token := c.GetHeader("token")
+	if err, userAddress := mallUserAddressService.GetMyBank(token, id); err != nil {
+		global.GVA_LOG.Error("获取地址失败", zap.Error(err))
+		response.FailWithMessage("获取地址失败:"+err.Error(), c)
+	} else {
+		response.OkWithData(userAddress, c)
 	}
 }
 

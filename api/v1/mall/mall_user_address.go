@@ -86,3 +86,15 @@ func (m *MallUserAddressApi) DeleteUserAddress(c *gin.Context) {
 	response.OkWithMessage("删除用户地址成功", c)
 
 }
+
+func (m *MallUserAddressApi) DeleteUserBank(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("bankId"))
+	token := c.GetHeader("token")
+	err := mallUserAddressService.DeleteUserBank(token, id)
+	if err != nil {
+		global.GVA_LOG.Error("删除用户银行账户", zap.Error(err))
+		response.FailWithMessage("删除用户银行账户失败:"+err.Error(), c)
+	}
+	response.OkWithMessage("删除用户银行账户成功", c)
+
+}
