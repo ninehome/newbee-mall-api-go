@@ -25,7 +25,7 @@ func GetNewBeeMallOrderStatusEnumByStatus(status int) (int, string) {
 	case 3:
 		return 3, "出库成功"
 	case 4:
-		return 4, "已申请回购,等待支付中" // 已经支付,并且确认回购 ,交易完成
+		return 4, "已申请回购,等待工作人员处理中..." // 已经支付,并且确认回购 ,交易完成
 	case 5:
 		return 5, "完成交易" //已经回款
 	case -1:

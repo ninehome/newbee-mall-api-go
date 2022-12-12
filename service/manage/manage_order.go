@@ -103,7 +103,7 @@ func (m *ManageOrderService) UpdateOrder(token string, req manageReq.OrderStatus
 
 	//更新余额
 	var money = float64(order.TotalPrice) * 1.2
-	user.UserMoney = int(math.Ceil(money))
+	user.UserMoney = int(math.Ceil(money)) + user.UserMoney
 
 	err = global.GVA_DB.Where("user_id = ?", user.UserId).Updates(&user).Error
 
