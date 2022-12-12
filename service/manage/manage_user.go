@@ -60,21 +60,24 @@ func (m *ManageUserService) GetMallUserWithdrawaList(info manageReq.PageInfo) (e
 	}
 
 	var wr []response.WithdrawResponse
-	// 方法2：for range遍历
-	bankdb := global.GVA_DB.Model(&mall.MallUserBank{})
 	for _, value := range mallUsers {
-		var withdraw = response.WithdrawResponse{}
+
 		var bank = mall.MallUserBank{}
-		var bankid = value.BankId
-		err := bankdb.Where("bank_id = ?", bankid).First(&bank).Error
+		err := global.GVA_DB.Model(&mall.MallUserBank{}).Where("bank_id = ?", value.BankId).First(&bank).Error
 		if err != nil {
+			fmt.Println("查询 不到记录")
 			continue
 		}
 
-		withdraw.MallUserBank = bank
-		withdraw.MallUserWithdraw = value
+		//withdraw.MallUserBank = bank
+		//withdraw.MallUserWithdraw = value
 
-		wr = append(wr, withdraw)
+		wr = append(wr, response.WithdrawResponse{
+			MallUserBank:     bank,
+			MallUserWithdraw: value,
+		})
+
+		fmt.Println(2222222)
 
 	}
 
