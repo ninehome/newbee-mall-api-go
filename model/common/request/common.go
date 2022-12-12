@@ -2,8 +2,10 @@ package request
 
 // PageInfo Paging common input parameter structure
 type PageInfo struct {
-	PageNumber int `json:"pageNumber" form:"pageNumber"` // 页码
-	PageSize   int `json:"pageSize" form:"pageSize"`     // 每页大小
+	PageNumber  int    `json:"pageNumber" form:"pageNumber"`   // 页码
+	PageSize    int    `json:"pageSize" form:"pageSize"`       // 每页大小
+	OrderStatus string `json:"orderStatus" form:"orderStatus"` //
+	OrderNo     string `json:"orderNo" form:"orderNo"`         //
 }
 
 // GetById Find by id structure
@@ -25,3 +27,8 @@ type GetAuthorityId struct {
 }
 
 type Empty struct{}
+
+//type PageBean struct {
+//	PagInfo     PageInfo `json:"params" form:"params"`
+//	OrderStatus string   `json:"orderStatus" form:"orderStatus"`
+//}

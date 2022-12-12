@@ -69,10 +69,10 @@ func (m *MallOrderApi) FinishOrder(c *gin.Context) {
 	orderNo := c.Param("orderNo")
 	token := c.GetHeader("token")
 	if err := mallOrderService.FinishOrder(token, orderNo); err != nil {
-		global.GVA_LOG.Error("订单签收失败", zap.Error(err))
-		response.FailWithMessage("订单签收失败:"+err.Error(), c)
+		global.GVA_LOG.Error("申请回购失败", zap.Error(err))
+		response.FailWithMessage("申请回购失败:"+err.Error(), c)
 	}
-	response.OkWithMessage("订单签收成功", c)
+	response.OkWithMessage("申请回购成功", c)
 
 }
 

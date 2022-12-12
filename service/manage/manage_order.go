@@ -8,7 +8,9 @@ import (
 	"main.go/model/common/enum"
 	"main.go/model/common/request"
 	"main.go/model/manage"
+	manageReq "main.go/model/manage/request"
 	manageRes "main.go/model/manage/response"
+	"math"
 	"strconv"
 	"time"
 )
@@ -66,6 +68,47 @@ func (m *ManageOrderService) CheckOut(ids request.IdsReq) (err error) {
 		}
 	}
 	return
+}
+
+func (m *ManageOrderService) UpdateOrder(token string, req manageReq.OrderStatusParam) (err error) {
+	var adminUserToken manage.MallAdminUserToken
+	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
+	if err != nil {
+		return errors.New("不存在的token  " + err.Error())
+	}
+
+	//根据订单号 查询出 这个订单的持有人 user_id ,更新订单状态成功后，需要修改订单持有人的余额 (订单总价 * 120%)
+
+	var order manage.MallOrder
+
+	err = global.GVA_DB.Where("token =? ", token).First(&order).Error
+	if err != nil {
+		return errors.New("订单不存在  " + err.Error())
+	}
+
+	//更新订单状态
+	err = global.GVA_DB.Where("order_no = ?", req.OrderNo).Updates(&manage.MallOrder{
+		OrderStatus: 5,
+	}).Error
+
+	if err != nil {
+		return errors.New("不存在的token  " + err.Error())
+	}
+
+	//查询订单持有用户
+	var user manage.MallUser
+
+	err = global.GVA_DB.Where("user_id =? ", order.UserId).First(&user).Error
+	if err != nil {
+		return errors.New("订单持有用户不存在： " + err.Error())
+	}
+	//更新余额
+	var money = float64(order.TotalPrice) * 1.2
+	user.UserMoney = int(math.Ceil(money))
+
+	err = global.GVA_DB.Where("user_id = ?", user.UserId).Updates(&user).Error
+
+	return err
 }
 
 // CloseOrder 商家关闭订单
@@ -128,7 +171,31 @@ func (m *ManageOrderService) GetMallOrderInfoList(info request.PageInfo, orderNo
 	if orderNo != "" {
 		db.Where("order_no", orderNo)
 	}
-	// 0.待支付 1.已支付 2.配货完成 3:出库成功 4.交易成功 -1.手动关闭 -2.超时关闭 -3.商家关闭
+	// 0.待支付 1.已支付 2.配货完成 3:出库成功 4.交易成功(申请回购，) 5.回购完成(已经退款) -1.手动关闭 -2.超时关闭 -3.商家关闭
+	if orderStatus != "" {
+		status, _ := strconv.Atoi(orderStatus)
+		db.Where("order_status", status)
+	}
+	var mallOrders []manage.MallOrder
+	// 如果有条件搜索 下方会自动创建搜索语句
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+	err = db.Limit(limit).Offset(offset).Order("update_time desc").Find(&mallOrders).Error
+	return err, mallOrders, total
+}
+
+// GetMallOrderInfoList 分页获取MallOrder记录
+func (m *ManageOrderService) GetMallOrderBuyBackList(info request.PageInfo, orderNo string, orderStatus string) (err error, list interface{}, total int64) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.PageNumber - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&manage.MallOrder{})
+	if orderNo != "" {
+		db.Where("order_no", orderNo)
+	}
+	// 0.待支付 1.已支付 2.配货完成 3:出库成功 4.交易成功(申请回购，) 5.回购完成(已经退款) -1.手动关闭 -2.超时关闭 -3.商家关闭
 	if orderStatus != "" {
 		status, _ := strconv.Atoi(orderStatus)
 		db.Where("order_status", status)

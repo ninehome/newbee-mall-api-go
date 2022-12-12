@@ -1,11 +1,13 @@
 package manage
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"main.go/global"
 	"main.go/model/common/request"
 	"main.go/model/common/response"
+	manageReq "main.go/model/manage/request"
 )
 
 type ManageOrderApi struct {
@@ -47,6 +49,19 @@ func (m *ManageOrderApi) CloseOrder(c *gin.Context) {
 	}
 }
 
+// ChangeOrderStatus 改变 订单的状态
+func (m *ManageOrderApi) ChangeOrderStatus(c *gin.Context) {
+	var req manageReq.OrderStatusParam
+	_ = c.ShouldBindJSON(&req)
+	userToken := c.GetHeader("token")
+	if err := mallOrderService.UpdateOrder(userToken, req); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败 "+err.Error(), c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
+}
+
 // FindMallOrder 用id查询MallOrder
 func (m *ManageOrderApi) FindMallOrder(c *gin.Context) {
 	id := c.Param("orderId")
@@ -65,6 +80,28 @@ func (m *ManageOrderApi) GetMallOrderList(c *gin.Context) {
 	orderNo := c.Query("orderNo")
 	orderStatus := c.Query("orderStatus")
 	if err, list, total := mallOrderService.GetMallOrderInfoList(pageInfo, orderNo, orderStatus); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:       list,
+			TotalCount: total,
+			CurrPage:   pageInfo.PageNumber,
+			PageSize:   pageInfo.PageSize,
+		}, "获取成功", c)
+	}
+}
+
+func (m *ManageOrderApi) GetMallBuyBackList(c *gin.Context) {
+	var pageInfo request.PageInfo
+	_ = c.ShouldBindQuery(&pageInfo)
+	//orderNo := c.Query("orderNo")
+	//orderStatus := c.Query("orderStatus")
+	fmt.Println(111111111111111111)
+	fmt.Println(pageInfo.PageNumber)
+	fmt.Println(pageInfo.OrderStatus)
+	fmt.Println(22222222222222222)
+	if err, list, total := mallOrderService.GetMallOrderBuyBackList(pageInfo, pageInfo.OrderNo, pageInfo.OrderStatus); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
