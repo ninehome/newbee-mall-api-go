@@ -7,6 +7,7 @@ import (
 type MallUserWithdraw struct {
 	WithdrawId    int             `json:"withdrawId" form:"withdrawId" gorm:"primarykey;AUTO_INCREMENT"`
 	UserId        int             `json:"userId" form:"userId" gorm:"column:user_id;comment:用户id;type:tinyint;"`
+	BankId        int             `json:"bankId" form:"bankId" gorm:"column:bank_id;comment:银行id;type:tinyint;"`
 	LoginName     string          `json:"loginName" form:"loginName" gorm:"column:login_name;comment:登陆名称(默认为手机号);type:varchar(11);"`
 	UserMoney     int             `json:"userMoney" form:"userMoney" gorm:"column:user_money;comment:用户余额;type:int"`
 	UserLevel     int             `json:"userLevel" form:"userLevel" gorm:"column:user_level;comment:用户等级;type:tinyint"`

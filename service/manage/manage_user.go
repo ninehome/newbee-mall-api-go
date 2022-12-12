@@ -2,8 +2,11 @@ package manage
 
 import (
 	"errors"
+	"fmt"
 	"main.go/global"
 	"main.go/model/common/request"
+	"main.go/model/mall"
+	"main.go/model/mall/response"
 	"main.go/model/manage"
 	manageReq "main.go/model/manage/request"
 )
@@ -45,7 +48,6 @@ func (m *ManageUserService) GetMallUserWithdrawaList(info manageReq.PageInfo) (e
 	// 创建db
 	db := global.GVA_DB.Model(&manage.MallUserWithdraw{})
 	var mallUsers []manage.MallUserWithdraw
-
 	// 如果有条件搜索 下方会自动创建搜索语句
 	err = db.Count(&total).Error
 	if err != nil {
@@ -53,6 +55,31 @@ func (m *ManageUserService) GetMallUserWithdrawaList(info manageReq.PageInfo) (e
 	}
 
 	err = db.Limit(limit).Offset(offset).Order("create_time desc").Find(&mallUsers).Error
+	if err != nil {
+		return
+	}
 
-	return err, mallUsers, total
+	var wr []response.WithdrawResponse
+	// 方法2：for range遍历
+	bankdb := global.GVA_DB.Model(&mall.MallUserBank{})
+	for _, value := range mallUsers {
+		var withdraw = response.WithdrawResponse{}
+		var bank = mall.MallUserBank{}
+		var bankid = value.BankId
+		err := bankdb.Where("bank_id = ?", bankid).First(&bank).Error
+		if err != nil {
+			continue
+		}
+
+		withdraw.MallUserBank = bank
+		withdraw.MallUserWithdraw = value
+
+		wr = append(wr, withdraw)
+
+	}
+
+	fmt.Println(wr)
+
+	return err, wr, total
+	//return err, mallUsers, total
 }

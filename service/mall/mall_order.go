@@ -188,6 +188,7 @@ func (m *MallOrderService) CancelOrder(token string, orderNo string) (err error)
 }
 
 // GetOrderDetailByOrderNo 获取订单详情
+
 func (m *MallOrderService) GetOrderDetailByOrderNo(token string, orderNo string) (err error, orderDetail mallRes.MallOrderDetailVO) {
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
@@ -208,7 +209,7 @@ func (m *MallOrderService) GetOrderDetailByOrderNo(token string, orderNo string)
 	}
 
 	var newBeeMallOrderItemVOS []mallRes.NewBeeMallOrderItemVO
-	copier.Copy(&newBeeMallOrderItemVOS, &orderItems)
+	copier.Copy(&newBeeMallOrderItemVOS, &orderItems) // &orderItems 的值 复制 到 &newBeeMallOrderItemVOS
 	copier.Copy(&orderDetail, &mallOrder)
 	// 订单状态前端显示为中文
 	_, OrderStatusStr := enum.GetNewBeeMallOrderStatusEnumByStatus(orderDetail.OrderStatus)
