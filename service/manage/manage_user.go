@@ -40,7 +40,7 @@ func (m *ManageUserService) GetMallUserInfoList(info manageReq.MallUserSearch) (
 	return err, mallUsers, total
 }
 
-// 获取 用户提款 列表
+// 获取 用户提款 列表    后期需要改成 连表查询 ,不要用代码循环
 
 func (m *ManageUserService) GetMallUserWithdrawaList(info manageReq.PageInfo) (err error, list interface{}, total int64) {
 	limit := info.PageSize
