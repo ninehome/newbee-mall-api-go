@@ -23,6 +23,7 @@ func (m *MallUserApi) UserRegister(c *gin.Context) {
 	if err := mallUserService.RegisterUser(req); err != nil {
 		global.GVA_LOG.Error("创建失败", zap.Error(err))
 		response.FailWithMessage("创建失败:"+err.Error(), c)
+		return
 	}
 	response.OkWithMessage("创建成功", c)
 }
