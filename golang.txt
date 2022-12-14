@@ -179,3 +179,7 @@ https://didi.github.io/cube-ui/#/zh-CN
 
 //区块链地址监控
 https://services.tokenview.io/cn/login
+
+
+DNS 添加记录
+https://community.cloudflare.com/t/dns/399340
