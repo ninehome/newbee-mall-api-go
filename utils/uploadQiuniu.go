@@ -23,7 +23,7 @@ func UploadToQiNiu(file multipart.File, fileSize int64) (int, string) {
 
 	upToken := putPlicy.UploadToken(mac)
 	cfg := storage.Config{
-		Zone:          &storage.ZoneBeimei,
+		Zone:          &storage.ZoneXinjiapo, //上传存储的位置 新加坡
 		UseCdnDomains: false,
 		UseHTTPS:      false,
 	}
