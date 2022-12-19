@@ -32,9 +32,46 @@ func (m *MallGoodsInfoService) MallGoodsListBySearch(pageNumber int, goodsCatego
 	default:
 		db.Order("stock_num desc")
 	}
-	limit := 10
-	offset := 10 * (pageNumber - 1)
+	limit := 30
+	offset := 30 * (pageNumber - 1)
 	err = db.Limit(limit).Offset(offset).Find(&goodsList).Error
+	// 返回查询结果
+	for _, goods := range goodsList {
+		searchGoods := mallRes.GoodsSearchResponse{
+			GoodsId:       goods.GoodsId,
+			GoodsName:     utils.SubStrLen(goods.GoodsName, 28),
+			GoodsIntro:    utils.SubStrLen(goods.GoodsIntro, 28),
+			GoodsCoverImg: goods.GoodsCoverImg,
+			SellingPrice:  goods.SellingPrice,
+		}
+		searchGoodsList = append(searchGoodsList, searchGoods)
+	}
+	return
+}
+
+// MallGoodsListBySearch 商品搜索分页
+func (m *MallGoodsInfoService) MallGoodsList(pageNumber int) (err error, searchGoodsList []mallRes.GoodsSearchResponse, total int64) {
+	// 根据搜索条件查询
+	var goodsList []manage.MallGoodsInfo
+	db := global.GVA_DB.Model(&manage.MallGoodsInfo{})
+	//if keyword != "" {
+	//	db.Where("goods_name like ? or goods_intro like ?", "%"+keyword+"%", "%"+keyword+"%")
+	//}
+	//if goodsCategoryId >= 0 {
+	//	db.Where("goods_category_id= ?", goodsCategoryId)
+	//}
+	//err = db.Count(&total).Error
+	//switch orderBy {
+	//case "new":
+	//	db.Order("goods_id desc")
+	//case "price":
+	//	db.Order("selling_price asc")
+	//default:
+	//	db.Order("stock_num desc")
+	//}
+	//limit := 10
+	//offset := 10 * (pageNumber - 1)
+	err = db.Limit(70).Offset(0).Find(&goodsList).Error
 	// 返回查询结果
 	for _, goods := range goodsList {
 		searchGoods := mallRes.GoodsSearchResponse{
