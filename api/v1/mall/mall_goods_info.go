@@ -34,8 +34,8 @@ func (m *MallGoodsInfoApi) GoodsSearch(c *gin.Context) {
 // 商品搜索
 func (m *MallGoodsInfoApi) Goodslist(c *gin.Context) {
 	pageNumber, _ := strconv.Atoi(c.Query("pageNumber"))
-
-	if err, list, total := mallGoodsInfoService.MallGoodsList(pageNumber); err != nil {
+	pageSize, _ := strconv.Atoi(c.Query("pageSize"))
+	if err, list, total := mallGoodsInfoService.MallGoodsList(pageNumber, pageSize); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("Запрос не удался"+err.Error(), c)
 	} else {

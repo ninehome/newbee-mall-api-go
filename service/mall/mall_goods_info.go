@@ -50,7 +50,7 @@ func (m *MallGoodsInfoService) MallGoodsListBySearch(pageNumber int, goodsCatego
 }
 
 // MallGoodsListBySearch 商品搜索分页
-func (m *MallGoodsInfoService) MallGoodsList(pageNumber int) (err error, goodsList []manage.MallGoodsInfo, total int64) {
+func (m *MallGoodsInfoService) MallGoodsList(pageNumber int, pageSize int) (err error, goodsList []manage.MallGoodsInfo, total int64) {
 	// 根据搜索条件查询
 	//var goodsList []manage.MallGoodsInfo
 	db := global.GVA_DB.Model(&manage.MallGoodsInfo{})
@@ -69,9 +69,16 @@ func (m *MallGoodsInfoService) MallGoodsList(pageNumber int) (err error, goodsLi
 	//default:
 	//	db.Order("stock_num desc")
 	//}
-	pageNumber = 1
-	limit := 80
-	offset := 80 * (pageNumber - 1)
+	var limit = 80
+	if pageSize != 0 {
+		limit = pageSize
+	}
+
+	if pageNumber == 0 {
+		pageNumber = 1
+	}
+
+	offset := limit * (pageNumber - 1)
 	err = db.Limit(limit).Offset(offset).Find(&goodsList).Error
 
 	return
