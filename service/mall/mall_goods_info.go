@@ -50,9 +50,9 @@ func (m *MallGoodsInfoService) MallGoodsListBySearch(pageNumber int, goodsCatego
 }
 
 // MallGoodsListBySearch 商品搜索分页
-func (m *MallGoodsInfoService) MallGoodsList(pageNumber int) (err error, searchGoodsList []mallRes.GoodsSearchResponse, total int64) {
+func (m *MallGoodsInfoService) MallGoodsList(pageNumber int) (err error, goodsList []manage.MallGoodsInfo, total int64) {
 	// 根据搜索条件查询
-	var goodsList []manage.MallGoodsInfo
+	//var goodsList []manage.MallGoodsInfo
 	db := global.GVA_DB.Model(&manage.MallGoodsInfo{})
 	//if keyword != "" {
 	//	db.Where("goods_name like ? or goods_intro like ?", "%"+keyword+"%", "%"+keyword+"%")
@@ -69,20 +69,11 @@ func (m *MallGoodsInfoService) MallGoodsList(pageNumber int) (err error, searchG
 	//default:
 	//	db.Order("stock_num desc")
 	//}
-	//limit := 10
-	//offset := 10 * (pageNumber - 1)
-	err = db.Limit(70).Offset(0).Find(&goodsList).Error
-	// 返回查询结果
-	for _, goods := range goodsList {
-		searchGoods := mallRes.GoodsSearchResponse{
-			GoodsId:       goods.GoodsId,
-			GoodsName:     utils.SubStrLen(goods.GoodsName, 28),
-			GoodsIntro:    utils.SubStrLen(goods.GoodsIntro, 28),
-			GoodsCoverImg: goods.GoodsCoverImg,
-			SellingPrice:  goods.SellingPrice,
-		}
-		searchGoodsList = append(searchGoodsList, searchGoods)
-	}
+	pageNumber = 1
+	limit := 80
+	offset := 80 * (pageNumber - 1)
+	err = db.Limit(limit).Offset(offset).Find(&goodsList).Error
+
 	return
 }
 

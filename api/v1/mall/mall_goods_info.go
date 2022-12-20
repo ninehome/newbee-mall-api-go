@@ -43,7 +43,7 @@ func (m *MallGoodsInfoApi) Goodslist(c *gin.Context) {
 			List:       list,
 			TotalCount: total,
 			CurrPage:   pageNumber,
-			PageSize:   10,
+			PageSize:   80,
 		}, "Добиться успеха", c)
 	}
 }
