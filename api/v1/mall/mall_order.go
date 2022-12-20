@@ -70,9 +70,9 @@ func (m *MallOrderApi) FinishOrder(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err := mallOrderService.FinishOrder(token, orderNo); err != nil {
 		global.GVA_LOG.Error("申请回购失败", zap.Error(err))
-		response.FailWithMessage("申请回购失败:"+err.Error(), c)
+		response.FailWithMessage("Невыполненная заявка на выкуп:"+err.Error(), c)
 	}
-	response.OkWithMessage("申请回购成功", c)
+	response.OkWithMessage("Успешная заявка на выкуп", c)
 
 }
 
@@ -81,9 +81,9 @@ func (m *MallOrderApi) CancelOrder(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err := mallOrderService.CancelOrder(token, orderNo); err != nil {
 		global.GVA_LOG.Error("订单签收失败", zap.Error(err))
-		response.FailWithMessage("订单签收失败:"+err.Error(), c)
+		response.FailWithMessage("Не удалось расписаться в получении заказа:"+err.Error(), c)
 	}
-	response.OkWithMessage("订单签收成功", c)
+	response.OkWithMessage("Заказ успешно подписан", c)
 
 }
 func (m *MallOrderApi) OrderDetailPage(c *gin.Context) {
@@ -91,7 +91,7 @@ func (m *MallOrderApi) OrderDetailPage(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err, orderDetail := mallOrderService.GetOrderDetailByOrderNo(token, orderNo); err != nil {
 		global.GVA_LOG.Error("查询订单详情接口", zap.Error(err))
-		response.FailWithMessage("查询订单详情接口:"+err.Error(), c)
+		response.FailWithMessage("Интерфейс для проверки деталей заказа:"+err.Error(), c)
 	} else {
 		response.OkWithData(orderDetail, c)
 	}
@@ -106,7 +106,7 @@ func (m *MallOrderApi) OrderList(c *gin.Context) {
 	}
 	if err, list, total := mallOrderService.MallOrderListBySearch(token, pageNumber, status); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
-		response.FailWithMessage("查询失败"+err.Error(), c)
+		response.FailWithMessage("Запрос не удался"+err.Error(), c)
 	} else if len(list) < 1 {
 		// 前端项目这里有一个取数逻辑，如果数组为空，数组需要为[] 不能是Null
 		response.OkWithDetailed(response.PageResult{

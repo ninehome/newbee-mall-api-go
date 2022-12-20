@@ -19,14 +19,15 @@ func (m *MallGoodsInfoApi) GoodsSearch(c *gin.Context) {
 	orderBy := c.Query("orderBy")
 	if err, list, total := mallGoodsInfoService.MallGoodsListBySearch(pageNumber, goodsCategoryId, keyword, orderBy); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
-		response.FailWithMessage("查询失败"+err.Error(), c)
+		response.FailWithMessage("Запрос не удался"+err.Error(), c)
+
 	} else {
 		response.OkWithDetailed(response.PageResult{
 			List:       list,
 			TotalCount: total,
 			CurrPage:   pageNumber,
 			PageSize:   10,
-		}, "获取成功", c)
+		}, "Добиться успеха", c)
 	}
 }
 
@@ -36,14 +37,14 @@ func (m *MallGoodsInfoApi) Goodslist(c *gin.Context) {
 
 	if err, list, total := mallGoodsInfoService.MallGoodsList(pageNumber); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
-		response.FailWithMessage("查询失败"+err.Error(), c)
+		response.FailWithMessage("Запрос не удался"+err.Error(), c)
 	} else {
 		response.OkWithDetailed(response.PageResult{
 			List:       list,
 			TotalCount: total,
 			CurrPage:   pageNumber,
 			PageSize:   10,
-		}, "获取成功", c)
+		}, "Добиться успеха", c)
 	}
 }
 
@@ -52,7 +53,7 @@ func (m *MallGoodsInfoApi) GoodsDetail(c *gin.Context) {
 	err, goodsInfo := mallGoodsInfoService.GetMallGoodsInfo(id)
 	if err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
-		response.FailWithMessage("查询失败"+err.Error(), c)
+		response.FailWithMessage("Запрос не удался"+err.Error(), c)
 	}
 	response.OkWithData(goodsInfo, c)
 }
