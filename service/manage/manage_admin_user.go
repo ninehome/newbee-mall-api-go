@@ -2,6 +2,7 @@ package manage
 
 import (
 	"errors"
+	"fmt"
 	"gorm.io/gorm"
 	"main.go/global"
 	"main.go/model/mall"
@@ -48,6 +49,26 @@ func (m *ManageAdminUserService) UpdateMallAdminMoneyAndLevel(token string, req 
 	err = global.GVA_DB.Where("user_id = ?", req.UserId).Updates(&manage.MallUser{
 		UserMoney: req.UserMoney,
 		UserLevel: req.UserLevel,
+	}).Error
+	return err
+}
+
+func (m *ManageAdminUserService) UpdateMallChat(token string, req manageReq.MallUpdateChatParam) (err error) {
+	//var adminUserToken manage.MallAdminUserToken
+	//err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
+	//if err != nil {
+	//	return errors.New("不存在的用户")
+	//}
+
+	//err = global.GVA_DB.Where("chat_id = ?", req.UserId).Updates(&manage.MallUser{
+	//	UserMoney: req.UserMoney,
+	//	UserLevel: req.UserLevel,
+	//}).Error
+
+	fmt.Println(req.IsDeleted)
+	err = global.GVA_DB.Where("chat_id = ?", req.ChatId).Updates(&mall.MallUserChat{
+		ChatValue: req.ChatValue,
+		IsDeleted: req.IsDeleted,
 	}).Error
 	return err
 }

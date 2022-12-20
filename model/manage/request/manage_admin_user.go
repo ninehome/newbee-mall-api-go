@@ -27,6 +27,12 @@ type MallUpdateMoneyLevelParam struct {
 	//NickName      int `json:"nickName"`
 }
 
+type MallUpdateChatParam struct {
+	ChatValue string `json:"ChatValue" `
+	IsDeleted int    `json:"isDeleted"`
+	ChatId    int    `json:"ChatId" "`
+}
+
 type MallUpdatePasswordParam struct {
 	OriginalPassword string `json:"originalPassword"`
 	NewPassword      string `json:"newPassword"`

@@ -43,7 +43,7 @@ func (m *MallUserAddressService) GetChatList(token string) (err error, userBank 
 	//if err != nil {
 	//	return errors.New("Несуществующие потребители"), userBank
 	//}
-	global.GVA_DB.Where("is_delete = 0").Find(&userBank)
+	global.GVA_DB.Where("is_delete = 1").Find(&userBank)
 	return
 }
 
