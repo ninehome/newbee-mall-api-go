@@ -4,6 +4,7 @@ import (
 	"errors"
 	"gorm.io/gorm"
 	"main.go/global"
+	"main.go/model/mall"
 	"main.go/model/manage"
 	manageReq "main.go/model/manage/request"
 	"main.go/utils"
@@ -90,6 +91,15 @@ func (m *ManageAdminUserService) GetMallUser(id string) (err error, mallAdminUse
 	return err, adminToken
 }
 
+func (m *ManageAdminUserService) GetMallChat(id string) (err error, mallChat mall.MallUserChat) {
+
+	if errors.Is(global.GVA_DB.Where("chat_id =? ", id).First(&mallChat).Error, gorm.ErrRecordNotFound) {
+		return errors.New("查询不到这个客服方式"), mallChat
+	}
+	//err = global.GVA_DB.Where("admin_user_id = ?", adminToken.AdminUserId).First(&mallAdminUser).Error
+	return err, mallChat
+}
+
 // AdminLogin 管理员登陆
 func (m *ManageAdminUserService) AdminLogin(params manageReq.MallAdminLoginParam) (err error, ad manage.MallAdminUser, adminToken manage.MallAdminUserToken) {
 	var mallAdminUser manage.MallAdminUser
@@ -121,6 +131,17 @@ func (m *ManageAdminUserService) AdminLogin(params manageReq.MallAdminLoginParam
 	}
 	return err, mallAdminUser, adminToken
 
+}
+
+// GetMyAddress 联系方式
+func (m *ManageAdminUserService) GetChatList(token string) (err error, userBank []mall.MallUserChat) {
+	//var userToken mall.MallUserToken
+	//err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
+	//if err != nil {
+	//	return errors.New("Несуществующие потребители"), userBank
+	//}
+	global.GVA_DB.Find(&userBank)
+	return
 }
 
 func getNewToken(timeInt int64, userId int) (token string) {
