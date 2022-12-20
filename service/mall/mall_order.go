@@ -22,7 +22,7 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("不存在的用户"), orderNo
+		return errors.New("Несуществующие пользователи"), orderNo
 	}
 	var itemIdList []int
 	var goodsIds []int
@@ -35,7 +35,7 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 	//检查是否包含已下架商品
 	for _, mallGoods := range newBeeMallGoods {
 		if mallGoods.GoodsSellStatus != enum.GOODS_UNDER.Code() {
-			return errors.New("已下架，无法生成订单"), orderNo
+			return errors.New("Выставлен на продажу, не способен генерировать заказы"), orderNo
 		}
 	}
 	newBeeMallGoodsMap := make(map[int]manage.MallGoodsInfo)
@@ -46,10 +46,10 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 	for _, shoppingCartItemVO := range myShoppingCartItems {
 		//查出的商品中不存在购物车中的这条关联商品数据，直接返回错误提醒
 		if _, ok := newBeeMallGoodsMap[shoppingCartItemVO.GoodsId]; !ok {
-			return errors.New("购物车数据异常！"), orderNo
+			return errors.New("Исключения данных корзины покупок！"), orderNo
 		}
 		if shoppingCartItemVO.GoodsCount > newBeeMallGoodsMap[shoppingCartItemVO.GoodsId].StockNum {
-			return errors.New("库存不足！"), orderNo
+			return errors.New("Недостаточный запас！"), orderNo
 		}
 	}
 	//删除购物车商品项
@@ -61,7 +61,7 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 				var goodsInfo manage.MallGoodsInfo
 				global.GVA_DB.Where("goods_id =?", stockNumDTO.GoodsId).First(&goodsInfo)
 				if err = global.GVA_DB.Where("goods_id =? and stock_num>= ? and goods_sell_status = 0", stockNumDTO.GoodsId, stockNumDTO.GoodsCount).Updates(manage.MallGoodsInfo{StockNum: goodsInfo.StockNum - stockNumDTO.GoodsCount}).Error; err != nil {
-					return errors.New("库存不足！" + err.Error()), orderNo
+					return errors.New("Недостаточный запас！" + err.Error()), orderNo
 				}
 			}
 			//生成订单号
@@ -84,7 +84,7 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 			newBeeMallOrder.ExtraInfo = ""
 			//生成订单项并保存订单项纪录
 			if err = global.GVA_DB.Save(&newBeeMallOrder).Error; err != nil {
-				return errors.New("订单入库失败！" + err.Error()), orderNo
+				return errors.New("Сбой ввода заказа！" + err.Error()), orderNo
 			}
 			//生成订单收货地址快照，并保存至数据库
 			var newBeeMallOrderAddress mall.MallOrderAddress
@@ -115,7 +115,7 @@ func (m *MallOrderService) PaySuccess(orderNo string, payType int) (err error) {
 	err = global.GVA_DB.Where("order_no = ? and is_deleted=0 ", orderNo).First(&mallOrder).Error
 
 	if mallOrder != (manage.MallOrder{}) {
-		errors.New("订单生成失败！")
+		errors.New("Сбой при формировании заказа！")
 	}
 
 	//查出用户的钱
@@ -124,13 +124,13 @@ func (m *MallOrderService) PaySuccess(orderNo string, payType int) (err error) {
 
 	err = global.GVA_DB.Where("user_id =?", mallOrder.UserId).First(&userInfo).Error
 	if userInfo != (mall.MallUser{}) {
-		errors.New("订单用户查询失败！")
+		errors.New("Не удалось выполнить запрос пользователя заказа！")
 	}
 	userBalance := userInfo.UserMoney - mallOrder.TotalPrice
 	if userBalance >= 0 {
 		global.GVA_DB.Model(&userInfo).Update("user_money", userBalance)
 	} else {
-		return errors.New("余额不足请充值！")
+		return errors.New("Не удалось выполнить запрос пользователя заказа！")
 	}
 
 	mallOrder.OrderStatus = enum.ORDER_PAID.Code()
@@ -148,14 +148,14 @@ func (m *MallOrderService) FinishOrder(token string, orderNo string) (err error)
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("不存在的用户")
+		return errors.New("Несуществующие пользователи")
 	}
 	var mallOrder manage.MallOrder
 	if err = global.GVA_DB.Where("order_no=? and is_deleted = 0", orderNo).First(&mallOrder).Error; err != nil {
-		return errors.New("未查询到记录！")
+		return errors.New("Записи не изучались！")
 	}
 	if mallOrder.UserId != userToken.UserId {
-		return errors.New("禁止该操作！")
+		return errors.New("Отключить эту операцию！")
 	}
 	mallOrder.OrderStatus = enum.ORDER_SUCCESS.Code()
 	mallOrder.UpdateTime = common.JSONTime{time.Now()}
@@ -168,18 +168,18 @@ func (m *MallOrderService) CancelOrder(token string, orderNo string) (err error)
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("不存在的用户")
+		return errors.New("Несуществующие пользователи")
 	}
 	var mallOrder manage.MallOrder
 	if err = global.GVA_DB.Where("order_no=? and is_deleted = 0", orderNo).First(&mallOrder).Error; err != nil {
-		return errors.New("未查询到记录！")
+		return errors.New("Записи не изучались！")
 	}
 	if mallOrder.UserId != userToken.UserId {
-		return errors.New("禁止该操作！")
+		return errors.New("Отключить эту операцию！")
 	}
 	if utils.NumsInList(mallOrder.OrderStatus, []int{enum.ORDER_SUCCESS.Code(),
 		enum.ORDER_CLOSED_BY_MALLUSER.Code(), enum.ORDER_CLOSED_BY_EXPIRED.Code(), enum.ORDER_CLOSED_BY_JUDGE.Code()}) {
-		return errors.New("订单状态异常！")
+		return errors.New("Исключения из статуса заказа！")
 	}
 	mallOrder.OrderStatus = enum.ORDER_CLOSED_BY_MALLUSER.Code()
 	mallOrder.UpdateTime = common.JSONTime{time.Now()}
@@ -193,19 +193,19 @@ func (m *MallOrderService) GetOrderDetailByOrderNo(token string, orderNo string)
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("不存在的用户"), orderDetail
+		return errors.New("Несуществующие пользователи"), orderDetail
 	}
 	var mallOrder manage.MallOrder
 	if err = global.GVA_DB.Where("order_no=? and is_deleted = 0", orderNo).First(&mallOrder).Error; err != nil {
-		return errors.New("未查询到记录！"), orderDetail
+		return errors.New("Записи не изучались！"), orderDetail
 	}
 	if mallOrder.UserId != userToken.UserId {
-		return errors.New("禁止该操作！用户登录id 不一致"), orderDetail
+		return errors.New("Отключите эту операцию! Несоответствующий идентификатор входа пользователя"), orderDetail
 	}
 	var orderItems []manage.MallOrderItem
 	err = global.GVA_DB.Where("order_id = ?", mallOrder.OrderId).Find(&orderItems).Error
 	if len(orderItems) <= 0 {
-		return errors.New("订单项不存在！"), orderDetail
+		return errors.New("Пункт заказа не существует！"), orderDetail
 	}
 
 	var newBeeMallOrderItemVOS []mallRes.NewBeeMallOrderItemVO
@@ -226,7 +226,7 @@ func (m *MallOrderService) MallOrderListBySearch(token string, pageNumber int, s
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("不存在的用户"), list, total
+		return errors.New("Несуществующие пользователи"), list, total
 	}
 	// 根据搜索条件查询
 	var newBeeMallOrders []manage.MallOrder

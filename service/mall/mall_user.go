@@ -21,13 +21,13 @@ type MallUserService struct {
 // RegisterUser 注册用户
 func (m *MallUserService) RegisterUser(req mallReq.RegisterUserParam) (err error) {
 	if !errors.Is(global.GVA_DB.Where("login_name =?", req.LoginName).First(&mall.MallUser{}).Error, gorm.ErrRecordNotFound) {
-		return errors.New("存在相同用户名")
+		return errors.New("Этот номер уже зарегистрирован, пожалуйста, измените его")
 	}
 
 	return global.GVA_DB.Create(&mall.MallUser{
 		LoginName:     req.LoginName,
 		PasswordMd5:   utils.MD5V([]byte(req.Password)),
-		IntroduceSign: "随新所欲，蜂富多彩",
+		IntroduceSign: "....",
 		CreateTime:    common.JSONTime{Time: time.Now()},
 	}).Error
 
@@ -38,20 +38,20 @@ func (m *MallUserService) UserWithdrawal(token string, req mallReq.WithdrawalPar
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("不存在的用户"), userw
+		return errors.New("Несуществующие пользователи"), userw
 	}
 
 	var userInfo mall.MallUser
 	err = global.GVA_DB.Where("user_id =?", userToken.UserId).First(&userInfo).Error
 	if err != nil {
-		return errors.New("用户信息获取失败"), userw
+		return errors.New("Не удалось получить информацию о пользователе"), userw
 	}
 
 	//赋值 写入数据库
 	userw.WithdrawMoney = req.WithdrawMoney
 	userw.CreateTime = common.JSONTime{Time: time.Now()}
 	if userInfo.UserMoney < req.WithdrawMoney { //提款 大于 余额
-		return errors.New("余额不足"), userw
+		return errors.New("Недостаточный баланс"), userw
 	}
 
 	userw.UserMoney = userInfo.UserMoney - req.WithdrawMoney //余额
@@ -62,7 +62,7 @@ func (m *MallUserService) UserWithdrawal(token string, req mallReq.WithdrawalPar
 
 	err = global.GVA_DB.Create(&userw).Error
 	if err != nil {
-		return errors.New("提款订单生成失败 " + err.Error()), userw
+		return errors.New("Не удалось сформировать приказ об отзыве " + err.Error()), userw
 	}
 
 	//userInfo.UserMoney = userw.UserMoney
@@ -71,7 +71,7 @@ func (m *MallUserService) UserWithdrawal(token string, req mallReq.WithdrawalPar
 	//更新 账户余额
 	err = global.GVA_DB.Model(&mall.MallUser{}).Where("user_id = ?", userInfo.UserId).Update("user_money", userw.UserMoney).Error
 	if err != nil {
-		return errors.New("扣款失败"), userw
+		return errors.New("Списание средств не удалось"), userw
 	}
 
 	return err, userw
@@ -82,7 +82,7 @@ func (m *MallUserService) UpdateUserInfo(token string, req mallReq.UpdateUserInf
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("不存在的用户")
+		return errors.New("Несуществующие пользователи")
 	}
 	var userInfo mall.MallUser
 	err = global.GVA_DB.Where("user_id =?", userToken.UserId).First(&userInfo).Error
@@ -100,12 +100,12 @@ func (m *MallUserService) GetUserDetail(token string) (err error, userDetail mal
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("不存在的用户"), userDetail
+		return errors.New("Несуществующие пользователи"), userDetail
 	}
 	var userInfo mall.MallUser
 	err = global.GVA_DB.Where("user_id =?", userToken.UserId).First(&userInfo).Error
 	if err != nil {
-		return errors.New("用户信息获取失败"), userDetail
+		return errors.New("Не удалось получить информацию о пользователе"), userDetail
 	}
 	err = copier.Copy(&userDetail, &userInfo)
 	return

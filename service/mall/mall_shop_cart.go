@@ -24,7 +24,7 @@ func (m *MallShopCartService) GetMyShoppingCartItems(token string) (err error, c
 	var goodsInfos []manage.MallGoodsInfo
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("不存在的用户"), cartItems
+		return errors.New("Несуществующие пользователи"), cartItems
 	}
 	global.GVA_DB.Where("user_id=? and is_deleted = 0", userToken.UserId).Find(&shopCartItems)
 	var goodsIds []int
@@ -53,31 +53,31 @@ func (m *MallShopCartService) GetMyShoppingCartItems(token string) (err error, c
 
 func (m *MallShopCartService) SaveMallCartItem(token string, req mallReq.SaveCartItemParam) (err error) {
 	if req.GoodsCount < 1 {
-		return errors.New("商品数量不能小于 1 ！")
+		return errors.New("Количество элементов не должно быть меньше  1 ！")
 
 	}
 	if req.GoodsCount > 5 {
-		return errors.New("超出单个商品的最大购买数量！")
+		return errors.New("Превышение максимального количества приобретаемых отдельных предметов！")
 	}
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("不存在的用户")
+		return errors.New("Несуществующие пользователи")
 	}
 	var shopCartItems []mall.MallShoppingCartItem
 	// 是否已存在商品
 	err = global.GVA_DB.Where("user_id = ? and goods_id = ? and is_deleted = 0", userToken.UserId, req.GoodsId).Find(&shopCartItems).Error
 	if err != nil {
-		return errors.New("已存在！无需重复添加！")
+		return errors.New("Уже существует! Нет необходимости добавлять снова и снова")
 	}
 	err = global.GVA_DB.Where("goods_id = ? ", req.GoodsId).First(&manage.MallGoodsInfo{}).Error
 	if err != nil {
-		return errors.New(" 商品为空")
+		return errors.New(" Продукт пуст")
 	}
 	var total int64
 	global.GVA_DB.Where("user_id =?  and is_deleted = 0", userToken.UserId).Count(&total)
 	if total > 20 {
-		return errors.New("超出购物车最大容量！")
+		return errors.New("Превышает максимальную вместимость тележки для покупок！")
 	}
 	var shopCartItem mall.MallShoppingCartItem
 	if err = copier.Copy(&shopCartItem, &req); err != nil {
@@ -93,19 +93,19 @@ func (m *MallShopCartService) SaveMallCartItem(token string, req mallReq.SaveCar
 func (m *MallShopCartService) UpdateMallCartItem(token string, req mallReq.UpdateCartItemParam) (err error) {
 	//超出单个商品的最大数量
 	if req.GoodsCount > 5 {
-		return errors.New("超出单个商品的最大购买数量！")
+		return errors.New("Превышение максимального количества приобретаемых отдельных предметов！")
 	}
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("不存在的用户")
+		return errors.New("Несуществующие пользователи")
 	}
 	var shopCartItem mall.MallShoppingCartItem
 	if err = global.GVA_DB.Where("cart_item_id=? and is_deleted = 0", req.CartItemId).First(&shopCartItem).Error; err != nil {
-		return errors.New("未查询到记录！")
+		return errors.New("Записи не изучались！")
 	}
 	if shopCartItem.UserId != userToken.UserId {
-		return errors.New("禁止该操作！")
+		return errors.New("Отключить эту операцию！")
 	}
 	shopCartItem.GoodsCount = req.GoodsCount
 	shopCartItem.UpdateTime = common.JSONTime{time.Now()}
@@ -117,7 +117,7 @@ func (m *MallShopCartService) DeleteMallCartItem(token string, id int) (err erro
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("不存在的用户")
+		return errors.New("Несуществующие пользователи")
 	}
 	var shopCartItem mall.MallShoppingCartItem
 	err = global.GVA_DB.Where("cart_item_id = ? and is_deleted = 0", id).First(&shopCartItem).Error
@@ -125,7 +125,7 @@ func (m *MallShopCartService) DeleteMallCartItem(token string, id int) (err erro
 		return
 	}
 	if userToken.UserId != shopCartItem.UserId {
-		return errors.New("禁止该操作！")
+		return errors.New("Отключить эту операцию！")
 	}
 	err = global.GVA_DB.Where("cart_item_id = ? and is_deleted = 0", id).UpdateColumns(&mall.MallShoppingCartItem{IsDeleted: 1}).Error
 	return
@@ -135,7 +135,7 @@ func (m *MallShopCartService) GetCartItemsForSettle(token string, cartItemIds []
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("不存在的用户"), cartItemRes
+		return errors.New("Несуществующие пользователи"), cartItemRes
 	}
 	var shopCartItems []mall.MallShoppingCartItem
 	err = global.GVA_DB.Where("cart_item_id in (?) and user_id = ? and is_deleted = 0", cartItemIds, userToken.UserId).Find(&shopCartItems).Error

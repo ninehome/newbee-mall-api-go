@@ -91,7 +91,7 @@ func (m *MallGoodsInfoService) GetMallGoodsInfo(id int) (err error, res mallRes.
 	var mallGoodsInfo manage.MallGoodsInfo
 	err = global.GVA_DB.Where("goods_id = ?", id).First(&mallGoodsInfo).Error
 	if mallGoodsInfo.GoodsSellStatus != 0 {
-		return errors.New("商品已下架"), mallRes.GoodsInfoDetailResponse{}
+		return errors.New("Продукт был снят с полок"), mallRes.GoodsInfoDetailResponse{}
 	}
 	err = copier.Copy(&res, &mallGoodsInfo)
 	if err != nil {
