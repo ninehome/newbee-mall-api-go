@@ -36,6 +36,17 @@ func (m *MallUserAddressService) GetMyBankList(token string) (err error, userBan
 	return
 }
 
+// GetMyAddress 联系方式
+func (m *MallUserAddressService) GetChatList(token string) (err error, userBank []mall.MallUserChat) {
+	var userToken mall.MallUserToken
+	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
+	if err != nil {
+		return errors.New("Несуществующие потребители"), userBank
+	}
+	global.GVA_DB.Find(&userBank)
+	return
+}
+
 // 保存 银行账户
 func (m *MallUserAddressService) SaveUserBank(token string, req mallReq.BankParam) (err error) {
 	var userToken mall.MallUserToken

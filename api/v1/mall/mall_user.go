@@ -41,6 +41,19 @@ func (m *MallUserApi) UserBankList(c *gin.Context) {
 	}
 }
 
+// 获取联系方式
+func (m *MallUserApi) UserChatList(c *gin.Context) {
+	token := c.GetHeader("token")
+	if err, userAddressList := mallUserAddressService.GetChatList(token); err != nil {
+		global.GVA_LOG.Error("获取列bank表失败", zap.Error(err))
+		response.FailWithMessage("Не удалось получить столбец банковской таблицы:"+err.Error(), c)
+	} else if len(userAddressList) == 0 {
+		response.OkWithData(nil, c)
+	} else {
+		response.OkWithData(userAddressList, c)
+	}
+}
+
 func (m *MallUserApi) GetMallUserBank(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("bankId"))
 	token := c.GetHeader("token")
