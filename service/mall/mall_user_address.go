@@ -38,11 +38,11 @@ func (m *MallUserAddressService) GetMyBankList(token string) (err error, userBan
 
 // GetMyAddress 联系方式
 func (m *MallUserAddressService) GetChatList(token string) (err error, userBank []mall.MallUserChat) {
-	var userToken mall.MallUserToken
-	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
-	if err != nil {
-		return errors.New("Несуществующие потребители"), userBank
-	}
+	//var userToken mall.MallUserToken
+	//err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
+	//if err != nil {
+	//	return errors.New("Несуществующие потребители"), userBank
+	//}
 	global.GVA_DB.Find(&userBank)
 	return
 }
@@ -51,11 +51,10 @@ func (m *MallUserAddressService) GetChatList(token string) (err error, userBank 
 func (m *MallUserAddressService) SaveUserBank(token string, req mallReq.BankParam) (err error) {
 	var userToken mall.MallUserToken
 	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
-		return errors.New("不存在的用户")
+		return errors.New("Несуществующие пользователи")
 	}
 	var defaultAddress mall.MallUserBank
 	var newAddress mall.MallUserBank
-	fmt.Println("uid ===>>> ")
 	// 是否新增了默认地址，将之前的默认地址设置为非默认
 
 	if err = global.GVA_DB.Where("user_id=? and default =1 and is_deleted = 0", userToken.UserId).First(&defaultAddress).Error; err != nil {
