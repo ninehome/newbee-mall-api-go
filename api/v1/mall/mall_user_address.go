@@ -105,9 +105,7 @@ func (m *MallUserAddressApi) DeleteUserAddress(c *gin.Context) {
 
 func (m *MallUserAddressApi) DeleteUserBank(c *gin.Context) {
 	id := c.Param("bankId")
-	fmt.Println(111111111)
-	fmt.Println(id)
-	fmt.Println(111111111)
+
 	token := c.GetHeader("token")
 	err := mallUserAddressService.DeleteUserBank(token, id)
 	if err != nil {

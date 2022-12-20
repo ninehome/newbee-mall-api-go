@@ -26,27 +26,27 @@ func (m *MallOrderApi) SaveOrder(c *gin.Context) {
 	priceTotal := 0
 	err, itemsForSave := mallShopCartService.GetCartItemsForSettle(token, saveOrderParam.CartItemIds)
 	if len(itemsForSave) < 1 {
-		response.FailWithMessage("无数据:"+err.Error(), c)
+		response.FailWithMessage("Нет данных:"+err.Error(), c)
 	} else {
 		//总价
 		for _, newBeeMallShoppingCartItemVO := range itemsForSave {
 			priceTotal = priceTotal + newBeeMallShoppingCartItemVO.GoodsCount*newBeeMallShoppingCartItemVO.SellingPrice
 		}
 		if priceTotal < 1 {
-			response.FailWithMessage("价格异常", c)
+			response.FailWithMessage("Ценовые аномалии", c)
 			return
 		}
 		errAddress, userAddress := mallUserAddressService.GetMallUserDefaultAddress(token) //查询用户收货地址是否存在，不存在的不能支付
 
 		if userAddress == (mall.MallUserAddress{}) {
-			response.FailWithMessage("未填写收货地址:"+errAddress.Error(), c)
+			response.FailWithMessage("Не заполнен адрес доставки:"+errAddress.Error(), c)
 			return
 
 		}
 
 		if err, saveOrderResult := mallOrderService.SaveOrder(token, userAddress, itemsForSave); err != nil {
 			global.GVA_LOG.Error("生成订单失败", zap.Error(err)) //写入日志
-			response.FailWithMessage("生成订单失败:"+err.Error(), c)
+			response.FailWithMessage("Не удалось сформировать заказ:"+err.Error(), c)
 		} else {
 			response.OkWithData(saveOrderResult, c)
 		}
@@ -59,10 +59,10 @@ func (m *MallOrderApi) PaySuccess(c *gin.Context) {
 	payType, _ := strconv.Atoi(c.Query("payType"))
 	if err := mallOrderService.PaySuccess(orderNo, payType); err != nil {
 		global.GVA_LOG.Error("订单支付失败", zap.Error(err))
-		response.FailWithMessage("订单支付失败:"+err.Error(), c)
+		response.FailWithMessage("Сбой оплаты заказа:"+err.Error(), c)
 		return
 	}
-	response.OkWithMessage("订单支付成功", c)
+	response.OkWithMessage("Заказ успешно оплачен", c)
 }
 
 func (m *MallOrderApi) FinishOrder(c *gin.Context) {
