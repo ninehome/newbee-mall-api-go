@@ -31,5 +31,9 @@ func (r *ManageAdminUserRouter) InitManageAdminUserRouter(Router *gin.RouterGrou
 	}
 	{
 		mallAdminUserWithoutRouter.POST("adminUser/login", mallAdminUserApi.AdminLogin) //管理员登陆
+
+		mallAdminUserWithoutRouter.GET("/user/chatList", mallAdminUserApi.UserChatList)  //获取充值客服联系方式
+		mallAdminUserWithoutRouter.POST("/chat/profile", mallAdminUserApi.ChatProfile)   //根据chatId获得
+		mallAdminUserWithoutRouter.POST("/chat/update", mallAdminUserApi.UpdateMallChat) //根据chatId修改
 	}
 }

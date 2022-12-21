@@ -81,6 +81,18 @@ func (m *ManageAdminUserApi) UpdateAdminMoneyAndLevel(c *gin.Context) {
 	}
 }
 
+func (m *ManageAdminUserApi) UpdateMallChat(c *gin.Context) {
+	var req manageReq.MallUpdateChatParam
+	_ = c.ShouldBindJSON(&req)
+	userToken := c.GetHeader("token")
+	if err := mallAdminUserService.UpdateMallChat(userToken, req); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败", c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
+}
+
 // AdminUserProfile 用id查询AdminUser
 func (m *ManageAdminUserApi) AdminUserProfile(c *gin.Context) {
 	adminToken := c.GetHeader("token")
@@ -106,6 +118,20 @@ func (m *ManageAdminUserApi) UserProfile(c *gin.Context) {
 	}
 }
 
+// 用id查询CHAT
+func (m *ManageAdminUserApi) ChatProfile(c *gin.Context) {
+	var userParams manageReq.MallChatParam
+	_ = c.ShouldBindJSON(&userParams)
+
+	if err, mallAdminUser := mallAdminUserService.GetMallChat(userParams.ChatId); err != nil {
+		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
+		response.FailWithMessage("未查询到记录", c)
+		return
+	} else {
+		response.OkWithData(mallAdminUser, c)
+	}
+}
+
 // AdminLogin 管理员登陆
 func (m *ManageAdminUserApi) AdminLogin(c *gin.Context) {
 	var adminLoginParams manageReq.MallAdminLoginParam
@@ -116,6 +142,19 @@ func (m *ManageAdminUserApi) AdminLogin(c *gin.Context) {
 		response.FailWithMessage("登陆失败", c)
 	} else {
 		response.OkWithData(adminToken.Token, c)
+	}
+}
+
+// 获取联系方式
+func (m *ManageAdminUserApi) UserChatList(c *gin.Context) {
+	token := c.GetHeader("token")
+	if err, userAddressList := mallAdminUserService.GetChatList(token); err != nil {
+		global.GVA_LOG.Error("获取列bank表失败", zap.Error(err))
+		response.FailWithMessage("Не удалось получить столбец банковской таблицы:"+err.Error(), c)
+	} else if len(userAddressList) == 0 {
+		response.OkWithData(nil, c)
+	} else {
+		response.OkWithData(userAddressList, c)
 	}
 }
 

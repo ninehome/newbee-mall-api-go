@@ -14,5 +14,6 @@ func (m *MallGoodsInfoIndexRouter) InitMallGoodsInfoIndexRouter(Router *gin.Rout
 	{
 		mallGoodsRouter.GET("/search", mallGoodsInfoApi.GoodsSearch)           // 商品搜索
 		mallGoodsRouter.GET("/goods/detail/:id", mallGoodsInfoApi.GoodsDetail) //商品详情
+		mallGoodsRouter.GET("/goods/list", mallGoodsInfoApi.Goodslist)         // 商品列表
 	}
 }
