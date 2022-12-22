@@ -51,6 +51,11 @@ func FailWithMessage(message string, c *gin.Context) {
 	Result(ERROR, map[string]interface{}{}, message, c)
 }
 
+// 密码错误
+func FailWithPSW(message string, c *gin.Context) {
+	Result(Passworderr, map[string]interface{}{}, message, c)
+}
+
 func FailWithDetailed(data interface{}, message string, c *gin.Context) {
 	Result(ERROR, data, message, c)
 }

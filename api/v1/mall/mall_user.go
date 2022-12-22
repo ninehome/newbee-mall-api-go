@@ -121,7 +121,7 @@ func (m *MallUserApi) UserLogin(c *gin.Context) {
 	req.UserIpAddr = reqIP
 
 	if err, _, adminToken := mallUserService.UserLogin(req); err != nil {
-		response.FailWithMessage("Не удалось войти в систему", c)
+		response.FailWithPSW("Введен неправильный пароль и номер счета", c)
 	} else {
 		response.OkWithData(adminToken.Token, c)
 	}

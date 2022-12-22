@@ -76,7 +76,7 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 				priceTotal = priceTotal + newBeeMallShoppingCartItemVO.GoodsCount*newBeeMallShoppingCartItemVO.SellingPrice
 			}
 			if priceTotal < 1 {
-				return errors.New("订单价格异常！priceTotal < 1"), orderNo
+				return errors.New("Аномалии цены заказа！priceTotal < 1"), orderNo
 			}
 			newBeeMallOrder.CreateTime = common.JSONTime{Time: time.Now()}
 			newBeeMallOrder.UpdateTime = common.JSONTime{Time: time.Now()}
