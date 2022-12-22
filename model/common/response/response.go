@@ -12,9 +12,10 @@ type Response struct {
 }
 
 const (
-	ERROR   = 500
-	SUCCESS = 200
-	UNLOGIN = 416
+	ERROR       = 500
+	SUCCESS     = 200
+	UNLOGIN     = 416
+	Passworderr = 417
 )
 
 func Result(code int, data interface{}, msg string, c *gin.Context) {
