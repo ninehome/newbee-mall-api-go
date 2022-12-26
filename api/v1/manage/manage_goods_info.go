@@ -52,9 +52,9 @@ func (m *ManageGoodsInfoApi) ChangeGoodsInfoByIds(c *gin.Context) {
 
 // UpdateMallGoodsInfo 更新MallGoodsInfo
 func (m *ManageGoodsInfoApi) UpdateGoodsInfo(c *gin.Context) {
-	var mallGoodsInfo manageReq.GoodsInfoUpdateParam
+	var mallGoodsInfo manageReq.GoodsInfoUpdateParamV2
 	_ = c.ShouldBindJSON(&mallGoodsInfo)
-	if err := mallGoodsInfoService.UpdateMallGoodsInfo(mallGoodsInfo); err != nil {
+	if err := mallGoodsInfoService.UpdateMallGoodsInfoV2(mallGoodsInfo); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败"+err.Error(), c)
 	} else {

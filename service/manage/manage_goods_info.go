@@ -2,6 +2,7 @@ package manage
 
 import (
 	"errors"
+	"fmt"
 	"gorm.io/gorm"
 	"main.go/global"
 	"main.go/model/common"
@@ -89,6 +90,17 @@ func (m *ManageGoodsInfoService) UpdateMallGoodsInfo(req manageReq.GoodsInfoUpda
 		return errors.New(err.Error())
 	}
 	err = global.GVA_DB.Where("goods_id=?", goodsInfo.GoodsId).Updates(&goodsInfo).Error
+	return err
+}
+
+func (m *ManageGoodsInfoService) UpdateMallGoodsInfoV2(req manageReq.GoodsInfoUpdateParamV2) (err error) {
+	goodsId, _ := strconv.Atoi(req.GoodsId)
+	originalPrice, _ := strconv.Atoi(req.SellingPrice)
+
+	fmt.Println(goodsId)
+	fmt.Println(originalPrice)
+	err = global.GVA_DB.Model(&manage.MallGoodsInfo{}).Where("goods_id = ?", goodsId).Update("selling_price", originalPrice).Error
+
 	return err
 }
 
