@@ -33,7 +33,7 @@ func (m *MallUserApi) UserBankList(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err, userAddressList := mallUserAddressService.GetMyBankList(token); err != nil {
 		global.GVA_LOG.Error("获取列bank表失败", zap.Error(err))
-		response.FailWithMessage("Не удалось получить столбец банковской таблицы:"+err.Error(), c)
+		response.FailWithMessage("獲取銀行卡表失敗:"+err.Error(), c)
 	} else if len(userAddressList) == 0 {
 		response.OkWithData(nil, c)
 	} else {
@@ -46,7 +46,7 @@ func (m *MallUserApi) UserChatList(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err, userAddressList := mallUserAddressService.GetChatList(token); err != nil {
 		global.GVA_LOG.Error("获取列bank表失败", zap.Error(err))
-		response.FailWithMessage("Не удалось получить столбец банковской таблицы:"+err.Error(), c)
+		response.FailWithMessage("獲取聯繫方式失敗:"+err.Error(), c)
 	} else if len(userAddressList) == 0 {
 		response.OkWithData(nil, c)
 	} else {
@@ -59,7 +59,7 @@ func (m *MallUserApi) GetMallUserBank(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err, userAddress := mallUserAddressService.GetMyBank(token, id); err != nil {
 		global.GVA_LOG.Error("获取地址失败", zap.Error(err))
-		response.FailWithMessage("Не удалось получить адрес:"+err.Error(), c)
+		response.FailWithMessage("獲取地址失敗:"+err.Error(), c)
 	} else {
 		response.OkWithData(userAddress, c)
 	}
@@ -71,7 +71,7 @@ func (m *MallUserApi) UserWithdrawal(c *gin.Context) {
 	_ = c.ShouldBindJSON(&req)
 	token := c.GetHeader("token")
 	if err, uw := mallUserService.UserWithdrawal(token, req); err != nil {
-		global.GVA_LOG.Error("Отказ от вывода средств", zap.Error(err))
+		global.GVA_LOG.Error("提款失敗", zap.Error(err))
 		response.FailWithMessage(err.Error(), c)
 	} else {
 		response.OkWithData(uw, c)
@@ -95,16 +95,16 @@ func (m *MallUserApi) UserInfoUpdate(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err := mallUserService.UpdateUserInfo(token, req); err != nil {
 		global.GVA_LOG.Error("更新用户信息失败", zap.Error(err))
-		response.FailWithMessage("Не удалось обновить информацию о пользователе"+err.Error(), c)
+		response.FailWithMessage("更新用戶信息失敗"+err.Error(), c)
 	}
-	response.OkWithMessage("Успешное обновление", c)
+	response.OkWithMessage("更新成功", c)
 }
 
 func (m *MallUserApi) GetUserInfo(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err, userDetail := mallUserService.GetUserDetail(token); err != nil {
 		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
-		response.FailWithMessage("Записи не изучались", c)
+		response.FailWithMessage("未查詢到記錄", c)
 	} else {
 		response.OkWithData(userDetail, c)
 	}
@@ -121,7 +121,7 @@ func (m *MallUserApi) UserLogin(c *gin.Context) {
 	req.UserIpAddr = reqIP
 
 	if err, _, adminToken := mallUserService.UserLogin(req); err != nil {
-		response.FailWithPSW("Введен неправильный пароль и номер счета", c)
+		response.FailWithPSW("輸入了錯誤的密碼和帳號", c)
 	} else {
 		response.OkWithData(adminToken.Token, c)
 	}
@@ -130,9 +130,9 @@ func (m *MallUserApi) UserLogin(c *gin.Context) {
 func (m *MallUserApi) UserLogout(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err := mallUserTokenService.DeleteMallUserToken(token); err != nil {
-		response.FailWithMessage("Не удалось выйти из системы", c)
+		response.FailWithMessage("登出失敗", c)
 	} else {
-		response.OkWithMessage("Успешный выход из системы", c)
+		response.OkWithMessage("登出成功", c)
 	}
 
 }

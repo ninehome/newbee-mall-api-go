@@ -19,7 +19,7 @@ func (m *MallUserAddressService) GetMyAddress(token string) (err error, userAddr
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("Несуществующие пользователи"), userAddress
+		return errors.New("失效用戶"), userAddress
 	}
 	global.GVA_DB.Where("user_id=? and is_deleted=0", userToken.UserId).Find(&userAddress)
 	return
@@ -30,7 +30,7 @@ func (m *MallUserAddressService) GetMyBankList(token string) (err error, userBan
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("Несуществующие потребители"), userBank
+		return errors.New("登錄失效"), userBank
 	}
 	global.GVA_DB.Where("user_id=? ", userToken.UserId).Find(&userBank)
 	return
@@ -51,7 +51,7 @@ func (m *MallUserAddressService) GetChatList(token string) (err error, userBank 
 func (m *MallUserAddressService) SaveUserBank(token string, req mallReq.BankParam) (err error) {
 	var userToken mall.MallUserToken
 	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
-		return errors.New("Несуществующие пользователи")
+		return errors.New("失效用戶")
 	}
 	var defaultAddress mall.MallUserBank
 	var newAddress mall.MallUserBank
@@ -89,7 +89,7 @@ func (m *MallUserAddressService) SaveUserBank(token string, req mallReq.BankPara
 func (m *MallUserAddressService) SaveUserAddress(token string, req mallReq.AddAddressParam) (err error) {
 	var userToken mall.MallUserToken
 	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
-		return errors.New("Несуществующие пользователи")
+		return errors.New("失效用戶")
 	}
 	var defaultAddress mall.MallUserAddress
 	var newAddress mall.MallUserAddress
@@ -128,14 +128,14 @@ func (m *MallUserAddressService) SaveUserAddress(token string, req mallReq.AddAd
 func (m *MallUserAddressService) UpdateUserAddress(token string, req mallReq.UpdateAddressParam) (err error) {
 	var userToken mall.MallUserToken
 	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
-		return errors.New("Несуществующие пользователи")
+		return errors.New("失效用戶")
 	}
 	var userAddress mall.MallUserAddress
 	if err = global.GVA_DB.Where("address_id =? and user_id =?", req.AddressId, userToken.UserId).First(&userAddress).Error; err != nil {
-		return errors.New("Несуществующий адрес пользователя")
+		return errors.New("無效的用戶地址")
 	}
 	if userToken.UserId != userAddress.UserId {
-		return errors.New("Отключить эту операцию！")
+		return errors.New("失效用戶！")
 	}
 	if req.DefaultFlag == 1 {
 		var defaultUserAddress mall.MallUserAddress
@@ -162,13 +162,13 @@ func (m *MallUserAddressService) UpdateUserAddress(token string, req mallReq.Upd
 func (m *MallUserAddressService) GetMallUserAddressById(token string, id int) (err error, userAddress mall.MallUserAddress) {
 	var userToken mall.MallUserToken
 	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
-		return errors.New("Несуществующие пользователи"), userAddress
+		return errors.New("失效用戶"), userAddress
 	}
 	if err = global.GVA_DB.Where("address_id =?", id).First(&userAddress).Error; err != nil {
-		return errors.New("Несуществующий адрес пользователя"), userAddress
+		return errors.New("無效的用戶地址"), userAddress
 	}
 	if userToken.UserId != userAddress.UserId {
-		return errors.New("Отключить эту операцию！"), userAddress
+		return errors.New("禁用此操作！"), userAddress
 	}
 	return
 }
@@ -177,13 +177,13 @@ func (m *MallUserAddressService) GetMallUserAddressById(token string, id int) (e
 func (m *MallUserAddressService) GetMyBank(token string, id int) (err error, userAddress mall.MallUserBank) {
 	var userToken mall.MallUserToken
 	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
-		return errors.New("Несуществующие пользователи"), userAddress
+		return errors.New("失效用戶"), userAddress
 	}
 	if err = global.GVA_DB.Where("bank_id =?", id).First(&userAddress).Error; err != nil {
-		return errors.New("Отсутствие банковского счета" + err.Error()), userAddress
+		return errors.New("沒有銀行賬戶" + err.Error()), userAddress
 	}
 	if userToken.UserId != userAddress.UserId {
-		return errors.New("Отключить эту операцию！"), userAddress
+		return errors.New("禁用此操作！"), userAddress
 	}
 	return
 }
@@ -191,10 +191,10 @@ func (m *MallUserAddressService) GetMyBank(token string, id int) (err error, use
 func (m *MallUserAddressService) GetMallUserDefaultAddress(token string) (err error, userAddress mall.MallUserAddress) {
 	var userToken mall.MallUserToken
 	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
-		return errors.New("Несуществующие пользователи"), userAddress
+		return errors.New("失效用戶"), userAddress
 	}
 	if err = global.GVA_DB.Where("user_id =? and default_flag =1 and is_deleted = 0 ", userToken.UserId).First(&userAddress).Error; err != nil {
-		return errors.New("Адрес по умолчанию отсутствует сбой"), userAddress
+		return errors.New("默認地址丟失"), userAddress
 	}
 	return
 }
@@ -202,15 +202,15 @@ func (m *MallUserAddressService) GetMallUserDefaultAddress(token string) (err er
 func (m *MallUserAddressService) DeleteUserAddress(token string, id int) (err error) {
 	var userToken mall.MallUserToken
 	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
-		return errors.New("Несуществующие пользователи")
+		return errors.New("失效用戶")
 	}
 	fmt.Println(id)
 	var userAddress mall.MallUserAddress
 	if err = global.GVA_DB.Where("address_id =?", id).First(&userAddress).Error; err != nil {
-		return errors.New("Несуществующий адрес пользователя")
+		return errors.New("無效的用戶地址")
 	}
 	if userToken.UserId != userAddress.UserId {
-		return errors.New("Отключить эту операцию！")
+		return errors.New("禁用此操作！")
 	}
 	err = global.GVA_DB.Delete(&userAddress).Error
 	return
@@ -220,19 +220,19 @@ func (m *MallUserAddressService) DeleteUserAddress(token string, id int) (err er
 func (m *MallUserAddressService) DeleteUserBank(token string, id string) (err error) {
 	var userToken mall.MallUserToken
 	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
-		return errors.New("Несуществующие пользователи")
+		return errors.New("失效用戶")
 	}
 	fmt.Println(id)
 	var userBank mall.MallUserBank
 	if err = global.GVA_DB.Where("bank_id =?", id).First(&userBank).Error; err != nil {
-		return errors.New("Несуществующие банковские счета")
+		return errors.New("失效的銀行賬戶")
 	}
 	if userToken.UserId != userBank.UserId {
-		return errors.New("Отключить эту операцию！")
+		return errors.New("禁用此操作！")
 	}
 	err = global.GVA_DB.Delete(&userBank).Error
 	if err != nil {
-		return errors.New("Не удалось удалить" + err.Error())
+		return errors.New("刪除失敗" + err.Error())
 	}
 	return
 

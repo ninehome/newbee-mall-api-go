@@ -18,7 +18,7 @@ func (m *MallUserAddressApi) AddressList(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err, userAddressList := mallUserAddressService.GetMyAddress(token); err != nil {
 		global.GVA_LOG.Error("获取地址失败", zap.Error(err))
-		response.FailWithMessage("Не удалось получить адрес:"+err.Error(), c)
+		response.FailWithMessage("獲取地址失敗:"+err.Error(), c)
 	} else if len(userAddressList) == 0 {
 		response.OkWithData(nil, c)
 	} else {
@@ -35,10 +35,10 @@ func (m *MallUserAddressApi) SaveUserAddress(c *gin.Context) {
 	err := mallUserAddressService.SaveUserAddress(token, req)
 	if err != nil {
 		global.GVA_LOG.Error("创建失败", zap.Error(err))
-		response.FailWithMessage("Не удалось создать:"+err.Error(), c)
+		response.FailWithMessage("創建失敗:"+err.Error(), c)
 		return
 	}
-	response.OkWithMessage("Создано успешно", c)
+	response.OkWithMessage("創建成功", c)
 
 }
 
@@ -51,7 +51,7 @@ func (m *MallUserAddressApi) SaveUserBank(c *gin.Context) {
 	err := mallUserAddressService.SaveUserBank(token, req)
 	if err != nil {
 		global.GVA_LOG.Error("添加银行账户失败", zap.Error(err))
-		response.FailWithMessage("Не удалось добавить банковский счет:"+err.Error(), c)
+		response.FailWithMessage("添加銀行賬戶失敗:"+err.Error(), c)
 		return
 	}
 	response.OkWithMessage("创建成功", c)
@@ -65,9 +65,9 @@ func (m *MallUserAddressApi) UpdateMallUserAddress(c *gin.Context) {
 	err := mallUserAddressService.UpdateUserAddress(token, req)
 	if err != nil {
 		global.GVA_LOG.Error("更新用户地址失败", zap.Error(err))
-		response.FailWithMessage("Не удалось обновить адрес пользователя:"+err.Error(), c)
+		response.FailWithMessage("更新用戶地址失敗:"+err.Error(), c)
 	}
-	response.OkWithMessage("Обновление адреса пользователя успешно", c)
+	response.OkWithMessage("用戶地址更新成功", c)
 }
 
 func (m *MallUserAddressApi) GetMallUserAddress(c *gin.Context) {
@@ -75,7 +75,7 @@ func (m *MallUserAddressApi) GetMallUserAddress(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err, userAddress := mallUserAddressService.GetMallUserAddressById(token, id); err != nil {
 		global.GVA_LOG.Error("获取地址失败", zap.Error(err))
-		response.FailWithMessage("Не удалось получить адрес:"+err.Error(), c)
+		response.FailWithMessage("獲取地址失敗:"+err.Error(), c)
 	} else {
 		response.OkWithData(userAddress, c)
 	}
@@ -85,7 +85,7 @@ func (m *MallUserAddressApi) GetMallUserDefaultAddress(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err, userAddress := mallUserAddressService.GetMallUserDefaultAddress(token); err != nil {
 		global.GVA_LOG.Error("获取地址失败", zap.Error(err))
-		response.FailWithMessage("Не удалось получить адрес:"+err.Error(), c)
+		response.FailWithMessage("獲取地址失敗:"+err.Error(), c)
 	} else {
 		response.OkWithData(userAddress, c)
 	}
@@ -97,9 +97,9 @@ func (m *MallUserAddressApi) DeleteUserAddress(c *gin.Context) {
 	err := mallUserAddressService.DeleteUserAddress(token, id)
 	if err != nil {
 		global.GVA_LOG.Error("删除用户地址失败", zap.Error(err))
-		response.FailWithMessage("Не удалось удалить адрес пользователя:"+err.Error(), c)
+		response.FailWithMessage("刪除用戶地址失敗:"+err.Error(), c)
 	}
-	response.OkWithMessage("Удаление адреса пользователя успешно", c)
+	response.OkWithMessage("刪除用戶地址成功", c)
 
 }
 
@@ -110,8 +110,8 @@ func (m *MallUserAddressApi) DeleteUserBank(c *gin.Context) {
 	err := mallUserAddressService.DeleteUserBank(token, id)
 	if err != nil {
 		global.GVA_LOG.Error("删除用户银行账户", zap.Error(err))
-		response.FailWithMessage("Удалить банковский счет пользователя:"+err.Error(), c)
+		response.FailWithMessage("刪除銀行賬戶:"+err.Error(), c)
 	}
-	response.OkWithMessage("Удаление банковского счета пользователя прошло успешно", c)
+	response.OkWithMessage("刪除銀行賬戶成功", c)
 
 }

@@ -33,9 +33,9 @@ func (m *ManageAdminUserApi) CreateAdminUser(c *gin.Context) {
 	}
 	if err := mallAdminUserService.CreateMallAdminUser(mallAdminUser); err != nil {
 		global.GVA_LOG.Error("创建失败:", zap.Error(err))
-		response.FailWithMessage("创建失败"+err.Error(), c)
+		response.FailWithMessage("創建失敗"+err.Error(), c)
 	} else {
-		response.OkWithMessage("创建成功", c)
+		response.OkWithMessage("創建失敗", c)
 	}
 }
 
@@ -49,7 +49,7 @@ func (m *ManageAdminUserApi) UpdateAdminUserPassword(c *gin.Context) {
 	userToken := c.GetHeader("token")
 	if err := mallAdminUserService.UpdateMallAdminPassWord(userToken, req); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
-		response.FailWithMessage("更新失败:"+err.Error(), c)
+		response.FailWithMessage("更新失敗:"+err.Error(), c)
 	} else {
 		response.OkWithMessage("更新成功", c)
 	}
@@ -62,8 +62,8 @@ func (m *ManageAdminUserApi) UpdateAdminUserName(c *gin.Context) {
 	_ = c.ShouldBindJSON(&req)
 	userToken := c.GetHeader("token")
 	if err := mallAdminUserService.UpdateMallAdminName(userToken, req); err != nil {
-		global.GVA_LOG.Error("更新失败!", zap.Error(err))
-		response.FailWithMessage("更新失败", c)
+		global.GVA_LOG.Error("更新失敗!", zap.Error(err))
+		response.FailWithMessage("更新失敗", c)
 	} else {
 		response.OkWithMessage("更新成功", c)
 	}
@@ -74,8 +74,8 @@ func (m *ManageAdminUserApi) UpdateAdminMoneyAndLevel(c *gin.Context) {
 	_ = c.ShouldBindJSON(&req)
 	userToken := c.GetHeader("token")
 	if err := mallAdminUserService.UpdateMallAdminMoneyAndLevel(userToken, req); err != nil {
-		global.GVA_LOG.Error("更新失败!", zap.Error(err))
-		response.FailWithMessage("更新失败", c)
+		global.GVA_LOG.Error("更新失敗!", zap.Error(err))
+		response.FailWithMessage("更新失敗", c)
 	} else {
 		response.OkWithMessage("更新成功", c)
 	}
@@ -86,8 +86,8 @@ func (m *ManageAdminUserApi) UpdateMallChat(c *gin.Context) {
 	_ = c.ShouldBindJSON(&req)
 	userToken := c.GetHeader("token")
 	if err := mallAdminUserService.UpdateMallChat(userToken, req); err != nil {
-		global.GVA_LOG.Error("更新失败!", zap.Error(err))
-		response.FailWithMessage("更新失败", c)
+		global.GVA_LOG.Error("更新失敗!", zap.Error(err))
+		response.FailWithMessage("更新失敗", c)
 	} else {
 		response.OkWithMessage("更新成功", c)
 	}
@@ -97,8 +97,8 @@ func (m *ManageAdminUserApi) UpdateMallChat(c *gin.Context) {
 func (m *ManageAdminUserApi) AdminUserProfile(c *gin.Context) {
 	adminToken := c.GetHeader("token")
 	if err, mallAdminUser := mallAdminUserService.GetMallAdminUser(adminToken); err != nil {
-		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
-		response.FailWithMessage("未查询到记录", c)
+		global.GVA_LOG.Error("未查詢到記錄", zap.Error(err))
+		response.FailWithMessage("未查詢到記錄", c)
 	} else {
 		mallAdminUser.LoginPassword = "******"
 		response.OkWithData(mallAdminUser, c)
@@ -111,8 +111,8 @@ func (m *ManageAdminUserApi) UserProfile(c *gin.Context) {
 	_ = c.ShouldBindJSON(&userParams)
 
 	if err, mallAdminUser := mallAdminUserService.GetMallUser(userParams.UserId); err != nil {
-		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
-		response.FailWithMessage("未查询到记录", c)
+		global.GVA_LOG.Error("未查詢到記錄", zap.Error(err))
+		response.FailWithMessage("未查詢到記錄", c)
 	} else {
 		response.OkWithData(mallAdminUser, c)
 	}
@@ -124,8 +124,8 @@ func (m *ManageAdminUserApi) ChatProfile(c *gin.Context) {
 	_ = c.ShouldBindJSON(&userParams)
 
 	if err, mallAdminUser := mallAdminUserService.GetMallChat(userParams.ChatId); err != nil {
-		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
-		response.FailWithMessage("未查询到记录", c)
+		global.GVA_LOG.Error("未查詢到記錄", zap.Error(err))
+		response.FailWithMessage("未查詢到記錄", c)
 		return
 	} else {
 		response.OkWithData(mallAdminUser, c)
@@ -139,7 +139,7 @@ func (m *ManageAdminUserApi) AdminLogin(c *gin.Context) {
 
 	fmt.Println(adminLoginParams)
 	if err, _, adminToken := mallAdminUserService.AdminLogin(adminLoginParams); err != nil {
-		response.FailWithMessage("登陆失败", c)
+		response.FailWithMessage("登陸失敗", c)
 	} else {
 		response.OkWithData(adminToken.Token, c)
 	}
