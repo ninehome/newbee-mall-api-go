@@ -26,20 +26,20 @@ func (m *MallOrderApi) SaveOrder(c *gin.Context) {
 	priceTotal := 0
 	err, itemsForSave := mallShopCartService.GetCartItemsForSettle(token, saveOrderParam.CartItemIds)
 	if len(itemsForSave) < 1 {
-		response.FailWithMessage("Нет данных:"+err.Error(), c)
+		response.FailWithMessage("沒有數據101:"+err.Error(), c)
 	} else {
 		//总价
 		for _, newBeeMallShoppingCartItemVO := range itemsForSave {
 			priceTotal = priceTotal + newBeeMallShoppingCartItemVO.GoodsCount*newBeeMallShoppingCartItemVO.SellingPrice
 		}
 		if priceTotal < 1 {
-			response.FailWithMessage("Ценовые аномалии", c)
+			response.FailWithMessage("價格異常102", c)
 			return
 		}
 		errAddress, userAddress := mallUserAddressService.GetMallUserDefaultAddress(token) //查询用户收货地址是否存在，不存在的不能支付
 
 		if userAddress == (mall.MallUserAddress{}) {
-			response.FailWithMessage("Не заполнен адрес доставки:"+errAddress.Error(), c)
+			response.FailWithMessage("未填寫送貨地址:"+errAddress.Error(), c)
 			return
 
 		}
