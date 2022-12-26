@@ -6,7 +6,6 @@ import (
 	"gorm.io/gorm"
 	"main.go/global"
 	"main.go/model/common"
-	"main.go/model/common/enum"
 	"main.go/model/common/request"
 	"main.go/model/manage"
 	manageReq "main.go/model/manage/request"
@@ -20,11 +19,12 @@ type ManageGoodsInfoService struct {
 
 // CreateMallGoodsInfo 创建MallGoodsInfo
 func (m *ManageGoodsInfoService) CreateMallGoodsInfo(req manageReq.GoodsInfoAddParam) (err error) {
-	var goodsCategory manage.MallGoodsCategory
-	err = global.GVA_DB.Where("category_id=?  AND is_deleted=0", req.GoodsCategoryId).First(&goodsCategory).Error
-	if goodsCategory.CategoryLevel != enum.LevelThree.Code() {
-		return errors.New("分类数据异常")
-	}
+	//商品分类  暂时 不要分类模块
+	//var goodsCategory manage.MallGoodsCategory
+	//err = global.GVA_DB.Where("category_id=?  AND is_deleted=0", req.GoodsCategoryId).First(&goodsCategory).Error
+	//if goodsCategory.CategoryLevel != enum.LevelThree.Code() {
+	//	return errors.New("分类数据异常")
+	//}
 	if !errors.Is(global.GVA_DB.Where("goods_name=? AND goods_category_id=?", req.GoodsName, req.GoodsCategoryId).First(&manage.MallGoodsInfo{}).Error, gorm.ErrRecordNotFound) {
 		return errors.New("已存在相同的商品信息")
 	}
@@ -35,7 +35,7 @@ func (m *ManageGoodsInfoService) CreateMallGoodsInfo(req manageReq.GoodsInfoAddP
 	goodsInfo := manage.MallGoodsInfo{
 		GoodsName:          req.GoodsName,
 		GoodsIntro:         req.GoodsIntro,
-		GoodsCategoryId:    req.GoodsCategoryId,
+		GoodsCategoryId:    51,
 		GoodsCoverImg:      req.GoodsCoverImg,
 		GoodsDetailContent: req.GoodsDetailContent,
 		OriginalPrice:      originalPrice,
