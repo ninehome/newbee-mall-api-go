@@ -114,14 +114,14 @@ func (m *MallOrderApi) OrderList(c *gin.Context) {
 			TotalCount: total,
 			CurrPage:   pageNumber,
 			PageSize:   80,
-		}, "SUCCESS", c)
+		}, "成功", c)
 	} else {
 		response.OkWithDetailed(response.PageResult{
 			List:       list,
 			TotalCount: total,
 			CurrPage:   pageNumber,
 			PageSize:   80,
-		}, "SUCCESS", c)
+		}, "成功", c)
 	}
 
 }
