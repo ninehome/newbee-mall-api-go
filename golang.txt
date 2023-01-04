@@ -220,3 +220,13 @@ https://vue3js.cn/interview/vue/cors.html#%E4%BA%8C%E3%80%81%E5%A6%82%E4%BD%95%E
 
 视频加密
 https://blog.csdn.net/y534560449/article/details/116531326
+
+
+//app 虚拟机
+http://www.vmos.cn/
+
+
+https://stepn.com/
+
+免费SSL
+https://letsencrypt.osfipin.com/user-0408/order/detail?id=5z81dx
