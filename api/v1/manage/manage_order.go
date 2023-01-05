@@ -1,7 +1,6 @@
 package manage
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"main.go/global"
@@ -97,10 +96,32 @@ func (m *ManageOrderApi) GetMallBuyBackList(c *gin.Context) {
 	_ = c.ShouldBindQuery(&pageInfo)
 	//orderNo := c.Query("orderNo")
 	//orderStatus := c.Query("orderStatus")
-	fmt.Println(111111111111111111)
-	fmt.Println(pageInfo.PageNumber)
-	fmt.Println(pageInfo.OrderStatus)
-	fmt.Println(22222222222222222)
+	//fmt.Println(111111111111111111)
+	//fmt.Println(pageInfo.PageNumber)
+	//fmt.Println(pageInfo.OrderStatus)
+	//fmt.Println(22222222222222222)
+	if err, list, total := mallOrderService.GetMallOrderBuyBackList(pageInfo, pageInfo.OrderNo, pageInfo.OrderStatus); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:       list,
+			TotalCount: total,
+			CurrPage:   pageInfo.PageNumber,
+			PageSize:   pageInfo.PageSize,
+		}, "获取成功", c)
+	}
+}
+
+func (m *ManageOrderApi) GetMallBuyBackListV2(c *gin.Context) {
+	var pageInfo request.PageInfo
+	_ = c.ShouldBindQuery(&pageInfo)
+	//orderNo := c.Query("orderNo")
+	//orderStatus := c.Query("orderStatus")
+	//fmt.Println(111111111111111111)
+	//fmt.Println(pageInfo.PageNumber)
+	//fmt.Println(pageInfo.OrderStatus)
+	//fmt.Println(22222222222222222)
 	if err, list, total := mallOrderService.GetMallOrderBuyBackList(pageInfo, pageInfo.OrderNo, pageInfo.OrderStatus); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)

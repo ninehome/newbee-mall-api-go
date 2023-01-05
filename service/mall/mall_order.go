@@ -136,6 +136,7 @@ func (m *MallOrderService) PaySuccess(orderNo string, payType int) (err error) {
 	mallOrder.OrderStatus = enum.ORDER_PAID.Code()
 	mallOrder.PayType = payType
 	mallOrder.PayStatus = 1
+	mallOrder.UserName = userInfo.LoginName
 	mallOrder.PayTime = common.JSONTime{time.Now()}
 	mallOrder.UpdateTime = common.JSONTime{time.Now()}
 	err = global.GVA_DB.Save(&mallOrder).Error

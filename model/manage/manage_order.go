@@ -17,6 +17,7 @@ type MallOrder struct {
 	IsDeleted   int             `json:"isDeleted" form:"isDeleted" gorm:"column:is_deleted;comment:删除标识字段(0-未删除 1-已删除);type:tinyint"`
 	CreateTime  common.JSONTime `json:"createTime" form:"createTime" gorm:"column:create_time;comment:创建时间;type:datetime"`
 	UpdateTime  common.JSONTime `json:"updateTime" form:"updateTime" gorm:"column:update_time;comment:最新修改时间;type:datetime"`
+	UserName    string          `json:"userName" form:"userName" gorm:"column:user_name;comment:用户名;type:varchar(30);"`
 }
 
 // TableName MallOrder 表名
