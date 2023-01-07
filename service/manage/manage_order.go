@@ -10,7 +10,6 @@ import (
 	"main.go/model/manage"
 	manageReq "main.go/model/manage/request"
 	manageRes "main.go/model/manage/response"
-	"math"
 	"strconv"
 	"time"
 )
@@ -102,8 +101,8 @@ func (m *ManageOrderService) UpdateOrder(token string, req manageReq.OrderStatus
 	}
 
 	//更新余额
-	var money = float64(order.TotalPrice) * 1.2
-	user.UserMoney = int(math.Ceil(money)) + user.UserMoney
+	//var money = float64(order.TotalPrice) * 1.2
+	user.UserMoney = req.OrderMoney + user.UserMoney
 
 	err = global.GVA_DB.Where("user_id = ?", user.UserId).Updates(&user).Error
 
