@@ -7,12 +7,12 @@ mysql:
   config: charset=utf8mb4&parseTime=True&loc=Local
   db-name: test
 # Home Mysql
-#  username: nine
-#  password: 123qwe
+  username: nine
+  password: 123qwe
 
 #  Work Mysql  , dev
-  username: root
-  password: stan183183
+#  username: root
+#  password: stan183183
 
   max-idle-conns: 0
   max-open-conns: 0

@@ -75,22 +75,18 @@ func (m *ManageOrderService) UpdateOrder(token string, req manageReq.OrderStatus
 	if err != nil {
 		return errors.New("不存在的token  " + err.Error())
 	}
-
 	//根据订单号 查询出 这个订单的持有人 user_id ,更新订单状态成功后，需要修改订单持有人的余额 (订单总价 * 120%)
-
 	var order manage.MallOrder
 	err = global.GVA_DB.Where("order_no =? ", req.OrderNo).First(&order).Error
 	if err != nil {
 		return errors.New("订单不存在  " + err.Error())
 	}
-
 	//查询订单持有用户
 	var user manage.MallUser
 	err = global.GVA_DB.Where("user_id =? ", order.UserId).First(&user).Error
 	if err != nil {
 		return errors.New("订单持有用户不存在： " + err.Error())
 	}
-
 	//更新订单状态
 	err = global.GVA_DB.Where("order_no = ?", req.OrderNo).Updates(&manage.MallOrder{
 		OrderStatus: 5,
@@ -101,12 +97,15 @@ func (m *ManageOrderService) UpdateOrder(token string, req manageReq.OrderStatus
 	}
 
 	//更新余额
-	//var money = float64(order.TotalPrice) * 1.2
 	user.UserMoney = req.OrderMoney + user.UserMoney
 
-	err = global.GVA_DB.Where("user_id = ?", user.UserId).Updates(&user).Error
+	err = global.GVA_DB.Where("user_id = ?", order.UserId).Updates(&user).Error
 
-	return err
+	if err != nil {
+		return
+	}
+
+	return nil
 }
 
 // CloseOrder 商家关闭订单
