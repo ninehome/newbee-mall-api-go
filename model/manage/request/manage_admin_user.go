@@ -15,6 +15,11 @@ type MallUpdateNameParam struct {
 	NickName      string `json:"nickName"`
 }
 
+type MallUpdatePswParam struct {
+	PasswordMd5 string `json:"passwordMd5"`
+	UserId      int    `json:"userId"`
+}
+
 type OrderStatusParam struct {
 	OrderNo string `json:"orderNo"`
 }

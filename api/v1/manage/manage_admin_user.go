@@ -57,6 +57,19 @@ func (m *ManageAdminUserApi) UpdateAdminUserPassword(c *gin.Context) {
 }
 
 // 更新用户名
+func (m *ManageAdminUserApi) UpdateAdminUserPsw(c *gin.Context) {
+	var req manageReq.MallUpdatePswParam
+	_ = c.ShouldBindJSON(&req)
+	userToken := c.GetHeader("token")
+	if err := mallAdminUserService.UpdateMallUserPsw(userToken, req); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败", c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
+}
+
+// 更新用户名
 func (m *ManageAdminUserApi) UpdateAdminUserName(c *gin.Context) {
 	var req manageReq.MallUpdateNameParam
 	_ = c.ShouldBindJSON(&req)
