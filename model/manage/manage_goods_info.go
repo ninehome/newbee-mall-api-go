@@ -14,6 +14,7 @@ type MallGoodsInfo struct {
 	GoodsCategoryId    int             `json:"goodsCategoryId" form:"goodsCategoryId" gorm:"column:goods_category_id;comment:关联分类id;type:bigint"`
 	GoodsCoverImg      string          `json:"goodsCoverImg" form:"goodsCoverImg" gorm:"column:goods_cover_img;comment:商品主图;type:varchar(200);"`
 	GoodsCarousel      string          `json:"goodsCarousel" form:"goodsCarousel" gorm:"column:goods_carousel;comment:商品轮播图;type:varchar(500);"`
+	GoodsCarousel1     string          `json:"goodsCarousel1" form:"goodsCarousel1" gorm:"column:goods_carousel_1;comment:商品轮播图;type:varchar(500);"`
 	GoodsDetailContent string          `json:"goodsDetailContent" form:"goodsDetailContent" gorm:"column:goods_detail_content;comment:商品详情;type:text;"`
 	OriginalPrice      int             `json:"originalPrice" form:"originalPrice" gorm:"column:original_price;comment:商品价格;type:int"`
 	SellingPrice       int             `json:"sellingPrice" form:"sellingPrice" gorm:"column:selling_price;comment:商品实际售价;type:int"`

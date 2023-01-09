@@ -96,7 +96,7 @@ func (m *MallGoodsInfoService) GetMallGoodsInfo(id int) (err error, res mallRes.
 		return err, mallRes.GoodsInfoDetailResponse{}
 	}
 	var list []string
-	list = append(list, mallGoodsInfo.GoodsCarousel)
+	list = append(list, mallGoodsInfo.GoodsCoverImg, mallGoodsInfo.GoodsCarousel, mallGoodsInfo.GoodsCarousel1)
 	res.GoodsCarouselList = list
 
 	return
