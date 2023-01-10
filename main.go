@@ -4,18 +4,19 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"main.go/core"
-	"main.go/global"
-	"main.go/initialize"
 	"os"
+	"strconv"
 )
 
 func main() {
+	//writerTxt()
 
-	global.GVA_VP = core.Viper()      // 初始化Viper
-	global.GVA_LOG = core.Zap()       // 初始化zap日志库
-	global.GVA_DB = initialize.Gorm() // gorm连接数据库
-	core.RunWindowsServer()           //设置路由,启动端口监听
+	initPhoneNumber(1234567, 2)
+
+	//global.GVA_VP = core.Viper()      // 初始化Viper
+	//global.GVA_LOG = core.Zap()       // 初始化zap日志库
+	//global.GVA_DB = initialize.Gorm() // gorm连接数据库
+	//core.RunWindowsServer()           //设置路由,启动端口监听
 
 	//测试git更新
 
@@ -62,4 +63,29 @@ func writerTxt() {
 	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
 	writer.Flush()
 
+}
+
+func initPhoneNumber(start int, diff int) {
+	//创建一个新文件，写入内容
+	filePath := "./output.txt"
+	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Printf("打开文件错误= %v \n", err)
+		return
+	}
+	//及时关闭
+	defer file.Close()
+	writer := bufio.NewWriter(file)
+	s := []int{903, 905, 906, 909, 960, 961, 962, 963, 964, 910, 911, 912, 913, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 925, 926, 927, 928, 929, 930, 931, 937, 980, 981, 982, 983, 984, 985, 986, 987, 988}
+	var i = start
+	for i = start; i < (start + diff); i++ {
+		for _, v := range s {
+			number := strconv.Itoa(v) + strconv.Itoa(i) + "\n"
+			//写入时，使用带缓存的 *Writer
+			writer.WriteString(number)
+		}
+
+	}
+
+	writer.Flush()
 }
