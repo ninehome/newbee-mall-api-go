@@ -9,7 +9,8 @@
 //号码检测
 http://guoji.konghao.net.cn/index.html
 
-
+//网页检测 WS
+https://watools.io/check-numbers
 
 //数据检测是否有WS  API
 https://www.nxcloud.com/document/whats-app/get-phone

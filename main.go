@@ -21,6 +21,8 @@ func main() {
 
 }
 
+//http://wa.me/9241234567
+
 func readTXT() {
 	//打开文件
 	file, err := os.Open("./output.txt")
