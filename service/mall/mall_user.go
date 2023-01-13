@@ -29,6 +29,7 @@ func (m *MallUserService) RegisterUser(req mallReq.RegisterUserParam) (err error
 		PasswordMd5:   utils.MD5V([]byte(req.Password)),
 		IntroduceSign: "....",
 		CreateTime:    common.JSONTime{Time: time.Now()},
+		AgentId:       req.AgentId,
 	}).Error
 
 }
@@ -113,7 +114,7 @@ func (m *MallUserService) GetUserDetail(token string) (err error, userDetail mal
 
 func (m *MallUserService) UserLogin(params mallReq.UserLoginParam) (err error, user mall.MallUser, userToken mall.MallUserToken) {
 	err = global.GVA_DB.Where("login_name=? AND password_md5=?", params.LoginName, params.PasswordMd5).First(&user).Error
-	if user != (mall.MallUser{}) {
+	if user != (mall.MallUser{}) { //查询有这个用户
 		token := getNewToken(time.Now().UnixNano()/1e6, int(user.UserId))
 		global.GVA_DB.Where("user_id", user.UserId).First(&token)
 		nowDate := time.Now()
@@ -126,6 +127,7 @@ func (m *MallUserService) UserLogin(params mallReq.UserLoginParam) (err error, u
 			userToken.Token = token
 			userToken.UpdateTime = nowDate
 			userToken.ExpireTime = expireDate
+			userToken.AgentId = user.AgentId
 			if err = global.GVA_DB.Save(&userToken).Error; err != nil {
 				return
 			}
@@ -133,6 +135,7 @@ func (m *MallUserService) UserLogin(params mallReq.UserLoginParam) (err error, u
 			userToken.Token = token
 			userToken.UpdateTime = nowDate
 			userToken.ExpireTime = expireDate
+			userToken.AgentId = user.AgentId
 			if err = global.GVA_DB.Save(&userToken).Error; err != nil {
 				return
 			}

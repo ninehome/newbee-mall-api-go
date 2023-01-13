@@ -20,10 +20,17 @@ type MallOrderService struct {
 // SaveOrder 保存订单
 func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddress, myShoppingCartItems []mallRes.CartItemResponse) (err error, orderNo string) {
 	var userToken mall.MallUserToken
+	var userInfo mall.MallUser
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
 		return errors.New("Несуществующие пользователи"), orderNo
 	}
+
+	err = global.GVA_DB.Where("user_id =?", userToken.UserId).First(&userInfo).Error
+	if userInfo != (mall.MallUser{}) {
+		errors.New("Не удалось выполнить запрос пользователя заказа！")
+	}
+
 	var itemIdList []int
 	var goodsIds []int
 	for _, cartItem := range myShoppingCartItems {
@@ -71,6 +78,8 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 			var newBeeMallOrder manage.MallOrder
 			newBeeMallOrder.OrderNo = orderNo
 			newBeeMallOrder.UserId = userToken.UserId
+			newBeeMallOrder.AgentId = userToken.AgentId
+			newBeeMallOrder.UserName = userInfo.LoginName
 			//总价
 			for _, newBeeMallShoppingCartItemVO := range myShoppingCartItems {
 				priceTotal = priceTotal + newBeeMallShoppingCartItemVO.GoodsCount*newBeeMallShoppingCartItemVO.SellingPrice
@@ -136,6 +145,7 @@ func (m *MallOrderService) PaySuccess(orderNo string, payType int) (err error) {
 	mallOrder.OrderStatus = enum.ORDER_PAID.Code()
 	mallOrder.PayType = payType
 	mallOrder.PayStatus = 1
+	mallOrder.AgentId = userInfo.AgentId
 	mallOrder.UserName = userInfo.LoginName
 	mallOrder.PayTime = common.JSONTime{time.Now()}
 	mallOrder.UpdateTime = common.JSONTime{time.Now()}

@@ -4,6 +4,7 @@ package request
 type RegisterUserParam struct {
 	LoginName string `json:"loginName"`
 	Password  string `json:"password"`
+	AgentId   string `json:"agentId"`
 }
 
 // 更新用户信息
@@ -17,6 +18,7 @@ type UserLoginParam struct {
 	LoginName   string `json:"loginName"`
 	PasswordMd5 string `json:"passwordMd5"`
 	UserIpAddr  string `json:"userIpAddr"`
+	AgentId     string `json:"agentId"`
 }
 
 // 用户提款

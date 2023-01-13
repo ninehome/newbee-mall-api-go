@@ -18,6 +18,7 @@ type MallOrder struct {
 	CreateTime  common.JSONTime `json:"createTime" form:"createTime" gorm:"column:create_time;comment:创建时间;type:datetime"`
 	UpdateTime  common.JSONTime `json:"updateTime" form:"updateTime" gorm:"column:update_time;comment:最新修改时间;type:datetime"`
 	UserName    string          `json:"userName" form:"userName" gorm:"column:user_name;comment:用户名;type:varchar(30);"`
+	AgentId     string          `json:"agentId" form:"agentId" gorm:"column:agent_id;comment:代理id;type:varchar(50);"`
 }
 
 // TableName MallOrder 表名

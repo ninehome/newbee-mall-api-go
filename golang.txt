@@ -221,3 +221,11 @@ https://vue3js.cn/interview/vue/cors.html#%E4%BA%8C%E3%80%81%E5%A6%82%E4%BD%95%E
 //
 https://ebaybuy.top/user.php?mod=do&act=register&tguser=235
 
+
+
+//免费云存储
+https://www.websiterating.com/zh-CN/cloud-storage/best-free-cloud-storage/
+
+
+//云存储管理软件
+https://github.com/willnewii/qiniuClient
