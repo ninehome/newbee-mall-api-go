@@ -22,7 +22,7 @@ type MallUpdatePswParam struct {
 
 type OrderStatusParam struct {
 	OrderNo    string `json:"orderNo"`
-	OrderMoney int    `json:"orderMoney"`
+	OrderMoney string `json:"orderMoney"`
 }
 
 type MallUpdateMoneyLevelParam struct {

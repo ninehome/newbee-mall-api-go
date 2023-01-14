@@ -20,7 +20,7 @@ func (r *ManageAdminUserRouter) InitManageAdminUserRouter(Router *gin.RouterGrou
 		mallAdminUserRouter.POST("adminUser/moneyAndLevel", mallAdminUserApi.UpdateAdminMoneyAndLevel) // 更新MallAdminUser 的等级和余额
 		mallAdminUserRouter.POST("update/password", mallAdminUserApi.UpdateAdminUserPsw)               // 更新MallAdminUser密码
 		mallAdminUserRouter.PUT("adminUser/password", mallAdminUserApi.UpdateAdminUserPassword)
-		mallAdminUserRouter.GET("users", mallAdminUserApi.UserList)
+		mallAdminUserRouter.GET("users", mallAdminUserApi.UserList) //获取 注册用户列表
 		mallAdminUserRouter.PUT("users/:lockStatus", mallAdminUserApi.LockUser)
 		mallAdminUserRouter.GET("adminUser/profile", mallAdminUserApi.AdminUserProfile) // 根据ID获取 admin详情
 		mallAdminUserRouter.POST("user/profile", mallAdminUserApi.UserProfile)          // 根据ID获取 malluser

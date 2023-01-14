@@ -2,6 +2,7 @@ package manage
 
 import (
 	"errors"
+	"fmt"
 	"github.com/jinzhu/copier"
 	"main.go/global"
 	"main.go/model/common"
@@ -69,22 +70,26 @@ func (m *ManageOrderService) CheckOut(ids request.IdsReq) (err error) {
 	return
 }
 
-func (m *ManageOrderService) UpdateOrder(token string, req manageReq.OrderStatusParam) (err error) {
-	var adminUserToken manage.MallAdminUserToken
-	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
-	if err != nil {
-		return errors.New("不存在的token  " + err.Error())
-	}
+func (m *ManageOrderService) UpdateOrder(req manageReq.OrderStatusParam) (err error) {
+	//var adminUserToken manage.MallAdminUserToken
+	//err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
+	//if err != nil {
+	//	return errors.New("不存在的token  " + err.Error())
+	//}
 	//根据订单号 查询出 这个订单的持有人 user_id ,更新订单状态成功后，需要修改订单持有人的余额 (订单总价 * 120%)
+
 	var order manage.MallOrder
 	err = global.GVA_DB.Where("order_no =? ", req.OrderNo).First(&order).Error
 	if err != nil {
+		fmt.Println(00000000000000000000)
 		return errors.New("订单不存在  " + err.Error())
 	}
+
 	//查询订单持有用户
 	var user manage.MallUser
 	err = global.GVA_DB.Where("user_id =? ", order.UserId).First(&user).Error
 	if err != nil {
+		fmt.Println(3333333333333)
 		return errors.New("订单持有用户不存在： " + err.Error())
 	}
 	//更新订单状态
@@ -93,19 +98,29 @@ func (m *ManageOrderService) UpdateOrder(token string, req manageReq.OrderStatus
 	}).Error
 
 	if err != nil {
-		return errors.New("不存在的token  " + err.Error())
+		fmt.Println(434343434343)
+		return errors.New("更新订单状态失败  " + err.Error())
+	}
+	money, e := strconv.Atoi(req.OrderMoney)
+	if e != nil {
+		fmt.Println(44444444444444)
+		return errors.New("填写的金额有误  " + err.Error())
 	}
 
 	//更新余额
-	user.UserMoney = req.OrderMoney + user.UserMoney
-
+	user.UserMoney = money + user.UserMoney
 	err = global.GVA_DB.Where("user_id = ?", order.UserId).Updates(&user).Error
 
 	if err != nil {
+		fmt.Println(5555555555555)
+		err = global.GVA_DB.Where("order_no = ?", req.OrderNo).Updates(&manage.MallOrder{
+			OrderStatus: 4,
+		}).Error
+
 		return
 	}
-
-	return nil
+	fmt.Println(7676767676)
+	return
 }
 
 // CloseOrder 商家关闭订单
@@ -160,7 +175,12 @@ func (m *ManageOrderService) GetMallOrder(id string) (err error, newBeeMallOrder
 }
 
 // GetMallOrderInfoList 分页获取MallOrder记录
-func (m *ManageOrderService) GetMallOrderInfoList(info request.PageInfo, orderNo string, orderStatus string) (err error, list interface{}, total int64) {
+func (m *ManageOrderService) GetMallOrderInfoList(info request.PageInfo, orderNo string, orderStatus string, token string) (err error, list interface{}, total int64) {
+	var adminUserToken manage.MallAdminUserToken
+	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
+	if err != nil {
+		return errors.New("不存在的token  " + err.Error()), list, total
+	}
 	limit := info.PageSize
 	offset := info.PageSize * (info.PageNumber - 1)
 	// 创建db
@@ -179,14 +199,24 @@ func (m *ManageOrderService) GetMallOrderInfoList(info request.PageInfo, orderNo
 	if err != nil {
 		return
 	}
-	err = db.Limit(limit).Offset(offset).Order("update_time desc").Find(&mallOrders).Error
+	if adminUserToken.AgentId == "8888" { //8888是最高管理权限
+		err = db.Limit(limit).Offset(offset).Order("update_time desc").Find(&mallOrders).Error
+	} else {
+		err = db.Limit(limit).Offset(offset).Where("agent_id", adminUserToken.AgentId).Order("update_time desc").Find(&mallOrders).Error
+	}
+
 	return err, mallOrders, total
 }
 
 // GetMallOrderInfoList 分页获取MallOrder记录
-func (m *ManageOrderService) GetMallOrderBuyBackList(info request.PageInfo, orderNo string, orderStatus string) (err error, list interface{}, total int64) {
+func (m *ManageOrderService) GetMallOrderBuyBackList(info request.PageInfo, orderNo string, orderStatus string, token string) (err error, list interface{}, total int64) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.PageNumber - 1)
+	var adminUserToken manage.MallAdminUserToken
+	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
+	if err != nil {
+		return errors.New("不存在的token  " + err.Error()), list, total
+	}
 	// 创建db
 	db := global.GVA_DB.Model(&manage.MallOrder{})
 	if orderNo != "" {
@@ -203,6 +233,12 @@ func (m *ManageOrderService) GetMallOrderBuyBackList(info request.PageInfo, orde
 	if err != nil {
 		return
 	}
-	err = db.Limit(limit).Offset(offset).Order("update_time desc").Find(&mallOrders).Error
+
+	if adminUserToken.AgentId == "8888" { //8888是最高管理权限
+		err = db.Limit(limit).Offset(offset).Order("update_time desc").Find(&mallOrders).Error
+	} else {
+		err = db.Limit(limit).Offset(offset).Where("agent_id", adminUserToken.AgentId).Order("update_time desc").Find(&mallOrders).Error
+	}
+
 	return err, mallOrders, total
 }

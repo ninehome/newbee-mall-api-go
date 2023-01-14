@@ -15,6 +15,7 @@ type MallUserWithdraw struct {
 	DealFlag      int             `json:"dealFlag" form:"dealFlag" gorm:"column:deal_flag;comment:出款处理状态(0-未处理 1-已出款 2-取消出款);type:tinyint"`
 	CreateTime    common.JSONTime `json:"createTime" form:"createTime" gorm:"column:create_time;comment:注册时间;type:datetime"`
 	UserIpAddr    string          `json:"userIpAddr" form:"userIpAddr" gorm:"column:user_ip_addr;comment:用户IP(默认null);type:varchar(32);"`
+	AgentId       string          `json:"agentId" form:"agentId" gorm:"column:agent_id;comment:代理id;type:varchar(50);"`
 }
 
 // TableName MallUserWithdraw 表名

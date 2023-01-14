@@ -152,7 +152,7 @@ func (m *ManageAdminUserApi) AdminLogin(c *gin.Context) {
 
 	fmt.Println(adminLoginParams)
 	if err, _, adminToken := mallAdminUserService.AdminLogin(adminLoginParams); err != nil {
-		response.FailWithMessage("登陆失败", c)
+		response.FailWithMessage("登陆失败:"+err.Error(), c)
 	} else {
 		response.OkWithData(adminToken.Token, c)
 	}
@@ -184,9 +184,10 @@ func (m *ManageAdminUserApi) AdminLogout(c *gin.Context) {
 
 // UserList 商城注册用户列表
 func (m *ManageAdminUserApi) UserList(c *gin.Context) {
+	token := c.GetHeader("token")
 	var pageInfo manageReq.MallUserSearch
 	_ = c.ShouldBindQuery(&pageInfo)
-	if err, list, total := mallUserService.GetMallUserInfoList(pageInfo); err != nil {
+	if err, list, total := mallUserService.GetMallUserInfoList(pageInfo, token); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -201,13 +202,13 @@ func (m *ManageAdminUserApi) UserList(c *gin.Context) {
 
 // 用户提款列表
 func (m *ManageAdminUserApi) WithdrawalHistory(c *gin.Context) {
-
+	token := c.GetHeader("token")
 	//var pageInfo manageReq.WithdrawalSearch
 	var param manageReq.PageInfo
 	//获取分页参数
 	_ = c.ShouldBindQuery(&param)
 
-	if err, list, total := mallUserService.GetMallUserWithdrawaList(param); err != nil {
+	if err, list, total := mallUserService.GetMallUserWithdrawaList(param, token); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

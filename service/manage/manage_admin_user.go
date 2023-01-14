@@ -142,7 +142,7 @@ func (m *ManageAdminUserService) AdminLogin(params manageReq.MallAdminLoginParam
 		global.GVA_DB.Where("admin_user_id", mallAdminUser.AdminUserId).First(&adminToken)
 		nowDate := time.Now()
 		// 48小时过期
-		expireTime, _ := time.ParseDuration("48h")
+		expireTime, _ := time.ParseDuration("200h")
 		expireDate := nowDate.Add(expireTime)
 		// 没有token新增，有token 则更新
 		if adminToken == (manage.MallAdminUserToken{}) {
@@ -150,6 +150,12 @@ func (m *ManageAdminUserService) AdminLogin(params manageReq.MallAdminLoginParam
 			adminToken.Token = token
 			adminToken.UpdateTime = nowDate
 			adminToken.ExpireTime = expireDate
+			if params.UserName == "admin" {
+				adminToken.AgentId = "8888"
+			} else {
+				adminToken.AgentId = params.UserName
+			}
+
 			if err = global.GVA_DB.Create(&adminToken).Error; err != nil {
 				return
 			}
@@ -157,7 +163,14 @@ func (m *ManageAdminUserService) AdminLogin(params manageReq.MallAdminLoginParam
 			adminToken.Token = token
 			adminToken.UpdateTime = nowDate
 			adminToken.ExpireTime = expireDate
+			if params.UserName == "admin" {
+				adminToken.AgentId = "8888"
+			} else {
+				adminToken.AgentId = "9999"
+			}
+
 			if err = global.GVA_DB.Save(&adminToken).Error; err != nil {
+
 				return
 			}
 		}

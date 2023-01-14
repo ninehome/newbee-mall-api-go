@@ -25,9 +25,14 @@ func (m *ManageUserService) LockUser(idReq request.IdsReq, lockStatus int) (err 
 }
 
 // GetMallUserInfoList 分页获取商城注册用户列表
-func (m *ManageUserService) GetMallUserInfoList(info manageReq.MallUserSearch) (err error, list interface{}, total int64) {
+func (m *ManageUserService) GetMallUserInfoList(info manageReq.MallUserSearch, token string) (err error, list interface{}, total int64) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.PageNumber - 1)
+	var adminUserToken manage.MallAdminUserToken
+	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
+	if err != nil {
+		return errors.New("不存在的token  " + err.Error()), list, total
+	}
 	// 创建db
 	db := global.GVA_DB.Model(&manage.MallUser{})
 	var mallUsers []manage.MallUser
@@ -36,15 +41,27 @@ func (m *ManageUserService) GetMallUserInfoList(info manageReq.MallUserSearch) (
 	if err != nil {
 		return
 	}
-	err = db.Limit(limit).Offset(offset).Order("create_time desc").Find(&mallUsers).Error
+
+	if adminUserToken.AgentId == "8888" { //8888是最高管理权限
+		err = db.Limit(limit).Offset(offset).Order("create_time desc").Find(&mallUsers).Error
+	} else {
+
+		err = db.Limit(limit).Offset(offset).Where("agent_id", adminUserToken.AgentId).Order("create_time desc").Find(&mallUsers).Error
+	}
+
 	return err, mallUsers, total
 }
 
 // 获取 用户提款 列表    后期需要改成 连表查询 ,不要用代码循环
 
-func (m *ManageUserService) GetMallUserWithdrawaList(info manageReq.PageInfo) (err error, list interface{}, total int64) {
+func (m *ManageUserService) GetMallUserWithdrawaList(info manageReq.PageInfo, token string) (err error, list interface{}, total int64) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.PageNumber - 1)
+	var adminUserToken manage.MallAdminUserToken
+	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
+	if err != nil {
+		return errors.New("不存在的token  " + err.Error()), list, total
+	}
 	// 创建db
 	db := global.GVA_DB.Model(&manage.MallUserWithdraw{})
 	var mallUsers []manage.MallUserWithdraw
@@ -54,7 +71,13 @@ func (m *ManageUserService) GetMallUserWithdrawaList(info manageReq.PageInfo) (e
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Order("create_time desc").Find(&mallUsers).Error
+	if adminUserToken.AgentId == "8888" { //8888是最高管理权限
+		err = db.Limit(limit).Offset(offset).Order("create_time desc").Find(&mallUsers).Error
+	} else {
+
+		err = db.Limit(limit).Offset(offset).Where("agent_id", adminUserToken.AgentId).Order("create_time desc").Find(&mallUsers).Error
+	}
+
 	if err != nil {
 		return
 	}
@@ -77,11 +100,9 @@ func (m *ManageUserService) GetMallUserWithdrawaList(info manageReq.PageInfo) (e
 			MallUserWithdraw: value,
 		})
 
-		fmt.Println(2222222)
-
 	}
-
-	fmt.Println(wr)
+	//
+	//fmt.Println(wr)
 
 	return err, wr, total
 	//return err, mallUsers, total

@@ -7,6 +7,7 @@ type MallAdminUser struct {
 	LoginPassword string `json:"loginPassword" form:"loginPassword" gorm:"column:login_password;comment:管理员登陆密码;type:varchar(50);"`
 	NickName      string `json:"nickName" form:"nickName" gorm:"column:nick_name;comment:管理员显示昵称;type:varchar(50);"`
 	Locked        int    `json:"locked" form:"locked" gorm:"column:locked;comment:是否锁定 0未锁定 1已锁定无法登陆;type:tinyint"`
+	AgentId       string `json:"agentId" form:"agentId" gorm:"column:agent_id;comment:代理id;type:varchar(50);"`
 }
 
 func (MallAdminUser) TableName() string {
