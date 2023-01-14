@@ -48,7 +48,7 @@ func (m *ManageOrderApi) CloseOrder(c *gin.Context) {
 	}
 }
 
-// ChangeOrderStatus 改变 订单的状态
+// 订单回购接口
 func (m *ManageOrderApi) ChangeOrderStatus(c *gin.Context) {
 	var req manageReq.OrderStatusParam
 	_ = c.ShouldBindJSON(&req)
@@ -57,7 +57,7 @@ func (m *ManageOrderApi) ChangeOrderStatus(c *gin.Context) {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败 "+err.Error(), c)
 	} else {
-		response.OkWithMessage("更新成功", c)
+		response.OkWithData("更新成功", c)
 	}
 }
 
