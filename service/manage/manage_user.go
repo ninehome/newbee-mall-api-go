@@ -34,8 +34,8 @@ func (m *ManageUserService) GetMallUserInfoList(info manageReq.MallUserSearch, t
 		return errors.New("不存在的token  " + err.Error()), list, total
 	}
 	// 创建db
-	db := global.GVA_DB.Model(&manage.MallUser{})
-	var mallUsers []manage.MallUser
+	db := global.GVA_DB.Model(&mall.MallUser{})
+	var mallUsers []mall.MallUser
 	// 如果有条件搜索 下方会自动创建搜索语句
 	err = db.Count(&total).Error
 	if err != nil {
