@@ -189,14 +189,14 @@ func (m *ManageAdminUserApi) UserList(c *gin.Context) {
 	_ = c.ShouldBindQuery(&pageInfo)
 	if err, list, total := mallUserService.GetMallUserInfoList(pageInfo, token); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
-		response.FailWithMessage("获取失败", c)
+		response.FailWithMessage("获取注册用户失败", c)
 	} else {
 		response.OkWithDetailed(response.PageResult{
 			List:       list,
 			TotalCount: total,
 			CurrPage:   pageInfo.PageNumber,
 			PageSize:   pageInfo.PageSize,
-		}, "获取成功", c)
+		}, "获取注册用户成功", c)
 	}
 }
 
