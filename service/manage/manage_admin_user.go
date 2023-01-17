@@ -146,7 +146,7 @@ func (m *ManageAdminUserService) AdminLogin(params manageReq.MallAdminLoginParam
 		expireDate := nowDate.Add(expireTime)
 		// 没有token新增，有token 则更新
 		if adminToken == (manage.MallAdminUserToken{}) {
-
+			adminToken.AdminUserId = mallAdminUser.AdminUserId
 			adminToken.Token = token
 			adminToken.UpdateTime = nowDate
 			adminToken.ExpireTime = expireDate
@@ -160,6 +160,7 @@ func (m *ManageAdminUserService) AdminLogin(params manageReq.MallAdminLoginParam
 				return
 			}
 		} else {
+			adminToken.AdminUserId = mallAdminUser.AdminUserId
 			adminToken.Token = token
 			adminToken.UpdateTime = nowDate
 			adminToken.ExpireTime = expireDate
