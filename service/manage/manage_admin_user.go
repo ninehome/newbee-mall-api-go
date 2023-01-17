@@ -166,11 +166,10 @@ func (m *ManageAdminUserService) AdminLogin(params manageReq.MallAdminLoginParam
 			if params.UserName == "admin" {
 				adminToken.AgentId = "8888"
 			} else {
-				adminToken.AgentId = "9999"
+				adminToken.AgentId = params.UserName
 			}
 
 			if err = global.GVA_DB.Save(&adminToken).Error; err != nil {
-
 				return
 			}
 		}
