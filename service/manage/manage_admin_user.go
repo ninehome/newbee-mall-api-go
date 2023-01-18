@@ -58,10 +58,16 @@ func (m *ManageAdminUserService) UpdateMallAdminMoneyAndLevel(token string, req 
 	if err != nil {
 		return errors.New("不存在的用户")
 	}
-	err = global.GVA_DB.Where("user_id = ?", req.UserId).Updates(&manage.MallUser{
-		UserMoney: req.UserMoney,
-		UserLevel: req.UserLevel,
-	}).Error
+	//这个方法只更新不为0值的
+	//err = global.GVA_DB.Where("user_id = ?", req.UserId).Update(&manage.MallUser{
+	//	UserMoney: req.UserMoney,
+	//	UserLevel: req.UserLevel,
+	//}).Error
+
+	err = global.GVA_DB.Model(mall.MallUser{}).Where("user_id = ?", req.UserId).Updates(map[string]interface{}{"user_money": req.UserMoney, "user_level": req.UserLevel}).Error
+	if err != nil {
+		return errors.New("余额更新失败" + err.Error())
+	}
 	return err
 }
 
