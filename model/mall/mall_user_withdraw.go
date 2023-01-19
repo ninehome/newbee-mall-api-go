@@ -27,7 +27,7 @@ type MallUserWithdraw struct {
 	UserMoney     int             `json:"userMoney" form:"userMoney" gorm:"column:user_money;comment:用户余额;type:int"`
 	UserLevel     int             `json:"userLevel" form:"userLevel" gorm:"column:user_level;comment:用户等级;type:tinyint"`
 	WithdrawMoney int             `json:"withdrawMoney" form:"withdrawMoney" gorm:"column:withdraw_money;comment:提款金额;type:int"`
-	DealFlag      int             `json:"dealFlag" form:"dealFlag" gorm:"column:deal_flag;comment:出款处理状态(0-未处理 1-已出款 2-取消出款);type:tinyint"`
+	DealFlag      int             `json:"dealFlag" form:"dealFlag" gorm:"column:deal_flag;comment:出款处理状态(0-未处理 1-已出款 2-驳回出款);type:tinyint"`
 	CreateTime    common.JSONTime `json:"createTime" form:"createTime" gorm:"column:create_time;comment:注册时间;type:datetime"`
 	UserIpAddr    string          `json:"userIpAddr" form:"userIpAddr" gorm:"column:user_ip_addr;comment:用户IP(默认null);type:varchar(32);"`
 }

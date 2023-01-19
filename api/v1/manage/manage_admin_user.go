@@ -93,6 +93,18 @@ func (m *ManageAdminUserApi) UpdateAdminMoneyAndLevel(c *gin.Context) {
 	}
 }
 
+func (m *ManageAdminUserApi) UpdateWithdrawal(c *gin.Context) {
+	var req manageReq.MallUpdateWithdrawalParam
+	_ = c.ShouldBindJSON(&req)
+	userToken := c.GetHeader("token")
+	if err := mallAdminUserService.UpdateWithdrawal(userToken, req); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败"+err.Error(), c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
+}
+
 func (m *ManageAdminUserApi) UpdateMallChat(c *gin.Context) {
 	var req manageReq.MallUpdateChatParam
 	_ = c.ShouldBindJSON(&req)

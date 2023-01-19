@@ -2,7 +2,6 @@ package manage
 
 import (
 	"errors"
-	"fmt"
 	"gorm.io/gorm"
 	"main.go/global"
 	"main.go/model/mall"
@@ -71,6 +70,38 @@ func (m *ManageAdminUserService) UpdateMallAdminMoneyAndLevel(token string, req 
 	return err
 }
 
+// 更新提款状态
+func (m *ManageAdminUserService) UpdateWithdrawal(token string, req manageReq.MallUpdateWithdrawalParam) (err error) {
+	var userWithdraw mall.MallUserWithdraw
+	var user mall.MallUser
+	err = global.GVA_DB.Where("withdraw_id =? ", req.WithdrawId).First(&userWithdraw).Error
+	if err != nil {
+		return errors.New("不存在的提款订单：999" + err.Error())
+	}
+
+	//处理提款逻辑 如果是确认出款，不需要变化用户余额， 如果是驳回提款，需要退回用户余额
+	if req.DealFlag == 2 {
+		//驳回提款 需要把余额退回用户账户
+		err = global.GVA_DB.Model(mall.MallUser{}).Where("user_id =? ", userWithdraw.UserId).First(&user).Error
+		if err != nil {
+			return errors.New("用户不存在：1000  userWithdraw.UserId= " + strconv.Itoa(userWithdraw.UserId) + err.Error())
+		}
+
+		var totalMoney = user.UserMoney + userWithdraw.WithdrawMoney
+		err = global.GVA_DB.Model(mall.MallUser{}).Where("user_id = ?", userWithdraw.UserId).Updates(map[string]interface{}{"user_money": totalMoney}).Error
+		if err != nil {
+			return errors.New("更新余额失败：1001" + err.Error())
+		}
+
+	}
+
+	err = global.GVA_DB.Model(mall.MallUserWithdraw{}).Where("withdraw_id = ?", req.WithdrawId).Updates(map[string]interface{}{"deal_flag": req.DealFlag}).Error
+	if err != nil {
+		return errors.New("更新失败,用户不存在1002" + err.Error())
+	}
+	return err
+}
+
 func (m *ManageAdminUserService) UpdateMallChat(token string, req manageReq.MallUpdateChatParam) (err error) {
 	//var adminUserToken manage.MallAdminUserToken
 	//err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
@@ -83,7 +114,7 @@ func (m *ManageAdminUserService) UpdateMallChat(token string, req manageReq.Mall
 	//	UserLevel: req.UserLevel,
 	//}).Error
 
-	fmt.Println(req.IsDeleted)
+	//fmt.Println(req.IsDeleted)
 	err = global.GVA_DB.Where("chat_id = ?", req.ChatId).Updates(&mall.MallUserChat{
 		ChatValue: req.ChatValue,
 		IsDeleted: req.IsDeleted,

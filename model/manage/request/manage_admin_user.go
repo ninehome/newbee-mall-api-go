@@ -33,6 +33,11 @@ type MallUpdateMoneyLevelParam struct {
 	//NickName      int `json:"nickName"`
 }
 
+type MallUpdateWithdrawalParam struct {
+	DealFlag   int `json:"dealFlag"`
+	WithdrawId int `json:"withdrawId"`
+}
+
 type MallUpdateChatParam struct {
 	ChatValue string `json:"ChatValue" `
 	IsDeleted int    `json:"isDeleted"`
