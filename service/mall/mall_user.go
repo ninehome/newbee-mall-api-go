@@ -60,6 +60,7 @@ func (m *MallUserService) UserWithdrawal(token string, req mallReq.WithdrawalPar
 	userw.BankId = req.BankId
 	userw.UserId = userInfo.UserId
 	userw.LoginName = userInfo.LoginName
+	userw.AgentId = userInfo.AgentId
 
 	err = global.GVA_DB.Create(&userw).Error
 	if err != nil {
