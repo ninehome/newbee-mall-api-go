@@ -4,6 +4,12 @@ type MallAdminLoginParam struct {
 	UserName    string `json:"userName"`
 	PasswordMd5 string `json:"passwordMd5"`
 }
+
+type MallAdminCreateParam struct {
+	UserName string `json:"userName"`
+	Password string `json:"password"`
+	AgentId  string `json:"agentId"`
+}
 type MallAdminParam struct {
 	LoginUserName string `json:"loginUserName"`
 	LoginPassword string `json:"loginPassword"`

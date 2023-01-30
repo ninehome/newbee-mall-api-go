@@ -1,6 +1,8 @@
 package manage
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"errors"
 	"gorm.io/gorm"
 	"main.go/global"
@@ -213,6 +215,36 @@ func (m *ManageAdminUserService) AdminLogin(params manageReq.MallAdminLoginParam
 		}
 	}
 	return err, mallAdminUser, adminToken
+
+}
+
+// AdminLogin 管理员登陆
+func (m *ManageAdminUserService) AdminCreate(params manageReq.MallAdminCreateParam) (err error, ad manage.MallAdminUser) {
+	var mallAdminUser manage.MallAdminUser
+	err = global.GVA_DB.Where("login_user_name=? ", params.UserName).First(&mallAdminUser).Error
+	if mallAdminUser != (manage.MallAdminUser{}) {
+		return errors.New("此用户名已经存在，请更换用户名"), mallAdminUser
+	}
+
+	err = global.GVA_DB.Where("agent_id=? ", params.AgentId).First(&mallAdminUser).Error
+	if mallAdminUser != (manage.MallAdminUser{}) {
+		return errors.New("此用代理号码已经存在，请更换代理号码"), mallAdminUser
+	}
+
+	s := md5.New()
+	s.Write([]byte(params.Password))
+
+	mallAdminUser.LoginPassword = hex.EncodeToString(s.Sum(nil))
+	mallAdminUser.LoginUserName = params.UserName
+	mallAdminUser.NickName = params.UserName
+	mallAdminUser.AgentId = params.AgentId
+	mallAdminUser.Locked = 0
+
+	if err = global.GVA_DB.Create(&mallAdminUser).Error; err != nil {
+		return errors.New("创建失败"), mallAdminUser
+	}
+
+	return err, mallAdminUser
 
 }
 

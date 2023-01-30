@@ -169,6 +169,18 @@ func (m *ManageAdminUserApi) AdminLogin(c *gin.Context) {
 	}
 }
 
+// AdminLogin 新增管理员
+func (m *ManageAdminUserApi) AdminCreate(c *gin.Context) {
+	var adminLoginParams manageReq.MallAdminCreateParam
+	_ = c.ShouldBindJSON(&adminLoginParams)
+	//fmt.Println(adminLoginParams)
+	if err, _ := mallAdminUserService.AdminCreate(adminLoginParams); err != nil {
+		response.FailWithMessage("登陆失败:"+err.Error(), c)
+	} else {
+		response.OkWithData("创建成功", c)
+	}
+}
+
 // 获取联系方式
 func (m *ManageAdminUserApi) UserChatList(c *gin.Context) {
 	token := c.GetHeader("token")
