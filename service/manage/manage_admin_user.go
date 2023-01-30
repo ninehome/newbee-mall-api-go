@@ -192,24 +192,24 @@ func (m *ManageAdminUserService) AdminLogin(params manageReq.MallAdminLoginParam
 			if params.UserName == "admin" {
 				adminToken.AgentId = "8888"
 			} else {
-				adminToken.AgentId = params.UserName
+				adminToken.AgentId = mallAdminUser.AgentId
 			}
 
 			if err = global.GVA_DB.Create(&adminToken).Error; err != nil {
 				return
 			}
 		} else {
-			adminToken.AdminUserId = mallAdminUser.AdminUserId
+			//adminToken.AdminUserId = mallAdminUser.AdminUserId
 			adminToken.Token = token
 			adminToken.UpdateTime = nowDate
 			adminToken.ExpireTime = expireDate
 			if params.UserName == "admin" {
 				adminToken.AgentId = "8888"
 			} else {
-				adminToken.AgentId = params.UserName
+				adminToken.AgentId = mallAdminUser.AgentId
 			}
 
-			if err = global.GVA_DB.Save(&adminToken).Error; err != nil {
+			if err = global.GVA_DB.Where("agent_id =?", mallAdminUser.AgentId).Save(&adminToken).Error; err != nil {
 				return
 			}
 		}
