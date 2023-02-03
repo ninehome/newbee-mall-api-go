@@ -244,21 +244,22 @@ func (m *ManageOrderService) GetMallOrderInfoListV2(info request.PageInfo, order
 
 	for _, value := range mallOrders {
 		var orderItems []manage.MallOrderItem
+		var newBeeMallOrderDetailVO manageRes.NewBeeMallOrderDetailVO
 		if err = global.GVA_DB.Where("order_id = ?", value.OrderId).Find(&orderItems).Error; err != nil {
 			return
 		}
 		//获取订单项数据
-		//if len(orderItems) > 0 {
-		//	var newBeeMallOrderItemVOS []manageRes.NewBeeMallOrderItemVO
-		//	copier.Copy(&newBeeMallOrderItemVOS, &orderItems)
-		//	copier.Copy(&newBeeMallOrderDetailVO, &value)
-		//
-		//	_, OrderStatusStr := enum.GetNewBeeMallOrderStatusEnumByStatus(newBeeMallOrderDetailVO.OrderStatus)
-		//	_, payTapStr := enum.GetNewBeeMallOrderStatusEnumByStatus(newBeeMallOrderDetailVO.PayType)
-		//	newBeeMallOrderDetailVO.OrderStatusString = OrderStatusStr
-		//	newBeeMallOrderDetailVO.PayTypeString = payTapStr
-		//	newBeeMallOrderDetailVO.NewBeeMallOrderItemVOS = newBeeMallOrderItemVOS
-		//}
+		if len(orderItems) > 0 {
+			var newBeeMallOrderItemVOS []manageRes.NewBeeMallOrderItemVO
+			copier.Copy(&newBeeMallOrderItemVOS, &orderItems)
+			copier.Copy(&newBeeMallOrderDetailVO, &value)
+
+			_, OrderStatusStr := enum.GetNewBeeMallOrderStatusEnumByStatus(newBeeMallOrderDetailVO.OrderStatus)
+			_, payTapStr := enum.GetNewBeeMallOrderStatusEnumByStatus(newBeeMallOrderDetailVO.PayType)
+			newBeeMallOrderDetailVO.OrderStatusString = OrderStatusStr
+			newBeeMallOrderDetailVO.PayTypeString = payTapStr
+			newBeeMallOrderDetailVO.NewBeeMallOrderItemVOS = newBeeMallOrderItemVOS
+		}
 
 	}
 
