@@ -19,6 +19,7 @@ func (r *ManageOrderRouter) InitManageOrderRouter(Router *gin.RouterGroup) {
 		mallOrderRouter.GET("orders/:orderId", mallOrderApi.FindMallOrder)     // 根据ID获取MallOrder
 		mallOrderRouter.GET("orders", mallOrderApi.GetMallOrderList)           // 获取MallOrder列表
 		mallOrderRouter.POST("orders/v2", mallOrderApi.GetMallBuyBackListV2)   // 获取MallOrder列表
+		mallOrderRouter.GET("orders/v2", mallOrderApi.GetMallBuyBackListV2)    // 获取MallOrder列表
 		mallOrderRouter.GET("orders/buyback", mallOrderApi.GetMallBuyBackList) // 获取 回购的列表
 		mallOrderRouter.POST("orders/back", mallOrderApi.ChangeOrderStatus)    //订单回购接口
 	}

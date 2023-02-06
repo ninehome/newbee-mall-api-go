@@ -20,4 +20,5 @@ type NewBeeMallOrderItemVO struct {
 	GoodsCount    int    `json:"goodsCount"`
 	GoodsCoverImg string `json:"goodsCoverImg"`
 	SellingPrice  int    `json:"sellingPrice"`
+	OrderId       int    `json:"orderId"`
 }
