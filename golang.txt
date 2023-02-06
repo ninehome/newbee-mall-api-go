@@ -231,3 +231,7 @@ https://www.websiterating.com/zh-CN/cloud-storage/best-free-cloud-storage/
 https://github.com/willnewii/qiniuClient
 
 https://wildberries.store/#/register?agent=6001
+
+
+lsof - i:9191
+kill -9 76303
