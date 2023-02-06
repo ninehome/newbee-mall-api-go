@@ -11,6 +11,7 @@ type NewBeeMallOrderDetailVO struct {
 	OrderStatus            int                     `json:"orderStatus"`
 	OrderStatusString      string                  `json:"orderStatusString"`
 	CreateTime             common.JSONTime         `json:"createTime"`
+	UserName               string                  `json:"userName"`
 	NewBeeMallOrderItemVOS []NewBeeMallOrderItemVO `json:"newBeeMallOrderItemVOS"`
 }
 
