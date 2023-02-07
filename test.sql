@@ -1,71 +1,94 @@
-/*
- Navicat Premium Data Transfer
+-- phpMyAdmin SQL Dump
+-- version 4.4.15.10
+-- https://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: 2023-02-07 14:32:25
+-- 服务器版本： 5.6.50-log
+-- PHP Version: 7.0.33
 
- Source Server         : neo
- Source Server Type    : MySQL
- Source Server Version : 50728 (5.7.28)
- Source Host           : localhost:3306
- Source Schema         : test
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
- Target Server Type    : MySQL
- Target Server Version : 50728 (5.7.28)
- File Encoding         : 65001
 
- Date: 07/12/2022 23:38:37
-*/
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
+--
+-- Database: `test`
+--
 
--- ----------------------------
--- Table structure for tb_newbee_mall_admin_user
--- ----------------------------
-DROP TABLE IF EXISTS `tb_newbee_mall_admin_user`;
-CREATE TABLE `tb_newbee_mall_admin_user` (
-  `admin_user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '管理员id',
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tb_newbee_mall_admin_user`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_admin_user` (
+  `admin_user_id` bigint(20) NOT NULL COMMENT '管理员id',
   `login_user_name` varchar(50) NOT NULL COMMENT '管理员登陆名称',
   `login_password` varchar(50) NOT NULL COMMENT '管理员登陆密码',
   `nick_name` varchar(50) NOT NULL COMMENT '管理员显示昵称',
   `locked` tinyint(4) DEFAULT '0' COMMENT '是否锁定 0未锁定 1已锁定无法登陆',
-  PRIMARY KEY (`admin_user_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+  `agent_id` varchar(10) DEFAULT '0' COMMENT '代理id'
+) ENGINE=InnoDB AUTO_INCREMENT=6011 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Records of tb_newbee_mall_admin_user
--- ----------------------------
-BEGIN;
-INSERT INTO `tb_newbee_mall_admin_user` (`admin_user_id`, `login_user_name`, `login_password`, `nick_name`, `locked`) VALUES (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', '十三', 0);
-INSERT INTO `tb_newbee_mall_admin_user` (`admin_user_id`, `login_user_name`, `login_password`, `nick_name`, `locked`) VALUES (2, 'newbee-admin1', 'e10adc3949ba59abbe56e057f20f883e', '新蜂01', 0);
-INSERT INTO `tb_newbee_mall_admin_user` (`admin_user_id`, `login_user_name`, `login_password`, `nick_name`, `locked`) VALUES (3, 'newbee-admin2', 'e10adc3949ba59abbe56e057f20f883e', '新蜂02', 0);
-COMMIT;
+--
+-- 转存表中的数据 `tb_newbee_mall_admin_user`
+--
 
--- ----------------------------
--- Table structure for tb_newbee_mall_admin_user_token
--- ----------------------------
-DROP TABLE IF EXISTS `tb_newbee_mall_admin_user_token`;
-CREATE TABLE `tb_newbee_mall_admin_user_token` (
+INSERT INTO `tb_newbee_mall_admin_user` (`admin_user_id`, `login_user_name`, `login_password`, `nick_name`, `locked`, `agent_id`) VALUES
+(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', '总后台', 0, '8888'),
+(2, '6001', 'e10adc3949ba59abbe56e057f20f883e', '6001', 0, '6001'),
+(3, '6002', 'e10adc3949ba59abbe56e057f20f883e', '6002', 0, '6002'),
+(4, '6003', 'e10adc3949ba59abbe56e057f20f883e', '6003', 0, '6003'),
+(5, '6004', 'e10adc3949ba59abbe56e057f20f883e', '6004', 0, '6004'),
+(6, '6005', 'e10adc3949ba59abbe56e057f20f883e', '6005', 0, '6005'),
+(7, '6006', 'e10adc3949ba59abbe56e057f20f883e', '6006', 0, '6006'),
+(8, '6007', 'e10adc3949ba59abbe56e057f20f883e', '6007', 0, '6007'),
+(9, '6008', 'e10adc3949ba59abbe56e057f20f883e', '6008', 0, '6008'),
+(10, '6009', 'e10adc3949ba59abbe56e057f20f883e', '6009', 0, '6009'),
+(6008, 'test', 'e10adc3949ba59abbe56e057f20f883e', 'test', 0, 'test');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tb_newbee_mall_admin_user_token`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_admin_user_token` (
   `admin_user_id` bigint(20) NOT NULL COMMENT '用户主键id',
   `token` varchar(32) NOT NULL COMMENT 'token值(32位字符串)',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   `expire_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'token过期时间',
-  PRIMARY KEY (`admin_user_id`),
-  UNIQUE KEY `uq_token` (`token`)
+  `agent_id` varchar(20) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of tb_newbee_mall_admin_user_token
--- ----------------------------
-BEGIN;
-INSERT INTO `tb_newbee_mall_admin_user_token` (`admin_user_id`, `token`, `update_time`, `expire_time`) VALUES (1, '2ea46cec686f8d31eef5fdaa5238d4c3', '2022-12-06 22:35:19', '2022-12-08 22:35:19');
-INSERT INTO `tb_newbee_mall_admin_user_token` (`admin_user_id`, `token`, `update_time`, `expire_time`) VALUES (2, '1995b60fccb5949df07d2974f0ac6858', '2022-12-07 00:53:11', '2022-12-09 00:53:11');
-COMMIT;
+--
+-- 转存表中的数据 `tb_newbee_mall_admin_user_token`
+--
 
--- ----------------------------
--- Table structure for tb_newbee_mall_carousel
--- ----------------------------
-DROP TABLE IF EXISTS `tb_newbee_mall_carousel`;
-CREATE TABLE `tb_newbee_mall_carousel` (
-  `carousel_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '首页轮播图主键id',
+INSERT INTO `tb_newbee_mall_admin_user_token` (`admin_user_id`, `token`, `update_time`, `expire_time`, `agent_id`) VALUES
+(2, 'a0de210c26605f927d964898ef0e3c8e', '2023-02-07 14:13:38', '2025-05-20 22:13:38', '6001'),
+(3, '3c6493ed5556a797ceaa60f15fb6bd07', '2023-02-02 17:02:51', '2023-02-11 01:02:51', '6002'),
+(4, '6e28826f7c28b60b1000a291dd0db101', '2023-02-06 15:34:59', '2023-02-14 23:34:59', '6003'),
+(5, 'de6a63e7b15da6c733fe2563d588dd55', '2023-02-02 20:51:52', '2023-02-11 04:51:52', '6004'),
+(6, '529e8a5e3c4c5686daefb33ff20c7e79', '2023-01-30 17:22:24', '2023-02-08 01:22:24', '6005'),
+(7, 'a46e80a0c346c27513e6690f96346e10', '2023-02-01 21:02:46', '2023-02-10 05:02:46', '6006'),
+(8, '698f1358eb4c9e7ea0eaeb6de0782373', '2023-02-06 16:15:56', '2023-02-15 00:15:56', '6007'),
+(9, '32fd5e1eeaf7c41b3f9cb71e30f22f94', '2023-02-06 15:03:05', '2023-02-14 23:03:05', '6008'),
+(10, '2c5aca702d8fcb85ff0483d9595a4304', '2023-02-06 15:02:23', '2023-02-14 23:02:23', '6009');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tb_newbee_mall_carousel`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_carousel` (
+  `carousel_id` int(11) NOT NULL COMMENT '首页轮播图主键id',
   `carousel_url` varchar(100) NOT NULL DEFAULT '' COMMENT '轮播图',
   `redirect_url` varchar(100) NOT NULL DEFAULT '''##''' COMMENT '点击后的跳转地址(默认不跳转)',
   `carousel_rank` int(11) NOT NULL DEFAULT '0' COMMENT '排序值(字段越大越靠前)',
@@ -73,27 +96,28 @@ CREATE TABLE `tb_newbee_mall_carousel` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `create_user` int(11) NOT NULL DEFAULT '0' COMMENT '创建者id',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-  `update_user` int(11) NOT NULL DEFAULT '0' COMMENT '修改者id',
-  PRIMARY KEY (`carousel_id`) USING BTREE
+  `update_user` int(11) NOT NULL DEFAULT '0' COMMENT '修改者id'
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Records of tb_newbee_mall_carousel
--- ----------------------------
-BEGIN;
-INSERT INTO `tb_newbee_mall_carousel` (`carousel_id`, `carousel_url`, `redirect_url`, `carousel_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (1, 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner2.jpg', '##', 200, 1, '2019-08-23 17:50:45', 0, '2019-11-10 00:23:01', 0);
-INSERT INTO `tb_newbee_mall_carousel` (`carousel_id`, `carousel_url`, `redirect_url`, `carousel_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (2, 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner1.png', 'https://juejin.im/book/5da2f9d4f265da5b81794d48/section/5da2f9d6f265da5b794f2189', 13, 0, '2019-11-29 00:00:00', 0, '2019-11-29 00:00:00', 0);
-INSERT INTO `tb_newbee_mall_carousel` (`carousel_id`, `carousel_url`, `redirect_url`, `carousel_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (3, 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner3.jpg', '##', 0, 1, '2019-09-18 18:26:38', 0, '2019-11-10 00:23:01', 0);
-INSERT INTO `tb_newbee_mall_carousel` (`carousel_id`, `carousel_url`, `redirect_url`, `carousel_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (5, 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner2.png', 'https://juejin.im/book/5da2f9d4f265da5b81794d48/section/5da2f9d6f265da5b794f2189', 0, 0, '2019-11-29 00:00:00', 0, '2019-11-29 00:00:00', 0);
-INSERT INTO `tb_newbee_mall_carousel` (`carousel_id`, `carousel_url`, `redirect_url`, `carousel_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (7, 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner2.png', '##', 99, 1, '2019-09-19 23:37:58', 0, '2019-10-22 00:15:01', 0);
-COMMIT;
+--
+-- 转存表中的数据 `tb_newbee_mall_carousel`
+--
 
--- ----------------------------
--- Table structure for tb_newbee_mall_goods_category
--- ----------------------------
-DROP TABLE IF EXISTS `tb_newbee_mall_goods_category`;
-CREATE TABLE `tb_newbee_mall_goods_category` (
-  `category_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '分类id',
+INSERT INTO `tb_newbee_mall_carousel` (`carousel_id`, `carousel_url`, `redirect_url`, `carousel_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES
+(1, 'http://wildberries.win/1.jpg', '##', 200, 0, '2019-08-23 17:50:45', 0, '2019-11-10 00:23:01', 0),
+(2, 'http://wildberries.win/2.jpg', '\n##', 13, 0, '2019-11-29 00:00:00', 0, '2019-11-29 00:00:00', 0),
+(3, 'http://wildberries.win/4.jpg', '##', 0, 0, '2019-09-18 18:26:38', 0, '2019-11-10 00:23:01', 0),
+(5, 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner2.png', '##', 0, 1, '2019-11-29 00:00:00', 0, '2019-11-29 00:00:00', 0),
+(7, 'http://wildberries.win/3.jpg', '##', 99, 0, '2019-09-19 23:37:58', 0, '2019-10-22 00:15:01', 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tb_newbee_mall_goods_category`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_goods_category` (
+  `category_id` bigint(20) NOT NULL COMMENT '分类id',
   `category_level` tinyint(4) NOT NULL DEFAULT '0' COMMENT '分类级别(1-一级分类 2-二级分类 3-三级分类)',
   `parent_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '父分类id',
   `category_name` varchar(50) NOT NULL DEFAULT '' COMMENT '分类名称',
@@ -102,129 +126,54 @@ CREATE TABLE `tb_newbee_mall_goods_category` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `create_user` int(11) NOT NULL DEFAULT '0' COMMENT '创建者id',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-  `update_user` int(11) DEFAULT '0' COMMENT '修改者id',
-  PRIMARY KEY (`category_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+  `update_user` int(11) DEFAULT '0' COMMENT '修改者id'
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Records of tb_newbee_mall_goods_category
--- ----------------------------
-BEGIN;
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (15, 1, 0, '家电 数码 手机', 100, 0, '2019-09-11 18:45:40', 0, '2019-11-20 23:18:13', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (16, 1, 0, '女装 男装 穿搭', 99, 0, '2019-09-11 18:46:07', 0, '2019-11-20 23:18:20', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (17, 2, 15, '家电', 10, 0, '2019-09-11 18:46:32', 0, '2019-09-11 18:46:32', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (18, 2, 15, '数码', 9, 0, '2019-09-11 18:46:43', 0, '2019-09-11 18:46:43', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (19, 2, 15, '手机', 8, 0, '2019-09-11 18:46:52', 0, '2019-09-11 18:46:52', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (20, 3, 17, '生活电器', 0, 0, '2019-09-11 18:47:38', 0, '2019-09-11 18:47:38', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (21, 3, 17, '厨房电器', 0, 0, '2019-09-11 18:47:49', 0, '2019-09-11 18:47:49', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (22, 3, 17, '扫地机器人', 0, 0, '2019-09-11 18:47:58', 0, '2019-09-11 18:47:58', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (23, 3, 17, '吸尘器', 0, 0, '2019-09-11 18:48:06', 0, '2019-09-11 18:48:06', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (24, 3, 17, '取暖器', 0, 0, '2019-09-11 18:48:12', 0, '2019-09-11 18:48:12', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (25, 3, 17, '豆浆机', 0, 0, '2019-09-11 18:48:26', 0, '2019-09-11 18:48:26', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (26, 3, 17, '暖风机', 0, 0, '2019-09-11 18:48:40', 0, '2019-09-11 18:48:40', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (27, 3, 17, '加湿器', 0, 0, '2019-09-11 18:48:50', 0, '2019-09-11 18:48:50', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (28, 3, 17, '蓝牙音箱', 0, 0, '2019-09-11 18:48:57', 0, '2019-09-11 18:48:57', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (29, 3, 17, '烤箱', 0, 0, '2019-09-11 18:49:09', 0, '2019-09-11 18:49:09', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (30, 3, 17, '卷发器', 0, 0, '2019-09-11 18:49:19', 0, '2019-09-11 18:49:19', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (31, 3, 17, '空气净化器', 0, 0, '2019-09-11 18:49:30', 0, '2019-09-11 18:49:30', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (32, 3, 18, '游戏主机', 0, 0, '2019-09-11 18:49:50', 0, '2019-09-11 18:49:50', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (33, 3, 18, '数码精选', 0, 0, '2019-09-11 18:49:55', 0, '2019-09-11 18:49:55', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (34, 3, 18, '平板电脑', 0, 0, '2019-09-11 18:50:08', 0, '2019-09-11 18:50:08', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (35, 3, 18, '苹果 Apple', 0, 0, '2019-09-11 18:50:24', 0, '2019-09-11 18:50:24', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (36, 3, 18, '电脑主机', 0, 0, '2019-09-11 18:50:36', 0, '2019-09-11 18:50:36', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (37, 3, 18, '数码相机', 0, 0, '2019-09-11 18:50:57', 0, '2019-09-11 18:50:57', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (38, 3, 18, '电玩动漫', 0, 0, '2019-09-11 18:52:15', 0, '2019-09-11 18:52:15', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (39, 3, 18, '单反相机', 0, 0, '2019-09-11 18:52:26', 0, '2019-09-11 18:52:26', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (40, 3, 18, '键盘鼠标', 0, 0, '2019-09-11 18:52:46', 0, '2019-09-11 18:52:46', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (41, 3, 18, '无人机', 0, 0, '2019-09-11 18:53:01', 0, '2019-09-11 18:53:01', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (42, 3, 18, '二手电脑', 0, 0, '2019-09-11 18:53:08', 0, '2019-09-11 18:53:08', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (43, 3, 18, '二手手机', 0, 0, '2019-09-11 18:53:14', 0, '2019-09-11 18:53:14', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (44, 3, 19, 'iPhone 11', 89, 0, '2019-09-11 18:53:49', 0, '2019-09-11 18:54:38', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (45, 3, 19, '荣耀手机', 99, 0, '2019-09-11 18:53:59', 0, '2019-09-18 13:40:59', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (46, 3, 19, '华为手机', 98, 0, '2019-09-11 18:54:20', 0, '2019-09-18 13:40:51', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (47, 3, 19, '苹果 iPhone', 88, 0, '2019-09-11 18:54:49', 0, '2019-11-15 18:31:22', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (48, 3, 19, '华为 Mate 20', 79, 0, '2019-09-11 18:55:03', 0, '2019-09-11 18:55:13', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (49, 3, 19, '华为 P30', 97, 0, '2019-09-11 18:55:22', 0, '2019-09-11 18:55:22', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (50, 3, 19, '华为 P30 Pro', 0, 1, '2019-09-11 18:55:32', 0, '2019-09-11 18:55:32', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (51, 3, 19, '小米手机', 0, 0, '2019-09-11 18:55:52', 0, '2019-09-11 18:55:52', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (52, 3, 19, '红米', 0, 1, '2019-09-11 18:55:58', 0, '2019-09-11 18:55:58', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (53, 3, 19, 'OPPO', 0, 0, '2019-09-11 18:56:06', 0, '2019-09-11 18:56:06', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (54, 3, 19, '一加', 0, 0, '2019-09-11 18:56:12', 0, '2019-09-11 18:56:12', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (55, 3, 19, '小米 MIX', 0, 0, '2019-09-11 18:56:37', 0, '2019-09-11 18:56:37', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (56, 3, 19, 'Reno', 0, 0, '2019-09-11 18:56:49', 0, '2019-09-11 18:56:49', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (57, 3, 19, 'vivo', 0, 0, '2019-09-11 18:57:01', 0, '2019-09-11 18:57:01', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (58, 3, 19, '手机以旧换新', 0, 0, '2019-09-11 18:57:09', 0, '2019-09-11 18:57:09', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (59, 1, 0, '运动 户外 乐器', 97, 0, '2019-09-12 00:08:46', 0, '2019-09-12 00:08:46', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (60, 1, 0, '游戏 动漫 影视', 96, 0, '2019-09-12 00:09:00', 0, '2019-09-12 00:09:00', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (61, 1, 0, '家具 家饰 家纺', 98, 0, '2019-09-12 00:09:27', 0, '2019-09-12 00:09:27', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (62, 1, 0, '美妆 清洁 宠物', 94, 0, '2019-09-12 00:09:51', 0, '2019-09-17 18:22:34', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (63, 1, 0, '工具 装修 建材', 93, 0, '2019-09-12 00:10:07', 0, '2019-09-12 00:10:07', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (64, 1, 0, 'test12', 0, 1, '2019-09-12 00:10:35', 0, '2019-11-16 18:30:59', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (65, 1, 0, '玩具 孕产 用品', 0, 0, '2019-09-12 00:11:17', 0, '2019-09-12 00:11:17', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (66, 1, 0, '鞋靴 箱包 配件', 91, 0, '2019-09-12 00:11:30', 0, '2019-09-12 00:11:30', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (67, 2, 16, '女装', 10, 0, '2019-09-12 00:15:19', 0, '2019-09-12 00:15:19', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (68, 2, 16, '男装', 9, 0, '2019-09-12 00:15:28', 0, '2019-09-12 00:15:28', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (69, 2, 16, '穿搭', 8, 0, '2019-09-12 00:15:35', 0, '2019-09-12 00:15:35', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (70, 2, 61, '家具', 10, 0, '2019-09-12 00:20:22', 0, '2019-09-12 00:20:22', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (71, 2, 61, '家饰', 9, 0, '2019-09-12 00:20:29', 0, '2019-09-12 00:20:29', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (72, 2, 61, '家纺', 8, 0, '2019-09-12 00:20:35', 0, '2019-09-12 00:20:35', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (73, 2, 59, '运动', 10, 0, '2019-09-12 00:20:49', 0, '2019-09-12 00:20:49', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (74, 2, 59, '户外', 9, 0, '2019-09-12 00:20:58', 0, '2019-09-12 00:20:58', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (75, 2, 59, '乐器', 8, 0, '2019-09-12 00:21:05', 0, '2019-09-12 00:21:05', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (76, 3, 67, '外套', 10, 0, '2019-09-12 00:21:55', 0, '2019-09-12 00:21:55', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (77, 3, 70, '沙发', 10, 0, '2019-09-12 00:22:21', 0, '2019-09-12 00:22:21', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (78, 3, 73, '跑鞋', 10, 0, '2019-09-12 00:22:42', 0, '2019-09-12 00:22:42', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (79, 2, 60, '游戏', 10, 0, '2019-09-12 00:23:13', 0, '2019-09-12 00:23:13', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (80, 2, 60, '动漫', 9, 0, '2019-09-12 00:23:21', 0, '2019-09-12 00:23:21', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (81, 2, 60, '影视', 8, 0, '2019-09-12 00:23:27', 0, '2019-09-12 00:23:27', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (82, 3, 79, 'LOL', 10, 0, '2019-09-12 00:23:44', 0, '2019-09-12 00:23:44', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (83, 2, 62, '美妆', 10, 0, '2019-09-12 00:23:58', 0, '2019-09-17 18:22:44', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (84, 2, 62, '宠物', 9, 0, '2019-09-12 00:24:07', 0, '2019-09-12 00:24:07', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (85, 2, 62, '清洁', 8, 0, '2019-09-12 00:24:15', 0, '2019-09-17 18:22:51', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (86, 3, 83, '口红', 10, 0, '2019-09-12 00:24:38', 0, '2019-09-17 18:23:08', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (87, 2, 63, '工具', 10, 0, '2019-09-12 00:24:56', 0, '2019-09-12 00:24:56', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (88, 2, 63, '装修', 9, 0, '2019-09-12 00:25:05', 0, '2019-09-12 00:25:05', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (89, 2, 63, '建材', 8, 0, '2019-09-12 00:25:12', 0, '2019-09-12 00:25:12', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (90, 3, 87, '转换器', 10, 0, '2019-09-12 00:25:45', 0, '2019-09-12 00:25:45', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (91, 2, 64, '珠宝', 10, 0, '2019-09-12 00:26:10', 0, '2019-09-12 00:26:10', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (92, 2, 64, '金饰', 9, 0, '2019-09-12 00:26:18', 0, '2019-09-12 00:26:18', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (93, 2, 64, '眼镜', 8, 0, '2019-09-12 00:26:25', 0, '2019-09-12 00:26:25', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (94, 3, 91, '钻石', 10, 0, '2019-09-12 00:26:40', 0, '2019-09-12 00:26:40', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (95, 2, 66, '鞋靴', 10, 0, '2019-09-12 00:27:09', 0, '2019-09-12 00:27:09', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (96, 2, 66, '箱包', 9, 0, '2019-09-12 00:27:17', 0, '2019-09-12 00:27:17', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (97, 2, 66, '配件', 8, 0, '2019-09-12 00:27:23', 0, '2019-09-12 00:27:23', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (98, 3, 95, '休闲鞋', 10, 0, '2019-09-12 00:27:48', 0, '2019-09-12 00:27:48', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (99, 3, 83, '气垫', 0, 0, '2019-09-17 18:24:23', 0, '2019-09-17 18:24:23', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (100, 3, 83, '美白', 0, 0, '2019-09-17 18:24:36', 0, '2019-09-17 18:24:36', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (101, 3, 83, '隔离霜', 0, 0, '2019-09-17 18:27:04', 0, '2019-09-17 18:27:04', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (102, 3, 83, '粉底', 0, 0, '2019-09-17 18:27:19', 0, '2019-09-17 18:27:19', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (103, 3, 83, '腮红', 0, 0, '2019-09-17 18:27:24', 0, '2019-09-17 18:27:24', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (104, 3, 83, '睫毛膏', 0, 0, '2019-09-17 18:27:47', 0, '2019-09-17 18:27:47', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (105, 3, 83, '香水', 0, 1, '2019-09-17 18:28:16', 0, '2019-09-17 18:28:16', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (106, 3, 83, '面膜', 0, 1, '2019-09-17 18:28:21', 0, '2019-09-17 18:28:21', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (107, 1, 0, '2344', 1, 1, '2019-10-24 23:52:53', 0, '2019-10-24 23:52:53', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (108, 1, 0, '测试分类', 50, 1, '2019-11-07 22:59:24', 0, '2019-11-15 18:10:46', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (109, 2, 15, 'xxx', 0, 0, '2019-11-07 23:08:17', 0, '2019-11-07 23:08:17', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (110, 3, 17, 'wer', 0, 0, '2019-11-07 23:08:39', 0, '2019-11-07 23:08:39', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (111, 1, 0, '测试分类2', 255, 1, '2019-11-15 18:27:41', 0, '2019-11-15 18:27:41', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (112, 2, 111, '测试分类2-1', 0, 1, '2019-11-15 18:27:53', 0, '2019-11-15 18:27:53', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (113, 1, 0, '商品类目1', 200, 1, '2019-11-16 18:23:16', 0, '2019-11-16 18:23:16', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (114, 1, 0, '商品类目1', 200, 1, '2019-11-16 18:56:36', 0, '2019-11-16 18:56:36', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (115, 2, 65, '玩具', 0, 0, '2019-11-28 20:24:58', 0, '2019-11-28 20:24:58', 0);
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (116, 3, 115, '机器人', 0, 0, '2019-11-28 20:25:16', 0, '2019-11-28 20:25:16', 0);
-COMMIT;
+--
+-- 转存表中的数据 `tb_newbee_mall_goods_category`
+--
 
--- ----------------------------
--- Table structure for tb_newbee_mall_goods_info
--- ----------------------------
-DROP TABLE IF EXISTS `tb_newbee_mall_goods_info`;
-CREATE TABLE `tb_newbee_mall_goods_info` (
-  `goods_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品表主键id',
+INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES
+(15, 1, 0, 'Электрические', 100, 0, '2019-09-11 18:45:40', 0, '2019-11-20 23:18:13', 0),
+(16, 1, 0, 'Одежда', 99, 0, '2019-09-11 18:46:07', 0, '2019-11-20 23:18:20', 0),
+(17, 2, 15, 'Бытовая техника', 10, 0, '2019-09-11 18:46:32', 0, '2019-09-11 18:46:32', 0),
+(18, 2, 15, 'Камеры', 9, 0, '2019-09-11 18:46:43', 0, '2019-09-11 18:46:43', 0),
+(19, 2, 15, 'Мобильные телефоны', 8, 1, '2019-09-11 18:46:52', 0, '2019-09-11 18:46:52', 0),
+(20, 3, 17, 'Жилая техника', 0, 0, '2019-09-11 18:47:38', 0, '2019-09-11 18:47:38', 0),
+(21, 3, 17, 'Жилая техника', 0, 0, '2019-09-11 18:47:49', 0, '2019-09-11 18:47:49', 0),
+(22, 3, 17, 'Бытовые машины', 0, 0, '2019-09-11 18:47:58', 0, '2019-09-11 18:47:58', 0),
+(23, 3, 17, 'Hoovers', 0, 0, '2019-09-11 18:48:06', 0, '2019-09-11 18:48:06', 0),
+(24, 3, 17, 'Обогреватели', 0, 0, '2019-09-11 18:48:12', 0, '2019-09-11 18:48:12', 0),
+(25, 3, 17, 'Производитель соевого молока', 0, 0, '2019-09-11 18:48:26', 0, '2019-09-11 18:48:26', 0),
+(26, 3, 17, 'Нагреватель', 0, 0, '2019-09-11 18:48:40', 0, '2019-09-11 18:48:40', 0),
+(27, 3, 17, 'Увлажнитель воздуха', 0, 0, '2019-09-11 18:48:50', 0, '2019-09-11 18:48:50', 0),
+(28, 3, 17, 'Колонки Bluetooth', 0, 0, '2019-09-11 18:48:57', 0, '2019-09-11 18:48:57', 0),
+(29, 3, 17, 'Духовые шкафы', 0, 0, '2019-09-11 18:49:09', 0, '2019-09-11 18:49:09', 0),
+(30, 3, 17, 'Бигуди', 0, 0, '2019-09-11 18:49:19', 0, '2019-09-11 18:49:19', 0),
+(31, 3, 17, 'Очистители воздуха', 0, 0, '2019-09-11 18:49:30', 0, '2019-09-11 18:49:30', 0),
+(32, 3, 18, 'Игровые приставки', 0, 0, '2019-09-11 18:49:50', 0, '2019-09-11 18:49:50', 0),
+(33, 3, 18, 'Избранная электроника', 0, 0, '2019-09-11 18:49:55', 0, '2019-09-11 18:49:55', 0),
+(34, 3, 18, 'Компьютер', 0, 0, '2019-09-11 18:50:08', 0, '2019-09-11 18:50:08', 0),
+(35, 3, 18, ' Apple', 0, 0, '2019-09-11 18:50:24', 0, '2019-09-11 18:50:24', 0),
+(36, 3, 18, 'Компьютерный мейнфрейм', 0, 0, '2019-09-11 18:50:36', 0, '2019-09-11 18:50:36', 0),
+(37, 3, 18, 'Камеры', 0, 0, '2019-09-11 18:50:57', 0, '2019-09-11 18:50:57', 0),
+(44, 3, 19, 'iPhone 11', 89, 0, '2019-09-11 18:53:49', 0, '2019-09-11 18:54:38', 0),
+(46, 3, 19, 'huawei', 98, 0, '2019-09-11 18:54:20', 0, '2019-09-18 13:40:51', 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tb_newbee_mall_goods_info`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_goods_info` (
+  `goods_id` bigint(20) unsigned NOT NULL COMMENT '商品表主键id',
   `goods_name` varchar(200) NOT NULL DEFAULT '' COMMENT '商品名',
   `goods_intro` varchar(200) NOT NULL DEFAULT '' COMMENT '商品简介',
   `goods_category_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '关联分类id',
   `goods_cover_img` varchar(200) NOT NULL DEFAULT '/admin/dist/img/no-img.png' COMMENT '商品主图',
   `goods_carousel` varchar(500) NOT NULL DEFAULT '/admin/dist/img/no-img.png' COMMENT '商品轮播图',
+  `goods_carousel_1` varchar(150) NOT NULL DEFAULT '/admin/dist/img/no-img.png' COMMENT '轮播图',
   `goods_detail_content` text NOT NULL COMMENT '商品详情',
   `original_price` int(11) NOT NULL DEFAULT '1' COMMENT '商品价格',
   `selling_price` int(11) NOT NULL DEFAULT '1' COMMENT '商品实际售价',
@@ -234,598 +183,100 @@ CREATE TABLE `tb_newbee_mall_goods_info` (
   `create_user` int(11) NOT NULL DEFAULT '0' COMMENT '添加者主键id',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '商品添加时间',
   `update_user` int(11) NOT NULL DEFAULT '0' COMMENT '修改者主键id',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '商品修改时间',
-  PRIMARY KEY (`goods_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10904 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '商品修改时间'
+) ENGINE=InnoDB AUTO_INCREMENT=10105 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Records of tb_newbee_mall_goods_info
--- ----------------------------
-BEGIN;
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10003, '无印良品 MUJI 基础润肤化妆水', '滋润型 400ml', 0, '/goods-img/87446ec4-e534-4b49-9f7d-9bea34665284.jpg', '/goods-img/87446ec4-e534-4b49-9f7d-9bea34665284.jpg', '商品介绍加载中...', 100, 100, 1000, '', 1, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10004, '无印良品 MUJI 柔和洁面泡沫', '120g', 0, '/goods-img/45854bdd-2ca5-423c-a609-3d336d9322b4.jpg', '/goods-img/45854bdd-2ca5-423c-a609-3d336d9322b4.jpg', '商品介绍加载中...', 45, 45, 999, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10005, '无印良品 MUJI 基础润肤乳液', '高保湿型 200ml', 0, '/goods-img/7614ce78-0ebc-4275-a7cc-d16ad5f5f6ed.jpg', '/goods-img/7614ce78-0ebc-4275-a7cc-d16ad5f5f6ed.jpg', '商品介绍加载中...', 83, 83, 998, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10006, '无印良品 MUJI 基础润肤乳液', '滋润型 400ml', 0, '/goods-img/ef75879d-3d3e-4bab-888d-1e4036491e11.jpg', '/goods-img/ef75879d-3d3e-4bab-888d-1e4036491e11.jpg', '商品介绍加载中...', 100, 100, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10007, '无印良品 MUJI 基础润肤化妆水', '高保湿型 400ml', 0, '/goods-img/558422d1-640e-442d-a073-2b2bdd95c4ed.jpg', '/goods-img/558422d1-640e-442d-a073-2b2bdd95c4ed.jpg', '商品介绍加载中...', 127, 127, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10008, '无印良品 MUJI 基础润肤化妆水', '清爽型 200ml', 0, '/goods-img/89660409-78b7-4d47-ae12-f94b3ce9664b.png', '/goods-img/89660409-78b7-4d47-ae12-f94b3ce9664b.png', '商品介绍加载中...', 70, 70, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10009, '无印良品 MUJI 男式', '无侧缝法兰绒 睡衣 海军蓝 L', 0, '/goods-img/f172c500-21d0-42e3-95ce-aa9b84a2ef49.jpg', '/goods-img/f172c500-21d0-42e3-95ce-aa9b84a2ef49.jpg', '商品介绍加载中...', 398, 199, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10010, '无印良品 MUJI 基础润肤洁面泡沫', '200ml', 0, '/goods-img/f87bdee1-ed48-4b49-b701-cc44f26a2699.jpg', '/goods-img/f87bdee1-ed48-4b49-b701-cc44f26a2699.jpg', '商品介绍加载中...', 83, 83, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10011, '无印良品 MUJI 平衡高保湿化妆水', '新蜂精选', 0, '/goods-img/16230038-bf86-4d4e-a11f-954b9ee4bab2.jpg', '/goods-img/16230038-bf86-4d4e-a11f-954b9ee4bab2.jpg', '商品介绍加载中...', 130, 65, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10012, '无印良品 MUJI 凝胶墨水圆珠笔', '蓝黑色', 0, '/goods-img/a952ecce-32e7-474e-9c1b-943962e0a580.jpg', '/goods-img/a952ecce-32e7-474e-9c1b-943962e0a580.jpg', '商品介绍加载中...', 8, 5, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10013, '无印良品 MUJI 平衡保湿乳霜', '50g', 0, '/goods-img/904c8aa1-0257-49e8-ad89-f48d2462db21.jpg', '/goods-img/904c8aa1-0257-49e8-ad89-f48d2462db21.jpg', '商品介绍加载中...', 130, 65, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10014, '无印良品 MUJI 基础润肤乳液', '清爽型 200ml', 0, '/goods-img/d66b6e0e-48d4-4503-8dd6-43b3c71f52a4.png', '/goods-img/d66b6e0e-48d4-4503-8dd6-43b3c71f52a4.png', '商品介绍加载中...', 70, 70, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10015, '无印良品 MUJI 平衡洁面泡沫', '100g', 0, '/goods-img/d0d8f6d1-1f2d-49f8-9099-0cdd94833581.jpg', '/goods-img/d0d8f6d1-1f2d-49f8-9099-0cdd94833581.jpg', '商品介绍加载中...', 85, 42, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10016, '无印良品 MUJI 基础润肤乳液', '滋润型 200ml', 0, '/goods-img/e553f566-5dc4-4648-be58-fd7112a47b10.jpg', '/goods-img/e553f566-5dc4-4648-be58-fd7112a47b10.jpg', '商品介绍加载中...', 61, 61, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10017, '无印良品 MUJI 便携式香薰机', '新蜂精选', 0, '/goods-img/a9c0d929-6f0b-4bc7-819c-e5015f447a9e.jpg', '/goods-img/a9c0d929-6f0b-4bc7-819c-e5015f447a9e.jpg', '商品介绍加载中...', 200, 200, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10018, '无印良品 MUJI 女式', '粗棉线条纹长袖T恤 白色*横条 L', 0, '/goods-img/38d5f694-2236-415d-80c8-4a1695e92d4e.jpg', '/goods-img/38d5f694-2236-415d-80c8-4a1695e92d4e.jpg', '商品介绍加载中...', 198, 70, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10019, '无印良品（MUJI） 聚丙烯化妆盒 1/2', '半透明约150x220x86mm', 0, '/goods-img/f6832ed7-cb01-48ab-987f-cd437b21be80.jpg', '/goods-img/f6832ed7-cb01-48ab-987f-cd437b21be80.jpg', '商品介绍加载中...', 30, 30, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10020, '无印良品 MUJI 聚丙烯', '笔盒 大/约184*64*25㎜', 0, '/goods-img/6c7f7a0d-4d73-406e-adcc-6f666ce4e2c9.jpg', '/goods-img/6c7f7a0d-4d73-406e-adcc-6f666ce4e2c9.jpg', '商品介绍加载中...', 18, 18, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10021, '无印良品（MUJI） 无针订书机 其他', '新蜂精选', 0, '/goods-img/cf19de8b-e94e-4513-aecd-a0b5c976b738.jpg', '/goods-img/cf19de8b-e94e-4513-aecd-a0b5c976b738.jpg', '商品介绍加载中...', 52, 52, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10022, '无印良品 MUJI 塑料橡皮', '黑色 小', 0, '/goods-img/d4f3299d-d526-4a81-ae9f-3b53e735075e.jpg', '/goods-img/d4f3299d-d526-4a81-ae9f-3b53e735075e.jpg', '商品介绍加载中...', 4, 4, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10023, '无印良品 MUJI 大容量基础乳液/高保湿型', '400ml', 0, '/goods-img/ea92b50a-67ba-4279-a71a-4e52e6a3219c.jpg', '/goods-img/ea92b50a-67ba-4279-a71a-4e52e6a3219c.jpg', '商品介绍加载中...', 140, 140, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10024, '无印良品 MUJI 基础润肤化妆水', '滋润型 400ml', 0, '/goods-img/beb26b1b-7a73-48c2-a9f7-727ad92401f6.jpg', '/goods-img/beb26b1b-7a73-48c2-a9f7-727ad92401f6.jpg', '商品介绍加载中...', 100, 100, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10025, '无印良品 MUJI 柔和洁面泡沫', '120g', 0, '/goods-img/bf1dc4d1-acc2-40c8-8091-1c6f35988643.jpg', '/goods-img/bf1dc4d1-acc2-40c8-8091-1c6f35988643.jpg', '商品介绍加载中...', 45, 45, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10026, '无印良品 MUJI 基础润肤乳液', '高保湿型 200ml', 0, '/goods-img/4059caa9-e0b3-4ac3-a494-b9e4c47e0185.jpg', '/goods-img/4059caa9-e0b3-4ac3-a494-b9e4c47e0185.jpg', '商品介绍加载中...', 83, 83, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10027, '无印良品 MUJI 基础润肤乳液', '滋润型 400ml', 0, '/goods-img/a4a4c981-da0f-4228-bcc7-97d970dc619c.jpg', '/goods-img/a4a4c981-da0f-4228-bcc7-97d970dc619c.jpg', '商品介绍加载中...', 100, 100, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10028, '无印良品 MUJI 基础润肤化妆水', '高保湿型 400ml', 0, '/goods-img/98b5c5b5-cc75-4dfb-8ec4-0a7f42af6183.jpg', '/goods-img/98b5c5b5-cc75-4dfb-8ec4-0a7f42af6183.jpg', '商品介绍加载中...', 127, 127, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10029, '无印良品 MUJI 基础润肤化妆水', '清爽型 200ml', 0, '/goods-img/71d1f469-b77b-473a-a31a-78fc97859b3a.png', '/goods-img/71d1f469-b77b-473a-a31a-78fc97859b3a.png', '商品介绍加载中...', 70, 70, 999, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10030, '无印良品 MUJI 男式', '无侧缝法兰绒 睡衣 海军蓝 L', 0, '/goods-img/68bfbfd9-bc28-429a-ab2c-7fa62205ed7e.jpg', '/goods-img/68bfbfd9-bc28-429a-ab2c-7fa62205ed7e.jpg', '商品介绍加载中...', 398, 199, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10031, '无印良品 MUJI 基础润肤洁面泡沫', '200ml', 0, '/goods-img/679eb5a8-7689-4620-b072-63daeb8eb73a.jpg', '/goods-img/679eb5a8-7689-4620-b072-63daeb8eb73a.jpg', '商品介绍加载中...', 83, 83, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10032, '无印良品 MUJI 平衡高保湿化妆水', '新蜂精选', 0, '/goods-img/eb13afc6-8898-4a50-9f93-06dd2593c313.jpg', '/goods-img/eb13afc6-8898-4a50-9f93-06dd2593c313.jpg', '商品介绍加载中...', 130, 65, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10033, '无印良品 MUJI 凝胶墨水圆珠笔', '蓝黑色', 0, '/goods-img/85a893fe-c971-4f0b-aa0f-4c24b65b1c75.jpg', '/goods-img/85a893fe-c971-4f0b-aa0f-4c24b65b1c75.jpg', '商品介绍加载中...', 8, 5, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10034, '无印良品 MUJI 平衡保湿乳霜', '50g', 0, '/goods-img/65aed381-cde0-44ed-b345-5ebf1d74a13b.jpg', '/goods-img/65aed381-cde0-44ed-b345-5ebf1d74a13b.jpg', '商品介绍加载中...', 130, 65, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10035, '无印良品 MUJI 基础润肤乳液', '清爽型 200ml', 0, '/goods-img/1e09e1ed-435b-4f08-84d0-d88308a315ee.png', '/goods-img/1e09e1ed-435b-4f08-84d0-d88308a315ee.png', '商品介绍加载中...', 70, 70, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10036, '无印良品 MUJI 平衡洁面泡沫', '100g', 0, '/goods-img/dbc2ea2a-ee03-4366-a35e-6ebe66d02399.jpg', '/goods-img/dbc2ea2a-ee03-4366-a35e-6ebe66d02399.jpg', '商品介绍加载中...', 85, 42, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10037, '无印良品 MUJI 基础润肤乳液', '滋润型 200ml', 0, '/goods-img/9389914c-2860-4a75-b603-53ed5a4e0509.jpg', '/goods-img/9389914c-2860-4a75-b603-53ed5a4e0509.jpg', '商品介绍加载中...', 61, 61, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10038, '无印良品 MUJI 便携式香薰机', '新蜂精选', 0, '/goods-img/6ab010e2-5f1e-4512-bd22-4c2550915d4c.jpg', '/goods-img/6ab010e2-5f1e-4512-bd22-4c2550915d4c.jpg', '商品介绍加载中...', 200, 200, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10039, '无印良品 MUJI 女式', '粗棉线条纹长袖T恤 白色*横条 L', 0, '/goods-img/fab00903-7ff6-40ee-a9bc-3fbc2f0f0ffc.jpg', '/goods-img/fab00903-7ff6-40ee-a9bc-3fbc2f0f0ffc.jpg', '商品介绍加载中...', 198, 70, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10040, '无印良品（MUJI） 聚丙烯化妆盒 1/2', '半透明约150x220x86mm', 0, '/goods-img/ab725751-adb8-452a-86dd-cb3d21da794e.jpg', '/goods-img/ab725751-adb8-452a-86dd-cb3d21da794e.jpg', '商品介绍加载中...', 30, 30, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10041, '无印良品 MUJI 聚丙烯', '笔盒 大/约184*64*25㎜', 0, '/goods-img/9f623290-928c-498f-89e6-171372b394f2.jpg', '/goods-img/9f623290-928c-498f-89e6-171372b394f2.jpg', '商品介绍加载中...', 18, 18, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10042, '无印良品（MUJI） 无针订书机 其他', '新蜂精选', 0, '/goods-img/a7221688-3c37-4ac0-b07e-d8bde1525d1e.jpg', '/goods-img/a7221688-3c37-4ac0-b07e-d8bde1525d1e.jpg', '商品介绍加载中...', 52, 52, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10043, '无印良品 MUJI 塑料橡皮', '黑色 小', 0, '/goods-img/75e26af4-8f15-43f2-9407-50d641f82acb.jpg', '/goods-img/75e26af4-8f15-43f2-9407-50d641f82acb.jpg', '商品介绍加载中...', 4, 4, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10044, '无印良品 MUJI 大容量基础乳液/高保湿型', '400ml', 0, '/goods-img/69d55773-1b43-497b-af18-90f2cec7c93a.jpg', '/goods-img/69d55773-1b43-497b-af18-90f2cec7c93a.jpg', '商品介绍加载中...', 140, 140, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10045, '无印良品 MUJI 毛笔', '黑色', 0, '/goods-img/419ddb3c-1793-49c1-8953-77409a5d5bce.jpg', '/goods-img/419ddb3c-1793-49c1-8953-77409a5d5bce.jpg', '商品介绍加载中...', 20, 20, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10046, '无印良品 MUJI 塑料橡皮', '白色 小', 0, '/goods-img/e53cc7af-f81c-4752-aec8-007e807b2fc1.jpg', '/goods-img/e53cc7af-f81c-4752-aec8-007e807b2fc1.jpg', '商品介绍加载中...', 4, 4, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10047, '无印良品 MUJI 男式', '无侧缝法兰绒 睡衣 深海军蓝X格子 L', 0, '/goods-img/481e8994-20cb-4f6c-8b77-4eb8509eb3b9.jpg', '/goods-img/481e8994-20cb-4f6c-8b77-4eb8509eb3b9.jpg', '商品介绍加载中...', 398, 199, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10048, '无印良品 MUJI 荧光笔', '蓝色', 0, '/goods-img/012ebf2d-8c96-4641-8782-eab01c85d98f.jpg', '/goods-img/012ebf2d-8c96-4641-8782-eab01c85d98f.jpg', '商品介绍加载中...', 10, 10, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10049, '无印良品（MUJI） 钢制指甲刀 小', '新蜂精选', 0, '/goods-img/2c150720-4b3a-4d9e-9ce6-77eb4998e1f1.jpg', '/goods-img/2c150720-4b3a-4d9e-9ce6-77eb4998e1f1.jpg', '商品介绍加载中...', 42, 42, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10050, '无印良品 MUJI 长条诗笺型笔记表格', '白色 40枚 14行', 0, '/goods-img/e7d2ea3f-6703-4fcc-bbb4-ad9ef43a0ae2.jpg', '/goods-img/e7d2ea3f-6703-4fcc-bbb4-ad9ef43a0ae2.jpg', '商品介绍加载中...', 10, 10, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10051, '无印良品 MUJI PET喷雾小分装瓶100ml', '新蜂精选', 0, '/goods-img/0ec8c4a7-aedc-464d-9e23-d3e4acafdc73.jpg', '/goods-img/0ec8c4a7-aedc-464d-9e23-d3e4acafdc73.jpg', '商品介绍加载中...', 30, 30, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10052, '无印良品 MUJI 塑料橡皮', '黑色 大', 0, '/goods-img/ce8ff43c-e8b4-4c52-9de1-c983c97068f6.jpg', '/goods-img/ce8ff43c-e8b4-4c52-9de1-c983c97068f6.jpg', '商品介绍加载中...', 7, 7, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10053, '无印良品 MUJI 荧光笔', '黄色', 0, '/goods-img/79b38a89-b02a-4fd1-80c4-5cb426028536.jpg', '/goods-img/79b38a89-b02a-4fd1-80c4-5cb426028536.jpg', '商品介绍加载中...', 10, 10, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10054, '无印良品 MUJI 遮瑕膏', '棒状 自然色', 0, '/goods-img/ffa69c8e-f57f-4ef4-a2a0-3695d538d6c5.jpg', '/goods-img/ffa69c8e-f57f-4ef4-a2a0-3695d538d6c5.jpg', '商品介绍加载中...', 42, 42, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10055, '无印良品 MUJI 马桶刷/附盒子', '白色', 0, '/goods-img/9dd1cdfb-e7f9-4d3c-98df-933e2bc3f9a8.jpg', '/goods-img/9dd1cdfb-e7f9-4d3c-98df-933e2bc3f9a8.jpg', '商品介绍加载中...', 70, 70, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10056, '无印良品 MUJI 耐热玻璃_壶_大', '透明', 0, '/goods-img/0bc4f5ac-d601-421d-8131-81958a195705.jpg', '/goods-img/0bc4f5ac-d601-421d-8131-81958a195705.jpg', '商品介绍加载中...', 150, 150, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10057, '无印良品 MUJI 女式', '平纹短袖衬衫 藏青色 M', 0, '/goods-img/76b6a573-12a0-4c63-b2ae-e7193aff0fc8.jpg', '/goods-img/76b6a573-12a0-4c63-b2ae-e7193aff0fc8.jpg', '商品介绍加载中...', 198, 59, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10058, '无印良品 MUJI 基础润肤化妆水', '清爽型 50ml', 0, '/goods-img/af7f9b21-d782-4bad-8b1a-d86bbc4d224e.png', '/goods-img/af7f9b21-d782-4bad-8b1a-d86bbc4d224e.png', '商品介绍加载中...', 28, 22, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10059, '无印良品 MUJI 男式', '无侧缝法兰绒 睡衣 炭灰色 M', 0, '/goods-img/26e0c424-f22d-4d3d-9bd6-a7958a346ff9.jpg', '/goods-img/26e0c424-f22d-4d3d-9bd6-a7958a346ff9.jpg', '商品介绍加载中...', 398, 199, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10060, '无印良品（MUJI） PET分裝瓶', '新蜂精选', 0, '/goods-img/24bf1630-0339-4c22-ad19-37152c561e71.jpg', '/goods-img/24bf1630-0339-4c22-ad19-37152c561e71.jpg', '商品介绍加载中...', 15, 15, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10061, '无印良品 MUJI 女式', '无侧缝法兰绒 睡衣 灰色 M', 0, '/goods-img/e8e26306-0521-4843-9e07-70ebd2fa6405.jpg', '/goods-img/e8e26306-0521-4843-9e07-70ebd2fa6405.jpg', '商品介绍加载中...', 398, 199, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10062, '无印良品（MUJI） PE分裝瓶', '新蜂精选', 0, '/goods-img/9b3af7c2-57f5-48a7-bea5-603b2d145000.jpg', '/goods-img/9b3af7c2-57f5-48a7-bea5-603b2d145000.jpg', '商品介绍加载中...', 10, 10, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10063, '无印良品 MUJI 基础润肤化妆水', '滋润型 200ml', 0, '/goods-img/7577f3e0-f48b-47a9-96b7-de405a6aaf95.png', '/goods-img/7577f3e0-f48b-47a9-96b7-de405a6aaf95.png', '商品介绍加载中...', 70, 70, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10064, '无印良品 MUJI 男式', '干爽 凉感珠地网眼编织V领短袖T恤 黑色 L', 0, '/goods-img/cce2af31-07ea-4744-8d01-16dd01d68e5b.jpg', '/goods-img/cce2af31-07ea-4744-8d01-16dd01d68e5b.jpg', '商品介绍加载中...', 98, 29, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10065, '无印良品（MUJI） 聚丙烯化妆盒 半透明约150x220x169mm', '新蜂精选', 0, '/goods-img/6dc279ac-fef0-401c-8604-b18dc9a9f7ab.jpg', '/goods-img/6dc279ac-fef0-401c-8604-b18dc9a9f7ab.jpg', '商品介绍加载中...', 40, 40, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10066, '无印良品（MUJI） 散粉小 自然色', '新蜂精选', 0, '/goods-img/94764fac-f4ad-4ee8-8d26-21af0c09ea76.jpg', '/goods-img/94764fac-f4ad-4ee8-8d26-21af0c09ea76.jpg', '商品介绍加载中...', 60, 60, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10067, '无印良品 MUJI 毛笔', '黑色', 0, '/goods-img/9cd07460-8c0b-49e5-9741-5015a3576e8e.jpg', '/goods-img/9cd07460-8c0b-49e5-9741-5015a3576e8e.jpg', '商品介绍加载中...', 20, 20, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10068, '无印良品 MUJI 塑料橡皮', '白色 小', 0, '/goods-img/70529ced-527a-4b46-aafa-874107ff9ea5.jpg', '/goods-img/70529ced-527a-4b46-aafa-874107ff9ea5.jpg', '商品介绍加载中...', 4, 4, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10069, '无印良品 MUJI 男式', '无侧缝法兰绒 睡衣 深海军蓝X格子 L', 0, '/goods-img/174ec60d-7d2b-4043-a7a6-7383c3de1a11.jpg', '/goods-img/174ec60d-7d2b-4043-a7a6-7383c3de1a11.jpg', '商品介绍加载中...', 398, 199, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10070, '无印良品 MUJI 荧光笔', '蓝色', 0, '/goods-img/eef29d44-17f5-41dd-b0ba-c6f63d7bdac3.jpg', '/goods-img/eef29d44-17f5-41dd-b0ba-c6f63d7bdac3.jpg', '商品介绍加载中...', 10, 10, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10071, '无印良品（MUJI） 钢制指甲刀 小', '新蜂精选', 0, '/goods-img/f9964432-a9b7-45c2-ac6d-680130c2d7a7.jpg', '/goods-img/f9964432-a9b7-45c2-ac6d-680130c2d7a7.jpg', '商品介绍加载中...', 42, 42, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10072, '无印良品 MUJI 长条诗笺型笔记表格', '白色 40枚 14行', 0, '/goods-img/da1e4523-adb4-48e4-afa5-313346187690.jpg', '/goods-img/da1e4523-adb4-48e4-afa5-313346187690.jpg', '商品介绍加载中...', 10, 10, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10073, '无印良品 MUJI PET喷雾小分装瓶100ml', '新蜂精选', 0, '/goods-img/7f1eec3d-d8e5-4a18-a1a9-b81876dcaaf5.jpg', '/goods-img/7f1eec3d-d8e5-4a18-a1a9-b81876dcaaf5.jpg', '商品介绍加载中...', 30, 30, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10074, '无印良品 MUJI 塑料橡皮', '黑色 大', 0, '/goods-img/1ca16211-2b80-4006-ab60-e1a3cab4218c.jpg', '/goods-img/1ca16211-2b80-4006-ab60-e1a3cab4218c.jpg', '商品介绍加载中...', 7, 7, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10075, '无印良品 MUJI 荧光笔', '黄色', 0, '/goods-img/56eec806-2af3-4136-a9bf-2333455339e7.jpg', '/goods-img/56eec806-2af3-4136-a9bf-2333455339e7.jpg', '商品介绍加载中...', 10, 10, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10076, '无印良品 MUJI 遮瑕膏', '棒状 自然色', 0, '/goods-img/593b65a7-feae-45aa-837e-47d58bb27474.jpg', '/goods-img/593b65a7-feae-45aa-837e-47d58bb27474.jpg', '商品介绍加载中...', 42, 42, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10077, '无印良品 MUJI 马桶刷/附盒子', '白色', 0, '/goods-img/a9983f71-d818-459d-ad59-bbdd26bb533b.jpg', '/goods-img/a9983f71-d818-459d-ad59-bbdd26bb533b.jpg', '商品介绍加载中...', 70, 70, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10078, '无印良品 MUJI 耐热玻璃_壶_大', '透明', 0, '/goods-img/7f89c29e-d888-4ee0-92af-ca713a7871a4.jpg', '/goods-img/7f89c29e-d888-4ee0-92af-ca713a7871a4.jpg', '商品介绍加载中...', 150, 150, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10079, '无印良品 MUJI 女式', '平纹短袖衬衫 藏青色 M', 0, '/goods-img/0b1e57bf-b4fd-40df-9832-4749d7d69db9.jpg', '/goods-img/0b1e57bf-b4fd-40df-9832-4749d7d69db9.jpg', '商品介绍加载中...', 198, 59, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10080, '无印良品 MUJI 基础润肤化妆水', '清爽型 50ml', 0, '/goods-img/9b4af7cf-235a-4742-bdc3-9e8e656f245c.png', '/goods-img/9b4af7cf-235a-4742-bdc3-9e8e656f245c.png', '商品介绍加载中...', 28, 22, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10081, '无印良品 MUJI 男式', '无侧缝法兰绒 睡衣 炭灰色 M', 0, '/goods-img/8ddfc2de-3da3-4fad-86aa-7c570cb55212.jpg', '/goods-img/8ddfc2de-3da3-4fad-86aa-7c570cb55212.jpg', '商品介绍加载中...', 398, 199, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10082, '无印良品（MUJI） PET分裝瓶', '新蜂精选', 0, '/goods-img/e62d04e9-3ae2-431c-8538-becda89e0e84.jpg', '/goods-img/e62d04e9-3ae2-431c-8538-becda89e0e84.jpg', '商品介绍加载中...', 15, 15, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10083, '无印良品 MUJI 女式', '无侧缝法兰绒 睡衣 灰色 M', 0, '/goods-img/3078143f-1cdd-4f66-951b-2cf08af8c826.jpg', '/goods-img/3078143f-1cdd-4f66-951b-2cf08af8c826.jpg', '商品介绍加载中...', 398, 199, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10084, '无印良品（MUJI） PE分裝瓶', '新蜂精选', 0, '/goods-img/97aa8872-26df-473a-b0d7-f5021776cb52.jpg', '/goods-img/97aa8872-26df-473a-b0d7-f5021776cb52.jpg', '商品介绍加载中...', 10, 10, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10085, '无印良品 MUJI 基础润肤化妆水', '滋润型 200ml', 0, '/goods-img/954da201-0cbb-45d1-9cd1-17ce4d24cfb4.png', '/goods-img/954da201-0cbb-45d1-9cd1-17ce4d24cfb4.png', '商品介绍加载中...', 70, 70, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10086, '无印良品 MUJI 男式', '干爽 凉感珠地网眼编织V领短袖T恤 黑色 L', 0, '/goods-img/b584ea09-7aae-422e-8435-fdc38c948434.jpg', '/goods-img/b584ea09-7aae-422e-8435-fdc38c948434.jpg', '商品介绍加载中...', 98, 29, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10087, '无印良品（MUJI） 聚丙烯化妆盒 半透明约150x220x169mm', '新蜂精选', 0, '/goods-img/a0a45b44-82c9-4a58-a972-304bed0632bb.jpg', '/goods-img/a0a45b44-82c9-4a58-a972-304bed0632bb.jpg', '商品介绍加载中...', 40, 40, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10088, '无印良品（MUJI） 散粉小 自然色', '新蜂精选', 0, '/goods-img/a1b8ff33-ec01-494e-a1db-fb5158f3c168.jpg', '/goods-img/a1b8ff33-ec01-494e-a1db-fb5158f3c168.jpg', '商品介绍加载中...', 60, 60, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10089, '无印良品 MUJI 荧光笔', '粉红色', 0, '/goods-img/c5d6d952-c81b-436a-a345-feb4c5a20a7d.jpg', '/goods-img/c5d6d952-c81b-436a-a345-feb4c5a20a7d.jpg', '商品介绍加载中...', 10, 10, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10090, '无印良品（MUJI） PET小分装瓶100ml', '新蜂精选', 0, '/goods-img/2ffe59f3-559f-4e6f-810d-1b6fa4ac04e1.jpg', '/goods-img/2ffe59f3-559f-4e6f-810d-1b6fa4ac04e1.jpg', '商品介绍加载中...', 30, 30, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10091, '无印良品 MUJI 基础润肤洁面乳', '150ml', 0, '/goods-img/1f24d75a-0468-471a-a608-bd6788f4c1a1.jpg', '/goods-img/1f24d75a-0468-471a-a608-bd6788f4c1a1.jpg', '商品介绍加载中...', 74, 74, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10092, '无印良品 MUJI 基础润肤乳霜', '其他 50g', 0, '/goods-img/86e027b3-8868-4fa5-971b-49e827027e3e.jpg', '/goods-img/86e027b3-8868-4fa5-971b-49e827027e3e.jpg', '商品介绍加载中...', 100, 100, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10093, '无印良品 MUJI 基础润肤洁面泡沫(替换装)', '180ml', 0, '/goods-img/1aea34fa-f45e-4c3c-b73c-da1f92492c95.jpg', '/goods-img/1aea34fa-f45e-4c3c-b73c-da1f92492c95.jpg', '商品介绍加载中...', 69, 69, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10094, '无印良品 MUJI 保湿洁面啫喱', '100g', 0, '/goods-img/838fc0cb-b98f-4dca-bd68-581138b21a30.jpg', '/goods-img/838fc0cb-b98f-4dca-bd68-581138b21a30.jpg', '商品介绍加载中...', 100, 50, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10095, '无印良品 MUJI 小型超声波香薰机', '其他', 0, '/goods-img/30f05c92-a303-4b94-bb5e-22f3c65f3c37.jpg', '/goods-img/30f05c92-a303-4b94-bb5e-22f3c65f3c37.jpg', '商品介绍加载中...', 250, 250, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10096, '无印良品 MUJI 修正带', '其他', 0, '/goods-img/759427b3-b723-4917-b565-c0ae2003bf02.jpg', '/goods-img/759427b3-b723-4917-b565-c0ae2003bf02.jpg', '商品介绍加载中...', 25, 25, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10097, '无印良品 MUJI 聚丙烯', '笔盒 小/约170*51*20㎜', 0, '/goods-img/734f1604-e687-4cd1-8573-bb00e680e94e.jpg', '/goods-img/734f1604-e687-4cd1-8573-bb00e680e94e.jpg', '商品介绍加载中...', 12, 12, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10098, '无印良品 MUJI 乳液', '50ml', 0, '/goods-img/4eed1033-7728-477c-a29d-589bfd3ae3ce.jpg', '/goods-img/4eed1033-7728-477c-a29d-589bfd3ae3ce.jpg', '商品介绍加载中...', 55, 27, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10099, '无印良品 MUJI 男式', '棉水洗 平纹短袖衬衫 白色 L', 0, '/goods-img/d3fa11f3-6cfa-4958-b09c-584a62137b4b.jpg', '/goods-img/d3fa11f3-6cfa-4958-b09c-584a62137b4b.jpg', '商品介绍加载中...', 178, 89, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10100, '无印良品 MUJI 香/绿意', '12支装/棒状', 0, '/goods-img/829f2d09-1589-4f63-8376-d347c3cec620.jpg', '/goods-img/829f2d09-1589-4f63-8376-d347c3cec620.jpg', '商品介绍加载中...', 32, 32, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10101, '无印良品 MUJI 润肤乳霜(高保湿型)50g', '50g', 0, '/goods-img/1c70ddcb-ca69-40ed-a263-30880b2e2cac.jpg', '/goods-img/1c70ddcb-ca69-40ed-a263-30880b2e2cac.jpg', '商品介绍加载中...', 159, 159, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10102, '无印良品 MUJI 柔滑笔芯', '黑色', 0, '/goods-img/1db10d7c-3429-4ef2-ac41-2991af57f442.jpg', '/goods-img/1db10d7c-3429-4ef2-ac41-2991af57f442.jpg', '商品介绍加载中...', 19, 19, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10103, '无印良品 MUJI 铝制', '挂钩/吸盘式_2个装 大/约宽4.5x高6cm 2个装', 0, '/goods-img/bd0b92b4-c8ca-453a-b572-b3447083bddf.png', '/goods-img/bd0b92b4-c8ca-453a-b572-b3447083bddf.png', '商品介绍加载中...', 25, 25, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10104, '无印良品 MUJI 修正带', 'POM材质 替芯', 0, '/goods-img/98ce17e1-890e-4eaf-856a-7fce8ffebc4c.jpg', '/goods-img/98ce17e1-890e-4eaf-856a-7fce8ffebc4c.jpg', '商品介绍加载中...', 15, 15, 998, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10105, '无印良品 MUJI 压克力记录板夹', 'Ａ4用/220×310ｍｍ', 0, '/goods-img/64d4e0b7-cd01-47f6-9081-4c2e7625e4f9.jpg', '/goods-img/64d4e0b7-cd01-47f6-9081-4c2e7625e4f9.jpg', '商品介绍加载中...', 35, 35, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10106, '无印良品（MUJI） 自然亲肤粉底液 自然透亮色', '新蜂精选', 0, '/goods-img/09576fcd-ea01-4b1d-bed4-be96b71f2c4e.jpg', '/goods-img/09576fcd-ea01-4b1d-bed4-be96b71f2c4e.jpg', '商品介绍加载中...', 75, 75, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10107, '无印良品 MUJI 荧光笔', '粉红色', 0, '/goods-img/04a8c325-d296-4f0e-ac6d-8cccba4dc90e.jpg', '/goods-img/04a8c325-d296-4f0e-ac6d-8cccba4dc90e.jpg', '商品介绍加载中...', 10, 10, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10108, '无印良品（MUJI） PET小分装瓶100ml', '新蜂精选', 0, '/goods-img/755a34a3-bc3e-4f04-8943-f79860012e78.jpg', '/goods-img/755a34a3-bc3e-4f04-8943-f79860012e78.jpg', '商品介绍加载中...', 30, 30, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10109, '无印良品 MUJI 基础润肤洁面乳', '150ml', 0, '/goods-img/e6a986ed-9b83-4649-9e72-3cf676c1f90e.jpg', '/goods-img/e6a986ed-9b83-4649-9e72-3cf676c1f90e.jpg', '商品介绍加载中...', 74, 74, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10110, '无印良品 MUJI 基础润肤乳霜', '其他 50g', 0, '/goods-img/30036561-a150-4ea7-9106-29bbea278909.jpg', '/goods-img/30036561-a150-4ea7-9106-29bbea278909.jpg', '商品介绍加载中...', 100, 100, 999, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10111, '无印良品 MUJI 基础润肤洁面泡沫(替换装)', '180ml', 0, '/goods-img/aa37202c-68eb-4c84-b02c-171b3d11c0e8.jpg', '/goods-img/aa37202c-68eb-4c84-b02c-171b3d11c0e8.jpg', '商品介绍加载中...', 69, 69, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10112, '无印良品 MUJI 保湿洁面啫喱', '100g', 0, '/goods-img/0f724c0f-8888-4b75-8fe1-dc7dd8f2b7bd.jpg', '/goods-img/0f724c0f-8888-4b75-8fe1-dc7dd8f2b7bd.jpg', '商品介绍加载中...', 100, 50, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10113, '无印良品 MUJI 小型超声波香薰机', '其他', 0, '/goods-img/9608b59d-cbca-4b70-9f05-226fde41c51c.jpg', '/goods-img/9608b59d-cbca-4b70-9f05-226fde41c51c.jpg', '商品介绍加载中...', 250, 250, 999, '呼吸品质生活', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10114, '无印良品 MUJI 修正带', '其他', 0, '/goods-img/d91a71e7-aada-4770-91c5-4da21e4b7ed9.jpg', '/goods-img/d91a71e7-aada-4770-91c5-4da21e4b7ed9.jpg', '商品介绍加载中...', 25, 25, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10115, '无印良品 MUJI 聚丙烯', '笔盒 小/约170*51*20㎜', 0, '/goods-img/d543ba0d-18d8-427a-87ea-99968b319440.jpg', '/goods-img/d543ba0d-18d8-427a-87ea-99968b319440.jpg', '商品介绍加载中...', 12, 12, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10116, '无印良品 MUJI 乳液', '50ml', 0, '/goods-img/cd6d91b0-69b2-4415-8560-4cbd2690cb50.jpg', '/goods-img/cd6d91b0-69b2-4415-8560-4cbd2690cb50.jpg', '商品介绍加载中...', 55, 27, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10117, '无印良品 MUJI 男式', '棉水洗 平纹短袖衬衫 白色 L', 0, '/goods-img/b08c94ac-cba2-4468-b3d0-03d9447f5bf2.jpg', '/goods-img/b08c94ac-cba2-4468-b3d0-03d9447f5bf2.jpg', '商品介绍加载中...', 178, 89, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10118, '无印良品 MUJI 香/绿意', '12支装/棒状', 0, '/goods-img/5a65f952-4141-47f8-8f8e-84120bbf74ea.jpg', '/goods-img/5a65f952-4141-47f8-8f8e-84120bbf74ea.jpg', '商品介绍加载中...', 32, 32, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10119, '无印良品 MUJI 润肤乳霜(高保湿型)50g', '50g', 0, '/goods-img/503ef53e-d4ac-4c4e-83a7-8a03ead0ecc8.jpg', '/goods-img/503ef53e-d4ac-4c4e-83a7-8a03ead0ecc8.jpg', '商品介绍加载中...', 159, 159, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10120, '无印良品 MUJI 柔滑笔芯', '黑色', 0, '/goods-img/aa83ce5b-2db1-4ecf-bc4f-f43c437894d7.jpg', '/goods-img/aa83ce5b-2db1-4ecf-bc4f-f43c437894d7.jpg', '商品介绍加载中...', 19, 19, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10121, '无印良品 MUJI 铝制', '挂钩/吸盘式_2个装 大/约宽4.5x高6cm 2个装', 0, '/goods-img/5c590548-9de3-47a3-8cb9-4d8f040a9635.png', '/goods-img/5c590548-9de3-47a3-8cb9-4d8f040a9635.png', '商品介绍加载中...', 25, 25, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10122, '无印良品 MUJI 修正带', 'POM材质 替芯', 0, '/goods-img/93181f0b-c069-4542-be91-a63856cd12d1.jpg', '/goods-img/93181f0b-c069-4542-be91-a63856cd12d1.jpg', '商品介绍加载中...', 15, 15, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10123, '无印良品 MUJI 压克力记录板夹', 'Ａ4用/220×310ｍｍ', 0, '/goods-img/45be1de3-447b-404b-9df8-ddf07fdc8647.jpg', '/goods-img/45be1de3-447b-404b-9df8-ddf07fdc8647.jpg', '商品介绍加载中...', 35, 35, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10124, '无印良品（MUJI） 自然亲肤粉底液 自然透亮色', '新蜂精选', 0, '/goods-img/7f905827-5765-40bc-a1b8-bedd9f407ced.jpg', '/goods-img/7f905827-5765-40bc-a1b8-bedd9f407ced.jpg', '商品介绍加载中...', 75, 75, 1000, '', 0, 0, '2019-09-18 13:19:22', 0, '2019-09-18 13:19:22');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10125, '无印良品 MUJI PE小分装盒', '透明 30g', 0, '/goods-img/1d7f28bb-6597-48de-a6bb-2561697db883.jpg', '/goods-img/1d7f28bb-6597-48de-a6bb-2561697db883.jpg', '商品介绍加载中...', 10, 10, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10126, '无印良品 MUJI 保湿化妆液', '新蜂精选', 0, '/goods-img/53a089a9-e1d1-487e-974e-18bb4df41cf3.jpg', '/goods-img/53a089a9-e1d1-487e-974e-18bb4df41cf3.jpg', '商品介绍加载中...', 160, 80, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10127, '无印良品 MUJI 女式', '棉弹力 高领T恤 深灰色 M', 0, '/goods-img/53a6478b-4fd5-4add-b095-9fd4ad983a7b.jpg', '/goods-img/53a6478b-4fd5-4add-b095-9fd4ad983a7b.jpg', '商品介绍加载中...', 128, 40, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10128, '无印良品 MUJI 男式', '棉水洗 牛津纽扣领短袖衬衫 白色 L', 0, '/goods-img/561e9e6d-b130-468d-8328-36a5ff70cdfa.jpg', '/goods-img/561e9e6d-b130-468d-8328-36a5ff70cdfa.jpg', '商品介绍加载中...', 178, 89, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10129, '无印良品 MUJI 基础润肤乳液', '高保湿型 50ml', 0, '/goods-img/01514263-83b4-4ac7-aee3-5e5a2448414f.jpg', '/goods-img/01514263-83b4-4ac7-aee3-5e5a2448414f.jpg', '商品介绍加载中...', 37, 29, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10130, 'MUJI 羽毛 靠垫', '白色', 0, '/goods-img/23e5ee1d-5bb7-4f2a-b4b5-4fbc9ca3c163.jpg', '/goods-img/23e5ee1d-5bb7-4f2a-b4b5-4fbc9ca3c163.jpg', '商品介绍加载中...', 65, 65, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10131, '无印良品（MUJI） 可携带用小卷尺 白色', '新蜂精选', 0, '/goods-img/a4d3a61e-b0d3-4c58-85d6-fddf1de85f66.jpg', '/goods-img/a4d3a61e-b0d3-4c58-85d6-fddf1de85f66.jpg', '商品介绍加载中...', 28, 28, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10132, '无印良品 MUJI 笔记本/5mm方格', '暗灰色 B5/30张/线装', 0, '/goods-img/38c25b00-a4fb-4893-aa8e-34ff76963397.jpg', '/goods-img/38c25b00-a4fb-4893-aa8e-34ff76963397.jpg', '商品介绍加载中...', 9, 9, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10133, '无印良品 MUJI 低重心铅笔', '白色', 0, '/goods-img/dc497882-61ea-4d4f-98fe-d2b2500eda01.jpg', '/goods-img/dc497882-61ea-4d4f-98fe-d2b2500eda01.jpg', '商品介绍加载中...', 47, 47, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10134, '无印良品（MUJI） 手动碎纸机', '新蜂精选', 0, '/goods-img/f6e1ce14-a590-4736-9d36-df5628bc4188.jpg', '/goods-img/f6e1ce14-a590-4736-9d36-df5628bc4188.jpg', '商品介绍加载中...', 75, 75, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10135, '无印良品 MUJI 女式', '无袖衫 燕麦色 XL', 0, '/goods-img/c2e30c9b-ce49-4824-824a-b7d3ae173340.jpg', '/goods-img/c2e30c9b-ce49-4824-824a-b7d3ae173340.jpg', '商品介绍加载中...', 178, 53, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10136, '无印良品 MUJI 女式', '粗棉线长袖T恤 生成色 L', 0, '/goods-img/4b1b98d5-359f-4025-85e3-f357b6e9724a.jpg', '/goods-img/4b1b98d5-359f-4025-85e3-f357b6e9724a.jpg', '商品介绍加载中...', 198, 70, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10137, '无印良品 MUJI 塑料浴室座椅/小', '原色', 0, '/goods-img/37053615-750d-486e-b218-358a7c1adb21.jpg', '/goods-img/37053615-750d-486e-b218-358a7c1adb21.jpg', '商品介绍加载中...', 85, 85, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10138, '无印良品（MUJI） 树脂携带型订书机 白色', '新蜂精选', 0, '/goods-img/21dd6bd9-c4bc-4e17-8fed-23775cebf361.jpg', '/goods-img/21dd6bd9-c4bc-4e17-8fed-23775cebf361.jpg', '商品介绍加载中...', 42, 42, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10139, '无印良品 MUJI 基础润肤乳液', '滋润型', 0, '/goods-img/b8978340-ff72-4b5a-a9d3-4b5610982764.jpg', '/goods-img/b8978340-ff72-4b5a-a9d3-4b5610982764.jpg', '商品介绍加载中...', 28, 22, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10140, '无印良品（MUJI） 控色隔离霜30g 浅蓝色', '新蜂精选', 0, '/goods-img/b2969d29-b073-48f3-aa9a-b8aeb08a98d6.jpg', '/goods-img/b2969d29-b073-48f3-aa9a-b8aeb08a98d6.jpg', '商品介绍加载中...', 65, 65, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10141, '无印良品 MUJI 女式', '粗棉线条纹长袖T恤 黑*横条 L', 0, '/goods-img/a905c374-3411-4ddd-9b84-7ecbc9b50620.jpg', '/goods-img/a905c374-3411-4ddd-9b84-7ecbc9b50620.jpg', '商品介绍加载中...', 198, 70, 1000, '', 0, 0, '2019-09-18 13:19:30', 0, '2019-09-18 13:19:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10142, '无印良品 MUJI PE小分装盒', '透明 30g', 0, '/goods-img/2750405a-2e01-463d-a059-54644c67f7cc.jpg', '/goods-img/2750405a-2e01-463d-a059-54644c67f7cc.jpg', '商品介绍加载中...', 10, 10, 1000, '', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10143, '无印良品 MUJI 保湿化妆液', '新蜂精选', 0, '/goods-img/17656dd7-c0fb-431d-810a-5eb29d07c011.jpg', '/goods-img/17656dd7-c0fb-431d-810a-5eb29d07c011.jpg', '商品介绍加载中...', 160, 80, 1000, '', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10144, '无印良品 MUJI 女式', '棉弹力 高领T恤 深灰色 M', 0, '/goods-img/780e716a-7be8-4d94-b8b6-833b4d97e148.jpg', '/goods-img/780e716a-7be8-4d94-b8b6-833b4d97e148.jpg', '商品介绍加载中...', 128, 40, 1000, '', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10145, '无印良品 MUJI 男式', '棉水洗 牛津纽扣领短袖衬衫 白色 L', 0, '/goods-img/94f5b471-1148-4320-aa8a-68573706fd91.jpg', '/goods-img/94f5b471-1148-4320-aa8a-68573706fd91.jpg', '商品介绍加载中...', 178, 89, 1000, '', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10146, '无印良品 MUJI 基础润肤乳液', '高保湿型 50ml', 0, '/goods-img/a12dcb9c-bb36-4df9-b517-1578a03fe062.jpg', '/goods-img/a12dcb9c-bb36-4df9-b517-1578a03fe062.jpg', '商品介绍加载中...', 37, 29, 1000, '', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10147, 'MUJI 羽毛 靠垫', '白色', 0, '/goods-img/0f701215-b782-40c7-8bbd-97b51be56461.jpg', '/goods-img/0f701215-b782-40c7-8bbd-97b51be56461.jpg', '商品介绍加载中...', 65, 65, 982, '悠享惬意', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10148, '无印良品（MUJI） 可携带用小卷尺 白色', '新蜂精选', 0, '/goods-img/737afa41-1905-4dbc-ab33-95f8489dde5b.jpg', '/goods-img/737afa41-1905-4dbc-ab33-95f8489dde5b.jpg', '商品介绍加载中...', 28, 28, 1000, '', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10149, '无印良品 MUJI 笔记本/5mm方格', '暗灰色 B5/30张/线装', 0, '/goods-img/c6632420-ad7e-451b-a2a9-b02299653db1.jpg', '/goods-img/c6632420-ad7e-451b-a2a9-b02299653db1.jpg', '商品介绍加载中...', 9, 9, 1000, '', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10150, '无印良品 MUJI 低重心铅笔', '白色', 0, '/goods-img/060e3ace-71ca-44a2-9ded-73a05f186fcf.jpg', '/goods-img/060e3ace-71ca-44a2-9ded-73a05f186fcf.jpg', '商品介绍加载中...', 47, 47, 1000, '', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10151, '无印良品（MUJI） 手动碎纸机', '新蜂精选', 0, '/goods-img/58d831e4-07f4-44e2-a994-1a7d585452a1.jpg', '/goods-img/58d831e4-07f4-44e2-a994-1a7d585452a1.jpg', '商品介绍加载中...', 75, 75, 1000, '', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10152, '无印良品 MUJI 女式', '无袖衫 燕麦色 XL', 0, '/goods-img/f2aaadc0-ddda-4736-9826-2dbb2c533ea0.jpg', '/goods-img/f2aaadc0-ddda-4736-9826-2dbb2c533ea0.jpg', '商品介绍加载中...', 178, 53, 1000, '', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10153, '无印良品 MUJI 女式', '粗棉线长袖T恤 生成色 L', 0, '/goods-img/09c87218-d645-48e7-bbd5-54af5e77bf4b.jpg', '/goods-img/09c87218-d645-48e7-bbd5-54af5e77bf4b.jpg', '商品介绍加载中...', 198, 70, 1000, '', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10154, '无印良品 MUJI 塑料浴室座椅', '原色', 0, '/goods-img/15395057-94e9-4545-a8ee-8aee025f40c5.jpg', '/goods-img/15395057-94e9-4545-a8ee-8aee025f40c5.jpg', '商品介绍加载中...', 85, 85, 999, '无印良品', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10155, '无印良品（MUJI） 树脂携带型订书机 白色', '新蜂精选', 0, '/goods-img/3b40971a-3f32-45cf-a99a-aada90ee8e33.jpg', '/goods-img/3b40971a-3f32-45cf-a99a-aada90ee8e33.jpg', '商品介绍加载中...', 42, 42, 1000, '', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10156, '无印良品 MUJI 基础润肤乳液', '滋润型', 0, '/goods-img/f65ef709-8fa8-4a3f-8abd-75a9b0492b14.jpg', '/goods-img/f65ef709-8fa8-4a3f-8abd-75a9b0492b14.jpg', '商品介绍加载中...', 28, 22, 1000, '', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10157, '无印良品（MUJI） 控色隔离霜30g 浅蓝色', '新蜂精选', 0, '/goods-img/66311489-b28b-41c3-ac34-540293df6e42.jpg', '/goods-img/66311489-b28b-41c3-ac34-540293df6e42.jpg', '商品介绍加载中...', 65, 65, 1000, '', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 13:19:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10158, '无印良品 女式粗棉线条纹长袖T恤', '黑*横条 L', 20, '/goods-img/5488564b-8335-4b0c-a5a4-52f3f03ee728.jpg', 'http://localhost:28089/goods-img/5488564b-8335-4b0c-a5a4-52f3f03ee728.jpg', '商品介绍加载中...', 198, 70, 994, '无印良品', 0, 0, '2019-09-18 13:19:35', 0, '2019-09-18 17:50:19');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10159, 'Apple AirPods 配充电盒', '苹果蓝牙耳机', 0, '/goods-img/53c9f268-7cd4-4fac-909c-2dc066625655.jpg', '/goods-img/53c9f268-7cd4-4fac-909c-2dc066625655.jpg', '详情加载中...', 1246, 1246, 982, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10160, '小米 Redmi AirDots', '真无线蓝牙耳机|分体式耳机 |收纳充电盒 |蓝牙5.0 |按键防触控操作', 51, '/goods-img/c47403f1-b706-453b-88d8-2bfdee0316be.jpg', '/goods-img/c47403f1-b706-453b-88d8-2bfdee0316be.jpg', '详情加载中...', 129, 129, 996, '为自由发声', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10161, '荣耀原装三键线控带麦半入耳式耳机AM116(尊爵版)适用于华为荣耀手机', '新蜂精选', 0, '/goods-img/183481c3-47ff-4b2e-926f-b02b926ac02c.jpg', '/goods-img/183481c3-47ff-4b2e-926f-b02b926ac02c.jpg', '商品介绍加载中...', 69, 49, 998, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10162, '诺基亚（NOKIA）BH-705 银白色 5.0真无线蓝牙耳机迷你运动跑步音乐商务入耳式安卓苹果手机蓝牙耳机', '新蜂精选', 0, '/goods-img/5e0d089b-fa91-410d-8ff2-9534eb6f627f.jpg', '/goods-img/5e0d089b-fa91-410d-8ff2-9534eb6f627f.jpg', '详情加载中...', 499, 499, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10163, '华为耳机原装半入耳式有线mate9p10plus8x荣耀v20v10nova2s9iv9p9play 【标准版】华为AM115 白色-热卖款', '新蜂精选', 0, '/goods-img/79e2b467-a075-46ef-ab43-aa0535f8e4c9.jpg', '/goods-img/79e2b467-a075-46ef-ab43-aa0535f8e4c9.jpg', '商品介绍加载中...', 69, 39, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10164, 'Beats X 蓝牙无线', '入耳式耳机 带麦可通话 -桀骜黑红（十周年版） MRQA2PA/A', 0, '/goods-img/911531a4-39a6-4771-b26e-2ba4db1ebcda.jpg', '/goods-img/911531a4-39a6-4771-b26e-2ba4db1ebcda.jpg', '商品介绍加载中...', 1168, 799, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10165, '华为（ HUAWEI） 华为无线耳机', '真无线蓝牙耳机 双耳蓝牙音乐耳机 Freebuds 2 无线耳机 陶瓷白', 0, '/goods-img/e70a4f29-2269-466a-984e-01e018206c2e.jpg', '/goods-img/e70a4f29-2269-466a-984e-01e018206c2e.jpg', '详情加载中...', 899, 799, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10166, '【自营仓次日达】moloke真无线蓝牙耳机双耳适用于苹果华为小米 运动跑步入耳式oppo迷你商务耳机 【1:1尊享版】自动弹窗+无线充电+可触控（热卖）', '新蜂精选', 51, '/goods-img/70dc1586-13bd-4b4c-92a9-fe20aa1d531f.jpg', '/goods-img/70dc1586-13bd-4b4c-92a9-fe20aa1d531f.jpg', '商品介绍加载中...', 359, 199, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10167, 'Beats Powerbeats Pro', '完全无线高性能耳机 真无线蓝牙运动耳机 象牙白', 0, '/goods-img/04441cd4-81c8-4ad9-a067-9d15422e508f.jpg', '/goods-img/04441cd4-81c8-4ad9-a067-9d15422e508f.jpg', '详情加载中...', 1888, 1888, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10168, '纽曼（Newmine）NM-LK06 全兼容线控音乐手机耳机 白色', '新蜂精选', 0, '/goods-img/ad53ea23-6974-4e44-b62d-eab498ce1d63.jpg', '/goods-img/ad53ea23-6974-4e44-b62d-eab498ce1d63.jpg', '商品介绍加载中...', 9, 9, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10169, '索尼（SONY）重低音立体声耳机MDR-XB55AP 黑色', '新蜂精选', 0, '/goods-img/01e1998d-f183-4e99-b8ba-7715727cf90b.jpg', '/goods-img/01e1998d-f183-4e99-b8ba-7715727cf90b.jpg', '*黑色实物偏灰，请以实物为准 Bass Booster低音增强器技术可呈现紧实深邃低频。 12 毫米驱动单元和110dB/mW 的高灵敏度，呈现高质感音效。 人体工学设计的倾斜入耳方式，让耳塞能够深入耳朵内部，呈现出色的隔音效果，同时带来舒适的佩戴感和高音质的享受。 耳塞能够深入耳朵内部，呈现出色的隔音效果，同时为您带来舒适的佩戴感和高音质的享受。 采用混合两种硬度硅胶的耳塞套： 核心部分使用硬质材料保持音质，减少因耳塞变形导致的声音失真； 外围部分柔软材料提高了耳塞密闭性，让您能长时间舒适佩戴。 *线控的可用性及操作因智能手机而异 耳机线表面细小沟壑，减少容易引起缠绕的摩擦，使导线不容易纠结在一起，方便欣赏音乐和携带。 防缠绕耳机线 盲点设计 便携袋 防尘滤网 导线滑块 4种尺寸耳塞套 摘下耳机的耳塞套，可见保护单元的网罩，用来防止异物和灰尘堵塞单元，使耳机经久耐听。 在左耳外壳和耳机线的连接处设有浮点，凭手指触摸就能判别左右耳，方便操作。 随机附赠收纳袋一只，保护你心爱的耳机。 利用导线滑块来调整左右耳机线的长度，也能够减少收纳耳机时容易出现的缠线现象 提供4对不同尺寸（SS、S、M、L）的耳塞套（M号出厂时已安装至耳机上），根据你的耳洞大小自由更换，获得良好的隔音效果，佩戴舒适。 ● 立体声耳机 ● 混合硅胶耳塞（SS/S/M/L 每种尺寸2个) *M号出厂时安装至本耳机。 ● 便携袋(×1) *EXTRA BASS 和 EXTRABASS 是索尼公司的商标', 229, 185, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10170, '索尼（SONY）WI-1000X Hi-Res颈挂式 入耳式', '无线蓝牙耳机 高音质降噪耳机 手机通话 黑色', 0, '/goods-img/1631a30b-287c-41da-bbbe-1a9b1b8d1552.jpg', '/goods-img/1631a30b-287c-41da-bbbe-1a9b1b8d1552.jpg', '详情加载中...', 2399, 1499, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10171, '小米耳机 圈铁Pro 入耳式有线运动音乐耳机耳麦', '新蜂精选', 51, '/goods-img/f3d269a4-5317-4b30-b164-1311f6c1f058.jpg', '/goods-img/f3d269a4-5317-4b30-b164-1311f6c1f058.jpg', '使用双动圈 + 动铁 三单元发声 ／ 均衡自然声音 高保真石墨烯振膜 ／ 25 道工序打磨 ／ 弹力磨砂线材 Pro 小米圈铁耳机 孕育万物的天空和大地，时刻传达着声音的释放与组合，更是寻找灵感的源头，鸟鸣、流水、雷响、风啸不同的声音互相交融，共同演奏出自然的本真。 小米圈铁耳机 Pro 使用双“动圈”单元+“动铁”单元，将三个单元共同融入到同一个耳机中，双“动圈”的醇厚低音，让声音更加扎实稳重，石墨烯材料的加入，则让声音的细节更为丰富。“动铁”的高音透亮，稳定自然，感受三频均衡的本色声音。随着声音的流淌，仿佛置身自然，听见这些细节，让声音一开始就感动内心。 双动圈+动铁，三单元发声，听见更多细节 为了可以真正实现高、中、低三频均衡，小米圈铁耳机 Pro  加入了双“动圈”单元，大动圈负责中低频，小动圈负责高频。在“动铁”单元的配合下，耳机的低频下潜深，中频声音扎实，而高频的细节展现更为丰富。那些刚刚好的声音，听在耳里，都在心里。 三频更均衡，声音更自然 我们听到的绝大多数乐器、人声，都在中低频段。为了让这部分声音更均衡、有感染力，我们都交由采用了石墨烯振膜的双动圈单元来负责，中低频更扎实，兼具丰富细节表现力。 石墨烯是目前自然界已知材料中轻薄、强度更高的材料，对声音的传导速度快，将它用作振膜材质，高频延展性能更好，细节丰富，声音清澈自然，更富穿透力。同时强度又是钢铁的100倍， 可以尽可能还原出电流信号， 真正发出高保真的好声音。 石墨烯振膜，让双动圈更有实力 小米圈铁耳机 Pro 的“动铁”单元依然采用自主研发的 \"衔铁＋驱动杆\" 结构，让声音细腻真实，更为稳定，在电容分频器的作用下，让高中低音衔接更好，失真更少。不论当你听何种音乐，细腻的感情都会被准确还原，听每首歌就像读每个故事，时刻感动自己。 动铁单元设计，高频解析好，细节不失真 好的音乐人将情感与生活用真实的方式，转化为音乐传递给每个人，每首歌都是一个故事，铭刻在各自的记忆中，为了让故事更好的表达，小米圈铁耳机 Pro 在科学客观调音的基础上，再次邀请到荣获 4 次格莱美大奖的 Luca Bignardi，为小米圈铁耳机 Pro 进行主观调音，为的就是让每个喜爱音乐的人能够真切的感受到每一个故事，跟随内心，娓娓道来... 多种科学调音，让声音更鲜活，更温暖 当耳机真正为声音服务时，设计将不再只是修饰耳机外观的道具，它将会成为辅助声音的一部分，小米圈铁耳机 Pro 采用圆润的设计风格，45° 斜角入耳设计，在满足舒适的同时更保证了声音的完整呈现。精密金属音腔设计，让音乐沉于耳畔，更有声音质感，弹力 TPE 磨砂线材的选用，让耳机线更为坚固耐用，确保耳机长久使用。一副好耳机，让声音和外表一起美好。 全新的外观设计，和声音一起美好 好的设计需要灵感，而灵感源于生活，为了锁住声音的灵感，小米圈铁耳机 Pro 将耳塞设计成45°斜角式入耳，贴合耳道，满足佩戴舒适感的同时尽可能减少外界声音干扰，毫无保留地听自己爱的音乐。 45°斜角入耳，舒适佩戴 小米圈铁耳机 Pro 的线控麦克风从耳机整体设计风格出发，金属磨砂弹头造型，精致小巧，指压按键圆润舒适，听歌的同时，更能感知指尖上的金属质感。 小米圈铁耳机 Pro 的耳机线材选取 TPE 材质，作为一种具有橡胶的高弹性材质， 触感柔软、耐温等特性，用它做成耳机线，将更为抗拉、耐用并且不易缠绕。让好音乐的陪伴更长久。 小米圈铁耳机 Pro 的耳塞选取奶嘴级硅胶材质，触感柔软顺滑，减少了耳塞对皮肤的刺激，让肌肤倍感亲密，同时提供四对不同尺寸的耳塞套，让佩戴者根据不同需求选择，带上它，向自己喜爱的音乐问好！ 用匠心打磨每一件产品，即使过程艰难复杂，也依然充满斗志，小米圈铁耳机 Pro 的诞生过程就是这样。25 道工序打造的金属音腔，每一处细节都精心打磨，一体成型钻石切割、细密 CD 纹雕刻、锆石喷砂、阳极氧化，千锤百炼，不放过每个细节，将金属打磨成入耳的艺术品，这就是小米圈铁耳机 Pro 对音乐执着，对好产品更要执着。 小米圈铁耳机 Pro 是铝合金音腔，采用了 CNC 钻石切割一刀成型工艺，加工精度高达0.01mm，这种工艺在对铝合金加工前都要进行工艺分析，选择合适的刀具及切削用量，将打磨成型，让耳机具有更细腻润泽的手感。 小米圈铁耳机 Pro 运用精密的 CD 纹处理，纹理细至 0.14mm，散发金属光泽，就像耳机的指纹一样。如此的精密打磨，只为让小米圈铁耳机 Pro 更具质感，让金属更光辉熠熠。 选用精细锆石喷砂，赋予小米圈铁耳机 Pro 细致均匀的外观，有效保证了耳机表面硬度，不易刮伤。出厂时，会在小米圈铁耳机 Pro 表层增加阳极处理，保证了美观程度和耐磨性，6μ的阳极厚度，坚固、耐磨，做传达好声音的艺术品。 拥有超过 700 项高于行业标准的苛刻测试，每一种测试都见证了小米圈铁耳机 Pro 的高品质， 从音乐品质到设计创新，再到匠心工艺，集合好耳机的所有亮点，都只为带给用户更好的音乐体验和使用感受，好的声音，一定需要千锤百炼 。', 149, 149, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10172, 'Bose QuietControl 30', '无线耳机 QC30耳塞式蓝牙降噪耳麦', 0, '/goods-img/966a8b32-f547-457c-9161-009d3113d584.jpg', '/goods-img/966a8b32-f547-457c-9161-009d3113d584.jpg', '商品介绍加载中...', 2498, 2498, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10173, 'Beats Solo3 Wireless', '头戴式 蓝牙无线耳机 手机耳机 游戏耳机 - 桀骜黑红（十周年版） MRQC2PA/A', 0, '/goods-img/72218e28-fc58-4aa0-b3cd-c1f2c764d25e.jpg', '/goods-img/72218e28-fc58-4aa0-b3cd-c1f2c764d25e.jpg', '商品介绍加载中...', 2268, 1698, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10174, '索尼（SONY）WH-1000XM3 高解析度无线蓝牙降噪 头戴式耳机（触控面板', '智能降噪 长久续航）黑色', 0, '/goods-img/4cc6c606-4d69-4f49-b10c-01cedeef813f.jpg', '/goods-img/4cc6c606-4d69-4f49-b10c-01cedeef813f.jpg', '详情加载中...', 2899, 2599, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10175, '雷蛇 Razer 北海巨妖标准版X', '北海巨妖标准版升级款 头戴式游戏耳机 电竞耳麦 7.1 电脑手机耳机 黑色', 0, '/goods-img/7345c467-6c2d-4f30-a73d-83d675d5208c.jpg', '/goods-img/7345c467-6c2d-4f30-a73d-83d675d5208c.jpg', '产品信息Product Information 产品规格Product Specifications 品牌介绍Brand Introduction 注意事项Warning & Caution 雷蛇产品在出厂时会进行检测，脚贴及USB接口处如有轻微划痕属于正常测试痕迹。 RAZER关于划痕的注意事项： 以上数据图片均为官方测试环境下结果，因使用环境/设备不同会存在一定的差异，仅供参考，数据请以实际为准！  1. 产品实物与外包装上的SN（序列号）必须一致； 2. 产品外包装不能严重破损，盒内的相关配件要齐全，不能有缺失； 3. 不能有明显的人为破损（表面有明显的人为划痕，使用及存在拆卸的痕迹）； 4. 防伪标签不得撕开或损毁。 RAZER关于7天无理由退换货的注意事项： ', 349, 299, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10176, '森海塞尔（Sennheiser）MomentumTrueWireless 真无线蓝牙hifi发烧入耳式耳机 蓝牙5.0', '黑色', 0, '/goods-img/efea018e-8ab0-47f9-a3d4-260c8cd2de5f.jpg', '/goods-img/efea018e-8ab0-47f9-a3d4-260c8cd2de5f.jpg', '聆听带来改变 真     无     线     蓝     牙     HiFi     耳     机 MOMENTUM 真无线 懂你所需 全新的 MOMENTUM 真无线耳机，高品质的声音质量传承 MOMENTUM 品质，成为一款具有重要技术成就的新产品。 这款性能优异的蓝牙耳机融合音频质量、佩戴舒适性和精致设计及工艺。 全新的 MOMENTUM 透明聆听功能 防水防泼溅 电池使用时长 （4+8小时） 精雕细琢 经典优雅 高品质声音质量 智能降噪 智能触控操作 支持蓝牙5.0技术 智能触控操作 支持蓝牙 5.0技术 MOMENTUM真无线耳机采用Sennheiser发烧级别7毫米动圈驱动单元，可确保饱满的立体声效果，带来高保真音质，为苛刻的听者带来出色的高保真度。 高品质声音质量 两侧触摸区域都有单独的控制功能，您可以轻松使用右耳耳机语音访问智能助手（如苹果 Siri或Google智能助手）。 轻轻点击或滑动触摸界面，使用自然语音命令即可播放音乐、接听电话。 支持蓝牙5.0技术及编解码技术（包括AAC、Qualcomm apt-XTM和apt-X低延迟），这款耳机带来出众的连接稳定性和音频流畅性。 真正的无线体验 轻松适配周围环境 MOMENTUM 真无线耳机让你更好地感知外部环境，透明聆听让你能听到周围的环境声，从而更好地感知周围的环境，不需要摘掉耳机就能融入到自然的交谈之中。甚至在嘈杂的环境中，电话呼叫和语音交互也能够通过双话筒波束成形技术得以实现。 智能交互 通过自动开启/关闭和智能暂停功能，可以检测到耳机何时被收起来或者不使用，从而节约能源。 你的世界由你把控 通过双击右耳耳机开/关透明聆听功能 打开透明聆听=接收周围环境音 关闭透明聆听=物理降噪模式，不接收周围音 不需要摘掉耳机就可轻松地与周围人进行交谈。 4种尺寸的耳垫可选，均符合人体工程学设计，防水防泼溅，能够满足用户舒适佩戴的需求。 个性定制舒适体验 MOMENTUM真无线拥有4小时电池续航时间，可通过其带有集成电源的小巧耳机盒进行充电，从而享受长达12（4+8）小时的全天聆听乐趣，并满足未来所需。 镀金充电接触点 可磁性吸附到充电盒上 高保真7毫米动圈驱动单元 带来出色的声音重放 金属镭射表面 具有触控功能 多色 LED指示灯 用于语音信号拾取和透明聆听功能的话筒 舒适的入耳式 硅胶耳垫 便捷充电盒持久续航 注重细节、富于美感，这款小巧、 靓丽而轻盈的耳机是技术与艺术的 结合。它既是声音重放技术的成就，更是你耳畔精美的配饰。 质感黑色外壳，闪烁的金属镭射表面，镀金的充电接触点——时尚与功能融合于标志性的设计之中，带来优雅和实用感。 Sennheiser智能控制 MOMENTUM 真无线耳机提供了更为智能和个性化的体验，可以通过新款Sennheiser智能控制应用进行优化，根据个人喜好，利用内置音频EQ对声音进行微调。免费下载，兼容iOS 版本 11.0 及以上版本和Android 版本 7.0 及以上版本 ，简便直观的控制界面，为您的耳机提供个性化的配置和升级等功能。 APP 下载方法 Android 版本 7.0 及以上版本 打开链接下载APP https://share.weiyun.com/54byqjn iOS 版本 11.0 及以上版本 打开APP Store搜索 Sennheiser smart control 下载APP', 2399, 2399, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10177, 'Bose SoundSport Free', '真无线蓝牙耳机--黑色 运动耳机 防掉落耳塞', 0, '/goods-img/b3de8a39-e33c-432f-872f-46f4a1662498.jpg', '/goods-img/b3de8a39-e33c-432f-872f-46f4a1662498.jpg', '商品介绍加载中...', 1699, 1699, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10178, '华为原装降噪有线手机耳机Mate9 10P9P10Plus荣耀V9V10PlayNova2s9i8x 【送耳机收纳包】AM115半入耳式耳机-经典热卖款', '新蜂精选', 0, '/goods-img/d6565a7e-473b-4933-93c5-e646495c8c4c.jpg', '/goods-img/d6565a7e-473b-4933-93c5-e646495c8c4c.jpg', '详情加载中...', 99, 39, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10179, 'Apple 采用Lightning/闪电接头的 EarPods', '耳机', 0, '/goods-img/bf6ccbc4-d0d0-4fbb-b975-4becb9cb38f4.jpg', '/goods-img/bf6ccbc4-d0d0-4fbb-b975-4becb9cb38f4.jpg', '详情加载中...', 223, 223, 1000, '', 0, 0, '2019-09-18 13:21:28', 0, '2019-09-18 13:21:28');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10180, 'Apple AirPods 配充电盒', '苹果蓝牙耳机', 0, '/goods-img/64768a8d-0664-4b29-88c9-2626578ffbd1.jpg', '/goods-img/64768a8d-0664-4b29-88c9-2626578ffbd1.jpg', '详情加载中...', 1246, 1246, 993, '妙出新境界', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10181, '小米 Redmi AirDots', '真无线蓝牙耳机|分体式耳机 |收纳充电盒 |蓝牙5.0 |按键防触控操作', 51, '/goods-img/36d0fe8f-aa28-423c-81e7-82cab31b7598.jpg', '/goods-img/36d0fe8f-aa28-423c-81e7-82cab31b7598.jpg', '详情加载中...', 129, 129, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10182, '荣耀原装三键线控带麦半入耳式耳机AM116(尊爵版)适用于华为荣耀手机', '新蜂精选', 0, '/goods-img/6113a562-f3f1-408c-9b0d-78a84407caf7.jpg', '/goods-img/6113a562-f3f1-408c-9b0d-78a84407caf7.jpg', '商品介绍加载中...', 69, 49, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10183, '诺基亚（NOKIA）BH-705 银白色 5.0真无线蓝牙耳机迷你运动跑步音乐商务入耳式安卓苹果手机蓝牙耳机', '新蜂精选', 0, '/goods-img/abb13d3a-3445-4b26-b8e9-44cbec227b5d.jpg', '/goods-img/abb13d3a-3445-4b26-b8e9-44cbec227b5d.jpg', '详情加载中...', 499, 499, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10184, '华为耳机原装半入耳式有线mate9p10plus8x荣耀v20v10nova2s9iv9p9play 【标准版】华为AM115 白色-热卖款', '新蜂精选', 0, '/goods-img/fac9c3e9-4843-46d1-8668-7e2eac17ccf2.jpg', '/goods-img/fac9c3e9-4843-46d1-8668-7e2eac17ccf2.jpg', '商品介绍加载中...', 69, 39, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10185, 'Beats X 蓝牙无线', '入耳式耳机 带麦可通话 -桀骜黑红（十周年版） MRQA2PA/A', 0, '/goods-img/25910a34-e026-4954-87b0-c379999e1dd0.jpg', '/goods-img/25910a34-e026-4954-87b0-c379999e1dd0.jpg', '商品介绍加载中...', 1168, 799, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10186, '华为（ HUAWEI） 华为无线耳机', '真无线蓝牙耳机 双耳蓝牙音乐耳机 Freebuds 2 无线耳机 陶瓷白', 0, '/goods-img/adf8cbc2-ccb9-408a-96d0-553848e111e9.jpg', '/goods-img/adf8cbc2-ccb9-408a-96d0-553848e111e9.jpg', '详情加载中...', 899, 799, 999, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10187, '【自营仓次日达】moloke真无线蓝牙耳机双耳适用于苹果华为小米 运动跑步入耳式oppo迷你商务耳机 【1:1尊享版】自动弹窗+无线充电+可触控（热卖）', '新蜂精选', 51, '/goods-img/1e5645d1-24cb-48eb-9aaa-f729fa0db195.jpg', '/goods-img/1e5645d1-24cb-48eb-9aaa-f729fa0db195.jpg', '商品介绍加载中...', 359, 199, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10188, 'Beats Powerbeats Pro', '完全无线高性能耳机 真无线蓝牙运动耳机 象牙白', 0, '/goods-img/e028c016-6793-49a3-8b0f-d0102a415d21.jpg', '/goods-img/e028c016-6793-49a3-8b0f-d0102a415d21.jpg', '详情加载中...', 1888, 1888, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10189, '纽曼（Newmine）NM-LK06 全兼容线控音乐手机耳机 白色', '新蜂精选', 0, '/goods-img/0b02244f-6908-4ccb-a9d2-ccb5a462e30e.jpg', '/goods-img/0b02244f-6908-4ccb-a9d2-ccb5a462e30e.jpg', '商品介绍加载中...', 9, 9, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10190, '索尼（SONY）重低音立体声耳机MDR-XB55AP 黑色', '新蜂精选', 0, '/goods-img/eec7b009-a9ff-45cd-a7be-4051eb7b3c22.jpg', '/goods-img/eec7b009-a9ff-45cd-a7be-4051eb7b3c22.jpg', '*黑色实物偏灰，请以实物为准 Bass Booster低音增强器技术可呈现紧实深邃低频。 12 毫米驱动单元和110dB/mW 的高灵敏度，呈现高质感音效。 人体工学设计的倾斜入耳方式，让耳塞能够深入耳朵内部，呈现出色的隔音效果，同时带来舒适的佩戴感和高音质的享受。 耳塞能够深入耳朵内部，呈现出色的隔音效果，同时为您带来舒适的佩戴感和高音质的享受。 采用混合两种硬度硅胶的耳塞套： 核心部分使用硬质材料保持音质，减少因耳塞变形导致的声音失真； 外围部分柔软材料提高了耳塞密闭性，让您能长时间舒适佩戴。 *线控的可用性及操作因智能手机而异 耳机线表面细小沟壑，减少容易引起缠绕的摩擦，使导线不容易纠结在一起，方便欣赏音乐和携带。 防缠绕耳机线 盲点设计 便携袋 防尘滤网 导线滑块 4种尺寸耳塞套 摘下耳机的耳塞套，可见保护单元的网罩，用来防止异物和灰尘堵塞单元，使耳机经久耐听。 在左耳外壳和耳机线的连接处设有浮点，凭手指触摸就能判别左右耳，方便操作。 随机附赠收纳袋一只，保护你心爱的耳机。 利用导线滑块来调整左右耳机线的长度，也能够减少收纳耳机时容易出现的缠线现象 提供4对不同尺寸（SS、S、M、L）的耳塞套（M号出厂时已安装至耳机上），根据你的耳洞大小自由更换，获得良好的隔音效果，佩戴舒适。 ● 立体声耳机 ● 混合硅胶耳塞（SS/S/M/L 每种尺寸2个) *M号出厂时安装至本耳机。 ● 便携袋(×1) *EXTRA BASS 和 EXTRABASS 是索尼公司的商标', 229, 185, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10191, '索尼（SONY）WI-1000X Hi-Res颈挂式 入耳式', '无线蓝牙耳机 高音质降噪耳机 手机通话 黑色', 0, '/goods-img/1c4adfba-f2f4-4ab3-8520-c28b0a437b7b.jpg', '/goods-img/1c4adfba-f2f4-4ab3-8520-c28b0a437b7b.jpg', '详情加载中...', 2399, 1499, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10192, '小米耳机 圈铁Pro 入耳式有线运动音乐耳机耳麦', '新蜂精选', 51, '/goods-img/b1530f7f-d286-4eb1-8d2b-3c2a74fa9f06.jpg', '/goods-img/b1530f7f-d286-4eb1-8d2b-3c2a74fa9f06.jpg', '使用双动圈 + 动铁 三单元发声 ／ 均衡自然声音 高保真石墨烯振膜 ／ 25 道工序打磨 ／ 弹力磨砂线材 Pro 小米圈铁耳机 孕育万物的天空和大地，时刻传达着声音的释放与组合，更是寻找灵感的源头，鸟鸣、流水、雷响、风啸不同的声音互相交融，共同演奏出自然的本真。 小米圈铁耳机 Pro 使用双“动圈”单元+“动铁”单元，将三个单元共同融入到同一个耳机中，双“动圈”的醇厚低音，让声音更加扎实稳重，石墨烯材料的加入，则让声音的细节更为丰富。“动铁”的高音透亮，稳定自然，感受三频均衡的本色声音。随着声音的流淌，仿佛置身自然，听见这些细节，让声音一开始就感动内心。 双动圈+动铁，三单元发声，听见更多细节 为了可以真正实现高、中、低三频均衡，小米圈铁耳机 Pro  加入了双“动圈”单元，大动圈负责中低频，小动圈负责高频。在“动铁”单元的配合下，耳机的低频下潜深，中频声音扎实，而高频的细节展现更为丰富。那些刚刚好的声音，听在耳里，都在心里。 三频更均衡，声音更自然 我们听到的绝大多数乐器、人声，都在中低频段。为了让这部分声音更均衡、有感染力，我们都交由采用了石墨烯振膜的双动圈单元来负责，中低频更扎实，兼具丰富细节表现力。 石墨烯是目前自然界已知材料中轻薄、强度更高的材料，对声音的传导速度快，将它用作振膜材质，高频延展性能更好，细节丰富，声音清澈自然，更富穿透力。同时强度又是钢铁的100倍， 可以尽可能还原出电流信号， 真正发出高保真的好声音。 石墨烯振膜，让双动圈更有实力 小米圈铁耳机 Pro 的“动铁”单元依然采用自主研发的 \"衔铁＋驱动杆\" 结构，让声音细腻真实，更为稳定，在电容分频器的作用下，让高中低音衔接更好，失真更少。不论当你听何种音乐，细腻的感情都会被准确还原，听每首歌就像读每个故事，时刻感动自己。 动铁单元设计，高频解析好，细节不失真 好的音乐人将情感与生活用真实的方式，转化为音乐传递给每个人，每首歌都是一个故事，铭刻在各自的记忆中，为了让故事更好的表达，小米圈铁耳机 Pro 在科学客观调音的基础上，再次邀请到荣获 4 次格莱美大奖的 Luca Bignardi，为小米圈铁耳机 Pro 进行主观调音，为的就是让每个喜爱音乐的人能够真切的感受到每一个故事，跟随内心，娓娓道来... 多种科学调音，让声音更鲜活，更温暖 当耳机真正为声音服务时，设计将不再只是修饰耳机外观的道具，它将会成为辅助声音的一部分，小米圈铁耳机 Pro 采用圆润的设计风格，45° 斜角入耳设计，在满足舒适的同时更保证了声音的完整呈现。精密金属音腔设计，让音乐沉于耳畔，更有声音质感，弹力 TPE 磨砂线材的选用，让耳机线更为坚固耐用，确保耳机长久使用。一副好耳机，让声音和外表一起美好。 全新的外观设计，和声音一起美好 好的设计需要灵感，而灵感源于生活，为了锁住声音的灵感，小米圈铁耳机 Pro 将耳塞设计成45°斜角式入耳，贴合耳道，满足佩戴舒适感的同时尽可能减少外界声音干扰，毫无保留地听自己爱的音乐。 45°斜角入耳，舒适佩戴 小米圈铁耳机 Pro 的线控麦克风从耳机整体设计风格出发，金属磨砂弹头造型，精致小巧，指压按键圆润舒适，听歌的同时，更能感知指尖上的金属质感。 小米圈铁耳机 Pro 的耳机线材选取 TPE 材质，作为一种具有橡胶的高弹性材质， 触感柔软、耐温等特性，用它做成耳机线，将更为抗拉、耐用并且不易缠绕。让好音乐的陪伴更长久。 小米圈铁耳机 Pro 的耳塞选取奶嘴级硅胶材质，触感柔软顺滑，减少了耳塞对皮肤的刺激，让肌肤倍感亲密，同时提供四对不同尺寸的耳塞套，让佩戴者根据不同需求选择，带上它，向自己喜爱的音乐问好！ 用匠心打磨每一件产品，即使过程艰难复杂，也依然充满斗志，小米圈铁耳机 Pro 的诞生过程就是这样。25 道工序打造的金属音腔，每一处细节都精心打磨，一体成型钻石切割、细密 CD 纹雕刻、锆石喷砂、阳极氧化，千锤百炼，不放过每个细节，将金属打磨成入耳的艺术品，这就是小米圈铁耳机 Pro 对音乐执着，对好产品更要执着。 小米圈铁耳机 Pro 是铝合金音腔，采用了 CNC 钻石切割一刀成型工艺，加工精度高达0.01mm，这种工艺在对铝合金加工前都要进行工艺分析，选择合适的刀具及切削用量，将打磨成型，让耳机具有更细腻润泽的手感。 小米圈铁耳机 Pro 运用精密的 CD 纹处理，纹理细至 0.14mm，散发金属光泽，就像耳机的指纹一样。如此的精密打磨，只为让小米圈铁耳机 Pro 更具质感，让金属更光辉熠熠。 选用精细锆石喷砂，赋予小米圈铁耳机 Pro 细致均匀的外观，有效保证了耳机表面硬度，不易刮伤。出厂时，会在小米圈铁耳机 Pro 表层增加阳极处理，保证了美观程度和耐磨性，6μ的阳极厚度，坚固、耐磨，做传达好声音的艺术品。 拥有超过 700 项高于行业标准的苛刻测试，每一种测试都见证了小米圈铁耳机 Pro 的高品质， 从音乐品质到设计创新，再到匠心工艺，集合好耳机的所有亮点，都只为带给用户更好的音乐体验和使用感受，好的声音，一定需要千锤百炼 。', 149, 149, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10193, 'Bose QuietControl 30', '无线耳机 QC30耳塞式蓝牙降噪耳麦', 0, '/goods-img/02cf272e-9062-4d4b-8b7f-7058f0472efa.jpg', '/goods-img/02cf272e-9062-4d4b-8b7f-7058f0472efa.jpg', '商品介绍加载中...', 2498, 2498, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10194, 'Beats Solo3 Wireless', '头戴式 蓝牙无线耳机 手机耳机 游戏耳机 - 桀骜黑红（十周年版） MRQC2PA/A', 0, '/goods-img/af77eaba-fd00-4ec8-b0e6-928372a0741d.jpg', '/goods-img/af77eaba-fd00-4ec8-b0e6-928372a0741d.jpg', '商品介绍加载中...', 2268, 1698, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10195, '索尼 WH-1000XM3 头戴式耳机', '高解析度无线蓝牙降噪（触控面板 智能降噪 长久续航）黑色', 20, '/goods-img/0dc503b2-90a2-4971-9723-c085a1844b76.jpg', 'http://localhost:28089/goods-img/0dc503b2-90a2-4971-9723-c085a1844b76.jpg', '详情加载中...', 2899, 2599, 988, '智能降噪 长久续航', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 17:42:20');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10196, '雷蛇 Razer 北海巨妖标准版X', '北海巨妖标准版升级款 头戴式游戏耳机 电竞耳麦 7.1 电脑手机耳机 黑色', 0, '/goods-img/0cc81546-1408-4140-af95-0341a7778b6c.jpg', '/goods-img/0cc81546-1408-4140-af95-0341a7778b6c.jpg', '产品信息Product Information 产品规格Product Specifications 品牌介绍Brand Introduction 注意事项Warning & Caution 雷蛇产品在出厂时会进行检测，脚贴及USB接口处如有轻微划痕属于正常测试痕迹。 RAZER关于划痕的注意事项： 以上数据图片均为官方测试环境下结果，因使用环境/设备不同会存在一定的差异，仅供参考，数据请以实际为准！  1. 产品实物与外包装上的SN（序列号）必须一致； 2. 产品外包装不能严重破损，盒内的相关配件要齐全，不能有缺失； 3. 不能有明显的人为破损（表面有明显的人为划痕，使用及存在拆卸的痕迹）； 4. 防伪标签不得撕开或损毁。 RAZER关于7天无理由退换货的注意事项： ', 349, 299, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10197, '森海塞尔（Sennheiser）MomentumTrueWireless 真无线蓝牙hifi发烧入耳式耳机 蓝牙5.0', '黑色', 0, '/goods-img/768e79e1-e875-4691-855d-262346451d22.jpg', '/goods-img/768e79e1-e875-4691-855d-262346451d22.jpg', '聆听带来改变 真     无     线     蓝     牙     HiFi     耳     机 MOMENTUM 真无线 懂你所需 全新的 MOMENTUM 真无线耳机，高品质的声音质量传承 MOMENTUM 品质，成为一款具有重要技术成就的新产品。 这款性能优异的蓝牙耳机融合音频质量、佩戴舒适性和精致设计及工艺。 全新的 MOMENTUM 透明聆听功能 防水防泼溅 电池使用时长 （4+8小时） 精雕细琢 经典优雅 高品质声音质量 智能降噪 智能触控操作 支持蓝牙5.0技术 智能触控操作 支持蓝牙 5.0技术 MOMENTUM真无线耳机采用Sennheiser发烧级别7毫米动圈驱动单元，可确保饱满的立体声效果，带来高保真音质，为苛刻的听者带来出色的高保真度。 高品质声音质量 两侧触摸区域都有单独的控制功能，您可以轻松使用右耳耳机语音访问智能助手（如苹果 Siri或Google智能助手）。 轻轻点击或滑动触摸界面，使用自然语音命令即可播放音乐、接听电话。 支持蓝牙5.0技术及编解码技术（包括AAC、Qualcomm apt-XTM和apt-X低延迟），这款耳机带来出众的连接稳定性和音频流畅性。 真正的无线体验 轻松适配周围环境 MOMENTUM 真无线耳机让你更好地感知外部环境，透明聆听让你能听到周围的环境声，从而更好地感知周围的环境，不需要摘掉耳机就能融入到自然的交谈之中。甚至在嘈杂的环境中，电话呼叫和语音交互也能够通过双话筒波束成形技术得以实现。 智能交互 通过自动开启/关闭和智能暂停功能，可以检测到耳机何时被收起来或者不使用，从而节约能源。 你的世界由你把控 通过双击右耳耳机开/关透明聆听功能 打开透明聆听=接收周围环境音 关闭透明聆听=物理降噪模式，不接收周围音 不需要摘掉耳机就可轻松地与周围人进行交谈。 4种尺寸的耳垫可选，均符合人体工程学设计，防水防泼溅，能够满足用户舒适佩戴的需求。 个性定制舒适体验 MOMENTUM真无线拥有4小时电池续航时间，可通过其带有集成电源的小巧耳机盒进行充电，从而享受长达12（4+8）小时的全天聆听乐趣，并满足未来所需。 镀金充电接触点 可磁性吸附到充电盒上 高保真7毫米动圈驱动单元 带来出色的声音重放 金属镭射表面 具有触控功能 多色 LED指示灯 用于语音信号拾取和透明聆听功能的话筒 舒适的入耳式 硅胶耳垫 便捷充电盒持久续航 注重细节、富于美感，这款小巧、 靓丽而轻盈的耳机是技术与艺术的 结合。它既是声音重放技术的成就，更是你耳畔精美的配饰。 质感黑色外壳，闪烁的金属镭射表面，镀金的充电接触点——时尚与功能融合于标志性的设计之中，带来优雅和实用感。 Sennheiser智能控制 MOMENTUM 真无线耳机提供了更为智能和个性化的体验，可以通过新款Sennheiser智能控制应用进行优化，根据个人喜好，利用内置音频EQ对声音进行微调。免费下载，兼容iOS 版本 11.0 及以上版本和Android 版本 7.0 及以上版本 ，简便直观的控制界面，为您的耳机提供个性化的配置和升级等功能。 APP 下载方法 Android 版本 7.0 及以上版本 打开链接下载APP https://share.weiyun.com/54byqjn iOS 版本 11.0 及以上版本 打开APP Store搜索 Sennheiser smart control 下载APP', 2399, 2399, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10198, 'Bose SoundSport Free', '真无线蓝牙耳机--黑色 运动耳机 防掉落耳塞', 0, '/goods-img/d3370c50-e853-4546-a032-35073eb192ff.jpg', '/goods-img/d3370c50-e853-4546-a032-35073eb192ff.jpg', '商品介绍加载中...', 1699, 1699, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10199, '华为原装降噪有线手机耳机Mate9 10P9P10Plus荣耀V9V10PlayNova2s9i8x 【送耳机收纳包】AM115半入耳式耳机-经典热卖款', '新蜂精选', 0, '/goods-img/0cff5ace-7ab9-43a7-91fe-fb3550829577.jpg', '/goods-img/0cff5ace-7ab9-43a7-91fe-fb3550829577.jpg', '详情加载中...', 99, 39, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10200, 'Apple 采用Lightning/闪电接头的 EarPods', '耳机', 0, '/goods-img/7b8bcf01-0abe-4155-b1f4-e57a6b8fc36a.jpg', '/goods-img/7b8bcf01-0abe-4155-b1f4-e57a6b8fc36a.jpg', '详情加载中...', 223, 223, 1000, '', 0, 0, '2019-09-18 13:21:35', 0, '2019-09-18 13:21:35');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10201, '迪奥（Dior）烈艳蓝金唇膏滋润999# 3.5g 经典正红色', '(口红 保湿滋润 气质显白 不挑皮) （新老包装随机）', 0, '/goods-img/6b0bd268-40b1-4abf-a19b-95df7cb4d722.jpg', '/goods-img/6b0bd268-40b1-4abf-a19b-95df7cb4d722.jpg', '商品介绍加载中...', 500, 315, 999, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10202, '迪奥（Dior）烈艳蓝金唇膏-哑光999# 3.5g 传奇红（口红', '雾面质地 显色持久 显白 正红色 李佳琦推荐）', 86, '/goods-img/d8d4ac7e-7189-459a-aef2-7116f723cb0b.jpg', '/goods-img/d8d4ac7e-7189-459a-aef2-7116f723cb0b.jpg', '详情加载中...', 400, 315, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10203, '海囤全球 魅可（MAC)经典唇膏 子弹头口红3g', 'Chili 秀智色/小辣椒色', 86, '/goods-img/18aca3b8-d024-47d3-a971-fb51d374b1ae.jpg', '/goods-img/18aca3b8-d024-47d3-a971-fb51d374b1ae.jpg', '详情加载中...', 170, 155, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10204, '卡姿兰（Carslan）轻甜唇爱随心盒1.4g*4(13#暧昧 16#炽烈 18#嫉妒', '19#欲望 唇盒 口红 七夕礼物 情人节礼物)', 0, '/goods-img/44c8198e-f63a-45e0-8eff-789338de65f8.jpg', '/goods-img/44c8198e-f63a-45e0-8eff-789338de65f8.jpg', '关联销售入口 1 (1) 商品介绍加载中...', 99, 89, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10205, '【联名限量版】MANSLY口红套装中国风口红情人节女朋友生日礼物唇釉彩妆女磁扣锦绣红妆口红礼盒彩妆 锦绣红妆口红礼盒（6支）', '新蜂精选', 86, '/goods-img/c081314e-8f67-44f9-a27e-aad6c3f29343.jpg', '/goods-img/c081314e-8f67-44f9-a27e-aad6c3f29343.jpg', '商品介绍加载中...', 295, 295, 995, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10206, '迪奥（Dior）滋润999礼盒套装（烈艳蓝金999#3.5g 经典正红色+香氛小样1ml*3+礼盒）（小样和礼盒款式随机）', '新蜂精选', 0, '/goods-img/39c69481-6d13-4d84-bc1e-7dca612667f0.jpg', '/goods-img/39c69481-6d13-4d84-bc1e-7dca612667f0.jpg', '商品介绍加载中...', 379, 379, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10207, '圣罗兰（YSL）莹亮纯魅唇膏12#（圆管口红）4.5g 斩男色', '新蜂精选', 86, '/goods-img/b4335e82-c9e1-4264-92e4-e324a601fedb.jpg', '/goods-img/b4335e82-c9e1-4264-92e4-e324a601fedb.jpg', '详情加载中...', 320, 320, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10208, '圣罗兰（YSL）纯口红1#（正红色）3.8g', '新蜂精选', 86, '/goods-img/57d0bf26-0a0c-4027-8a2b-deeaa29905ee.jpg', '/goods-img/57d0bf26-0a0c-4027-8a2b-deeaa29905ee.jpg', '详情加载中...', 350, 320, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10209, '纪梵希高定香榭天鹅绒唇膏306#(小羊皮口红 法式红 雾面哑光', '持久锁色）新老包装随机发货', 86, '/goods-img/f30bd8cb-aadd-43aa-8615-2c4795ee7f5f.jpg', '/goods-img/f30bd8cb-aadd-43aa-8615-2c4795ee7f5f.jpg', '详情加载中...', 355, 355, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10210, '【联名款】MANSLY口红套装红鸾心动口红礼盒中国风开运红情人节女朋友生日礼物唇釉颐和园同款彩妆口红 红鸾心动口红礼盒（6支）', '新蜂精选', 86, '/goods-img/f128ad98-fe4d-4264-96e3-6393b6cc98f1.jpg', '/goods-img/f128ad98-fe4d-4264-96e3-6393b6cc98f1.jpg', '商品介绍加载中...', 195, 195, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10211, '海囤全球 迪奥（Dior）烈艳蓝金唇膏 口红', '3.5g 999号 正红色', 86, '/goods-img/8fcdb86b-e826-4c1b-af3c-33a9d590c4b0.jpg', '/goods-img/8fcdb86b-e826-4c1b-af3c-33a9d590c4b0.jpg', '详情加载中...', 410, 258, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10212, '圣罗兰（YSL）纯口红13#（正橘色）3.8g', '新蜂精选', 86, '/goods-img/53a4a428-8ca2-4d19-937d-15d18f324237.jpg', '/goods-img/53a4a428-8ca2-4d19-937d-15d18f324237.jpg', '详情加载中...', 320, 320, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10213, '海囤全球 魅可（MAC)磨砂系列 雾面丝绒哑光子弹头口红', '3g 316 devoted to chili 泫雅色', 86, '/goods-img/2da55bd1-046f-4ac2-b1b9-56ab00bb9db1.jpg', '/goods-img/2da55bd1-046f-4ac2-b1b9-56ab00bb9db1.jpg', '详情加载中...', 249, 165, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10214, '【情人礼物】香奈儿Chanel 口红/唇膏可可小姐水亮/丝绒系列润唇保湿口红配玫瑰花礼盒 丝绒系列', '43#斩男色', 86, '/goods-img/247722ea-c87a-4283-806c-bc9fe57f2253.jpg', '/goods-img/247722ea-c87a-4283-806c-bc9fe57f2253.jpg', '详情加载中...', 299, 298, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10215, '迪奥（Dior）口红礼盒套装（烈艳蓝金唇膏哑光#999 3.5g正红色+香氛小样1ml*3随机+随机礼盒样式）', '新蜂精选', 86, '/goods-img/ab1a0ced-954c-4857-92f4-f7c833d9d54a.jpg', '/goods-img/ab1a0ced-954c-4857-92f4-f7c833d9d54a.jpg', '商品介绍加载中...', 379, 379, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10216, '圣罗兰（YSL）纯口红52# 3.8g', '新蜂精选', 86, '/goods-img/1eefadae-5f62-4abd-b283-077e7b6d9193.jpg', '/goods-img/1eefadae-5f62-4abd-b283-077e7b6d9193.jpg', '详情加载中...', 340, 320, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10217, '海囤全球 汤姆福特 TOM', 'FORD TF口红 经典黑金唇膏 3g 16 SCARLET ROUGE 复古番茄红', 0, '/goods-img/da12f5cf-2728-446a-a3bd-b78baf7056ff.jpg', '/goods-img/da12f5cf-2728-446a-a3bd-b78baf7056ff.jpg', '详情加载中...', 429, 375, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10218, '迪奥（Dior）烈艳蓝金口红唇膏 028# 3.5g', '珊瑚红 (滋润保湿 持久显色 粉嫩少女 摩洛哥王妃 幸运色)', 86, '/goods-img/7030b9b6-b650-4d9d-9446-e27dab8afa1f.jpg', '/goods-img/7030b9b6-b650-4d9d-9446-e27dab8afa1f.jpg', '详情加载中...', 400, 315, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10219, '迪奥（Dior）烈艳蓝金唇膏520# 3.5g 玫瑰红(口红', '缎光 滋润保湿 长效持妆 玫红色 斩男色 告白色 粉红色)', 86, '/goods-img/96a91f11-e634-4e28-be13-db8b4732463e.jpg', '/goods-img/96a91f11-e634-4e28-be13-db8b4732463e.jpg', '详情加载中...', 360, 315, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10220, '海囤全球 迪奥（Dior）烈艳蓝金唇膏 口红', '3.5g 999号 哑光-经典正红', 86, '/goods-img/fe048831-384d-46b2-beec-5549f7902c11.jpg', '/goods-img/fe048831-384d-46b2-beec-5549f7902c11.jpg', '详情加载中...', 410, 255, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10221, '欧莱雅（LOREAL）纷泽滋润唇膏RC301复古魅红3.7g（金管 口红女 滋润显色）', '新蜂精选', 86, '/goods-img/b7495e02-fc4c-417a-8101-ccfc75a5a475.jpg', '/goods-img/b7495e02-fc4c-417a-8101-ccfc75a5a475.jpg', '品牌介绍Brand Description         巴黎欧莱雅通过将科技和美丽的结合，不断谋求创新、研发新的产品配方，以合理的价格，为消费者提供品质的产品和服务。自1907年安全合成染发剂的诞生，如今巴黎欧莱雅的产品已从染发剂扩展到了护肤、彩妆等诸多领域，在中国，巴黎欧莱雅的五大产品线为护肤系列、彩妆系列、家用染发系列、洗护发系列及男士护肤系列。为了将美的产品融于美的文化、艺术、理念，将“从指尖到发梢”的美丽带给全世界的人们，巴黎欧莱雅在全世界范围精心选择各行业明星，组成“梦之队”来见证巴黎欧莱雅的实力，从各个不同的角度来讲述巴黎欧莱雅美丽无疆界的气势，并使“巴黎欧莱雅，你值得拥有！”“Because you are worth it！”的美丽概念成为一种文化！', 135, 99, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10222, '阿玛尼(Armani) 口红女士唇釉 生日礼物/表白礼物', '红管#405番茄红 【李佳琪推荐omg】', 86, '/goods-img/75fdac25-1cfa-4a9b-957d-805ac706f32c.jpg', '/goods-img/75fdac25-1cfa-4a9b-957d-805ac706f32c.jpg', '商品介绍加载中...', 366, 285, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10223, '美宝莲（MAYBELLINE）绝色持久唇膏雾感哑光系列R09PM 3.9g（女皇色口红新老包装）', '新蜂精选', 86, '/goods-img/1055e30e-3d98-4dca-8b79-8d0b5a09a37b.jpg', '/goods-img/1055e30e-3d98-4dca-8b79-8d0b5a09a37b.jpg', '商品介绍加载中...', 122, 106, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10224, '【专柜正品】迪奥999Dior口红唇膏烈艳蓝金 哑光滋润520/888/999送礼礼品套装 烈艳蓝金', '844#橘红色赠礼盒礼袋', 86, '/goods-img/7b52a7bc-0ecf-41c4-b079-d162511c9530.jpg', '/goods-img/7b52a7bc-0ecf-41c4-b079-d162511c9530.jpg', '商品介绍加载中...', 339, 260, 1000, '', 0, 0, '2019-09-18 13:24:47', 0, '2019-09-18 13:24:47');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10225, '迪奥（Dior）烈艳蓝金唇膏滋润999# 3.5g 经典正红色', '(口红 保湿滋润 气质显白 不挑皮) （新老包装随机）', 0, '/goods-img/bb05b83f-bb91-4300-b78f-23986ba8c0dd.jpg', '/goods-img/bb05b83f-bb91-4300-b78f-23986ba8c0dd.jpg', '商品介绍加载中...', 500, 315, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10226, '迪奥（Dior）烈艳蓝金唇膏-哑光999# 3.5g 传奇红（口红', '雾面质地 显色持久 显白 正红色 李佳琦推荐）', 86, '/goods-img/67280dcf-bf32-49c1-b99b-9d86bb2ffaac.jpg', '/goods-img/67280dcf-bf32-49c1-b99b-9d86bb2ffaac.jpg', '详情加载中...', 400, 315, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10227, '海囤全球 魅可（MAC)经典唇膏 子弹头口红3g', 'Chili 秀智色/小辣椒色', 86, '/goods-img/2b678c5d-820c-4174-bc0c-5a65ff9501b6.jpg', '/goods-img/2b678c5d-820c-4174-bc0c-5a65ff9501b6.jpg', '详情加载中...', 170, 155, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10228, '卡姿兰（Carslan）轻甜唇爱随心盒1.4g*4(13#暧昧 16#炽烈 18#嫉妒', '19#欲望 唇盒 口红 七夕礼物 情人节礼物)', 0, '/goods-img/3f513cd6-bb5f-407d-8550-24550873d83b.jpg', '/goods-img/3f513cd6-bb5f-407d-8550-24550873d83b.jpg', '关联销售入口 1 (1) 商品介绍加载中...', 99, 89, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10229, '【联名限量版】MANSLY口红套装中国风口红情人节女朋友生日礼物唇釉彩妆女磁扣锦绣红妆口红礼盒彩妆 锦绣红妆口红礼盒（6支）', '新蜂精选', 86, '/goods-img/d82ba7f0-6c92-4254-bfb2-71b3f8b1dfda.jpg', '/goods-img/d82ba7f0-6c92-4254-bfb2-71b3f8b1dfda.jpg', '商品介绍加载中...', 295, 295, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10230, '迪奥（Dior）滋润999礼盒套装（烈艳蓝金999#3.5g 经典正红色+香氛小样1ml*3+礼盒）（小样和礼盒款式随机）', '新蜂精选', 0, '/goods-img/f6b1195a-3231-4e81-a676-866ee838748f.jpg', '/goods-img/f6b1195a-3231-4e81-a676-866ee838748f.jpg', '商品介绍加载中...', 379, 379, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10231, '圣罗兰（YSL）莹亮纯魅唇膏12#（圆管口红）4.5g 斩男色', '新蜂精选', 86, '/goods-img/359bb052-5fea-4390-bbe6-4cb9e1c19273.jpg', '/goods-img/359bb052-5fea-4390-bbe6-4cb9e1c19273.jpg', '详情加载中...', 320, 320, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10232, '圣罗兰（YSL）纯口红1#（正红色）3.8g', '新蜂精选', 86, '/goods-img/a42498e5-d912-447b-9360-0659d2d55c42.jpg', '/goods-img/a42498e5-d912-447b-9360-0659d2d55c42.jpg', '详情加载中...', 350, 320, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10233, '纪梵希高定香榭天鹅绒唇膏306#', '(小羊皮口红 法式红 雾面哑光 持久锁色）新老包装随机发货', 86, '/goods-img/04949c0e-87df-445b-96dd-29e7fc69f734.jpg', 'http://localhost:28089/goods-img/04949c0e-87df-445b-96dd-29e7fc69f734.jpg', '详情加载中...', 355, 355, 1000, '雾面哑光 持久锁色', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 17:40:58');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10234, '【联名款】MANSLY口红套装红鸾心动口红礼盒中国风开运红情人节女朋友生日礼物唇釉颐和园同款彩妆口红 红鸾心动口红礼盒（6支）', '新蜂精选', 86, '/goods-img/a9cd71ad-2db0-4876-9ead-c51233040220.jpg', '/goods-img/a9cd71ad-2db0-4876-9ead-c51233040220.jpg', '商品介绍加载中...', 195, 195, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10235, '海囤全球 迪奥（Dior）烈艳蓝金唇膏 口红', '3.5g 999号 正红色', 86, '/goods-img/49d2acf7-55e5-4293-a7da-5929740e1168.jpg', '/goods-img/49d2acf7-55e5-4293-a7da-5929740e1168.jpg', '详情加载中...', 410, 258, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10236, '圣罗兰（YSL）纯口红13#（正橘色）3.8g', '新蜂精选', 86, '/goods-img/b0142d40-6adb-4d64-b5b2-6e4a34656990.jpg', '/goods-img/b0142d40-6adb-4d64-b5b2-6e4a34656990.jpg', '详情加载中...', 320, 320, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10237, 'MAC 雾面丝绒哑光子弹头口红', '磨砂系列 3g 316 devoted to chili 泫雅色', 86, '/goods-img/1930d79b-88bd-4c5c-8510-0697c9ad2578.jpg', 'http://localhost:28089/goods-img/1930d79b-88bd-4c5c-8510-0697c9ad2578.jpg', '详情加载中...', 249, 165, 992, '雾面丝绒哑光', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 17:41:42');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10238, '【情人礼物】香奈儿Chanel 口红/唇膏可可小姐水亮/丝绒系列润唇保湿口红配玫瑰花礼盒 丝绒系列', '43#斩男色', 86, '/goods-img/70219912-838c-487b-8c3c-761b00de80e9.jpg', '/goods-img/70219912-838c-487b-8c3c-761b00de80e9.jpg', '详情加载中...', 299, 298, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10239, '迪奥（Dior）口红礼盒套装（烈艳蓝金唇膏哑光#999 3.5g正红色+香氛小样1ml*3随机+随机礼盒样式）', '新蜂精选', 86, '/goods-img/cbce65ee-28b3-4822-895a-38243ee506e7.jpg', '/goods-img/cbce65ee-28b3-4822-895a-38243ee506e7.jpg', '商品介绍加载中...', 379, 379, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10240, '圣罗兰（YSL）纯口红52# 3.8g', '新蜂精选', 86, '/goods-img/abff57bf-247b-4881-9589-e1336049c3ba.jpg', '/goods-img/abff57bf-247b-4881-9589-e1336049c3ba.jpg', '详情加载中...', 340, 320, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10241, '海囤全球 汤姆福特 TOM', 'FORD TF口红 经典黑金唇膏 3g 16 SCARLET ROUGE 复古番茄红', 0, '/goods-img/ba0cd1e9-cded-427b-8692-e8e2a0d00e9f.jpg', '/goods-img/ba0cd1e9-cded-427b-8692-e8e2a0d00e9f.jpg', '详情加载中...', 429, 375, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10242, '迪奥（Dior）烈艳蓝金口红唇膏 028# 3.5g', '珊瑚红 (滋润保湿 持久显色 粉嫩少女 摩洛哥王妃 幸运色)', 86, '/goods-img/ea87e780-ed4c-447d-bd22-e88e4742721e.jpg', '/goods-img/ea87e780-ed4c-447d-bd22-e88e4742721e.jpg', '详情加载中...', 400, 315, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10243, '迪奥（Dior）烈艳蓝金唇膏520# 3.5g 玫瑰红(口红', '缎光 滋润保湿 长效持妆 玫红色 斩男色 告白色 粉红色)', 86, '/goods-img/dde0b711-58b0-49fb-972c-7a71d6ec30f1.jpg', '/goods-img/dde0b711-58b0-49fb-972c-7a71d6ec30f1.jpg', '详情加载中...', 360, 315, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10244, '海囤全球 迪奥（Dior）烈艳蓝金唇膏 口红', '3.5g 999号 哑光-经典正红', 86, '/goods-img/79247aeb-2903-47b0-a711-ac94e22ddd54.jpg', '/goods-img/79247aeb-2903-47b0-a711-ac94e22ddd54.jpg', '详情加载中...', 410, 255, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10245, '欧莱雅（LOREAL）纷泽滋润唇膏RC301复古魅红3.7g（金管 口红女 滋润显色）', '新蜂精选', 86, '/goods-img/3b420562-b449-448d-ae50-e20aab136e1b.jpg', '/goods-img/3b420562-b449-448d-ae50-e20aab136e1b.jpg', '品牌介绍Brand Description         巴黎欧莱雅通过将科技和美丽的结合，不断谋求创新、研发新的产品配方，以合理的价格，为消费者提供品质的产品和服务。自1907年安全合成染发剂的诞生，如今巴黎欧莱雅的产品已从染发剂扩展到了护肤、彩妆等诸多领域，在中国，巴黎欧莱雅的五大产品线为护肤系列、彩妆系列、家用染发系列、洗护发系列及男士护肤系列。为了将美的产品融于美的文化、艺术、理念，将“从指尖到发梢”的美丽带给全世界的人们，巴黎欧莱雅在全世界范围精心选择各行业明星，组成“梦之队”来见证巴黎欧莱雅的实力，从各个不同的角度来讲述巴黎欧莱雅美丽无疆界的气势，并使“巴黎欧莱雅，你值得拥有！”“Because you are worth it！”的美丽概念成为一种文化！', 135, 99, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10246, '阿玛尼(Armani) 口红女士唇釉 生日礼物/表白礼物', '红管#405番茄红 【李佳琪推荐omg】', 86, '/goods-img/db866c68-e526-42cf-a0b5-520254f30b76.jpg', '/goods-img/db866c68-e526-42cf-a0b5-520254f30b76.jpg', '商品介绍加载中...', 366, 285, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10247, '美宝莲（MAYBELLINE）绝色持久唇膏雾感哑光系列R09PM 3.9g（女皇色口红新老包装）', '新蜂精选', 86, '/goods-img/63d0a187-627d-4edb-870e-717969ad2bd0.jpg', '/goods-img/63d0a187-627d-4edb-870e-717969ad2bd0.jpg', '商品介绍加载中...', 122, 106, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10248, '【专柜正品】迪奥999Dior口红唇膏烈艳蓝金 哑光滋润520/888/999送礼礼品套装 烈艳蓝金', '844#橘红色赠礼盒礼袋', 86, '/goods-img/9822b4a5-9fd2-435b-bdd1-5bbcdc6fdfdf.jpg', '/goods-img/9822b4a5-9fd2-435b-bdd1-5bbcdc6fdfdf.jpg', '商品介绍加载中...', 339, 260, 1000, '', 0, 0, '2019-09-18 13:25:08', 0, '2019-09-18 13:25:08');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10249, 'Apple Macbook Air 13.3 ', 'Core i5 8G 128G SSD 笔记本电脑 轻薄本 银色 MQD32CH/A', 0, '/goods-img/2d827a7e-fb30-493d-840a-cb21766814fd.jpg', '/goods-img/2d827a7e-fb30-493d-840a-cb21766814fd.jpg', '商品介紹頁面素材由Apple提供', 6928, 5999, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10250, 'Apple 2019款 Macbook Pro 13.3', '【带触控栏】八代i5 8G 256G RP645显卡 银色 苹果笔记本电脑 MUHR2CH/A', 0, '/goods-img/465936e0-40ad-4968-b868-4bea20c7beec.jpg', '/goods-img/465936e0-40ad-4968-b868-4bea20c7beec.jpg', '商品介紹頁面素材由Apple提供', 11499, 10699, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10251, 'Apple MacBook Air 13.3 ', 'Core i5 8G 256G SSD 银色 笔记本电脑 轻薄本 Z0UU00056原MQD42CH/A', 0, '/goods-img/a4132109-8f18-4399-affd-a81fad6902c8.jpg', '/goods-img/a4132109-8f18-4399-affd-a81fad6902c8.jpg', '商品介紹頁面素材由Apple提供', 7999, 7168, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10252, 'Apple 2019款 MacBook Air 13.3 ', 'Retina屏 八代i5 8G 256G SSD 银色 笔记本电脑 轻薄本 MVFL2CH/A', 0, '/goods-img/65b62668-3be5-48b0-a40c-bd05826a38c2.jpg', '/goods-img/65b62668-3be5-48b0-a40c-bd05826a38c2.jpg', '商品介紹頁面素材由Apple提供', 10399, 9799, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10253, 'Apple 2019款 MacBook Air 13.3 ', 'Retina屏 八代i5 8G 128G SSD 深空灰 笔记本电脑 轻薄本 MVFH2CH/A', 0, '/goods-img/cb899039-a705-473d-9785-f245a6ed4d89.jpg', '/goods-img/cb899039-a705-473d-9785-f245a6ed4d89.jpg', '商品介紹頁面素材由Apple提供', 8899, 8499, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10254, 'Apple 2019款 MacBook Air 13.3 ', 'Retina屏 八代i5 8G 128G SSD 银色 笔记本电脑 轻薄本 MVFK2CH/A', 0, '/goods-img/7810bc9d-236f-4386-a0ef-45a831b49bf2.jpg', '/goods-img/7810bc9d-236f-4386-a0ef-45a831b49bf2.jpg', '商品介紹頁面素材由Apple提供', 8899, 8499, 993, '再次倾心', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10255, 'Apple MacBook Air 13.3 ', '| 定制升级 Core i7 8G 128G SSD硬盘 银色 笔记本电脑 轻薄本 Z0UU00022', 0, '/goods-img/53019ece-5e61-4de9-8eac-e1f00a4ef7e3.jpg', '/goods-img/53019ece-5e61-4de9-8eac-e1f00a4ef7e3.jpg', '商品介绍加载中...', 8056, 6968, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10256, 'Apple 2019款 Macbook Pro 13.3', '【带触控栏】八代i5 8G 256G RP645显卡 深空灰 苹果笔记本电脑 MUHP2CH/A', 0, '/goods-img/f08404a7-0459-4289-aa60-dd1735c95bbe.jpg', '/goods-img/f08404a7-0459-4289-aa60-dd1735c95bbe.jpg', '商品介紹頁面素材由Apple提供', 11499, 10699, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10257, '苹果（Apple） MacBook Air', '苹果笔记本电脑 13.3英寸轻薄本 购买套餐更实惠 2017款/i5/8GB/128GB/D32', 0, '/goods-img/83740c28-473c-4954-b0dc-3cadab5a87d1.jpg', '/goods-img/83740c28-473c-4954-b0dc-3cadab5a87d1.jpg', '商品介绍加载中...', 6200, 5488, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10258, 'Apple 2019款 MacBook Air 13.3 ', 'Retina屏 八代i5 8G 256G SSD 深空灰 笔记本电脑 轻薄本 MVFJ2CH/A', 0, '/goods-img/78957148-4c0c-4194-bc46-7360d7b1aa65.jpg', '/goods-img/78957148-4c0c-4194-bc46-7360d7b1aa65.jpg', '商品介紹頁面素材由Apple提供', 10399, 9799, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10259, 'Apple 2019新品 Macbook Pro 13.3', '【带触控栏】八代i5 8G 256G 深空灰 笔记本电脑 轻薄本 MV962CH/A', 0, '/goods-img/85787c16-8443-4db0-9cae-a811a20a0832.jpg', '/goods-img/85787c16-8443-4db0-9cae-a811a20a0832.jpg', '商品介紹頁面素材由Apple提供', 13899, 12999, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10260, 'Apple 2019款 MacBook Air 13.3 ', 'Retina屏 八代i5 8G 256G SSD 金色 苹果笔记本电脑 轻薄本 MVFN2CH/A', 0, '/goods-img/82bdafc6-5828-495e-b77c-21598938b896.jpg', '/goods-img/82bdafc6-5828-495e-b77c-21598938b896.jpg', '商品介紹頁面素材由Apple提供', 10399, 9799, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10261, 'APPLE 苹果2018年19新款MacBook air笔记本电脑13.3英寸超薄笔记本', '金色 i5/8GB内存/128GB闪存【19新款】', 0, '/goods-img/270cdf75-8a7f-410e-8f2f-8eeba24f0503.jpg', '/goods-img/270cdf75-8a7f-410e-8f2f-8eeba24f0503.jpg', '商品介绍加载中...', 8899, 7888, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10262, 'Apple 2019新品 Macbook Pro 15.4', '【带触控栏】全新九代六核i7 16G 256G 深空灰 笔记本电脑轻薄本MV902CH/A', 0, '/goods-img/7928eb46-9e1c-420e-a8ab-6c358d01891b.jpg', '/goods-img/7928eb46-9e1c-420e-a8ab-6c358d01891b.jpg', '商品介紹頁面素材由Apple提供', 18199, 17099, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10263, 'APPLE 苹果MacBook air苹果笔记本电脑13.3英寸超薄笔记本', '标配+防水手提包+苹果原装鼠标版（下单送大礼包） i5+8GB内存+128GB闪存【D32】', 0, '/goods-img/11968b35-9431-4b1c-a648-6ff46945ebf4.jpg', '/goods-img/11968b35-9431-4b1c-a648-6ff46945ebf4.jpg', '商品介绍加载中...', 6988, 5988, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10264, 'APPLE苹果 MacBook Air13.3英寸轻薄笔记本电脑2017款', '官方标配【购套餐版送大礼包】 i5+8GB内存+128GB闪存【D32】', 0, '/goods-img/fb08ec83-2960-47f7-8679-8b78896c30d5.jpg', '/goods-img/fb08ec83-2960-47f7-8679-8b78896c30d5.jpg', '商品介绍加载中...', 6188, 5488, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10265, 'Apple 2019款 MacBook Air 13.3 ', 'Retina屏 八代i5 8G 128G SSD 金色 笔记本电脑 轻薄本 MVFM2CH/A', 0, '/goods-img/50748763-c0d6-4e73-80e5-864818fa3246.jpg', '/goods-img/50748763-c0d6-4e73-80e5-864818fa3246.jpg', '商品介紹頁面素材由Apple提供', 8899, 8499, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10266, 'Apple 2019款 Macbook Pro 13.3', '【带触控栏】八代i5 8G 128G RP645显卡 深空灰 苹果笔记本电脑 MUHN2CH/A', 0, '/goods-img/fe9e33a1-fbd0-4278-931f-825fef4ffb62.jpg', '/goods-img/fe9e33a1-fbd0-4278-931f-825fef4ffb62.jpg', '商品介紹頁面素材由Apple提供', 9999, 9499, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10267, 'Apple MacBook Air 13.3 ', '定制升级 Core i7 8G 256G SSD硬盘 银色 笔记本电脑 轻薄本 Z0UU0004J', 0, '/goods-img/0340d6b2-54bf-42a2-96f4-f35c5f47bb2d.jpg', '/goods-img/0340d6b2-54bf-42a2-96f4-f35c5f47bb2d.jpg', '商品介紹頁面素材由Apple提供', 9656, 8499, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10268, 'Apple 2019新品 Macbook Pro 15.4', '【带触控栏】九代八核i9 16G 512G 深空灰 笔记本电脑 轻薄本 MV912CH/A', 0, '/goods-img/33a29216-08d6-445b-b979-12d5de81d634.jpg', '/goods-img/33a29216-08d6-445b-b979-12d5de81d634.jpg', '商品介紹頁面素材由Apple提供', 21399, 20399, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10269, 'Apple 2019新品 Macbook Pro 13.3', '【带触控栏】八代i5 8G 256G 银色 笔记本电脑 轻薄本 MV992CH/A', 0, '/goods-img/a2afdb6c-69a7-4081-bd09-62174f9f5624.jpg', '/goods-img/a2afdb6c-69a7-4081-bd09-62174f9f5624.jpg', '商品介紹頁面素材由Apple提供  ', 13899, 12999, 998, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10270, 'Apple Macbook Pro 13.3', '【带触控栏】Core i5 8G 512G SSD 银色 笔记本电脑 轻薄本 MR9V2CH/A', 0, '/goods-img/4da4fa5d-ee2d-4496-9950-e53b102f0e8e.jpg', '/goods-img/4da4fa5d-ee2d-4496-9950-e53b102f0e8e.jpg', '商品介绍加载中...', 14999, 13068, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10271, 'Apple 2019新品 Macbook Pro 15.4', '【带触控栏】全新九代六核i7 16G 256G 银色 笔记本电脑 轻薄本 MV922CH/A', 0, '/goods-img/49c9f6f8-11c2-4f57-98b9-daf12715b938.jpg', '/goods-img/49c9f6f8-11c2-4f57-98b9-daf12715b938.jpg', '商品介紹頁面素材由Apple提供', 18199, 17099, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10272, 'Apple 2019新品 Macbook Pro 13.3', '【带触控栏】八代i5 8G 512G 银色 笔记本电脑 轻薄本 MV9A2CH/A', 0, '/goods-img/9dd28614-7a17-4876-8cdd-232caf4154bc.jpg', '/goods-img/9dd28614-7a17-4876-8cdd-232caf4154bc.jpg', '商品介紹頁面素材由Apple提供', 15499, 14499, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10273, 'Apple 2019新品 Macbook Pro 15.4', '【带触控栏】九代八核i9 16G 512G 银色 笔记本电脑 轻薄本 MV932CH/A', 0, '/goods-img/2dcd61b8-f434-40ee-928f-c6e4ae934db8.jpg', '/goods-img/2dcd61b8-f434-40ee-928f-c6e4ae934db8.jpg', '商品介紹頁面素材由Apple提供', 21399, 20399, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10274, '【新品首发】苹果Apple MacBook Pro13.3英寸2019新款18/17苹果笔记本电脑', '19款灰色/256G/带bar/MUHP2CH/A', 0, '/goods-img/4dbbfbf1-80c0-4389-a02e-ca19fbeb5340.jpg', '/goods-img/4dbbfbf1-80c0-4389-a02e-ca19fbeb5340.jpg', '商品介绍加载中...', 12580, 10488, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10275, '【新品首发】苹果Apple MacBook Pro13.3英寸2019新款18/17苹果笔记本电脑', '19款灰色/128G/带bar/MUHN2CH/A', 0, '/goods-img/3b095a66-4001-4c69-9026-2e09139b5f11.jpg', '/goods-img/3b095a66-4001-4c69-9026-2e09139b5f11.jpg', '商品介绍加载中...', 10100, 9088, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10276, 'Apple 2019新品 Macbook Pro 13.3', '【带触控栏】八代i5 8G 512G 深空灰 苹果笔记本电脑 轻薄本 MV972CH/A', 0, '/goods-img/82fb6b31-1afe-4bcb-a243-5205ed32d3ee.jpg', '/goods-img/82fb6b31-1afe-4bcb-a243-5205ed32d3ee.jpg', '商品介紹頁面素材由Apple提供', 15499, 14499, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10277, 'Apple Macbook Pro 13.3', '【无触控栏】Core i5 8G 256G SSD 银色 笔记本电脑 轻薄本 MPXU2CH/A', 0, '/goods-img/73a8c7e9-40af-4e0a-9826-5f6374361e61.jpg', '/goods-img/73a8c7e9-40af-4e0a-9826-5f6374361e61.jpg', '商品介绍加载中...', 11299, 10199, 1000, '', 0, 0, '2019-09-18 13:25:52', 0, '2019-09-18 13:25:52');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10278, 'Apple iPhone 11 (A2223)', '64GB 黑色 移动联通电信4G手机 双卡双待', 47, '/goods-img/4755f3e5-257c-424c-a5f4-63908061d6d9.jpg', 'http://localhost:28089/goods-img/4755f3e5-257c-424c-a5f4-63908061d6d9.jpg', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n<div style=\"margin:0px;padding:0px;text-align:center;\">\n	<br />\n</div>\n	</div>\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n	<div style=\"margin:0px auto;padding:0px;\">\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-0.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-1.png\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-2.png\" /> \n	</div>\n</div>', 5499, 5499, 1000, '2019 新品', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 14:28:39');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10279, 'Apple iPhone 11 (A2223)', '128GB 白色 移动联通电信4G手机 双卡双待', 47, '/goods-img/a0d09f94-9c46-4ee1-aaef-dfd132e7543e.jpg', '/goods-img/a0d09f94-9c46-4ee1-aaef-dfd132e7543e.jpg', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n<div style=\"margin:0px;padding:0px;text-align:center;\">\n	<br />\n</div>\n	</div>\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n	<div style=\"margin:0px auto;padding:0px;\">\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-0.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-1.png\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-2.png\" /> \n	</div>\n</div>', 5999, 5999, 997, '2019 新品', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 14:35:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10280, 'Apple iPhone 11 (A2223)', '128GB 紫色 移动联通电信4G手机 双卡双待', 47, '/goods-img/8dfe8ea9-2279-4132-a72b-4f8a52d002a4.jpg', '/goods-img/8dfe8ea9-2279-4132-a72b-4f8a52d002a4.jpg', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n<div style=\"margin:0px;padding:0px;text-align:center;\">\n	<br />\n</div>\n	</div>\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n	<div style=\"margin:0px auto;padding:0px;\">\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-0.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-1.png\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-2.png\" /> \n	</div>\n</div>', 5999, 5999, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10281, 'Apple iPhone 11 (A2223)', '64GB 红色 移动联通电信4G手机 双卡双待', 47, '/goods-img/7368f461-fd0a-4f37-bc8b-31d8ad3d6e95.jpg', '/goods-img/7368f461-fd0a-4f37-bc8b-31d8ad3d6e95.jpg', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n<div style=\"margin:0px;padding:0px;text-align:center;\">\n	<br />\n</div>\n	</div>\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n	<div style=\"margin:0px auto;padding:0px;\">\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-0.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-1.png\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-2.png\" /> \n	</div>\n</div>', 5499, 5499, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10282, 'Apple iPhone 11 (A2223)', '64GB 黄色 移动联通电信4G手机 双卡双待', 47, '/goods-img/cea55d85-b11e-4639-88ab-9403b05ce1e8.jpg', '/goods-img/cea55d85-b11e-4639-88ab-9403b05ce1e8.jpg', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n<div style=\"margin:0px;padding:0px;text-align:center;\">\n	<br />\n</div>\n	</div>\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n	<div style=\"margin:0px auto;padding:0px;\">\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-0.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-1.png\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-2.png\" /> \n	</div>\n</div>', 5499, 5499, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10283, 'Apple iPhone 11 (A2223)', '256GB 绿色 移动联通电信4G手机 双卡双待', 47, '/goods-img/075a188a-9045-45f0-9c67-1e42e0552aa2.jpg', '/goods-img/075a188a-9045-45f0-9c67-1e42e0552aa2.jpg', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n<div style=\"margin:0px;padding:0px;text-align:center;\">\n	<br />\n</div>\n	</div>\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n	<div style=\"margin:0px auto;padding:0px;\">\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-0.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-1.png\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-2.png\" /> \n	</div>\n</div>', 6799, 6799, 992, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10284, 'Apple iPhone XR (A2108)', '128GB 黑色 移动联通电信4G手机 双卡双待', 47, '/goods-img/23ac3107-6309-40c8-bd28-164eb1186b62.jpg', '/goods-img/23ac3107-6309-40c8-bd28-164eb1186b62.jpg', '商品介绍加载中...', 5599, 5099, 991, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10285, 'Apple iPhone XR (A2108)', '128GB 白色 移动联通电信4G手机 双卡双待', 47, '/goods-img/3f47c376-c603-43fc-bfe5-2daa985ff423.jpg', '/goods-img/3f47c376-c603-43fc-bfe5-2daa985ff423.jpg', '商品介绍加载中...', 5599, 5099, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10286, 'Apple iPhone XR (A2108)', '128GB 红色 移动联通电信4G手机 双卡双待', 47, '/goods-img/56cef3d7-41e6-4aad-825d-a3d423e74dfd.jpg', '/goods-img/56cef3d7-41e6-4aad-825d-a3d423e74dfd.jpg', '商品介绍加载中...', 5599, 5099, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10287, 'Apple iPhone XR (A2108)', '128GB 珊瑚色 移动联通电信4G手机 双卡双待', 47, '/goods-img/c2e3b2e4-1fc8-43f3-b133-6f4eae7faa5d.jpg', '/goods-img/c2e3b2e4-1fc8-43f3-b133-6f4eae7faa5d.jpg', '商品介绍加载中...', 5599, 5199, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10288, 'Apple iPhone XR (A2108)', '128GB 蓝色 移动联通电信4G手机 双卡双待', 47, '/goods-img/2f5079e9-57f3-490a-8d3d-5fd64207939d.jpg', '/goods-img/2f5079e9-57f3-490a-8d3d-5fd64207939d.jpg', '商品介绍加载中...', 5599, 5199, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10289, 'Apple iPhone XR (A2108)', '128GB 黄色 移动联通电信4G手机 双卡双待', 47, '/goods-img/b1259d73-7c5a-4eca-81eb-53a4e9bcc77e.jpg', '/goods-img/b1259d73-7c5a-4eca-81eb-53a4e9bcc77e.jpg', '商品介绍加载中...', 5599, 5199, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10290, 'Apple iPhone 11 Pro', 'Max (A2220) 64GB 暗夜绿色 移动联通电信4G手机 双卡双待', 47, '/goods-img/0656b280-66d9-430b-9d0d-e48bf379d89a.jpg', '/goods-img/0656b280-66d9-430b-9d0d-e48bf379d89a.jpg', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n<div style=\"margin:0px;padding:0px;text-align:center;\">\n	<br />\n</div>\n	</div>\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n	<div style=\"margin:0px auto;padding:0px;\">\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-0.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-1.png\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-2.png\" /> \n	</div>\n</div>', 9599, 9599, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10291, 'Apple iPhone 11 Pro', 'Max (A2220) 256GB 深空灰色 移动联通电信4G手机 双卡双待', 47, '/goods-img/77ce1f09-3900-4eff-8d97-e67fa8193a84.jpg', '/goods-img/77ce1f09-3900-4eff-8d97-e67fa8193a84.jpg', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n<div style=\"margin:0px;padding:0px;text-align:center;\">\n	<br />\n</div>\n	</div>\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n	<div style=\"margin:0px auto;padding:0px;\">\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-0.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-1.png\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-2.png\" /> \n	</div>\n</div>', 10899, 10899, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10292, 'Apple iPhone 11 Pro', 'Max (A2220) 64GB 金色 移动联通电信4G手机 双卡双待', 47, '/goods-img/e45be404-d582-4c1e-80e8-48073327551e.jpg', '/goods-img/e45be404-d582-4c1e-80e8-48073327551e.jpg', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n<div style=\"margin:0px;padding:0px;text-align:center;\">\n	<br />\n</div>\n	</div>\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n	<div style=\"margin:0px auto;padding:0px;\">\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-0.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-1.png\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-2.png\" /> \n	</div>\n</div>', 9599, 9599, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10293, 'Apple iPhone 11 Pro', 'Max (A2220) 512GB 银色 移动联通电信4G手机 双卡双待', 47, '/goods-img/76670f49-4556-40ae-b485-3b25dcdcb636.jpg', '/goods-img/76670f49-4556-40ae-b485-3b25dcdcb636.jpg', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n<div style=\"margin:0px;padding:0px;text-align:center;\">\n	<br />\n</div>\n	</div>\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n	<div style=\"margin:0px auto;padding:0px;\">\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-0.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-1.png\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-2.png\" /> \n	</div>\n</div>', 12699, 12699, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10294, 'Apple iPhone 7 (A1660)', '128G 黑色 移动联通电信4G手机', 47, '/goods-img/101abd40-e9a2-4ab0-9f4e-16569c9dbf82.jpg', '/goods-img/101abd40-e9a2-4ab0-9f4e-16569c9dbf82.jpg', '商品介绍加载中...', 3199, 2949, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10295, 'Apple iPhone 7 (A1660)', '128G 玫瑰金色 移动联通电信4G手机', 47, '/goods-img/6229468b-bcb7-4415-880a-aea3eef4eea2.jpg', '/goods-img/6229468b-bcb7-4415-880a-aea3eef4eea2.jpg', '商品介绍加载中...', 3199, 2929, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10296, 'Apple iPhone 7 (A1660)', '128G 金色 移动联通电信4G手机', 47, '/goods-img/1f5bb955-fbe7-451a-b12c-3e2115c53020.jpg', '/goods-img/1f5bb955-fbe7-451a-b12c-3e2115c53020.jpg', '商品介绍加载中...', 3199, 2929, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10297, 'Apple iPhone 7 (A1660)', '128G 银色 移动联通电信4G手机', 47, '/goods-img/9fc3c48f-c8e2-426b-915a-c32b0e72998d.jpg', '/goods-img/9fc3c48f-c8e2-426b-915a-c32b0e72998d.jpg', '商品介绍加载中...', 3199, 2929, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10298, 'Apple iPhone XS Max', '(A2104) 256GB 深空灰色 移动联通电信4G手机 双卡双待', 47, '/goods-img/ec4af4a5-0a53-4246-bd88-919b0541a55c.jpg', '/goods-img/ec4af4a5-0a53-4246-bd88-919b0541a55c.jpg', '详情加载中...', 9599, 8999, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10299, 'Apple iPhone XS Max', '(A2104) 256GB 金色 移动联通电信4G手机 双卡双待', 47, '/goods-img/b7d2373a-5a8c-4be5-a4ce-57b408c6d9f2.jpg', '/goods-img/b7d2373a-5a8c-4be5-a4ce-57b408c6d9f2.jpg', '商品介绍加载中...', 9599, 8999, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10300, 'Apple iPhone XS Max', '(A2104) 256GB 银色 移动联通电信4G手机 双卡双待', 47, '/goods-img/837aaf40-5797-4929-b162-a248bfe73b36.jpg', '/goods-img/837aaf40-5797-4929-b162-a248bfe73b36.jpg', '商品介绍加载中...', 9599, 8999, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10301, 'Apple iPhone 8 (A1863)', '64GB 深空灰色 移动联通电信4G手机', 47, '/goods-img/8ab049d8-5b2e-4b69-bef0-013bec414598.jpg', '/goods-img/8ab049d8-5b2e-4b69-bef0-013bec414598.jpg', '商品介绍加载中...', 3699, 3499, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10302, 'Apple iPhone 8 (A1863)', '64GB 银色 移动联通电信4G手机', 47, '/goods-img/eaeb6faf-2ead-4f5d-84d2-1629686a492c.jpg', '/goods-img/eaeb6faf-2ead-4f5d-84d2-1629686a492c.jpg', '商品介绍加载中...', 3699, 3499, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10303, 'Apple iPhone 8 (A1863)', '64GB 金色 移动联通电信4G手机', 47, '/goods-img/0611528c-73c8-4114-a1d8-d9387e771284.jpg', '/goods-img/0611528c-73c8-4114-a1d8-d9387e771284.jpg', '商品介绍加载中...', 3699, 3499, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10304, 'Apple iPhone 7 Plus', '(A1661) 128G 黑色 移动联通电信4G手机', 47, '/goods-img/dbafc182-23b7-442c-b9cb-0ea825a659a9.jpg', '/goods-img/dbafc182-23b7-442c-b9cb-0ea825a659a9.jpg', '商品介绍加载中...', 4199, 3699, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10305, 'Apple iPhone 7 Plus', '(A1661) 128G 玫瑰金色 移动联通电信4G手机', 47, '/goods-img/c227df08-9a26-430a-88a5-72c1e4da5b6e.jpg', '/goods-img/c227df08-9a26-430a-88a5-72c1e4da5b6e.jpg', '商品介绍加载中...', 4199, 3699, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10306, 'Apple iPhone 7 Plus', '(A1661) 128G 金色 移动联通电信4G手机', 47, '/goods-img/bf58f29f-75ed-411e-8255-3b9f802634f2.jpg', '/goods-img/bf58f29f-75ed-411e-8255-3b9f802634f2.jpg', '商品介绍加载中...', 4199, 3699, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10307, 'Apple iPhone 7 Plus', '(A1661) 128G 银色 移动联通电信4G手机', 47, '/goods-img/dfab7fee-e787-423d-9771-67e05b03b358.jpg', '/goods-img/dfab7fee-e787-423d-9771-67e05b03b358.jpg', '商品介绍加载中...', 4199, 3699, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10308, 'Apple iPhone XS (A2099)', '64GB 金色 移动联通4G手机', 47, '/goods-img/b3ff5475-9519-4d94-8f07-5840bb796e60.jpg', '/goods-img/b3ff5475-9519-4d94-8f07-5840bb796e60.jpg', '详情加载中...', 7299, 6299, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10309, 'Apple iPhone XS (A2099)', '64GB 深空灰色 移动联通4G手机', 47, '/goods-img/7cc8d012-cfaa-45c4-ba35-70ca46c8bd66.jpg', '/goods-img/7cc8d012-cfaa-45c4-ba35-70ca46c8bd66.jpg', '详情加载中...', 7299, 6299, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10310, 'Apple iPhone XS (A2099)', '256GB 银色 移动联通4G手机', 47, '/goods-img/776b459b-e981-434f-bbf7-635cafab7418.jpg', '/goods-img/776b459b-e981-434f-bbf7-635cafab7418.jpg', '详情加载中...', 10099, 7699, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10311, 'Apple iPhone 8 Plus', '(A1899) 64GB 深空灰色 移动联通4G手机', 47, '/goods-img/8eb2e38b-84e1-4f31-9dae-841800f68038.jpg', '/goods-img/8eb2e38b-84e1-4f31-9dae-841800f68038.jpg', '商品介绍加载中...', 4599, 3999, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10312, 'Apple iPhone 8 Plus', '(A1864) 64GB 金色 移动联通电信4G手机', 47, '/goods-img/58c6a2c3-d3f7-4b0a-b4ae-e649b1032087.jpg', '/goods-img/58c6a2c3-d3f7-4b0a-b4ae-e649b1032087.jpg', '商品介绍加载中...', 4799, 4399, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10313, 'Apple iPhone 8 Plus', '(A1864) 64GB 银色 移动联通电信4G手机', 47, '/goods-img/2839c451-3eaf-4820-8a15-1858ce339407.jpg', '/goods-img/2839c451-3eaf-4820-8a15-1858ce339407.jpg', '商品介绍加载中...', 4799, 4399, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10314, 'Apple 苹果 iPhone xr', '手机 双卡双待 黑色 全网通64G', 47, '/goods-img/35bbe123-c822-457c-aaf0-fdcd861bc06d.jpg', '/goods-img/35bbe123-c822-457c-aaf0-fdcd861bc06d.jpg', '商品介绍加载中...', 6199, 4598, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10315, 'Apple 苹果 iPhone xr', '手机 双卡双待 白色 全网通64G', 47, '/goods-img/0e565b23-554e-45d3-ac62-a2fb25be7f2c.jpg', '/goods-img/0e565b23-554e-45d3-ac62-a2fb25be7f2c.jpg', '商品介绍加载中...', 6199, 4658, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10316, 'Apple 苹果 iPhone xr', '手机 双卡双待 蓝色 全网通64G', 47, '/goods-img/c08b6ddc-735f-4d2c-b47f-1f0e7f62a9b1.jpg', '/goods-img/c08b6ddc-735f-4d2c-b47f-1f0e7f62a9b1.jpg', '商品介绍加载中...', 6199, 4698, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10317, 'Apple 苹果 iPhone xr', '手机 双卡双待 黄色 全网通64G', 47, '/goods-img/c09636de-93b1-444e-b00e-668506676443.jpg', '/goods-img/c09636de-93b1-444e-b00e-668506676443.jpg', '商品介绍加载中...', 6199, 4698, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10318, 'Apple 苹果 iPhone xr', '手机 双卡双待 红色 全网通128G', 47, '/goods-img/b26d8460-7ab5-4006-ba5c-e212ee0f31bd.jpg', '/goods-img/b26d8460-7ab5-4006-ba5c-e212ee0f31bd.jpg', '商品介绍加载中...', 6699, 5038, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10319, 'Apple 苹果 iPhone xr', '手机 双卡双待 珊瑚色 全网通64G', 47, '/goods-img/fab7cf40-9b7d-4141-8227-9ce7e02e8330.jpg', '/goods-img/fab7cf40-9b7d-4141-8227-9ce7e02e8330.jpg', '商品介绍加载中...', 6199, 4698, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10320, 'Apple iPhone 11 Pro', '(A2217) 256GB 暗夜绿色 移动联通电信4G手机 双卡双待', 47, '/goods-img/0025ad55-e260-4a00-be79-fa5b8c5ac0de.jpg', '/goods-img/0025ad55-e260-4a00-be79-fa5b8c5ac0de.jpg', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n<div style=\"margin:0px;padding:0px;text-align:center;\">\n	<br />\n</div>\n	</div>\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n	<div style=\"margin:0px auto;padding:0px;\">\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-0.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-1.png\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-2.png\" /> \n	</div>\n</div>', 9999, 9999, 990, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10321, 'Apple iPhone 11 Pro', '(A2217) 64GB 深空灰色 移动联通电信4G手机 双卡双待', 47, '/goods-img/d0abbd2a-19ca-4ae7-9b3c-1eb4eb77c565.jpg', '/goods-img/d0abbd2a-19ca-4ae7-9b3c-1eb4eb77c565.jpg', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n<div style=\"margin:0px;padding:0px;text-align:center;\">\n	<br />\n</div>\n	</div>\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n	<div style=\"margin:0px auto;padding:0px;\">\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-0.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-1.png\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-2.png\" /> \n	</div>\n</div>', 8699, 8699, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10322, 'Apple iPhone 11 Pro', '(A2217) 64GB 银色 移动联通电信4G手机 双卡双待', 47, '/goods-img/7d192eff-938f-4e6d-8952-9d405707033e.jpg', '/goods-img/7d192eff-938f-4e6d-8952-9d405707033e.jpg', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n<div style=\"margin:0px;padding:0px;text-align:center;\">\n	<br />\n</div>\n	</div>\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n	<div style=\"margin:0px auto;padding:0px;\">\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-0.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-1.png\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-2.png\" /> \n	</div>\n</div>', 8699, 8699, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10323, '【换修无忧年付版】Apple iPhone 11 Pro', '(A2217) 512GB 金色 移动联通电信4G手机 双卡双待', 47, '/goods-img/38b3f3a9-7056-45a3-b183-ad46dc71f493.jpg', '/goods-img/38b3f3a9-7056-45a3-b183-ad46dc71f493.jpg', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n<div style=\"margin:0px;padding:0px;text-align:center;\">\n	<br />\n</div>\n	</div>\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n	<div style=\"margin:0px auto;padding:0px;\">\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-0.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-1.png\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/iphone-11-2.png\" /> \n	</div>\n</div>', 12598, 12598, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10324, 'Apple 苹果 iPhone 6s', 'Plus 4G手机 金色 全网通 128G', 47, '/goods-img/22febff2-db52-4f7a-8d16-414e755e788b.jpg', '/goods-img/22febff2-db52-4f7a-8d16-414e755e788b.jpg', '商品介绍加载中...', 3599, 2918, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10325, 'Apple 苹果 iPhone 6s', 'Plus 4G手机 玫瑰金 全网通 128G', 47, '/goods-img/dfb0d434-4d59-4fda-896a-1ebd9e4d9ece.jpg', '/goods-img/dfb0d434-4d59-4fda-896a-1ebd9e4d9ece.jpg', '商品介绍加载中...', 3599, 2918, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10326, 'Apple 苹果 iPhone 6s', 'Plus 4G手机 深空灰 全网通 128G', 47, '/goods-img/d3a4b902-8010-4619-89e4-96cb88e6d4e4.jpg', '/goods-img/d3a4b902-8010-4619-89e4-96cb88e6d4e4.jpg', '商品介绍加载中...', 3599, 2888, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10327, 'Apple 苹果 iPhone 6s', 'Plus 4G手机 银色 全网通 128G', 47, '/goods-img/b4b7e7d3-b7ba-4917-a1f9-70c52f28df9d.jpg', '/goods-img/b4b7e7d3-b7ba-4917-a1f9-70c52f28df9d.jpg', '商品介绍加载中...', 3599, 2988, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10328, '【二手9成新】Apple iPhone XSmax 苹果XSmax', '国行二手手机 XS Max 深空灰 64G', 47, '/goods-img/0514e529-6b3e-40d5-9183-84088ddb55e1.jpg', '/goods-img/0514e529-6b3e-40d5-9183-84088ddb55e1.jpg', '商品介绍加载中...', 7766, 6088, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10329, '【二手9成新】Apple iPhone XSmax 苹果XSmax', '国行二手手机 XS Max 金色 64G', 47, '/goods-img/a0dfd1ad-61ed-43ee-add4-74bdfea1d6c1.jpg', '/goods-img/a0dfd1ad-61ed-43ee-add4-74bdfea1d6c1.jpg', '商品介绍加载中...', 14999, 6088, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10330, '【二手9成新】Apple iPhone XSmax 苹果XSmax', '国行二手手机 XS Max 银色 256G', 47, '/goods-img/87b66719-fc17-4c97-a954-de8a78b42a09.jpg', '/goods-img/87b66719-fc17-4c97-a954-de8a78b42a09.jpg', '商品介绍加载中...', 14999, 6938, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10331, '【二手9成新】Apple iPhone 6s Plus', '苹果6sPlus 二手手机（送一年碎屏险） 玫瑰金色 64G 全网通', 47, '/goods-img/5b132b57-24e4-4d65-9cb8-3299dc0e9ed6.png', '/goods-img/5b132b57-24e4-4d65-9cb8-3299dc0e9ed6.png', '商品介绍加载中...', 1799, 1468, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10332, '【二手9成新】Apple iPhone 6s Plus', '苹果6sPlus 二手手机（送一年碎屏险） 金色 64G 全网通', 47, '/goods-img/f289ec14-e0e2-481e-a703-39eec00a1b15.png', '/goods-img/f289ec14-e0e2-481e-a703-39eec00a1b15.png', '商品介绍加载中...', 1799, 1499, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10333, '【二手9成新】Apple iPhone 6s Plus', '苹果6sPlus 二手手机（送一年碎屏险） 银色 64G 全网通', 47, '/goods-img/084208d0-4dc2-4f1a-aff4-4114616dfae1.png', '/goods-img/084208d0-4dc2-4f1a-aff4-4114616dfae1.png', '商品介绍加载中...', 1799, 1599, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10334, '【二手9成新】Apple iPhone 6s Plus', '苹果6sPlus 二手手机（送一年碎屏险） 深空灰色 64G 全网通', 47, '/goods-img/8a598420-0052-4551-b00a-b288b6c22a48.png', '/goods-img/8a598420-0052-4551-b00a-b288b6c22a48.png', '商品介绍加载中...', 1799, 1638, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10335, 'Apple 苹果 iPhone xr', '手机 双卡双待 白色 全网通 64G', 47, '/goods-img/6110a187-511f-45d0-8b59-ea2a75546a45.jpg', '/goods-img/6110a187-511f-45d0-8b59-ea2a75546a45.jpg', '商品介绍加载中...', 5499, 4699, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10336, 'Apple 苹果 iPhone xr', '手机 双卡双待 黑色 全网通 128G', 47, '/goods-img/41b10e86-857c-435c-b86d-d822e35450ab.jpg', '/goods-img/41b10e86-857c-435c-b86d-d822e35450ab.jpg', '商品介绍加载中...', 5699, 5079, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10337, 'Apple 苹果 iPhone xr', '手机 双卡双待 蓝色 全网通 64G', 47, '/goods-img/d38bcaab-7a0a-4f86-ad75-60ac74a308e6.jpg', '/goods-img/d38bcaab-7a0a-4f86-ad75-60ac74a308e6.jpg', '商品介绍加载中...', 5499, 4699, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10338, 'Apple 苹果 iPhone xr', '手机 双卡双待 黄色 全网通 128G', 47, '/goods-img/73fc7cb9-5b43-4bce-a2b3-a82516773de0.jpg', '/goods-img/73fc7cb9-5b43-4bce-a2b3-a82516773de0.jpg', '商品介绍加载中...', 5699, 5079, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10339, 'Apple 苹果 iPhone xr', '手机 双卡双待 珊瑚色 全网通 64G', 47, '/goods-img/00e53d76-db08-4ae2-864f-ca1cd7c8c32b.jpg', '/goods-img/00e53d76-db08-4ae2-864f-ca1cd7c8c32b.jpg', '商品介绍加载中...', 5499, 4699, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10340, '【二手95新】Apple iPhonex XSmax苹果x xsmax', '国行 二手手机 XS max金色 64G 全网通', 47, '/goods-img/5b9acfd4-7808-4b3b-bf5c-4b367667418c.jpg', '/goods-img/5b9acfd4-7808-4b3b-bf5c-4b367667418c.jpg', '商品介绍加载中...', 12999, 6088, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10341, '【二手95新】Apple iPhonex XSmax苹果x xsmax', '国行 二手手机 XS 金色 64G 全网通', 47, '/goods-img/cd2b481d-a4a2-4bc0-a4e1-784a28c37ef9.jpg', '/goods-img/cd2b481d-a4a2-4bc0-a4e1-784a28c37ef9.jpg', '商品介绍加载中...', 12999, 5299, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10342, '【二手95新】Apple iPhonex XSmax苹果x xsmax', '国行 二手手机 XS max灰色 256G 全网通', 47, '/goods-img/1d866674-4e57-483a-955f-5fd1a4f5d921.jpg', '/goods-img/1d866674-4e57-483a-955f-5fd1a4f5d921.jpg', '商品介绍加载中...', 12999, 6938, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10343, '【二手95新】Apple iPhonex XSmax苹果x xsmax', '国行 二手手机 XS max银色 64G 全网通', 47, '/goods-img/3f3e086e-e4be-464f-9c20-760430cab2df.jpg', '/goods-img/3f3e086e-e4be-464f-9c20-760430cab2df.jpg', '商品介绍加载中...', 12999, 6088, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10344, '【二手95新】Apple iPhonex XSmax苹果x xsmax', '国行 二手手机 XS 灰色 64G 全网通', 47, '/goods-img/4a4a0820-aad5-47d4-a926-f040fd090c96.jpg', '/goods-img/4a4a0820-aad5-47d4-a926-f040fd090c96.jpg', '商品介绍加载中...', 12999, 5299, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10345, '【二手95新】Apple iPhonex XSmax苹果x xsmax', '国行 二手手机 XS 银色 64G 全网通', 47, '/goods-img/a6b87d83-5ba7-4683-be17-43ab9aa043e3.jpg', '/goods-img/a6b87d83-5ba7-4683-be17-43ab9aa043e3.jpg', '商品介绍加载中...', 12999, 5299, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10346, '【二手9成新】Apple iPhone X 苹果X', '二手手机 深空灰色 64G 全网通', 47, '/goods-img/3cd13e20-2a00-4049-8768-0ba662df7e40.jpg', '/goods-img/3cd13e20-2a00-4049-8768-0ba662df7e40.jpg', '商品介绍加载中...', 3989, 3989, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10347, '【二手9成新】Apple iPhone X 苹果X', '二手手机 银色 64G 全网通', 47, '/goods-img/fc3db752-e0dc-4ae7-bac3-fd60ab8a1e17.jpg', '/goods-img/fc3db752-e0dc-4ae7-bac3-fd60ab8a1e17.jpg', '商品介绍加载中...', 4008, 4008, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10348, '【二手9成新】苹果7Plus手机 Apple iPhone7Plus 苹果7P', '二手手机 磨砂黑 128G 全网通', 47, '/goods-img/24b442e2-1bdd-4350-bbab-4e4d3d3445f1.jpg', '/goods-img/24b442e2-1bdd-4350-bbab-4e4d3d3445f1.jpg', '商品介绍加载中...', 2899, 2399, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10349, '【二手9成新】苹果7Plus手机 Apple iPhone7Plus 苹果7P', '二手手机 亮黑色 128G 全网通', 47, '/goods-img/7601e13f-de8e-449c-84be-65fbc7280cfc.png', '/goods-img/7601e13f-de8e-449c-84be-65fbc7280cfc.png', '商品介绍加载中...', 2899, 2399, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10350, '【二手9成新】苹果7Plus手机 Apple iPhone7Plus 苹果7P', '二手手机 玫瑰金 128G 全网通', 47, '/goods-img/771bc653-485b-4c5d-bca3-c84d3e90020d.jpg', '/goods-img/771bc653-485b-4c5d-bca3-c84d3e90020d.jpg', '商品介绍加载中...', 2666, 2399, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10351, '【二手9成新】苹果7Plus手机 Apple iPhone7Plus 苹果7P', '二手手机 金色 128G 全网通', 47, '/goods-img/5a170339-acb4-4890-bd08-bb109864e853.jpg', '/goods-img/5a170339-acb4-4890-bd08-bb109864e853.jpg', '商品介绍加载中...', 2739, 2399, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10352, '【二手9成新】苹果7Plus手机 Apple iPhone7Plus 苹果7P', '二手手机 银色 128G 全网通', 47, '/goods-img/a419ebb4-18a5-4295-9404-0593dd215ad0.jpg', '/goods-img/a419ebb4-18a5-4295-9404-0593dd215ad0.jpg', '商品介绍加载中...', 2699, 2466, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10353, '【二手9成新】Apple iPhone X 苹果X', '二手手机 全网通 深空灰 64G', 47, '/goods-img/4f666eee-c2c7-459c-934e-b32714d1e1c4.png', '/goods-img/4f666eee-c2c7-459c-934e-b32714d1e1c4.png', '商品介绍加载中...', 5188, 3956, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10354, '【二手9成新】苹果8Plus手机 Apple iPhone 8Plus', '苹果8P 二手手机 深空灰 64G 全网通', 47, '/goods-img/ada8e547-dca3-47fc-8aab-35884575090a.jpg', '/goods-img/ada8e547-dca3-47fc-8aab-35884575090a.jpg', '商品介绍加载中...', 3888, 3199, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10355, '【二手9成新】苹果8Plus手机 Apple iPhone 8Plus', '苹果8P 二手手机 金色 64G 全网通', 47, '/goods-img/76a2e417-2f15-412f-ab73-3a5eb2a7d2d1.jpg', '/goods-img/76a2e417-2f15-412f-ab73-3a5eb2a7d2d1.jpg', '商品介绍加载中...', 3550, 3199, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10356, '【二手9成新】苹果8Plus手机 Apple iPhone 8Plus', '苹果8P 二手手机 银色 64G 全网通', 47, '/goods-img/5bfb8955-0b1c-4652-b162-a9b91b71211a.jpg', '/goods-img/5bfb8955-0b1c-4652-b162-a9b91b71211a.jpg', '商品介绍加载中...', 3499, 3238, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10357, '【二手9成新】苹果8Plus手机 Apple iPhone 8Plus', '苹果8P 二手手机 中国红 64G 全网通', 47, '/goods-img/d31193ee-04c1-4bac-8a91-1a4690a396be.jpg', '/goods-img/d31193ee-04c1-4bac-8a91-1a4690a396be.jpg', '商品介绍加载中...', 3438, 3299, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10358, '【二手9成新】Apple iPhoneX 苹果X 二手苹果x手机', '深空灰 64G全网通', 47, '/goods-img/b9264842-cd50-4d6f-a4a5-e8cc9dd483a4.png', '/goods-img/b9264842-cd50-4d6f-a4a5-e8cc9dd483a4.png', '商品介绍加载中...', 4799, 3989, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10359, '【二手9成新】Apple iPhoneX 苹果X 二手苹果x手机', '银色 64G全网通', 47, '/goods-img/58e9a125-61c1-416b-b17f-99cda431a202.png', '/goods-img/58e9a125-61c1-416b-b17f-99cda431a202.png', '商品介绍加载中...', 4799, 4016, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10360, '【二手95新】Apple iPhone XS 苹果xs', '国行全网通二手手机 银色 全网通 64G', 47, '/goods-img/5a732ada-1fdb-48f1-b106-666159565a94.jpg', '/goods-img/5a732ada-1fdb-48f1-b106-666159565a94.jpg', '商品介绍加载中...', 9999, 5299, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10361, '【二手95新】Apple iPhone XS 苹果xs', '国行全网通二手手机 金色 全网通 256G', 47, '/goods-img/f9e9b321-4b25-40c5-af6d-d9f3fe74a053.jpg', '/goods-img/f9e9b321-4b25-40c5-af6d-d9f3fe74a053.jpg', '商品介绍加载中...', 9999, 6008, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10362, '【二手9成新】Apple iPhone X 苹果x', '二手手机 X 银色 256G 全网通', 47, '/goods-img/8da60128-fcc7-46ed-98b6-0066c69624c0.png', '/goods-img/8da60128-fcc7-46ed-98b6-0066c69624c0.png', '商品介绍加载中...', 5058, 4639, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10363, '【二手9成新】Apple iPhone X 苹果x', '国行全网通二手手机 X 灰色 64G 全网通', 47, '/goods-img/8aca87a3-65dd-4c42-91c7-bbbd10fcf7a6.jpg', '/goods-img/8aca87a3-65dd-4c42-91c7-bbbd10fcf7a6.jpg', '商品介绍加载中...', 6999, 3999, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10364, '【二手9成新】Apple iPhone X 苹果x', '国行全网通二手手机 X 银色 64G 全网通', 47, '/goods-img/fdec1b37-9a2f-46ea-af03-5091d83e546a.jpg', '/goods-img/fdec1b37-9a2f-46ea-af03-5091d83e546a.jpg', '商品介绍加载中...', 6999, 4078, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10365, '【二手9成新】Apple iPhone XR 苹果xr', '二手手机双卡双待 白色 128G 全网通', 47, '/goods-img/9834bb8d-fe1c-4218-a624-4a25aecb0676.jpg', '/goods-img/9834bb8d-fe1c-4218-a624-4a25aecb0676.jpg', '商品介绍加载中...', 5888, 4299, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10366, '【二手9成新】Apple iPhone XR 苹果xr', '二手手机双卡双待 蓝色 128G 全网通', 47, '/goods-img/3993feaa-0365-4d7e-9cc5-dcf583243ca3.jpg', '/goods-img/3993feaa-0365-4d7e-9cc5-dcf583243ca3.jpg', '商品介绍加载中...', 5888, 4399, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10367, '【二手9成新】Apple iPhone XR 苹果xr', '二手手机双卡双待 黑色 64G 全网通', 47, '/goods-img/ba9cf789-60a8-48db-8329-97c3fc13a061.jpg', '/goods-img/ba9cf789-60a8-48db-8329-97c3fc13a061.jpg', '商品介绍加载中...', 5888, 4055, 1000, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10689, '荣耀Play3 6.39英寸魅眼全视屏 4000mAh大电池 真4800万AI三摄', '麒麟710F自研芯片 全网通4GB+64GB 幻夜黑', 45, '/goods-img/9aa34959-cd60-418f-b42e-aa7243b6869c.jpg', '/goods-img/9aa34959-cd60-418f-b42e-aa7243b6869c.jpg', '详情加载中...', 999, 999, 999, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10690, '华为 HUAWEI 畅享10 Plus', '超高清全视屏前置悬浮式镜头4800万超广角AI三摄 4GB+128GB幻夜黑全网通双4G手机', 46, '/goods-img/2613a582-460c-4c2b-bbc0-6c7dbf501bd2.jpg', '/goods-img/2613a582-460c-4c2b-bbc0-6c7dbf501bd2.jpg', '详情加载中...', 1499, 1499, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10691, '华为 HUAWEI 畅享10 Plus', '超高清全视屏前置悬浮式镜头4800万超广角AI三摄 4GB+128GB翡冷翠全网通双4G手机', 46, '/goods-img/21b0751b-f6ae-4a57-8fb8-61e007395c43.jpg', '/goods-img/21b0751b-f6ae-4a57-8fb8-61e007395c43.jpg', '商品介绍加载中...', 1499, 1499, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10692, '华为 HUAWEI 畅享10 Plus', '超高清全视屏前置悬浮式镜头4800万超广角AI三摄 6GB+128GB天空之境全网通双4G手机', 46, '/goods-img/3f68538f-3b56-4e98-9676-99139857428c.jpg', '/goods-img/3f68538f-3b56-4e98-9676-99139857428c.jpg', '详情加载中...', 1799, 1799, 999, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10693, '荣耀10青春版 幻彩渐变 2400万AI自拍 全网通版4GB+64GB', '渐变蓝 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/f8ab28c3-8e04-49a0-ba05-2e6a3ae7211f.jpg', '/goods-img/f8ab28c3-8e04-49a0-ba05-2e6a3ae7211f.jpg', '详情加载中...', 1099, 999, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10694, '荣耀10青春版 幻彩渐变 2400万AI自拍 全网通版4GB+64GB', '幻夜黑 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/de654f42-d58d-4336-8edd-da01c3523449.jpg', '/goods-img/de654f42-d58d-4336-8edd-da01c3523449.jpg', '详情加载中...', 1099, 999, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10695, '荣耀10青春版 幻彩渐变 2400万AI自拍 全网通版4GB+64GB', '渐变红 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/87254a42-9fdf-4e68-a11e-e8e2eef28d2c.jpg', '/goods-img/87254a42-9fdf-4e68-a11e-e8e2eef28d2c.jpg', '详情加载中...', 1099, 999, 997, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10696, '荣耀10青春版 幻彩渐变 2400万AI自拍 全网通版4GB+64GB', '铃兰白 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/81b7060a-7274-4bff-86c0-72d5fc7ff383.jpg', '/goods-img/81b7060a-7274-4bff-86c0-72d5fc7ff383.jpg', '详情加载中...', 1099, 999, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10697, '荣耀8X 千元屏霸 91%屏占比 2000万AI双摄', '4GB+64GB 幻夜黑 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/d7f74e8f-5c52-422b-ac99-a8d691830494.jpg', '/goods-img/d7f74e8f-5c52-422b-ac99-a8d691830494.jpg', '详情加载中...', 1399, 999, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10698, '荣耀8X 千元屏霸 91%屏占比 2000万AI双摄', '4GB+64GB 幻影蓝 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/7031c07e-a70f-4f6d-9e2d-d0af31e3393a.jpg', '/goods-img/7031c07e-a70f-4f6d-9e2d-d0af31e3393a.jpg', '详情加载中...', 1399, 999, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10699, '荣耀8X 千元屏霸 91%屏占比 2000万AI双摄', '4GB+64GB 魅海蓝 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/b7bfcc28-98c2-4cb4-8ce3-afe4c482b674.jpg', '/goods-img/b7bfcc28-98c2-4cb4-8ce3-afe4c482b674.jpg', '详情加载中...', 1399, 999, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10700, '荣耀8X 千元屏霸 91%屏占比 2000万AI双摄', '4GB+64GB 魅焰红 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/6a160b96-9b4a-4844-b335-feb31b1f5d8c.jpg', '/goods-img/6a160b96-9b4a-4844-b335-feb31b1f5d8c.jpg', '详情加载中...', 1399, 999, 992, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10701, '荣耀8X 千元屏霸 91%屏占比 2000万AI双摄', '4GB+64GB 梦幻紫 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/8ccc13ec-96fe-4488-a604-526601548c9e.jpg', '/goods-img/8ccc13ec-96fe-4488-a604-526601548c9e.jpg', '详情加载中...', 1399, 999, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10702, '华为 HUAWEI P30 超感光徕卡三摄麒麟980AI智能芯片全面屏屏内指纹版手机8GB+128GB天空之境全网通双4G手机', '新蜂精选', 46, '/goods-img/edb7e8ef-7785-418b-a75e-dfed2aa74e39.jpg', '/goods-img/edb7e8ef-7785-418b-a75e-dfed2aa74e39.jpg', '详情加载中...', 4288, 3988, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10703, '华为 HUAWEI P30 超感光徕卡三摄麒麟980AI智能芯片全面屏屏内指纹版手机8GB+128GB亮黑色全网通双4G手机', '新蜂精选', 46, '/goods-img/e13294f7-9ab0-42dc-afb1-9f41c59436cf.jpg', '/goods-img/e13294f7-9ab0-42dc-afb1-9f41c59436cf.jpg', '商品介绍加载中...', 4288, 3988, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10704, '华为 HUAWEI P30 超感光徕卡三摄麒麟980AI智能芯片全面屏屏内指纹版手机8GB+128GB珠光贝母全网通双4G手机', '新蜂精选', 46, '/goods-img/b9e6d770-06dd-40f4-9ae5-31103cec6e5f.jpg', '/goods-img/b9e6d770-06dd-40f4-9ae5-31103cec6e5f.jpg', '详情加载中...', 4288, 3988, 999, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10705, '华为 HUAWEI P30 超感光徕卡三摄麒麟980AI智能芯片全面屏屏内指纹版手机8GB+128GB极光色全网通双4G手机', '新蜂精选', 46, '/goods-img/20312f4e-da4f-49b9-8150-ab54f0302915.jpg', '/goods-img/20312f4e-da4f-49b9-8150-ab54f0302915.jpg', '商品介绍加载中...', 4288, 3988, 997, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10706, '华为 HUAWEI P30 超感光徕卡三摄麒麟980AI智能芯片全面屏屏内指纹版手机8GB+128GB赤茶橘全网通双4G手机', '新蜂精选', 46, '/goods-img/192b1727-bcab-4bdf-8494-182f8ec5b2e6.jpg', '/goods-img/192b1727-bcab-4bdf-8494-182f8ec5b2e6.jpg', '商品介绍加载中...', 4288, 3988, 993, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10707, '荣耀20i 3200万AI自拍 超广角三摄 全网通版6GB+64GB', '渐变蓝 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/74146e03-42d1-453c-843d-b02d8bcc24f4.jpg', '/goods-img/74146e03-42d1-453c-843d-b02d8bcc24f4.jpg', '详情加载中...', 1399, 1299, 996, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10708, '荣耀20i 3200万AI自拍 超广角三摄 全网通版6GB+64GB', '渐变红 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/4c066fc2-3a58-44df-9dc6-8465b25f92ef.jpg', '/goods-img/4c066fc2-3a58-44df-9dc6-8465b25f92ef.jpg', '详情加载中...', 1399, 1299, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10709, '荣耀20i 3200万AI自拍 超广角三摄 全网通版6GB+64GB', '幻夜黑 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/525bdd6e-848b-4e02-b19f-1a08fdb87faa.jpg', '/goods-img/525bdd6e-848b-4e02-b19f-1a08fdb87faa.jpg', '详情加载中...', 1399, 1299, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10710, '荣耀9X 麒麟810 4000mAh超强续航 4800万超清夜拍', '6.59英寸升降全面屏 全网通6GB+64GB 魅海蓝', 45, '/goods-img/7b8b7da7-f154-453e-a6a6-ea2f5e7d8b4a.jpg', '/goods-img/7b8b7da7-f154-453e-a6a6-ea2f5e7d8b4a.jpg', '详情加载中...', 1599, 1599, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10711, '荣耀9X 麒麟810 4000mAh超强续航 4800万超清夜拍', '6.59英寸升降全面屏 全网通6GB+64GB 幻夜黑', 45, '/goods-img/d30f7986-bc0f-4ea8-8fbb-94c6bae248f5.jpg', '/goods-img/d30f7986-bc0f-4ea8-8fbb-94c6bae248f5.jpg', '详情加载中...', 1599, 1599, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10712, '荣耀9X 麒麟810 4000mAh超强续航 4800万超清夜拍', '6.59英寸升降全面屏 全网通4GB+64GB 魅焰红', 45, '/goods-img/95b5df3b-cfec-40bb-8ead-35e0fe7fb7b2.jpg', '/goods-img/95b5df3b-cfec-40bb-8ead-35e0fe7fb7b2.jpg', '详情加载中...', 1399, 1399, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10713, '荣耀20 李现同款 4800万超广角AI四摄 3200W美颜自拍', '麒麟Kirin980全网通版8GB+128GB 蓝水翡翠 全面屏手机', 45, '/goods-img/2469b8fa-8117-4409-a8d6-3b52a33b3e51.jpg', '/goods-img/2469b8fa-8117-4409-a8d6-3b52a33b3e51.jpg', '详情加载中...', 2699, 2499, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10714, '荣耀20 李现同款 4800万超广角AI四摄 3200W美颜自拍', '麒麟Kirin980全网通版8GB+128GB 幻夜黑 全面屏手机', 45, '/goods-img/474e2ef0-2321-4363-ab31-7a838546f172.jpg', '/goods-img/474e2ef0-2321-4363-ab31-7a838546f172.jpg', '详情加载中...', 2699, 2499, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10715, '荣耀20 李现同款 4800万超广角AI四摄 3200W美颜自拍', '麒麟Kirin980全网通版8GB+128GB 冰岛白 全面屏手机', 45, '/goods-img/77d87d20-4fc7-441c-82a8-baf9089fc3ad.jpg', '/goods-img/77d87d20-4fc7-441c-82a8-baf9089fc3ad.jpg', '详情加载中...', 2699, 2499, 997, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10716, '荣耀20 李现同款 4800万超广角AI四摄 3200W美颜自拍', '麒麟Kirin980全网通版8GB+128GB 幻影蓝 全面屏手机', 45, '/goods-img/1a200710-8c41-4411-8edf-a49575807a08.jpg', '/goods-img/1a200710-8c41-4411-8edf-a49575807a08.jpg', '详情加载中...', 2699, 2499, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10717, '荣耀20 PRO 李现同款 4800万全焦段AI四摄', '双光学防抖 麒麟980 全网通4G 8GB+128GB 冰岛幻境 拍照手机', 45, '/goods-img/391cd4e6-6071-41ea-a6fc-d983b30a5470.jpg', '/goods-img/391cd4e6-6071-41ea-a6fc-d983b30a5470.jpg', '详情加载中...', 3199, 2899, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10718, '荣耀20 PRO 李现同款 4800万全焦段AI四摄', '双光学防抖 麒麟980 全网通4G 8GB+128GB 蓝水翡翠 拍照手机', 45, '/goods-img/5d7ee18f-ca20-4d72-a803-dc5b03bd80e2.jpg', '/goods-img/5d7ee18f-ca20-4d72-a803-dc5b03bd80e2.jpg', '详情加载中...', 3199, 2899, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10719, '荣耀20 PRO 李现同款 4800万全焦段AI四摄', '双光学防抖 麒麟980 全网通4G 8GB+128GB 幻夜星河 拍照手机', 45, '/goods-img/e1505375-d00d-4cd8-a090-a13490b430d5.jpg', '/goods-img/e1505375-d00d-4cd8-a090-a13490b430d5.jpg', '详情加载中...', 3199, 2899, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10720, '荣耀20 PRO × MOSCHINO联名版', '4800万全焦段AI四摄 双光学防抖 麒麟980 8GB+256GB 黑色', 45, '/goods-img/0ae89667-8a69-4efc-b8d8-c0ebaf56753a.jpg', '/goods-img/0ae89667-8a69-4efc-b8d8-c0ebaf56753a.jpg', '详情加载中...', 3799, 3799, 997, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10721, '华为 HUAWEI 畅享 9S', '6GB+64GB 幻夜黑 全网通 2400万超广角三摄珍珠屏大存储 移动联通电信4G手机 双卡双待', 46, '/goods-img/1b96ae9b-8c56-465e-9e82-ff712305e2d9.jpg', '/goods-img/1b96ae9b-8c56-465e-9e82-ff712305e2d9.jpg', '详情加载中...', 1499, 1199, 994, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10722, '华为 HUAWEI 畅享 9S', '6GB+64GB 极光蓝 全网通 2400万超广角三摄珍珠屏大存储 移动联通电信4G手机 双卡双待', 46, '/goods-img/b49530f5-fe13-42b3-9ca9-6f1367e0f8f8.jpg', '/goods-img/b49530f5-fe13-42b3-9ca9-6f1367e0f8f8.jpg', '详情加载中...', 1499, 1199, 995, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10723, '华为 HUAWEI 畅享 9S', '6GB+64GB 珊瑚红 全网通 2400万超广角三摄珍珠屏大存储 移动联通电信4G手机 双卡双待', 46, '/goods-img/84397a4c-ff06-4f08-bad5-bd4d5f8e23ff.jpg', '/goods-img/84397a4c-ff06-4f08-bad5-bd4d5f8e23ff.jpg', '详情加载中...', 1499, 1199, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10724, '荣耀V20 游戏手机 麒麟980芯片 魅眼全视屏', '4800万深感相机 6GB+128GB 幻夜黑 移动联通电信4G全面屏手机', 45, '/goods-img/7a58b5b2-0101-4a55-9872-d7765f08cf19.jpg', '/goods-img/7a58b5b2-0101-4a55-9872-d7765f08cf19.jpg', '详情加载中...', 2199, 2099, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10725, '荣耀V20 游戏手机 麒麟980芯片 魅眼全视屏', '4800万深感相机 6GB+128GB 魅海蓝 移动联通电信4G全面屏手机', 45, '/goods-img/5dd6b4de-0b39-48fc-9285-7356c22edf7b.jpg', '/goods-img/5dd6b4de-0b39-48fc-9285-7356c22edf7b.jpg', '详情加载中...', 2199, 2099, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10726, '荣耀V20 游戏手机 麒麟980芯片 魅眼全视屏', '4800万深感相机 6GB+128GB 幻影蓝 移动联通电信4G全面屏手机', 45, '/goods-img/c5a6593b-ef49-42fd-b330-0be8021362d8.jpg', '/goods-img/c5a6593b-ef49-42fd-b330-0be8021362d8.jpg', '详情加载中...', 2199, 2099, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10727, '荣耀V20 游戏手机 麒麟980芯片 魅眼全视屏', '4800万深感相机 6GB+128GB 魅丽红 移动联通电信4G全面屏手机', 45, '/goods-img/b57f705a-ef7f-4a9f-a244-3fc980e17555.jpg', '/goods-img/b57f705a-ef7f-4a9f-a244-3fc980e17555.jpg', '详情加载中...', 2199, 2099, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10728, '荣耀V20 游戏手机 麒麟980芯片 魅眼全视屏', '4800万深感相机 6GB+128GB 幻影红 移动联通电信4G全面屏手机', 45, '/goods-img/3dd91f7d-8f89-4e8a-a808-fa556ee1ceb3.jpg', '/goods-img/3dd91f7d-8f89-4e8a-a808-fa556ee1ceb3.jpg', '详情加载中...', 2199, 2099, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10729, '华为 HUAWEI P20 AI智慧徕卡双摄全面屏游戏手机', '6GB+128GB 亮黑色 全网通移动联通电信4G手机 双卡双待', 46, '/goods-img/f8edc81a-8fbd-425b-8ed7-d6b4c14ec6a1.jpg', '/goods-img/f8edc81a-8fbd-425b-8ed7-d6b4c14ec6a1.jpg', '商品介绍加载中...', 3088, 2799, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10730, '华为 HUAWEI P20 AI智慧徕卡双摄全面屏游戏手机', '6GB+64GB 极光色 全网通移动联通电信4G手机 双卡双待', 46, '/goods-img/c17c5292-2c20-4196-88e3-7ea813530db5.jpg', '/goods-img/c17c5292-2c20-4196-88e3-7ea813530db5.jpg', '商品介绍加载中...', 2788, 2679, 997, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10731, '华为 HUAWEI P20 AI智慧徕卡双摄全面屏游戏手机', '6GB+64GB 宝石蓝 全网通移动联通电信4G手机 双卡双待', 46, '/goods-img/b43bcd55-3709-4c32-b3a2-5b59c80f3610.jpg', '/goods-img/b43bcd55-3709-4c32-b3a2-5b59c80f3610.jpg', '商品介绍加载中...', 2788, 2699, 999, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10732, '华为 HUAWEI P20 AI智慧全面屏', '6GB+64GB 极光闪蝶色 全网通版 移动联通电信4G手机 双卡双待', 46, '/goods-img/3b183d9a-ac01-4bed-a7bb-1ddeba6ad416.jpg', '/goods-img/3b183d9a-ac01-4bed-a7bb-1ddeba6ad416.jpg', '详情加载中...', 2788, 2679, 999, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10733, '华为 HUAWEI P20 AI智慧全面屏', '6GB+64GB 珠光贝母色 全网通版 移动联通电信4G手机 双卡双待', 46, '/goods-img/28e94d5d-9ccc-4843-a296-2747530037ce.jpg', '/goods-img/28e94d5d-9ccc-4843-a296-2747530037ce.jpg', '详情加载中...', 3388, 2988, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10734, '华为 HUAWEI P20 AI智慧徕卡双摄全面屏游戏手机', '6GB+128GB 香槟金 全网通移动联通电信4G手机 双卡双待', 46, '/goods-img/0b11241e-4d6b-44ea-afb0-e029d1b5a54d.jpg', '/goods-img/0b11241e-4d6b-44ea-afb0-e029d1b5a54d.jpg', '商品介绍加载中...', 3888, 3888, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10735, '荣耀20S 李现同款 3200万人像超级夜景 4800万超广角AI三摄', '麒麟810旗舰级芯片 全网通版6GB+128GB 蝶羽蓝', 45, '/goods-img/8883043d-bef3-442c-9ccf-af9c03510c5d.jpg', '/goods-img/8883043d-bef3-442c-9ccf-af9c03510c5d.jpg', '详情加载中...', 1899, 1899, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10736, '华为 HUAWEI 畅享MAX 4GB+64GB', '幻夜黑 全网通版 珍珠屏杜比全景声大电池 移动联通电信4G手机 双卡双待', 46, '/goods-img/522ed5b9-bcae-401f-9933-d2e957bb3384.jpg', '/goods-img/522ed5b9-bcae-401f-9933-d2e957bb3384.jpg', '商品介绍加载中...', 1199, 999, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10737, '华为 HUAWEI 畅享MAX 4GB+64GB', '琥珀棕 全网通版 珍珠屏杜比全景声大电池 移动联通电信4G手机 双卡双待', 46, '/goods-img/36bdfdb9-21b1-46d5-9534-8b3873c9b6d9.jpg', '/goods-img/36bdfdb9-21b1-46d5-9534-8b3873c9b6d9.jpg', '商品介绍加载中...', 1199, 999, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10738, '华为 HUAWEI 畅享MAX 4GB+128GB', '天际白 全网通版 珍珠屏杜比全景声大电池 移动联通电信4G手机 双卡双待', 46, '/goods-img/51fa04cf-1c05-49ee-8dea-0c1757ff32c4.jpg', '/goods-img/51fa04cf-1c05-49ee-8dea-0c1757ff32c4.jpg', '商品介绍加载中...', 1899, 1399, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10739, '华为 HUAWEI P30 Pro', '超感光徕卡四摄10倍混合变焦麒麟980芯片屏内指纹 8GB+128GB极光色全网通版双4G手机', 46, '/goods-img/65c8e729-aeca-4780-977b-4d0d39d4aa2e.jpg', '/goods-img/65c8e729-aeca-4780-977b-4d0d39d4aa2e.jpg', '商品介绍加载中...', 5488, 4988, 999, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10740, '华为 HUAWEI P30 Pro', '超感光徕卡四摄10倍混合变焦麒麟980芯片屏内指纹 8GB+128GB亮黑色全网通版双4G手机', 46, '/goods-img/bc90bb1e-494a-44d4-b180-42a994ec80fc.jpg', '/goods-img/bc90bb1e-494a-44d4-b180-42a994ec80fc.jpg', '商品介绍加载中...', 5488, 4988, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10741, '华为 HUAWEI P30 Pro', '超感光徕卡四摄10倍混合变焦麒麟980芯片屏内指纹 8GB+128GB珠光贝母全网通版双4G手机', 46, '/goods-img/a6f309b7-765a-4407-be71-bbd5b764d448.jpg', '/goods-img/a6f309b7-765a-4407-be71-bbd5b764d448.jpg', '商品介绍加载中...', 5488, 4988, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10742, '华为 HUAWEI P30 Pro', '超感光徕卡四摄10倍混合变焦麒麟980芯片屏内指纹 8GB+256GB天空之境全网通版双4G手机', 46, '/goods-img/dda1d575-cdac-4eb4-a118-3834490166f7.jpg', '/goods-img/dda1d575-cdac-4eb4-a118-3834490166f7.jpg', '商品介绍加载中...', 5988, 5488, 946, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10743, '华为 HUAWEI P30 Pro', '超感光徕卡四摄10倍混合变焦麒麟980芯片屏内指纹 8GB+256GB墨玉蓝全网通版双4G手机', 46, '/goods-img/8755a735-baa1-4f17-a9bd-30c4f4f1451b.jpg', '/goods-img/8755a735-baa1-4f17-a9bd-30c4f4f1451b.jpg', '详情加载中...', 5988, 5488, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10744, '华为 HUAWEI P30 Pro', '超感光徕卡四摄10倍混合变焦麒麟980芯片屏内指纹 8GB+128GB赤茶橘全网通版双4G手机', 46, '/goods-img/44e78820-86f3-429d-94af-64f6af308846.jpg', '/goods-img/44e78820-86f3-429d-94af-64f6af308846.jpg', '商品介绍加载中...', 5488, 4988, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10745, '华为 HUAWEI P30 Pro', '超感光徕卡四摄10倍混合变焦麒麟980芯片屏内指纹 8GB+128GB嫣紫色全网通版双4G手机', 46, '/admin/dist/img/no-img.png', '/admin/dist/img/no-img.png', '详情加载中...', 5488, 4988, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10746, '华为 HUAWEI nova 5', 'Pro 前置3200万人像超级夜景4800万AI四摄麒麟980芯片8GB+128GB绮境森林全网通双4G手机', 46, '/goods-img/2948815e-043a-4f47-896f-7f6ccf916369.jpg', '/goods-img/2948815e-043a-4f47-896f-7f6ccf916369.jpg', '详情加载中...', 2999, 2999, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10747, '华为 HUAWEI nova 5', 'Pro 前置3200万人像超级夜景4800万AI四摄麒麟980芯片8GB+128GB亮黑色全网通双4G手机', 46, '/goods-img/df1bea42-9172-4cd5-9fc5-f35bb736108f.jpg', '/goods-img/df1bea42-9172-4cd5-9fc5-f35bb736108f.jpg', '详情加载中...', 2999, 2999, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10748, '华为 HUAWEI nova 5', 'Pro 前置3200万人像超级夜景4800万AI四摄麒麟980芯片 8GB+128GB仲夏紫全网通双4G手机', 46, '/goods-img/ab6f8463-794f-4f40-87b8-d01e6260ff1c.jpg', '/goods-img/ab6f8463-794f-4f40-87b8-d01e6260ff1c.jpg', '详情加载中...', 2999, 2999, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10749, '华为 HUAWEI nova 5', 'Pro 前置3200万人像超级夜景4800万AI四摄麒麟980芯片8GB+128GB苏音蓝全网通双4G手机', 46, '/goods-img/98e90b6e-2a5d-462d-8cd1-44699144a0b5.jpg', '/goods-img/98e90b6e-2a5d-462d-8cd1-44699144a0b5.jpg', '详情加载中...', 2999, 2999, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10750, '华为 HUAWEI nova 5', 'Pro 前置3200万人像超级夜景4800万AI四摄麒麟980芯片8GB+128GB珊瑚橙全网通双4G手机', 46, '/goods-img/ec0bafed-d651-4be7-b2aa-13e84248219a.jpg', '/goods-img/ec0bafed-d651-4be7-b2aa-13e84248219a.jpg', '详情加载中...', 2999, 2999, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10751, '华为 HUAWEI nova 5', 'Pro 前置3200万人像超级夜景4800万AI四摄麒麟980芯片8GB+256GB仲夏紫星耀礼盒版全网通', 46, '/goods-img/83f39052-5a1c-4769-a7db-cf2bd53d2a29.jpg', '/goods-img/83f39052-5a1c-4769-a7db-cf2bd53d2a29.jpg', '详情加载中...', 3799, 3599, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10752, '华为 HUAWEI nova 5i', '后置AI四摄 极点全面屏 前置2400万高清摄像头 8GB+128GB 苏音蓝 全网通双卡双待', 46, '/goods-img/4b2bffff-ec0b-42e0-8152-ada9a121ad31.jpg', '/goods-img/4b2bffff-ec0b-42e0-8152-ada9a121ad31.jpg', '商品介绍加载中...', 2199, 2199, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10753, '华为 HUAWEI nova 5i', '后置AI四摄 极点全面屏 前置2400万高清摄像头 8GB+128GB 幻夜黑 全网通双卡双待', 46, '/goods-img/04dce482-ff0e-483c-b324-dfc030b6cdd1.jpg', '/goods-img/04dce482-ff0e-483c-b324-dfc030b6cdd1.jpg', '商品介绍加载中...', 2199, 2199, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10754, '华为 HUAWEI nova 5i', '后置AI四摄 极点全面屏 前置2400万高清摄像头 8GB+128GB 蜜语红 全网通双卡双待', 46, '/goods-img/b5e139d3-ea6b-4874-9ccc-c18aca44a8bc.jpg', '/goods-img/b5e139d3-ea6b-4874-9ccc-c18aca44a8bc.jpg', '商品介绍加载中...', 2199, 2199, 996, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10755, '荣耀9X PRO 麒麟810液冷散热 4000mAh超强续航', '4800万超广角夜拍三摄 6.59英寸全网通8GB+128GB 幻影紫', 45, '/goods-img/86bd80cd-140b-474c-8277-3747332f61b3.jpg', '/goods-img/86bd80cd-140b-474c-8277-3747332f61b3.jpg', '详情加载中...', 2199, 2199, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10756, '荣耀9X PRO 麒麟810液冷散热 4000mAh超强续航', '4800万超广角夜拍三摄 6.59英寸全网通8GB+128GB 幻夜黑', 45, '/goods-img/3b008be9-e906-4364-8aa0-0df2e670dbd2.jpg', '/goods-img/3b008be9-e906-4364-8aa0-0df2e670dbd2.jpg', '详情加载中...', 2199, 2199, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10757, '荣耀畅玩8C两天一充 莱茵护眼 刘海屏 全网通版4GB+32GB', '极光蓝 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/7f7d2343-6743-490b-baec-3e0a76d061e5.jpg', '/goods-img/7f7d2343-6743-490b-baec-3e0a76d061e5.jpg', '详情加载中...', 899, 799, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10758, '荣耀畅玩8C两天一充 莱茵护眼 刘海屏 全网通版4GB+32GB', '铂光金 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/b163ca1b-7deb-4b15-818a-dc765c852305.jpg', '/goods-img/b163ca1b-7deb-4b15-818a-dc765c852305.jpg', '详情加载中...', 899, 799, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10759, '荣耀畅玩8C两天一充 莱茵护眼 刘海屏 全网通版4GB+32GB', '星云紫 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/f949289a-4c51-4159-a754-871da347e1e5.jpg', '/goods-img/f949289a-4c51-4159-a754-871da347e1e5.jpg', '详情加载中...', 899, 799, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10760, '荣耀畅玩8C两天一充 莱茵护眼 刘海屏 全网通版4GB+64GB', '幻夜黑 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/27c3c018-95c5-429f-9ad7-be0fedd78329.jpg', '/goods-img/27c3c018-95c5-429f-9ad7-be0fedd78329.jpg', '详情加载中...', 1399, 1099, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10761, '荣耀畅玩8C两天一充 莱茵护眼 刘海屏 全网通版4GB+64GB', '幻影蓝 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/61224f59-e11a-4005-84dc-cadfdd4162f6.jpg', '/goods-img/61224f59-e11a-4005-84dc-cadfdd4162f6.jpg', '详情加载中...', 1399, 1099, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10762, '华为 HUAWEI 畅享8e 青春版', '2GB+32GB全面屏 金色 全网通版 移动联通电信4G手机 双卡双待', 46, '/goods-img/af23223e-56fa-4aa7-b832-c55c713fa604.jpg', '/goods-img/af23223e-56fa-4aa7-b832-c55c713fa604.jpg', '商品介绍加载中...', 699, 549, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10763, '华为 HUAWEI 畅享8e青春 2GB+32GB全面屏', '黑色 全网通版 移动联通电信4G手机 双卡双待', 46, '/goods-img/bf64e22d-1cd3-40b0-9ce1-cc944e35d2d4.jpg', '/goods-img/bf64e22d-1cd3-40b0-9ce1-cc944e35d2d4.jpg', '商品介绍加载中...', 699, 549, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10764, '华为 HUAWEI 畅享8e青春 2GB+32GB全面屏', '蓝色 全网通版 移动联通电信4G手机 双卡双待', 46, '/goods-img/70f9ecf9-4859-45de-8f67-5afbdba6735c.jpg', '/goods-img/70f9ecf9-4859-45de-8f67-5afbdba6735c.jpg', '商品介绍加载中...', 699, 549, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10765, '华为 HUAWEI nova 4e', '3200万立体美颜AI超广角三摄珍珠屏6GB+128GB雀翎蓝全网通版双4G手机', 46, '/goods-img/55b997f9-fa22-40b0-8b33-429760c2af49.jpg', '/goods-img/55b997f9-fa22-40b0-8b33-429760c2af49.jpg', '商品介绍加载中...', 1999, 1799, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10766, '华为 HUAWEI nova 4e', '3200万立体美颜AI超广角三摄珍珠屏6GB+128GB幻夜黑全网通版双4G手机', 46, '/goods-img/8d675ec6-efe0-4ca6-8f83-193820b07256.jpg', '/goods-img/8d675ec6-efe0-4ca6-8f83-193820b07256.jpg', '商品介绍加载中...', 1999, 1799, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10767, '华为 HUAWEI nova 4e', '3200万立体美颜AI超广角三摄珍珠屏6GB+128GB珍珠白全网通版双4G手机', 46, '/goods-img/c8ce9a44-7b40-48b2-91cb-2a1607561b4a.jpg', '/goods-img/c8ce9a44-7b40-48b2-91cb-2a1607561b4a.jpg', '商品介绍加载中...', 1999, 1799, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10768, '华为 HUAWEI 畅享9 Plus', '4GB+64GB 极光紫 全网通 四摄超清全面屏大电池 移动联通电信4G手机 双卡双待', 46, '/goods-img/5ea16713-f6ae-4fa7-a53d-1700c29cb3d3.jpg', '/goods-img/5ea16713-f6ae-4fa7-a53d-1700c29cb3d3.jpg', '详情加载中...', 1299, 1199, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10769, '华为 HUAWEI 畅享9 Plus', '4GB+64GB 幻夜黑 全网通 四摄超清全面屏大电池 移动联通电信4G手机 双卡双待', 46, '/goods-img/39e4b0c8-c4c5-4162-8a32-3bb9bb483503.jpg', '/goods-img/39e4b0c8-c4c5-4162-8a32-3bb9bb483503.jpg', '详情加载中...', 1299, 1199, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10770, '华为 HUAWEI 畅享9 Plus', '4GB+64GB 宝石蓝 全网通 四摄超清全面屏大电池 移动联通电信4G手机 双卡双待', 46, '/goods-img/ca2bb115-c75e-475b-93ab-c2436f31aa16.jpg', '/goods-img/ca2bb115-c75e-475b-93ab-c2436f31aa16.jpg', '详情加载中...', 1299, 1199, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10771, '华为 HUAWEI 畅享9 Plus', '4GB+64GB 樱语粉 全网通 四摄超清全面屏大电池 移动联通电信4G手机 双卡双待', 46, '/goods-img/65e953c4-1d29-423a-b7d7-4276c4d42aaa.jpg', '/goods-img/65e953c4-1d29-423a-b7d7-4276c4d42aaa.jpg', '详情加载中...', 1299, 1199, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10772, '华为 HUAWEI nova 3i', '全面屏高清四摄游戏手机4GB+128GB 亮黑色 移动4G+ 移动联通电信4G手机双卡双待', 46, '/goods-img/2252c604-ced3-4e92-b58b-15402ae7be2c.jpg', '/goods-img/2252c604-ced3-4e92-b58b-15402ae7be2c.jpg', '详情加载中...', 1399, 1299, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10773, '华为 HUAWEI nova 3i', '全面屏高清四摄游戏手机4GB+128GB 蓝楹紫 移动4G+ 移动联通电信4G手机双卡双待', 46, '/goods-img/a17dc2b3-17dc-4be7-a04d-12a3fa62de31.jpg', '/goods-img/a17dc2b3-17dc-4be7-a04d-12a3fa62de31.jpg', '详情加载中...', 1399, 1299, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10774, '华为 HUAWEI nova 5i', 'Pro 前置3200万人像超级夜景4800万AI四摄极点全面屏6GB+128GB翡冷翠全网通双4G手机', 46, '/goods-img/e3f32e21-1208-481d-bfcd-8447de78043b.jpg', '/goods-img/e3f32e21-1208-481d-bfcd-8447de78043b.jpg', '商品介绍加载中...', 2199, 2149, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10775, '华为 HUAWEI nova 5i', 'Pro 前置3200万人像超级夜景4800万AI四摄极点全面屏6GB+128GB幻夜黑全网通双4G手机', 46, '/goods-img/1eb1e40c-7f38-47ed-a839-d43c1d0b79a8.jpg', '/goods-img/1eb1e40c-7f38-47ed-a839-d43c1d0b79a8.jpg', '详情加载中...', 2199, 2149, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10776, '华为 HUAWEI nova 5i', 'Pro 前置3200万人像超级夜景4800万AI四摄极点全面屏6GB+128GB极光色全网通双4G手机', 46, '/goods-img/80f05e0d-0d06-4aa8-bca5-0d39a2365b4b.jpg', '/goods-img/80f05e0d-0d06-4aa8-bca5-0d39a2365b4b.jpg', '详情加载中...', 2199, 2149, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10777, '华为 HUAWEI Mate 20', '麒麟980AI智能芯片全面屏超微距影像超大广角徕卡三摄6GB+128GB亮黑色全网通版双4G手机', 46, '/goods-img/9024ab8a-be67-4459-8414-8d84225851a7.jpg', '/goods-img/9024ab8a-be67-4459-8414-8d84225851a7.jpg', '商品介绍加载中...', 3799, 3699, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10778, '华为 HUAWEI Mate 20', '麒麟980AI智能芯片全面屏超微距影像超大广角徕卡三摄6GB+128GB极光色全网通版双4G手机', 46, '/goods-img/940a6c56-9f7b-4008-8679-c7ef5a44d695.jpg', '/goods-img/940a6c56-9f7b-4008-8679-c7ef5a44d695.jpg', '商品介绍加载中...', 3799, 3699, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10779, '华为 HUAWEI Mate 20', '麒麟980AI智能芯片全面屏超微距影像超大广角徕卡三摄6GB+64GB翡冷翠全网通版双4G手机', 46, '/goods-img/08f9a912-f049-4cf8-a839-115fc6582398.jpg', '/goods-img/08f9a912-f049-4cf8-a839-115fc6582398.jpg', '商品介绍加载中...', 3299, 3199, 990, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10780, '华为 HUAWEI Mate 20', '麒麟980AI智能芯片全面屏超微距影像超大广角徕卡三摄6GB+128GB宝石蓝全网通版双4G手机', 46, '/goods-img/5d57e0ba-1bc7-45a7-9677-f501e0384442.jpg', '/goods-img/5d57e0ba-1bc7-45a7-9677-f501e0384442.jpg', '商品介绍加载中...', 3799, 3699, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10781, '华为 HUAWEI 麦芒 8', '超广角AI三摄 高清珍珠屏 大存储 6GB+128GB 极光蓝 全网通双4G手机', 46, '/goods-img/bde7fc16-fb6b-42b0-8950-13ff287c3cd3.jpg', '/goods-img/bde7fc16-fb6b-42b0-8950-13ff287c3cd3.jpg', '详情加载中...', 1899, 1699, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10782, '华为 HUAWEI 麦芒 8', '超广角AI三摄 高清珍珠屏 大存储 6GB+128GB 幻夜黑 全网通双4G手机', 46, '/goods-img/e299773e-14e4-4168-adab-514f6c6d35ed.jpg', '/goods-img/e299773e-14e4-4168-adab-514f6c6d35ed.jpg', '商品介绍加载中...', 1899, 1699, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10783, '华为 HUAWEI 麦芒 8', '超广角AI三摄 高清珍珠屏 大存储 6GB+128GB 宝石蓝 全网通双4G手机', 46, '/goods-img/2a3fb7d2-cb76-47b2-88c6-db0f869b5718.jpg', '/goods-img/2a3fb7d2-cb76-47b2-88c6-db0f869b5718.jpg', '商品介绍加载中...', 1899, 1699, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10784, '荣耀8X Max 骁龙660 7.12英寸90%屏占比珍珠屏', '6GB+64GB 魅海蓝 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/c0763005-4e67-4861-98f2-e6a550ec4d87.jpg', '/goods-img/c0763005-4e67-4861-98f2-e6a550ec4d87.jpg', '详情加载中...', 1799, 1199, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10785, '荣耀8X Max 骁龙660 7.12英寸90%屏占比珍珠屏', '6GB+64GB 幻夜黑 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/aea7760b-d950-4f64-8db9-ef055f15d234.jpg', '/goods-img/aea7760b-d950-4f64-8db9-ef055f15d234.jpg', '详情加载中...', 1799, 1199, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10786, '荣耀8X Max 骁龙660 7.12英寸90%屏占比珍珠屏', '6GB+64GB 魅焰红 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/f5e2d2e7-541a-44fa-ad5c-4f15f48ebfc9.jpg', '/goods-img/f5e2d2e7-541a-44fa-ad5c-4f15f48ebfc9.jpg', '详情加载中...', 1799, 1199, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10787, '华为 HUAWEI Mate 10', '4GB+64GB 亮黑色 移动4G+手机 双卡双待', 46, '/goods-img/b67a4ac6-7766-4995-8110-1bd442ec0797.jpg', '/goods-img/b67a4ac6-7766-4995-8110-1bd442ec0797.jpg', '商品介绍加载中...', 1799, 1799, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10788, '华为 HUAWEI 畅享9 3GB+32GB', '极光蓝 高清珍珠屏 AI长续航 全网通标配版 移动联通电信4G手机', 46, '/goods-img/bd8b2d93-c251-46b8-9990-77baaf3075f3.jpg', '/goods-img/bd8b2d93-c251-46b8-9990-77baaf3075f3.jpg', '商品介绍加载中...', 999, 799, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10789, '华为 HUAWEI 畅享9 3GB+32GB', '幻夜黑 高清珍珠屏 AI长续航 全网通标配版 移动联通电信4G手机', 46, '/goods-img/71ae1ce8-38e8-4da3-8fa1-5e8157a12685.jpg', '/goods-img/71ae1ce8-38e8-4da3-8fa1-5e8157a12685.jpg', '商品介绍加载中...', 999, 799, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10790, '华为 HUAWEI 畅享9 4GB+64GB', '极光紫 高清珍珠屏 AI长续航 全网通高配版 移动联通电信4G手机', 46, '/goods-img/371386b8-ddf4-4fc1-985e-ef0e1a076710.jpg', '/goods-img/371386b8-ddf4-4fc1-985e-ef0e1a076710.jpg', '商品介绍加载中...', 1099, 1099, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10791, '华为 HUAWEI 畅享9 4GB+64GB', '珊瑚红 高清珍珠屏 AI长续航 全网通高配版 移动联通电信4G手机', 46, '/goods-img/60392ae1-d076-47b5-a00d-b2278e01ccb5.jpg', '/goods-img/60392ae1-d076-47b5-a00d-b2278e01ccb5.jpg', '商品介绍加载中...', 1099, 1099, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10792, '荣耀畅玩8A 6.09英寸珍珠全面屏 震撼大音量 3GB+32GB', '幻夜黑 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/0a592388-1535-4f9f-8201-ecb78c48bb3d.jpg', '/goods-img/0a592388-1535-4f9f-8201-ecb78c48bb3d.jpg', '详情加载中...', 799, 649, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10793, '荣耀畅玩8A 6.09英寸珍珠全面屏 震撼大音量 3GB+32GB', '极光蓝 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/fd218943-8f6f-4fb8-91a4-d6216cc5afdc.jpg', '/goods-img/fd218943-8f6f-4fb8-91a4-d6216cc5afdc.jpg', '详情加载中...', 799, 649, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10794, '荣耀畅玩8A 6.09英寸珍珠全面屏 震撼大音量 3GB+32GB', '魅焰红 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/54641753-d8e7-45da-8c6c-81192552cf15.jpg', '/goods-img/54641753-d8e7-45da-8c6c-81192552cf15.jpg', '详情加载中...', 799, 649, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10795, '荣耀畅玩8A 6.09英寸珍珠全面屏 震撼大音量 3GB+32GB', '铂光金 移动联通电信4G全面屏手机 双卡双待', 45, '/goods-img/7b65ad3d-74a4-4322-8653-6bda47a8b4eb.jpg', '/goods-img/7b65ad3d-74a4-4322-8653-6bda47a8b4eb.jpg', '详情加载中...', 799, 649, 1000, '', 0, 0, '2019-09-18 13:37:44', 0, '2019-09-18 13:37:44');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10796, 'Redmi K20Pro 骁龙855 索尼4800万超广角三摄', 'AMOLED弹出式全面屏 8GB+256GB 碳纤黑 游戏智能手机 小米 红米', 0, '/goods-img/2a05cc6a-3eea-42f9-ab97-2e2529a72099.jpg', '/goods-img/2a05cc6a-3eea-42f9-ab97-2e2529a72099.jpg', '商品介绍加载中...', 2999, 2699, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10797, '小米9 Pro 5G 全面屏游戏拍照新品手机', '新蜂精选', 51, '/goods-img/d5fc8bec-0add-48d3-b73b-349a0375e8dc.jpg', '/goods-img/d5fc8bec-0add-48d3-b73b-349a0375e8dc.jpg', '详情加载中...', 9999, 9999, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10798, '【新品抢购】Redmi Note8 4800万全场景四摄 4000mAh长续航', '高通骁龙665 18W快充 小金刚品质保证 4GB+64GB 梦幻蓝 游戏智能手机 小米 红米', 0, '/goods-img/e4e4c543-6d9a-4b19-bedf-3f40024cb710.jpg', '/goods-img/e4e4c543-6d9a-4b19-bedf-3f40024cb710.jpg', '商品介绍加载中...', 999, 999, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10799, '【新品抢购】Redmi Note8 4800万全场景四摄 4000mAh长续航', '高通骁龙665 18W快充 小金刚品质保证 4GB+64GB 皓月白 游戏智能手机 小米 红米', 0, '/goods-img/87e0f6ab-45ef-4710-a5f4-e57a470b6b26.jpg', '/goods-img/87e0f6ab-45ef-4710-a5f4-e57a470b6b26.jpg', '详情加载中...', 999, 999, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10800, '【新品抢购】Redmi Note8 4800万全场景四摄 4000mAh长续航', '高通骁龙665 18W快充 小金刚品质保证 4GB+64GB 曜石黑 游戏智能手机 小米 红米', 0, '/goods-img/4a5c5b20-2dd3-4343-a6d1-31195c9edea4.jpg', '/goods-img/4a5c5b20-2dd3-4343-a6d1-31195c9edea4.jpg', '详情加载中...', 999, 999, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10801, 'Redmi Note7 4800万双摄千元机 满血骁龙660', '18个月超长质保 4000mAh超长续航 6GB+64GB 镜花水月 游戏智能手机 小米 红米', 0, '/goods-img/30ef1f51-f958-486f-8d79-f48f6d8293dd.jpg', '/goods-img/30ef1f51-f958-486f-8d79-f48f6d8293dd.jpg', '详情加载中...', 1199, 1099, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10802, 'Redmi Note7 4800万双摄千元机 满血骁龙660', '18个月超长质保 4000mAh超长续航 6GB+64GB 亮黑色 游戏智能手机 小米 红米', 0, '/goods-img/92beacb0-f692-42ff-a20f-8fecd2b0c046.jpg', '/goods-img/92beacb0-f692-42ff-a20f-8fecd2b0c046.jpg', '*相机默认1200w，如何设置4800w？ 打开相机 — 右滑切换到“专业”模式 — 点击屏幕左上方的“48MP”，打开4800万超清。 *如何设置全面屏模式？ 点击设置 — 点击全面屏 — 进入全面屏设置会出现两个选项，可以选择经典导航也可以选择全面屏手势。选择全面屏手势，可进行手势学习，使用全面屏模式进行操作 *是否支持OTG功能？ 支持。 *红米Note7出厂预装版本是Andriod 9.0吗？ 该商品首批出厂操作系统：MIUI 10 (Andriod 9.0)。 *有呼吸灯吗？是否支持NFC？ 是否支持收音机？ 有呼吸灯，不支持NFC，支持收音机。 *4800万模式是否支持AI场景识别，能否有快速切换方式介绍？ 4800万模式下不支持AI场景识别，普通相机模式下可支持AI识别。 *是否支持王者荣耀Vulkan 模式？ 目前暂不支持王者荣耀Vulkan模式。      Redmi 红米Note 7 常见问题', 1199, 1099, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10803, 'Redmi Note7 4800万双摄千元机 满血骁龙660', '18个月超长质保 4000mAh超长续航 6GB+64GB 暮光金 游戏智能手机 小米 红米', 0, '/goods-img/0cf95c37-2665-4894-bd42-5f8de06c6d94.jpg', '/goods-img/0cf95c37-2665-4894-bd42-5f8de06c6d94.jpg', '*相机默认1200w，如何设置4800w？ 打开相机 — 右滑切换到“专业”模式 — 点击屏幕左上方的“48MP”，打开4800万超清。 *如何设置全面屏模式？ 点击设置 — 点击全面屏 — 进入全面屏设置会出现两个选项，可以选择经典导航也可以选择全面屏手势。选择全面屏手势，可进行手势学习，使用全面屏模式进行操作 *是否支持OTG功能？ 支持。 *红米Note7出厂预装版本是Andriod 9.0吗？ 该商品首批出厂操作系统：MIUI 10 (Andriod 9.0)。 *有呼吸灯吗？是否支持NFC？ 是否支持收音机？ 有呼吸灯，不支持NFC，支持收音机。 *4800万模式是否支持AI场景识别，能否有快速切换方式介绍？ 4800万模式下不支持AI场景识别，普通相机模式下可支持AI识别。 *是否支持王者荣耀Vulkan 模式？ 目前暂不支持王者荣耀Vulkan模式。      Redmi 红米Note 7 常见问题', 1199, 1099, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10804, 'Redmi Note7 4800万双摄千元机 满血骁龙660', '4000mAh超长续航 6GB+64GB 梦幻蓝 游戏智能手机 小米 红米', 0, '/goods-img/f6c46245-b957-41ed-b235-133c17cba7f9.jpg', '/goods-img/f6c46245-b957-41ed-b235-133c17cba7f9.jpg', '*相机默认1200w，如何设置4800w？ 打开相机 — 右滑切换到“专业”模式 — 点击屏幕左上方的“48MP”，打开4800万超清。 *如何设置全面屏模式？ 点击设置 — 点击全面屏 — 进入全面屏设置会出现两个选项，可以选择经典导航也可以选择全面屏手势。选择全面屏手势，可进行手势学习，使用全面屏模式进行操作 *是否支持OTG功能？ 支持。 *红米Note7出厂预装版本是Andriod 9.0吗？ 该商品首批出厂操作系统：MIUI 10 (Andriod 9.0)。 *有呼吸灯吗？是否支持NFC？ 是否支持收音机？ 有呼吸灯，不支持NFC，支持收音机。 *4800万模式是否支持AI场景识别，能否有快速切换方式介绍？ 4800万模式下不支持AI场景识别，普通相机模式下可支持AI识别。 *是否支持王者荣耀Vulkan 模式？ 目前暂不支持王者荣耀Vulkan模式。      Redmi 红米Note 7 常见问题', 1199, 1099, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10805, '【新品抢购】Redmi Note8Pro 6400万全场景四摄 液冷游戏芯', '4500mAh长续航 NFC 18W快充 红外遥控 6GB+64GB 贝母白 游戏智能手机 小米 红米', 0, '/goods-img/54985ce7-1df6-442f-9a28-0ff0bab924bd.jpg', '/goods-img/54985ce7-1df6-442f-9a28-0ff0bab924bd.jpg', '详情加载中...', 1399, 1399, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10806, '【新品抢购】Redmi Note8Pro 6400万全场景四摄 液冷游戏芯', '4500mAh长续航 NFC 18W快充 红外遥控 6GB+128GB 冰翡翠 游戏智能手机 小米 红米', 0, '/goods-img/e3de1717-e373-4544-9f1e-057a91fd2595.jpg', '/goods-img/e3de1717-e373-4544-9f1e-057a91fd2595.jpg', '详情加载中...', 1599, 1599, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10807, '【新品抢购】Redmi Note8Pro 6400万全场景四摄 液冷游戏芯', '4500mAh长续航 NFC 18W快充 红外遥控 6GB+64GB 电光灰 游戏智能手机 小米 红米', 0, '/goods-img/a1552f03-58ab-4b05-91ec-7df52af18a66.jpg', '/goods-img/a1552f03-58ab-4b05-91ec-7df52af18a66.jpg', '详情加载中...', 1399, 1399, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10808, 'Redmi Note7Pro 索尼4800万超清双摄 骁龙675', '18个月超长质保 4000mAh超长续航 6GB+128GB 亮黑色 游戏智能手机 小米 红米', 0, '/goods-img/647470fa-85b1-4626-99d0-d5b7512c8f23.jpg', '/goods-img/647470fa-85b1-4626-99d0-d5b7512c8f23.jpg', '详情加载中...', 1399, 1399, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10809, 'Redmi Note7pro 索尼4800万超清双摄 骁龙675', '18个月超长质保 4000mAh超长续航 6GB+128GB 镜花水月 游戏智能手机 小米 红米', 0, '/goods-img/edb8a694-84a5-47da-9bae-30f7a69d2c63.jpg', '/goods-img/edb8a694-84a5-47da-9bae-30f7a69d2c63.jpg', '详情加载中...', 1399, 1399, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10810, 'Redmi Note7Pro 索尼4800万超清双摄 骁龙675', '18个月超长质保 4000mAh超长续航 6GB+128GB 梦幻蓝 游戏智能手机 小米 红米', 0, '/goods-img/c76edfa6-c16e-45b9-9119-46d300739112.jpg', '/goods-img/c76edfa6-c16e-45b9-9119-46d300739112.jpg', '商品介绍加载中...', 1399, 1399, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10811, 'Redmi Note7Pro 索尼4800万超清双摄 骁龙675', '18个月超长质保 4000mAh超长续航 6GB+128GB 暮光金 游戏智能手机 小米 红米', 0, '/goods-img/bf0c2d17-3630-4709-af38-d7bd14a76f22.jpg', '/goods-img/bf0c2d17-3630-4709-af38-d7bd14a76f22.jpg', '详情加载中...', 1399, 1399, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10812, 'Redmi 7A 4000mAh超长续航 AI人脸解锁', '骁龙8核 标配10W充电器 整机防泼溅 3GB+32GB 磨砂黑 游戏智能手机 小米 红米', 0, '/goods-img/28c56015-cb20-44cb-86fb-246ad509e828.jpg', '/goods-img/28c56015-cb20-44cb-86fb-246ad509e828.jpg', '详情加载中...', 699, 599, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10813, 'Redmi 7A 4000mAh超长续航 AI人脸解锁', '骁龙8核 标配10W充电器 整机防泼溅 3GB+32GB 晨曦蓝 游戏智能手机 小米 红米', 0, '/goods-img/d845c984-f749-4f22-86a5-558677b1322c.jpg', '/goods-img/d845c984-f749-4f22-86a5-558677b1322c.jpg', '详情加载中...', 699, 599, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10814, 'Redmi 7A 4000mAh超长续航 AI人脸解锁', '骁龙8核 标配10W充电器 整机防泼溅 3GB+32GB 雾光金 游戏智能手机 小米 红米', 0, '/goods-img/56ac4c58-8742-40c8-b130-83b4d2925a8c.jpg', '/goods-img/56ac4c58-8742-40c8-b130-83b4d2925a8c.jpg', '详情加载中...', 599, 599, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10815, 'Redmi 7 4000mAh超长续航 骁龙632', '1200万AI双摄 18个月超长质保 AI人脸解锁 3GB+32GB 亮黑色 游戏智能手机 小米 红米', 0, '/goods-img/0647d1b4-d19a-4424-b6ac-68344addacb4.jpg', '/goods-img/0647d1b4-d19a-4424-b6ac-68344addacb4.jpg', '详情加载中...', 699, 699, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10816, 'Redmi 7 4000mAh超长续航 骁龙632', '1200万AI双摄 18个月超长质保 AI人脸解锁 3GB+32GB 魅夜红 游戏智能手机 小米 红米', 0, '/goods-img/711c54f0-f9d0-472e-b61b-94e25c628599.jpg', '/goods-img/711c54f0-f9d0-472e-b61b-94e25c628599.jpg', '详情加载中...', 699, 699, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10817, 'Redmi 7 4000mAh超长续航 骁龙632', '1200万AI双摄 18个月超长质保 AI人脸解锁 3GB+32GB 梦幻蓝 游戏智能手机 小米 红米', 0, '/goods-img/c8c97b68-3ba6-4f97-8940-d04c9e7c7302.jpg', '/goods-img/c8c97b68-3ba6-4f97-8940-d04c9e7c7302.jpg', '商品介绍加载中...', 699, 699, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10818, '小米MIX2S 骁龙845 AI感光双摄 四曲面陶瓷全面屏', '白色 多功能 NFC 6GB+128GB 游戏智能拍照手机', 51, '/goods-img/d423bb5c-60c8-4b66-bd72-3490b5d6461b.jpg', '/goods-img/d423bb5c-60c8-4b66-bd72-3490b5d6461b.jpg', '商品介绍加载中...', 2099, 1799, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10819, '小米MIX2S 骁龙845 AI感光双摄 四曲面陶瓷全面屏', '黑色 多功能 NFC 6GB+128GB 游戏智能拍照手机', 51, '/goods-img/9a554cae-5bec-4964-992f-e2f4de192e2c.jpg', '/goods-img/9a554cae-5bec-4964-992f-e2f4de192e2c.jpg', '商品介绍加载中...', 2099, 1799, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10820, '小米9 4800万超广角三摄 6GB+128GB全息幻彩蓝 骁龙855', '全网通4G 双卡双待 水滴全面屏拍照智能游戏手机', 51, '/goods-img/55a6dc67-1ed9-421a-9782-acdfa9c123e1.jpg', '/goods-img/55a6dc67-1ed9-421a-9782-acdfa9c123e1.jpg', '商品介绍加载中...', 2799, 2599, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10821, '小米9 4800万超广角三摄 8GB+256GB 透明版', '骁龙855 全网通4G 双卡双待 水滴全面屏拍照智能游戏手机', 51, '/goods-img/54249648-d37b-4b22-80dc-243e58ed56a1.jpg', '/goods-img/54249648-d37b-4b22-80dc-243e58ed56a1.jpg', '详情加载中...', 3699, 3699, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10822, '小米9 4800万超广角三摄 8GB+128GB 深空灰', '骁龙855 全网通4G 双卡双待 水滴全面屏拍照智能游戏手机', 51, '/goods-img/e8087861-89fd-43af-b64d-290864b0fe35.jpg', '/goods-img/e8087861-89fd-43af-b64d-290864b0fe35.jpg', '详情加载中...', 2999, 2799, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10823, '小米9 4800万超广角三摄 8GB+128GB 全息幻彩紫', '骁龙855 全网通4G 双卡双待 水滴全面屏拍照智能游戏手机', 51, '/goods-img/7a406989-061b-4f69-baa1-6fa499aa091d.jpg', '/goods-img/7a406989-061b-4f69-baa1-6fa499aa091d.jpg', '详情加载中...', 2999, 2799, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10824, '小米CC9e 索尼4800万旗舰相机 3200万美颜自拍 4030mAh', '屏幕指纹 白色恋人 6GB+64GB 游戏智能拍照手机', 51, '/goods-img/8fc9776e-9393-421d-998c-e516b3877dba.jpg', '/goods-img/8fc9776e-9393-421d-998c-e516b3877dba.jpg', '详情加载中...', 1399, 1299, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10825, '小米CC9e 索尼4800万旗舰相机 3200万美颜自拍 4030mAh', '屏幕指纹 暗夜王子 6GB+64GB 游戏智能拍照手机', 51, '/goods-img/033685d7-bf11-4389-9e52-ef5a51182306.jpg', '/goods-img/033685d7-bf11-4389-9e52-ef5a51182306.jpg', '详情加载中...', 1399, 1299, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10826, '小米CC9e 索尼4800万旗舰相机 3200万美颜自拍 4030mAh', '屏幕指纹 深蓝星球 6GB+64GB 游戏智能拍照手机', 51, '/goods-img/e8dba692-7fda-4f42-b0ee-6f51ca7dc77d.jpg', '/goods-img/e8dba692-7fda-4f42-b0ee-6f51ca7dc77d.jpg', '商品介绍加载中...', 1399, 1299, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10827, '小米CC9 3200万美颜自拍 索尼4800万超清三摄 多功能NFC', '4030mAh 深蓝星球 6GB+64GB 游戏智能拍照手机', 51, '/goods-img/387afca1-a14a-4ab8-9d99-120b7095029c.jpg', '/goods-img/387afca1-a14a-4ab8-9d99-120b7095029c.jpg', '详情加载中...', 1799, 1799, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10828, '小米CC9 3200万美颜自拍 索尼4800万超清三摄 多功能NFC', '4030mAh 白色恋人 6GB+64GB 游戏智能拍照手机', 51, '/goods-img/f96f376e-8341-4bad-ad2a-b3f12486958a.jpg', '/goods-img/f96f376e-8341-4bad-ad2a-b3f12486958a.jpg', '详情加载中...', 1799, 1799, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10829, '小米CC9 3200万美颜自拍 索尼4800万超清三摄 多功能NFC', '4030mAh 暗夜王子 6GB+128GB 游戏智能拍照手机', 51, '/goods-img/4c148e8e-7e26-4c74-a3d3-f5f37ae9248d.jpg', '/goods-img/4c148e8e-7e26-4c74-a3d3-f5f37ae9248d.jpg', '详情加载中...', 1999, 1999, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10830, '小米CC9美图定制版 索尼4800万AI三摄 3200万美颜自拍 全身美型', '多功能NFC 8GB+256GB 游戏智能拍照手机', 51, '/goods-img/92482741-3637-4cd3-91ff-cc5aeb0d3316.jpg', '/goods-img/92482741-3637-4cd3-91ff-cc5aeb0d3316.jpg', '商品介绍加载中...', 2599, 2599, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10831, '小米Play 流光渐变AI双摄 6GB+128GB 梦幻蓝', '移动4G+ 双卡双待 小水滴全面屏拍照游戏智能手机', 51, '/goods-img/f0b19f6c-6a8b-4128-8e5d-2e4953331c46.jpg', '/goods-img/f0b19f6c-6a8b-4128-8e5d-2e4953331c46.jpg', '详情加载中...', 999, 999, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10832, '小米Play 流光渐变AI双摄 6GB+128GB 黑色', '移动4G+ 双卡双待 小水滴全面屏拍照游戏智能手机', 51, '/goods-img/e39da33d-1b55-4e97-b8e6-824ac2cd1062.jpg', '/goods-img/e39da33d-1b55-4e97-b8e6-824ac2cd1062.jpg', '详情加载中...', 999, 999, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10833, '小米Play 流光渐变AI双摄 6GB+64GB 暮光金', '全网通4G 双卡双待 小水滴全面屏拍照游戏智能手机', 51, '/goods-img/2a93185a-8d3b-4908-af8c-c17db78e2fb0.jpg', '/goods-img/2a93185a-8d3b-4908-af8c-c17db78e2fb0.jpg', '详情加载中...', 899, 899, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10834, '小米9SE 骁龙712 索尼4800万超广角三摄 5.97英寸舒适握感', '全息幻彩蓝 8GB+128GB 游戏智能拍照手机', 51, '/goods-img/b28f3eac-0091-442f-90f3-68914bf947c7.jpg', '/goods-img/b28f3eac-0091-442f-90f3-68914bf947c7.jpg', '详情加载中...', 2099, 1899, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10835, '小米9 SE 4800万超广角三摄 骁龙712', '水滴全面屏 游戏智能拍照手机 6GB+64GB 深空灰 全网通4G 双卡双待', 51, '/goods-img/ef8370c4-ed8e-497f-9e10-185de4d01fe9.jpg', '/goods-img/ef8370c4-ed8e-497f-9e10-185de4d01fe9.jpg', '详情加载中...', 1799, 1599, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10836, '小米9SE 骁龙712 索尼4800万超广角三摄 5.97英寸舒适握感', '全息幻彩紫 8GB+128GB 游戏智能拍照手机', 51, '/goods-img/f436d00b-2253-4dcc-8b4a-d82e99af275a.jpg', '/goods-img/f436d00b-2253-4dcc-8b4a-d82e99af275a.jpg', '详情加载中...', 2099, 1999, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10837, '小米MIX3 骁龙845AIE AI 双摄', '磁动力滑盖全面屏 三星 AMOLED屏幕 黑色 8GB+128GB 游戏智能拍照手机', 51, '/goods-img/3bfc7c72-b56a-4088-8acf-e01e830ce72a.jpg', '/goods-img/3bfc7c72-b56a-4088-8acf-e01e830ce72a.jpg', '商品介绍加载中...', 2599, 2599, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10838, 'Redmi K20 索尼4800万超广角三摄 AMOLED弹出式全面屏', '第七代屏下指纹 6GB+128GB 冰川蓝 游戏智能手机 小米 红米', 0, '/goods-img/ed860c53-955b-4cfd-b605-a8b4bb959e2f.jpg', '/goods-img/ed860c53-955b-4cfd-b605-a8b4bb959e2f.jpg', '详情加载中...', 1999, 1799, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10839, 'Redmi K20 索尼4800万超广角三摄 AMOLED弹出式全面屏', '第七代屏下指纹 6GB+128GB 火焰红 游戏智能手机 小米 红米', 0, '/goods-img/8e64ea39-5477-482c-a200-2c12fdeff004.jpg', '/goods-img/8e64ea39-5477-482c-a200-2c12fdeff004.jpg', '详情加载中...', 1999, 1799, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10840, 'Redmi K20 索尼4800万超广角三摄 AMOLED弹出式全面屏', '第七代屏下指纹 6GB+128GB 碳纤黑 游戏智能手机 小米 红米', 0, '/goods-img/38a69084-0bc4-479e-a5ba-aed135dee974.jpg', '/goods-img/38a69084-0bc4-479e-a5ba-aed135dee974.jpg', '商品介绍加载中...', 1999, 1799, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10841, '红米6A 1300万高清相机 AI人脸解锁 12nm高性能处理器', '3GB+32GB 流沙金 游戏智能手机 小米', 0, '/goods-img/6c77e8f9-11d8-42c3-925e-4396d0d3709f.jpg', '/goods-img/6c77e8f9-11d8-42c3-925e-4396d0d3709f.jpg', '详情加载中...', 649, 599, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10842, '红米6A 1300万高清相机 AI人脸解锁 12nm高性能处理器', '3GB+32GB 铂银灰 游戏智能手机 小米', 0, '/goods-img/17b2eb9f-7289-45f8-b26a-114ec29ceb3c.jpg', '/goods-img/17b2eb9f-7289-45f8-b26a-114ec29ceb3c.jpg', '详情加载中...', 649, 599, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10843, '小米 红米6A 全网通版 2GB内存', '樱花粉 16GB 移动联通电信4G手机 双卡双待', 51, '/goods-img/1ba819c2-dc89-41d9-86a9-4649418972da.jpg', '/goods-img/1ba819c2-dc89-41d9-86a9-4649418972da.jpg', '商品介绍加载中...', 549, 549, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10844, '红米6A 1300万高清相机 AI人脸解锁 12nm高性能处理器', '3GB+32GB 巴厘蓝 游戏智能手机 小米', 0, '/goods-img/1ef84d7e-d804-4064-9140-a53607aa8df2.jpg', '/goods-img/1ef84d7e-d804-4064-9140-a53607aa8df2.jpg', '详情加载中...', 649, 599, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10845, '电器', '发发发发', 77, 'http://rl8iaz21y.bkt.gdipper.com/FsI29URXwQQOAhCsm__DWZc36Ink', '/goods-img/b6c3eea7-9d34-4ac0-ba66-2fde6f26253b.jpg', '<p>发发发发啊发›</p>', 1333, 1499, 31, '爱上', 0, 0, '2019-09-18 13:38:32', 0, '2022-12-02 00:48:12');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10846, '小米Max3 5500mAh充电宝级电量 AI双摄 全金属机身', '骁龙八核处理器 黑色 6GB+128GB 游戏智能拍照手机', 51, '/goods-img/30574476-f5bc-4f3c-80f6-4da22ea48f48.jpg', '/goods-img/30574476-f5bc-4f3c-80f6-4da22ea48f48.jpg', '详情加载中...', 1599, 1499, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10847, '小米Max3 5500mAh充电宝级电量 AI双摄 全金属机身', '骁龙八核处理器 金色 6GB+128GB 游戏智能拍照手机', 51, '/goods-img/114e92f8-bf78-481e-8d8a-9936d026d9d4.jpg', '/goods-img/114e92f8-bf78-481e-8d8a-9936d026d9d4.jpg', '详情加载中...', 1599, 1499, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10848, 'Redmi Note8 4800万全场景四摄 4000mAh长续航', '高通骁龙665 18W快充 小金刚品质保证 4GB+64GB 梦幻蓝 游戏智能手机 小米 红米', 0, '/goods-img/8d3ebf2d-8da7-478c-bd6c-e7a869fdde97.jpg', '/goods-img/8d3ebf2d-8da7-478c-bd6c-e7a869fdde97.jpg', '商品介绍加载中...', 999, 999, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10849, 'Redmi Note8 4800万全场景四摄 4000mAh长续航', '高通骁龙665 18W快充 小金刚品质保证 4GB+64GB 皓月白 游戏智能手机 小米 红米', 0, '/goods-img/b4ff98bc-ad00-48f7-ac64-0d52780d4c48.jpg', '/goods-img/b4ff98bc-ad00-48f7-ac64-0d52780d4c48.jpg', '商品介绍加载中...', 999, 999, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10850, 'Redmi Note8 4800万全场景四摄 4000mAh长续航', '高通骁龙665 18W快充 小金刚品质保证 4GB+64GB 曜石黑 游戏智能手机 小米 红米', 0, '/goods-img/b82cc8fd-075b-44d3-b211-8ea633fe2ffe.jpg', '/goods-img/b82cc8fd-075b-44d3-b211-8ea633fe2ffe.jpg', '商品介绍加载中...', 999, 999, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10851, '小米（MI） 小米8青春版 手机 深空灰', '全网通 6G+128G', 51, '/goods-img/52425573-6311-4877-bad8-1c04bf01e9d3.jpg', '/goods-img/52425573-6311-4877-bad8-1c04bf01e9d3.jpg', '商品介绍加载中...', 1599, 1168, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10852, '小米（MI） 小米8青春版 手机 梦幻蓝', '全网通 4G+128G', 51, '/goods-img/8c1c9fb2-26aa-4fa0-b9ce-cf278d827fa6.jpg', '/goods-img/8c1c9fb2-26aa-4fa0-b9ce-cf278d827fa6.jpg', '商品介绍加载中...', 1599, 1599, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10853, '小米（MI） 小米8青春版 手机 暮光金', '全网通 6G+64G', 51, '/goods-img/bd94d7e0-f56f-4b7f-8653-b8a4e267bd15.jpg', '/goods-img/bd94d7e0-f56f-4b7f-8653-b8a4e267bd15.jpg', '商品介绍加载中...', 1299, 1068, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10854, '小米 红米Note8 pro 手机【6400万四摄', '液冷游戏芯】 冰翡翠 全网通6+128', 51, '/goods-img/42913aa4-4a49-4121-9c80-3434c12d0ac9.jpg', '/goods-img/42913aa4-4a49-4121-9c80-3434c12d0ac9.jpg', '商品介绍加载中...', 1799, 1599, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10855, '小米 红米Note8 pro 手机【6400万四摄', '液冷游戏芯】 贝母白 全网通6+128', 51, '/goods-img/777ebd38-965d-4c77-970e-f1e25022255f.jpg', '/goods-img/777ebd38-965d-4c77-970e-f1e25022255f.jpg', '商品介绍加载中...', 1799, 1599, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10856, '小米 红米Note8 pro 手机【6400万四摄', '液冷游戏芯】 电光灰 全网通6+128', 51, '/goods-img/db21f41b-34ac-4bc7-a50f-1f812b1522d1.jpg', '/goods-img/db21f41b-34ac-4bc7-a50f-1f812b1522d1.jpg', '商品介绍加载中...', 1799, 1599, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10857, '小米（MI） 小米8 游戏手机 黑', '6GB+64GB', 51, '/goods-img/63588dfb-f85f-41a2-8198-c7ae66aa0261.png', '/goods-img/63588dfb-f85f-41a2-8198-c7ae66aa0261.png', '商品介绍加载中...', 1698, 1568, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10858, '小米（MI） 小米8 游戏手机 白', '6GB+64GB', 51, '/goods-img/d55d6e4a-99e7-4a3d-86a4-9b3899a63b42.png', '/goods-img/d55d6e4a-99e7-4a3d-86a4-9b3899a63b42.png', '商品介绍加载中...', 1698, 1568, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10859, '小米（MI） 小米8 游戏手机 蓝', '8GB+128GB', 51, '/goods-img/5a2a90aa-fe2c-4bb0-8d8d-1ac1613f453a.png', '/goods-img/5a2a90aa-fe2c-4bb0-8d8d-1ac1613f453a.png', '商品介绍加载中...', 1998, 1868, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10860, '小米（MI） 小米8 游戏手机 金', '6GB+128GB', 51, '/goods-img/c1cdb555-f605-4226-906a-022483612319.png', '/goods-img/c1cdb555-f605-4226-906a-022483612319.png', '商品介绍加载中...', 1898, 1838, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10861, '小米（MI） 小米8青春版 手机 深空灰', '全网通(6G+128G)', 51, '/goods-img/fafda3af-7741-47f2-936e-c0d9030fbf5b.png', '/goods-img/fafda3af-7741-47f2-936e-c0d9030fbf5b.png', '商品介绍加载中...', 1188, 1188, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10862, '小米（MI） 小米8青春版 手机 梦幻蓝', '全网通(6G+64G)', 51, '/goods-img/ef5ac8cb-5d4e-4dc6-bece-27c9ff5a2e1c.png', '/goods-img/ef5ac8cb-5d4e-4dc6-bece-27c9ff5a2e1c.png', '商品介绍加载中...', 1388, 1388, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10863, '小米（MI） 小米8青春版 手机 暮光金', '全网通(6G+128G)', 51, '/goods-img/d8b30b9f-faa4-4a0d-84bc-53b9c4745977.png', '/goods-img/d8b30b9f-faa4-4a0d-84bc-53b9c4745977.png', '商品介绍加载中...', 1578, 1578, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10864, '小米 红米Redmi 7 全网通4G', '双卡双待 幻彩渐变AI双摄 水滴全面屏拍照游戏智能手机 梦幻蓝 4GB+64GB', 51, '/goods-img/18ce5224-c98d-4a9c-a024-5ac5b6f9a2d7.jpg', '/goods-img/18ce5224-c98d-4a9c-a024-5ac5b6f9a2d7.jpg', '商品介绍加载中...', 1200, 808, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10865, '小米 红米Redmi 7 全网通4G', '双卡双待 幻彩渐变AI双摄 水滴全面屏拍照游戏智能手机 亮黑色 4GB+64GB', 51, '/goods-img/f7a9a98d-9e3f-4443-b8a7-5612bcd7c1d0.jpg', '/goods-img/f7a9a98d-9e3f-4443-b8a7-5612bcd7c1d0.jpg', '商品介绍加载中...', 1200, 818, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10866, '小米 红米Redmi 7 全网通4G', '双卡双待 幻彩渐变AI双摄 水滴全面屏拍照游戏智能手机 魅夜红 4GB+64GB', 51, '/goods-img/02523f49-742b-4c45-b59b-f550fe5a60ae.jpg', '/goods-img/02523f49-742b-4c45-b59b-f550fe5a60ae.jpg', '商品介绍加载中...', 1200, 818, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10867, '小米 小米8屏幕指纹版 手机 黑色', '全网通(6G + 128G )', 51, '/goods-img/35b9c185-2ca6-4052-af40-2abd2157f200.png', '/goods-img/35b9c185-2ca6-4052-af40-2abd2157f200.png', '产品信息Product Information', 2099, 1808, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10868, '小米 小米8屏幕指纹版 手机 透明版', '全网通(8G + 128G)', 51, '/goods-img/fcd1faf9-10b5-4318-b92b-36105be8752f.png', '/goods-img/fcd1faf9-10b5-4318-b92b-36105be8752f.png', '产品信息Product Information', 2499, 2028, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10869, '小米 小米8屏幕指纹版 手机 暮光金', '全网通(6G + 128G )', 51, '/goods-img/e9818435-c510-4042-91e1-734a818a2577.png', '/goods-img/e9818435-c510-4042-91e1-734a818a2577.png', '产品信息Product Information', 2099, 2099, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10870, '小米 红米6 全网通版 3GB内存', '流沙金 32GB 移动联通电信4G手机 双卡双待', 51, '/goods-img/515706fb-a5f8-4d72-a08e-7523cf4ea113.jpg', '/goods-img/515706fb-a5f8-4d72-a08e-7523cf4ea113.jpg', '商品介绍加载中...', 699, 699, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10871, '小米 红米6 3GB+32GB 铂银灰', '全网通4G手机 双卡双待 老人机 智能拍照手机', 51, '/goods-img/bcec0048-e992-4e57-9aaf-ddbd9fe852ce.jpg', '/goods-img/bcec0048-e992-4e57-9aaf-ddbd9fe852ce.jpg', '商品介绍加载中...', 699, 699, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10872, '小米（MI） 小米8屏幕指纹版 全面屏游戏手机 曜石黑（屏幕指纹版）', '6G+128G', 51, '/goods-img/e1c2b06f-fd06-4242-acb7-9ebd7179181b.png', '/goods-img/e1c2b06f-fd06-4242-acb7-9ebd7179181b.png', '商品介绍加载中...', 2199, 1818, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10873, '小米（MI） 小米8屏幕指纹版 全面屏游戏手机 透明版(屏幕指纹版)', '8G+128G', 51, '/goods-img/314274fc-1ee0-474d-bbb5-b9c70a8a9573.png', '/goods-img/314274fc-1ee0-474d-bbb5-b9c70a8a9573.png', '商品介绍加载中...', 2599, 2018, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10874, '小米（MI） 小米8屏幕指纹版 全面屏游戏手机 暮光金(屏幕指纹版)', '8G+128G', 51, '/goods-img/c2905bd8-bd68-4672-bada-b8a202a9327e.png', '/goods-img/c2905bd8-bd68-4672-bada-b8a202a9327e.png', '商品介绍加载中...', 2599, 2058, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10875, '小米8 游戏手机 全面屏 黑色', '全网通(6G+64G)', 51, '/goods-img/5afd1749-a3bc-41c2-90b2-928ede8aedda.jpg', '/goods-img/5afd1749-a3bc-41c2-90b2-928ede8aedda.jpg', '商品介绍加载中...', 1799, 1558, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10876, '小米8 游戏手机 全面屏 白色', '全网通(6G+64G)', 51, '/goods-img/a96dd5bc-2d74-4d57-9336-45a8ac09a363.jpg', '/goods-img/a96dd5bc-2d74-4d57-9336-45a8ac09a363.jpg', '商品介绍加载中...', 1799, 1550, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10877, '小米8 游戏手机 全面屏 白色', '全网通(6G+128G)', 51, '/goods-img/25e44283-a440-4e64-bb27-1887370c3d2e.jpg', '/goods-img/25e44283-a440-4e64-bb27-1887370c3d2e.jpg', '商品介绍加载中...', 1999, 1798, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10878, '小米8 游戏手机 全面屏 金色', '全网通(6G+128G)', 51, '/goods-img/6b5e5711-8ae6-4f66-bd22-30c9be85d3c6.jpg', '/goods-img/6b5e5711-8ae6-4f66-bd22-30c9be85d3c6.jpg', '商品介绍加载中...', 1999, 1849, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10879, '小米8 游戏手机 全面屏 黑色', '全网通(6G+128G)', 51, '/goods-img/040a3aa6-1699-4eca-ac67-5021cc419979.jpg', '/goods-img/040a3aa6-1699-4eca-ac67-5021cc419979.jpg', '商品介绍加载中...', 1999, 1849, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10880, '小米8 游戏手机 全面屏 金色', '全网通(6G+64G)', 51, '/goods-img/47c28778-88a4-42fd-bb4d-c93fe8df36b5.jpg', '/goods-img/47c28778-88a4-42fd-bb4d-c93fe8df36b5.jpg', '商品介绍加载中...', 1799, 1598, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10881, '小米8 游戏手机 全面屏 屏幕指纹版', '暮光金 全网通(8G+128G)', 51, 'http://localhost:28089/admin/dist/img/no-img.png', 'http://localhost:28089/admin/dist/img/no-img.png', '商品介绍加载中...', 3799, 2199, 1000, '1', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-24 19:46:59');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10882, '小米8 游戏手机 全面屏 蓝色', '全网通(6G+64G)', 51, '/admin/dist/img/no-img.png', '/admin/dist/img/no-img.png', '商品介绍加载中...', 1799, 1598, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10883, '小米8 游戏手机 全面屏 金色', '全网通(6G+256G)', 51, '/admin/dist/img/no-img.png', '/admin/dist/img/no-img.png', '商品介绍加载中...', 3199, 2158, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10884, '小米8 游戏手机 全面屏 白色', '全网通(6G+256G)', 51, '/admin/dist/img/no-img.png', '/admin/dist/img/no-img.png', '商品介绍加载中...', 3199, 2158, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10885, '小米8 游戏手机 全面屏 蓝色', '全网通(6G+256G)', 51, '/admin/dist/img/no-img.png', '/admin/dist/img/no-img.png', '商品介绍加载中...', 3199, 2158, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10886, '小米8 游戏手机 全面屏 黑色', '全网通(6G+256G)', 51, '/admin/dist/img/no-img.png', '/admin/dist/img/no-img.png', '商品介绍加载中...', 3199, 3199, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10887, '小米8 游戏手机 全面屏 透明探索版', '全网通(8G+128G)', 51, '/admin/dist/img/no-img.png', '/admin/dist/img/no-img.png', '商品介绍加载中...', 4299, 4299, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-19 08:47:09');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10888, '小米8 游戏手机 全面屏 屏幕指纹版', '暮光金 全网通(6G+128G)', 51, '/admin/dist/img/no-img.png', '/admin/dist/img/no-img.png', '商品介绍加载中...', 3399, 3399, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-19 08:47:09');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10889, '小米8 游戏手机 全面屏 蓝色', '全网通(6G+128G)', 51, '/admin/dist/img/no-img.png', '/admin/dist/img/no-img.png', '商品介绍加载中...', 1849, 1849, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-19 08:47:09');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10890, '小米 红米7 手机 Redmi7', 'AI双摄 拍照游戏手机 全网通双卡双待 亮黑色 4G+64G 全网通', 51, '/goods-img/b6084354-1841-4241-ba7b-7e97186a9076.jpg', '/goods-img/b6084354-1841-4241-ba7b-7e97186a9076.jpg', '详情加载中...', 1299, 808, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-18 13:38:32');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10891, '小米 红米7 手机 Redmi7', 'AI双摄 拍照游戏手机 全网通双卡双待 魅夜红 4G+64G 全网通', 51, '/goods-img/7b4e03b1-eca7-42f5-8dda-14d02d3ab318.jpg', '/goods-img/7b4e03b1-eca7-42f5-8dda-14d02d3ab318.jpg', '详情加载中...', 1009, 818, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-22 23:33:12');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10892, '小米 红米7 手机 Redmi7', 'AI双摄 拍照游戏手机 全网通双卡双待 梦幻蓝 3G+32G 全网通', 51, '/goods-img/7bca8b59-35f3-480a-a95d-99efcbb8cfda.jpg', '/goods-img/7bca8b59-35f3-480a-a95d-99efcbb8cfda.jpg', '详情加载中...', 787, 715, 1000, '', 0, 0, '2019-09-18 13:38:32', 0, '2019-09-22 23:33:12');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10893, 'HUAWEI Mate 30 Pro 双4000万徕卡电影四摄', '超曲面OLED环幕屏 8GB+256GB 全网通4G版（星河银）', 0, '/goods-img/mate30p2.png', '/goods-img/mate30p2.png', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\r\n<div style=\"margin:0px;padding:0px;text-align:center;\">\r\n	<br />\r\n</div>\r\n	</div>\r\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\r\n	<div style=\"margin:0px auto;padding:0px;\">\r\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/huawei-1.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/huawei-3.jpg\" /> \r\n	</div>\r\n</div>', 5399, 5399, 995, '重构想象', 0, 0, '2019-09-19 23:17:39', 0, '2019-09-19 23:17:39');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10894, 'HUAWEI Mate 30 Pro', '超曲面OLED环幕屏 8GB+128GB 全网通4G版（翡冷翠）', 0, '/goods-img/mate30p3.png', '/goods-img/mate30p3.png', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\r\n<div style=\"margin:0px;padding:0px;text-align:center;\">\r\n	<br />\r\n</div>\r\n	</div>\r\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\r\n	<div style=\"margin:0px auto;padding:0px;\">\r\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/huawei-1.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/huawei-3.jpg\" /> \r\n	</div>\r\n</div>', 5399, 5399, 989, '重构想象', 0, 0, '2019-09-19 23:20:24', 0, '2019-09-19 23:20:24');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10895, 'HUAWEI Mate 30 4000万超感光徕卡影像', 'OLED全面屏 8GB+128GB 全网通4G版 （罗兰紫）', 46, '/goods-img/mate30-3.png', 'http://localhost:28089/goods-img/mate30-3.png', '<div id=\"activity_header\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n<div style=\"margin:0px;padding:0px;text-align:center;\">\n	<br />\n</div>\n	</div>\n<div id=\"J-detail-content\" style=\"margin:0px;padding:0px;color:#666666;font-family:tahoma, arial, \" background-color:#ffffff;\"=\"\">\n	<div style=\"margin:0px auto;padding:0px;\">\n		<img class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/huawei-1.jpg\" /><img border=\"0\" class=\"\" src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/huawei-3.jpg\" /> \n	</div>\n</div>', 3999, 3999, 990, '重构想象', 0, 0, '2019-09-19 23:22:22', 0, '2019-11-27 00:16:03');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10900, '牛逼的相机', '黑色', 37, '/upload/20191124_17163050.jpg', 'http://localhost:28089/upload/20191124_17163050.jpg', '牛逼的相机', 9999, 7999, 200, '定格美好', 0, 0, '2019-11-24 17:10:34', 0, '2019-11-27 00:16:03');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10901, '华为mate x 5G 折叠屏手机(新品)', '科技新物种，定义未来', 46, '/upload/20191124_18032027.png', 'http://localhost:28089/upload/20191124_18032027.png', '<img src=\"http://localhost:28089/upload/20191124_18023057.png\" alt=\"\" />', 59999, 19998, 100, '前所未见，惊世首演', 0, 0, '2019-11-24 17:57:18', 0, '2019-11-27 00:16:03');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10902, '华为 HUAWEI P40 冰霜银 全网通5G手机', '麒麟990 5G SoC芯片 5000万超感知徕卡三摄 30倍数字变焦 6GB+128GB', 46, 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/p40-silver.png', 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/p40-silver.png', '<img src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/p40-detail.jpg\" alt=\"\" />', 4399, 4299, 2000, '超感知影像', 0, 0, '2020-03-27 10:07:37', 0, '2020-05-15 17:18:30');
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES (10903, '菲萨菲', '发发发啊', 33, 'http://rl8iaz21y.bkt.gdipper.com/FseDBl64XiIbPVxOxOs-YeLx4fUK', '', '<p>发达 发 发地方</p>', 1000, 3000, 12, '方法', 0, 0, '2022-12-02 01:12:36', 0, '2022-12-02 01:12:36');
-COMMIT;
+--
+-- 转存表中的数据 `tb_newbee_mall_goods_info`
+--
 
--- ----------------------------
--- Table structure for tb_newbee_mall_index_config
--- ----------------------------
-DROP TABLE IF EXISTS `tb_newbee_mall_index_config`;
-CREATE TABLE `tb_newbee_mall_index_config` (
-  `config_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '首页配置项主键id',
+INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_carousel_1`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES
+(10003, 'Apple iPad 10.2 Wi-Fi 64GB (СНГ)\n', '', 0, 'http://wildberries.win/10003.jpg', 'http://wildberries.win/10003a.jpeg', 'http://wildberries.win/10003b.png', 'Описание\nМодель для рынка СНГ. Проходит предварительную активацию для возможности ввоза в РФ. Мощный. Простой в использовании. Универсальный. У нового iPad отличный дисплей Retina 10,2 дюйма, мощный чип A13 Bionic и сверхширокоугольная фронтальная камера.\n\nРазвернуть описание', 28594, 150000, 981, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47'),
+(10006, 'Irbis IRBIS NB81 13.3" Z3735F LCD ', '1366x768 TN 2+32G', 0, 'http://wildberries.win/10006.jpg', 'http://wildberries.win/10006a.jpg', 'http://wildberries.win/10006b.jpg', 'Описание\nНоутбук IRBIS функционирует на базе платформы ОС Windows, обладающей удобным и понятным интерфейсом и позволяющей получить доступ к ресурсам всемирной сети, работать с огромным количеством популярных приложений, просматривать фильмы, слушать музыку, читать книги.\n\nРазвернуть описание', 10341, 49400, 993, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47'),
+(10007, 'Apple Смартфон Apple iPhone 14 Pro Max 128 GB\n', '', 0, 'http://wildberries.win/10007.jpg', 'http://wildberries.win/10008b.jpg', 'http://wildberries.win/10008a.jpg', 'Описание\nНОВИНКА NEW !!! ОРИГИНАЛЬНЫЙ СМАРТФОН айфон APPLE iPhone 14 Pro MAX 128 гб .Стекло на iPhone 14Про макс Также есть объем 256 гб /512 гб / 1 ТР уже в России во всех цветах (ОРИГИНАЛ).iPhone 14pro max . У айфон 14 про макс была обновлена фронтальная камера с автофокусом — теперь она быстрее распознаёт владельца в темноте. Диагональ базового смартфона составила 6.7 дюймов. Обновили Deep Fusion для более детальных снимков. Добавили Photonic Engine — алгоритм, позволяющий в два раза улучшить качество ночных снимков на всех камерах. Появился Action Mode — новый тип стабилизации для видео в экстремальных условиях. И расширенная поддержка eSIM с быстрым переключением между операторами. Вдобавок в смартфон будут встроены следующие фишки: сенсоры движения с автоматическим оповещением об автокатастрофе спутниковое SOS-оповещение без Wi-Fi и интернета Варианты цветов сотового телефона iphone 14 про макс телефон 128 gb / 256 gb / 512 gb / 1 tr аппле : Космический черный (Space Black), желтый ( Gold золото), темно-фиолетовый (Deep Purple фиолетовый), белый ( Silver серебро).Основные характеристики: огромный ресурс аккумулятора – до 24 часов непрерывного воспроизведения видео и 75 часов воспроизведения аудио, система профессиональных камер 48 MP основная, 12 МП сверхширокоугольная и 12 МП телефото, фронтальная камера TrueDepth с автофокусом для невероятной детализации и цвета, Х6 диапазон оптического увеличения, диагональ – 6,7, дисплей Super Retina XDR технология PtoMotion, варианты объемов памяти 128 ГБ, 256 ГБ, 512 ГБ, 1 ТР, хирургическая нержавеющая сталь, водонепроницаемость на глубине до 6 метров до 30 минут, адаптивная вспышка True Tone, цифровой зум до 15 XРежим "Киноэффект" делает из видео настоящее кино. Дисплей Super Retina XDR с технологией ProMotion для более быстрого и плавного взаимодействия. A15 Bionic - самый быстрый чип для iPhone. Прочный корпус и огромный прирост ресурса аккумулятора , возможность быстрой зарядки до 50% за 30 минут, воспроизведение пространственного звука, запись видео в 4K.Айфон 14 про работает с e-simБионический чип А16, 6-ядерный ЦП с 2 ядрами производительности и 4 ядрами эффективности, 5-ядерный графический процессор, 16-ядерный нейронный движок. Размер и вес: Высота : 6,33 дюйма (160,7 мм), Ширина : 3,05 дюйма (77,6 мм), Глубина 0,31 дюйма (7,85 мм), масса 8,47 унции (240 грамм)Комплектация: Айфон Pro 14 МАХ, Кабель USB-C/lightning, Документация, Коробка, Гарантия, Ярко. Мощно. То, что нужно. Сверхширокоугольный взгляд на мир. iPhone 14 Pro. Переходите на самое лучшее. Система трех камер со сверхширокоугольной камерой. Ночной режим и потрясающее качество видео. Защита от воды и пыли. Длительная работа без подзарядки. Четыре прекрасных цветов 14 Про станет вашим любимым числом.Снимайте видео 4K, отличные портреты и захватывающие пейзажи с превосходной системой двух камер. Делайте красивейшие снимки при слабом освещении в Ночном режиме. Смотрите фотографии и видео, играйте в игры - на дисплее Retina XDR, 6,1 дюйма всё выглядит естественно и реалистично. Открывайте новые возможности игр, дополненной реальности и фотографии благодаря невероятной производительности процессора A15 Bionic. А с мощным аккумулятором вы сможете делать больше - и меньше времени тратить на зарядку. Устройство защищено от воды (допускается погружение в воду на глубину до 6 метров на 30 минут.ПЛОХОЕ ФОТО- НЕ ВЫЙДЕТ **Новая система трех камер. Можно делать фотоснимки с широким и сверхшироким углом обзора. Обновленный интерфейс и новая сверхширокоугольная камера позволят увидеть и снять то, что происходит за пределами кадра. Снимать и редактировать видеоролики теперь так же легко, как фотографии. Это по-прежнему невероятно популярная камера, но с совершенно новыми перспективами.*СНИМАЙТЕ ВИДЕО ВЫСОЧАЙШЕГО КАЧЕСТВА И РЕДАКТИРУЙТЕ ЕГО**На все камеры iPhone 14 Pro МАХ можно снимать невероятно четкое видео 4K с частотой 60 кадров. С новой камерой TrueDepth 12 Мп ваши селфи станут еще интереснее. Просто поверните iPhone горизонтально, и камера автоматически уменьшит масштаб изображения, чтобы в кадр попало больше деталей.**САМОЕ ПРОЧНОЕ СТЕКЛО IPHONE*теги: iphone 14 Pro, iphone 14 Pro Max, 14 айфон, 14 телефон, 11 телефон, iphone 12, смартфон, айфон 13, смартфоны, телефоны, iphone xr, iphone 12 128gb, iphone 12 pro, iphone 12 mini, айфон 12 про, айфон 11 128 гб, apple, iphone 11, 11 iphone, apple 11, iphone 11 128, 11 айфон, телефон, iphone 14pro, iphone 14pro, iphone 14 про макс телефон, Samsung S22 телефон, Самсунг.Xiaomi, RedmiСмартфон Poco, смартфон Viva\n\nРазвернуть описание', 152991, 59800, 993, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47'),
+(10008, 'Apple MacBook Pro 13 M2/8 ГБ/256 Гб/US (2022)\n', 'Дополнительная информация\nВес с упаковкой (кг)	\n2.69 кг\nВес без упаковки (кг)	\n1.4 кг\nГлубина предмета	\n21.24 см\nШирина предмета	\n30.41 см\nТолщина предмета	\n1.56 см', 47, 'http://wildberries.win/10008.jpg', 'http://wildberries.win/10008c.jpg', 'http://wildberries.win/10008d.jpg', 'Описание\nАмериканская версия - клавиатура без русских букв, американская вилка (переходник на евро вилку в комплект не входит). Супербыстрые процессоры M2, разработанные специально для профессионалов. Они дают феноменальную производительность и обеспечивают удивительно долгое время работы без подзарядки. Прибавьте к этому потрясающий дисплей Retina, превосходную камеру и звук. С этим ноутбуком всё становится возможным. Невероятная детализация в темных областях, более глубокий черный, а остальные цвета - яркие как никогда.\n\nРазвернуть описание', 110491, 28390, 993, '', 0, 0, '2019-09-18 13:27:13', 0, '2019-09-18 13:27:13'),
+(10009, 'Популярные беспроводные наушники', '', 0, 'http://wildberries.win/10009a.jpg', 'http://wildberries.win/10009b.jpg', 'http://wildberries.win/10009c.jpg', 'Отличное качество звука, стильный корпус, яркие цвета', 2500, 19800, 980, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47'),
+(10010, 'Polaris Робот-пылесос PVCR 0735 IQ Home (POLARIS)', '', 0, 'http://wildberries.win/10010.jpg', 'http://wildberries.win/10010a.jpg', 'http://wildberries.win/10010b.jpg', 'Описание\n**Wi-Fi УПРАВЛЕНИЕ: Управление из любой точки мира через приложение в телефоне; Неограниченное количество пользователей; Без дополнительного оборудования. ВОЗМОЖНОСТИ: Построение маршрута уборки; Расписание уборки; Сухая и влажная автоматическая уборка; Время работы: до 150 минут. БЕЗОПАСНОСТЬ: Возможность установить права администратора; Многоуровневая защита данных.** Работает с Марусей и Алисой. Полностью автоматическая уборка. Расписание уборки: часы, дни. Функция "Найди меня". Кнопка включения на корпусе. Максимальная мощность прибора: 25 Вт.\n\nРазвернуть описание', 14499, 2800, 998, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47'),
+(10011, 'DiBa''s Care Смарт вотч часы smart watch pro series 7', '', 0, 'http://wildberries.win/10011.jpg', 'http://wildberries.win/10011.jpg', 'http://wildberries.win/10011.jpg', 'Описание\n"Смарт часы, это удобный многофункциональный гаджет с силиконовым ремешком, который подчеркнет стиль и облегчит жизнь современного человека. Стильный аксессуар на руку позволит не только узнать время, но и принять звонок, а также при помощи сенсорного экрана или дисплея 45 мм можно управлять музыкой и камерой на телефоне. Часы умные помогут следить за здоровьем, имеют датчики измерения артериального давления, пульса, пульсометр, счетчик калорий, а также электронные смартчасы незаменимы для спорта. Станут альтернативой фитнес браслету gts. Водостойкие цифровые часы мужские с функцией шагомер подходит для ходьбы, бега и других спортивных занятий. Часы с измерением давления также имеют будильник, секундомер, калькулятор и множество других функций. Водонепроницаемые часы наручные se x7 с блютуз совместимы с системой андроид и ios, Smartwatch серии x7pro подходят к apple iphone. Красные, белые смарт часы женские и смарт часы мужские черного цвета, это лучший подарок для мужчин и женщин.\n\nРазвернуть описание', 2449, 6640, 986, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47'),
+(10012, 'Apple iPhone 13 Pro 512GB (СНГ)\n', '', 0, 'http://wildberries.win/10012a.jpg', 'http://wildberries.win/10012b.jpg', 'http://wildberries.win/10012c.jpg', 'Описание\nМодель для рынка СНГ. Проходит предварительную активацию для возможности ввоза в РФ. iPhone 13 Pro. Грандиозный апгрейд камер Pro. Режим "Киноэффект" делает из видео настоящее кино. Дисплей Super Retina XDR с технологией ProMotion для более быстрого и плавного взаимодействия. A15 Bionic - самый быстрый чип для iPhone. Прочный корпус и огромный прирост ресурса аккумулятора.\n\nРазвернуть описание', 100491, 150000, 995, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47'),
+(10013, ' Планетарный миксер с чашей ', 'КТ-3080 / 1400 Вт / 7 л', 0, 'http://wildberries.win/13a.webp', 'http://wildberries.win/13b.webp', 'http://wildberries.win/13c.webp', 'Описание\nПланетарный миксер КТ-3080 поможет вам смешать ингредиенты для любого блюда, взбить яичный белок или сливки, приготовить картофельное пюре, мусс, крем, соус, замесить жидкое тесто для блинов или крутое для пельменей и пирогов. Тщательное смешивание Миксер оснащен планетарной системой смешивания: во время работы насадка вращается вокруг своей оси и одновременно движется по окружности по внутреннему объему чаши, обеспечивая идеальное качество смешивания и ровную консистенцию без комков. Надежный двигатель позволяет быстро и эффективно смешивать ингредиенты разной консистенции для самых разнообразных кулинарных целей. Встроенный вентилятор принудительно охлаждает миксер потоком воздуха. Прорезиненные ножки с присосками прочно фиксируют миксер на столе.Надежное автоматическое управлениеМиксер работает в автоматическом режиме. Вам достаточно только положить ингредиенты, установить подходящую насадку и включить прибор.Миксер позволяет выбрать нужную скорость работы для смешивания ингредиентов, а также установить импульсный режим.Вместительная стальная чаша с крышкойМиксер оснащен большой чашей из нержавеющей стали емкостью 7 литров.Чаша фиксируется на корпусе миксера и укомплектована защитной крышкой с отверстием. Крышка предотвращает разбрызгивание ингредиентов при замешивании. Добавлять ингредиенты во время работы можно через отверстие в крышке, не выключая миксер и не откидывая моторный блок.В комплекте идут насадки для взбивания, смешивания и замеса крутого теста.Система безопасностиПрибор автоматически выключается при откидывании моторного блока. Если при этом регулятором скорости была выбрана одна из скоростей, то при возвращении моторного блока в исходное положение миксер не включится автоматически — нужно будет выставить скорость заново. В откинутом и опущенном положениях моторный блок фиксируется, так что перевести его из одного положения в другое возможно, только опустив рычаг фиксации моторного блока. Автоматического выключения у этого миксера нет — устройство будет работать до тех пор, пока вы не выключите его вручную или пока мотор не перегреется. После перегрева мотора термостат, расположенный на нем, разомкнет электрическую цепь. Прибору надо будет дать остыть до комнатной температуры, а после выключить и снова включить.\n\nРазвернуть описание', 11739, 19900, 995, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47'),
+(10015, 'Капучинатор КТ-710\n', '500ml', 0, 'http://wildberries.win/15a.webp', 'http://wildberries.win/15b.webp', 'http://wildberries.win/15c.jpg', 'Описание\nОписания пока нет. Возможно, оно появится тут позже', 3990, 6640, 997, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47'),
+(10016, 'Сушилка для овощей и фруктов ', 'КТ-1915', 0, 'http://wildberries.win/16.jpg', 'http://wildberries.win/16a.jpg', 'http://wildberries.win/16b.jpg', 'Описание\nЭлектрическая сушилка предназначена для сушки овощей, фруктов, ягод, грибов, корнеплодов, трав и зелени, а также мяса и рыбы, хлеба. С помощью специального поддона для жидкости можно готовить пастилу.Сушилка имеет в комплекте 4 поддона из нержавеющей стали и 1 поддона для жидкости.В сушилке установлен мощный нагревательный элемент и вентилятор большого диаметра, обеспечивающий равномерное распределение нагретого воздуха по всему объему камеры. Благодаря горизонтальному обдуву смешение запахов при сушке одновременно разных продуктов минимально. На сушилке можно установить температуру сушки в диапазоне 35-75 *С с шагом 5 градусов. Сушилка оснащена таймером до 24 часов работы с шагом 1 час.\n\nРазвернуть описание', 4839, 6640, 997, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47'),
+(10018, ' Шашлычница ', 'КТ-1405', 0, 'http://wildberries.win/18.png', 'http://wildberries.win/18b.webp', 'http://wildberries.win/18a.webp', 'Описание\nОписания пока нет. Возможно, оно появится тут позже\n\n', 2990, 2800, 999, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47'),
+(10019, 'Kitfort Весы КТ-805\n', 'КТ-805', 0, 'http://wildberries.win/19.jpg', 'http://wildberries.win/19a.webp', 'http://wildberries.win/19a.webp', 'Описание\nЭлектронные напольные весы обеспечивают высокую точность измерения и станут неизменным спутником для людей, следящих за своим весом. Весы КТ-805 представляют современное поколение “умных” весов. Перед взвешиванием необходимо установить на мобильный телефон приложение “Fitdays”, включить передачу данных через Bluetooth. Для телефонов с системой IOS версии выше 13 не требуется включения данных о местоположения, для телефонов с системой Android версии ниже 10 требуется включить данные о местоположении. Включение и выключение весов происходит автоматически, когда на них встаешь или сходишь с них. После взвешивания показания весов фиксируются на дисплее. Мобильное приложение Fitdays выводит на экран телефона разные параметры: вес, индекс массы тела, мышечную массу, костную массу, баланс тела, висцеральный жир и т.д. Весы имеют стильный и привлекательный дизайн, благодаря чему впишутся в любой интерьер. Для электропитания используется 2 батарейки ААА.', 1190, 1190, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47'),
+(10020, 'Вертикальный паровой пылесос ', 'KT-595', 0, 'http://wildberries.win/20a.webp', 'http://wildberries.win/20b.webp', 'http://wildberries.win/20c.webp', 'Описание\nВертикальный пылесос КТ-595 с функциями паровой швабры и ручного пароочистителя удобен при локальной и генеральной уборке. Он всасывает пыль и мелкий мусор, а затем очищает поверхность от грязи, въевшихся пятен и жира при помощи горячего пара. Пар также дезинфицирует поверхность от бактерий и микробов и уничтожает клещей и других мелких вредителей.Благодаря новому прибору от Kitfort утомительная уборка превращается в легкое и увлекательное занятие. Веник, швабру и пылесос можно заменить одним компактным и удобным прибором - пылесосом с функциями паровой швабры и ручного пароочистителя.Прибор может работать в 6 режимах: одновременное всасывание пыли и обработка паром;', 19190, 19980, 1000, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47'),
+(10021, 'риль электрический', '', 0, 'http://wildberries.win/21a.webp', 'http://wildberries.win/21b.webp', 'http://wildberries.win/21c.webp', 'Электрический пресс-гриль ENDEVER Grillmaster 115 — это универсальный инструмент на Вашей кухне, использование которого позволит Вам насладиться вкуснейшими мясными стейками, сэндвичами, разнообразными блюдами из рыбы и овощей. Электрический гриль создан таким образом, чтобы вредные жиры вытекали из мяса в процессе приготовления и в результате мы получаем максимально', 1190, 1080, 998, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47'),
+(10022, 'Кофеварка КТ-730', '', 0, 'http://wildberries.win/22a.webp', 'http://wildberries.win/22b.webp', 'http://wildberries.win/22c.webp', 'Описание\nКапельная кофеварка КТ-730 готовит ароматный кофе и управляется всего одной кнопкой. В капельной кофеварке вода доводится до температуры 80-90 *С, после чего медленно поступает в фильтр с молотым кофе. Пройдя через него, она попадает в кофейник. По окончании приготовления кофеварка перейдет в режим подогрева. Платформа с подогревом, на которой стоит кофейник с готовым кофе, будет горячей в течение 40 минут, затем кофеварка выключится. Кофеварка оборудована противокапельной системой - затвором, приостанавливающим подачу кофе при вынимании кофейника из кофеварки. Вы можете налить кофе в чашку, не дожидаясь окончания приготовления. Резервуар емкостью 600 мл позволяет за один раз приготовить кофе на 5 чашек емкостью 120 мл. Корпус кофейника прозрачный, поэтому вы всегда можете видеть, сколько кофе еще осталось. Кофеварка предназначена для приготовления кофе в домашних условиях или в офисе.', 1890, 29900, 992, '', 0, 0, '2019-09-18 13:18:47', 0, '2019-09-18 13:18:47'),
+(10030, 'Кофеварка автомат.капучин', 'КТ-742', 0, 'http://wildberries.win/30a.webp', 'http://wildberries.win/30b.webp', 'http://wildberries.win/30c.webp', 'Описание\nРожковая кофеварка КТ-742 поможет приготовить кофе эспрессо, капучино или латте, а также множество других видов кофе на ваш вкус. С помощью рожковой кофеварки вы можете подогреть паром остывший чай или молоко.С помощью функции программирования вы можете настроить приготовление кофе специально для вашей кружки. В рожковых кофеварках молотый кофе надо насыпать и утрамбовать в специальный рожок. Молочную пенку для капучино нужно делать самостоятельно. Капучинатор в кофеварке - это паровая трубка с насадкой панарелло. Трубку погружают в холодное молоко, включают подачу пара и взбивают молочную пенку. Приготовление пенки состоит из двух этапов: вспенивание молока и нагрев его паром с последующим формированием текстуры.Металлический фильтр с лазерным нанесением отверстий долговечен и не требует использования каких-либо расходующихся частей. Кофеварка оснащена съемным резервуаром для воды.', 6392, 6392, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52'),
+(10032, ' Мороженица ', 'КТ-1804', 0, 'http://wildberries.win/32.png', 'http://wildberries.win/32a.webp', 'http://wildberries.win/32b.webp', 'Описание\nОписания пока нет. Возможно, оно появится тут позже', 4490, 4490, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52'),
+(10035, 'Планетарный миксер ', 'KT-1339', 0, 'http://wildberries.win/35a.webp', 'http://wildberries.win/35b.webp', 'http://wildberries.win/35c.webp', 'Описание\nУльтрасовременный и мощный стационарный миксер 2 в 1 Kitfort KT-1339 поможет вам смешать ингредиенты, взбить яичный белок или сливки, приготовить картофельное пюре, соус, крем, мусс, замесить жидкое тесто для блинов и крутое для пельменей и пирогов. В комплекте имеется блендер для приготовления соков, супов-пюре, соусов, молочных коктейлей, смешивания фруктовых и фитнес-напитков.', 11990, 11990, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52'),
+(10036, 'Сушилка для овощей и фруктов ', 'КТ-1905', 0, 'http://wildberries.win/36a.webp', 'http://wildberries.win/36b.webp', 'http://wildberries.win/36c.webp', 'Описание\nЭлектрическая сушилка предназначена для сушки овощей, фруктов, ягод, грибов, корнеплодов, трав и зелени, а также мяса и рыбы, хлеба. С помощью специального поддона для жидкости можно готовить пастилу.Сушилка имеет в комплекте 6 поддонов из пищевого пластика, 6 поддонов для жидкости и 6 сеток.В сушилке установлен мощный нагревательный элемент и вентилятор большого диаметра, обеспечивающий равномерное распределение нагретого воздуха по всему объему камеры. Благодаря горизонтальному обдуву смешение запахов при сушке одновременно разных продуктов минимально.На сушилке можно установить температуру сушки в диапазоне 35-70 \\*С с шагом 5 градусов. Сушилка оснащена таймером до 19.5 часов работы с шагом 30 минут.', 4850, 4850, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52'),
+(10038, 'Bubble bag Кресло-мешок', '', 0, 'http://wildberries.win/38a.webp', 'http://wildberries.win/38b.webp', 'http://wildberries.win/38c.webp', 'По-настоящему огромный пуф станет отличным местом отдыха и дополнит ваш интерьер.Наслаждайтесь просмотром любимых фильмов вдвоем на нашем пуфе, ведь на нем хватит места даже для двух взрослых человек, или если вы хотите уединиться для чтения или работы, то пуф сможет полностью окутать вас и погрузить в максимальный комфорт.В производстве наших пуфов мы применяли только качественные материалы для достижения мягкости и воздушности во время использования. Наполнитель из поролоновой крошки высокой плотности создает анатомически удобное расположение вашего тела и естественную опору для головы и спины. Наружный чехол из приятного мебельного велюра подарит ощущение полного комфорта, к тому же он легко поддается стирке. Небольшой вес позволяет перемещать пуф в любой уголок вашего дома.Приятного и комфортного отдыха с нашими воздушным ХХL пуфом по-настоящему большого размера.', 6800, 6800, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52'),
+(10039, 'Фритюрница КТ-2025', '', 0, 'http://wildberries.win/39.png', 'http://wildberries.win/39.png', '/admin/dist/img/no-img.png', 'Описание\nВо фритюрнице Kitfort KT-2025 продукты жарятся в глубоком слое горячего масла. С помощью термостата вы можете плавно регулировать температуру приготовления. Продукты во фритюре готовятся быстрее, чем на сковороде из-за короткого воздействия высокой температуры со всех сторон. Несмотря на то, что продукты готовятся в масле, в жаренных во фритюре продуктах масла обычно содержится меньше, чем в жаренных на сковороде. Хорошо зажаренные во фритюре продукты покрыты хрустящей корочкой, под которой почти нет масла. Kitfort KT-2025 укомплектована тремя корзинами для жарки - одной большой и двумя маленькими. Малые корзины вы можете устанавливать во фритюрницу одновременно. Это удобно, если вы хотите приготовить два различных блюда.', 6790, 6790, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52'),
+(10040, 'Чайник КТ-6107', '', 0, 'http://wildberries.win/40.jpg', 'http://wildberries.win/40.jpg', '/admin/dist/img/no-img.png', 'Описание\nЭлектрический чайник Kitfort КТ-6107 предназначен для нагрева и кипячения воды. Чайник оснащен терморегулятором и может не только вскипятить воду, но и нагреть её до температуры от 40 до 90 С, что очень удобно при заваривании различных сортов чая, приготовлении кофе и подогрева детского питания. Чайник также оснащён функцией поддержания температуры. Температура воды контролируется термодатчиком, встроенным в дно чайника. Ручка чайника пластиковая. Она не нагревается и удобно лежит в руке. На ручке расположена панель управления чайником. Нагревательный элемент (ТЭН) у этой модели чайника скрытый и находится в донной части. Сверху он закрыт специальной металлической пластиной из нержавеющей стали, благодаря которой исключается прямой контакт ТЭНа с водой. Такая конструкция препятствует образованию накипи, облегчает уход и значительно снижает шум при нагревании воды.', 1690, 1690, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52'),
+(10041, 'Электрогриль  ', 'КТ-1626', 0, 'http://wildberries.win/41.jpg', 'http://wildberries.win/41.jpg', '/admin/dist/img/no-img.png', 'Описание\nКонтактный электрический гриль позволяет приготовлять стейки, овощи, рыбу, бутерброды, гренки и многое другое. Ребристая поверхность рабочих пластин и высокая температура приготовления способствуют удалению излишков жира из продуктов. Конструкция «2 в 1» позволяет использовать гриль в двух режимах. В двухстороннем режиме гриль закрывается крышкой, и продукты готовятся одновременно с двух сторон. В одностороннем режиме крышка гриля откидывается на 180*, и гриль превращается в большую жаровню. Для приготовления можно использовать обе поверхности. Гриль оснащен термостатом с плавной регулировкой температуры. Индикатор нагрева оповещает о том, что гриль разогрелся до установленной температуры. Нагревательные панели изготовлены из алюминия с нанесенным антипригарным покрытием. Электрогриль способствует удалению лишнего жира из продуктов в процессе приготовления пищи, т.к. она готовится при высокой температуре с двух сторон. Для сбора вытапливаемого жира предназначены специальные бороздки на верхней и нижней рабочих поверхностях гриля. В процессе приготовления пищи (мяса, птицы, рыбы и т.д.) из нее начинает постепенно выходить лишний жир. Этот жир скапливается в бороздках и стекает в поддон для сбора жира, находящийся сзади электрогриля.', 3790, 3790, 1000, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52'),
+(10044, 'Электромассажер ', 'КТ-2905', 0, 'http://wildberries.win/44.jpg', 'http://wildberries.win/44.jpg', '/admin/dist/img/no-img.png', 'Описание\nЭлектромассажер Kitfort KT-2905 поможет избавиться от дискомфорта в шейно-плечевом отделе, который может возникнуть после долгого сидения за компьютером, неудобной позы во время сна или тем, у кого сидячий образ жизни. Воздействуя на шею, позвоночник и плечи массажными роликами, электромассажер устраняет стресс и затекание мышц. Также устройство можно использовать для массажа поясницы, живота, бедер и стоп. Три скорости разминающего массажа, а также выбор направления вращения роликов обеспечат максимальный комфорт. У электромассажера есть функция инфракрасного прогрева, а также таймер с автоотключением после 15-минутного сеанса. Функция инфракрасного прогрева улучшает кровообращение и лимфоотток, тем самым повышая эффективность массажа. Силу массажного воздействия можно регулировать с помощью удлиненных ручек. Электромассажером можно пользоваться в автомобиле, подключив его к адаптеру в прикуривателе.', 3590, 3590, 999, '', 0, 0, '2019-09-18 13:18:52', 0, '2019-09-18 13:18:52'),
+(10045, 'Детский солнцезащитный лосьон', '"Ультра защита" SPF 50+ 200мл', 0, 'http://wildberries.win/45.png', 'http://wildberries.win/45.png', '/admin/dist/img/no-img.png', 'Описание\nПопробуйте детский солнцезащитный лосьон Babies&Kids Ультра защита с SPF 50+, который разработан специально для чувствительной кожи детей. Его ухаживающая формула 5в1: 1) Обеспечивает мгновенную максимальную защиту* от UVA и UVB-лучей;2) Сверхводостойкая, защищает от солнца в воде даже при длительном купании;3) Протестирована педиатрами и подходит детям с 6 месяцев;4) Подходит для чувствительной детской кожи;5) Содержит экстракт ромашки и не содержит отдушек. Способ применения: обильно нанесите за 20-30 минут до начала пребывания на солнце и дождитесь полного впитывания средства перед тем, как надевать одежду. Обновляйте защитный слой регулярно, особенно после купания и вытирания полотенцем. Избегайте чрезмерного пребывания на солнце в период повышенной солнечной активности. Не допускайте пребывания детей под прямыми солнечными лучами. С заботой об океане: не содержит микропластик, Октиноксат, Оксибензон, Октокрилен. Доверь защиту от солнца бренду NIVEA. *В линейке NIVEA', 290, 290, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10046, '2в1 Скраб + Бальзам для губ c алоэ вера и витамином Е 48 гр', '', 0, 'http://wildberries.win/46.jpg', 'http://wildberries.win/46.jpg', '/admin/dist/img/no-img.png', 'Описание\nОписания пока нет. Возможно, оно появится тут позже', 246, 246, 999, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10047, 'Лосьон после бритья "Серебряная защита" 100 мл', '', 0, 'http://wildberries.win/47.png', 'http://wildberries.win/47.png', '/admin/dist/img/no-img.png', 'Описание\nЛосьон после бритья Серебряная защита от Nivea MEN с ионами серебра в составе обладает антибактериальным эффектом и обогащенный экстрактом ромашки и провитамином В5, обеспечивает глубокое увлажнение и питание кожи, обеспечивая защиту от раздражения кожи после бритья.', 488, 488, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10048, 'Дезодорант-антиперспирант спрей LOVE "Be Trendy" 150 мл\n', '', 0, 'http://wildberries.win/48.jpg', 'http://wildberries.win/48.jpg', '/admin/dist/img/no-img.png', 'Описание\nТанцы или скейт, свидания или встречи с друзьями? Ты можешь выбрать все, что захочешь. Жизнь полна волнительных моментов - будь в центре событий и наслаждайся! А антиперспирант NIVEA LOVE BE TRENDY Нежная Свежесть с эффективной формулой защиты от неприятного запаха на 48 часов подарит тебе свежесть на весь день, чтобы ничто тебя не отвлекало. Для твоей уверенности в любых ситуациях - во время поездки в метро, занятий спортом, свидании или на вечеринке! Содержащийся в составе пантенол и масло авокадо обладают ухаживающими свойствами. Классный дизайн - чтобы всегда быть с тобой. А также мягкий деликатный уход для самой нежной кожи от NIVEA. Нежная свежесть для особенной тебя!', 195, 195, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10049, ' Дезодорант-антиперспирант шариковый "ARCTIC OCEAN" 50 мл', '', 0, 'http://wildberries.win/49.png', 'http://wildberries.win/49.png', '/admin/dist/img/no-img.png', 'Описание\nНе хватает свежести в течение дня, а концу дня ощущаешь неприятный запах? Дезодорант-антиперспирант ролик Nivea Men ARCTIC OCEAN обеспечит вас надежной защитой от неприятного запаха на срок до 48 часов. Стойкий мужской аромат и вихрь океанской свежести от Nivea подарит ощущение чистоты и свежести на весь день. Специальная формула с защитой от раздражения удовлетворит высокие требования пользователя с самой чувствительной кожей. Продукт дерматологически протестирован. ', 269, 269, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10050, 'Детский крем для защиты от непогоды от обветривания 50 мл', '', 0, 'http://wildberries.win/50.jpg', 'http://wildberries.win/50.jpg', '/admin/dist/img/no-img.png', 'Описание\nКрем NIVEA Baby Wind & Weather защищает кожу вашего ребенка от холода, обветривания в особо холодный период года и пересыхания. Водостойкая формула с календулой образует защитный слой, не нарушая естественные функции кожи, и обеспечивает длительную защиту. Кроме того, успокаивающий пантенол особенно нежно смягчает раздражение и покраснение.', 267, 267, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10051, 'Детский солнцезащитный спрей SPF 50+ 200мл', '', 0, 'http://wildberries.win/51.png', 'http://wildberries.win/51.png', '/admin/dist/img/no-img.png', 'Описание\nПопробуйте детский солнцезащитный спрей Babies&Kids Ультра защита SPF 50+ от NIVEA SUN, который разработан специально для чувствительной кожи детей. Его формула 5в1:1. Обеспечивает максимальную защиту* от UVA и UVB-лучей2. Сверхводостойкая, защищает от солнца в воде даже при длительном купании3.', 625, 600, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10052, 'Детское увлажняющее молочко для тела NIVEA Baby, 500 мл.', '', 0, 'http://wildberries.win/52.jpg', 'http://wildberries.win/52.jpg', '/admin/dist/img/no-img.png', 'Описание\nНежное детское молочко для тела NIVEA Baby Mild Touch балует кожу вашего ребенка особым уходом, который обеспечивает необходимое детской коже увлажнение. Молочко с алоэ вера и натуральными ингредиентами в составе подходит как для особенно сухих участков тела малыша, так и кожи в целом. Быстро впитывается, интенсивно увлажняет и защищает от пересыхания. Для нежной, мягкой детской кожи и эффекта, который вы не только почувствуете, но и увидите. Без парабенов и красителей в составе, без спирта - максимально деликатная формула NIVEA Baby, разработанная специально для самых маленьких. Дерматологически протестировано при участии педиатров. Рекомендован для детей с 3-х месяцев. Попробуйте уход для нежной детской кожи от NIVEA Baby. Эксклюзивно в интернет-магазинах!', 445, 445, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10053, ' Крем для бритья для чувствительной кожи 100 мл', '', 0, 'http://wildberries.win/53.jpg', 'http://wildberries.win/53.jpg', '/admin/dist/img/no-img.png', 'Описание\nNIVEA MEN представляет линию средств для и после бритья, разработанную специально для чувствительной кожи. Успокаивающий крем для бритья, обогащенный экстрактом ромашки и гамамелиса, предотвращает пять признаков раздражения кожи: жжение, покраснение, сухость, ощущения стянутости и зуда. ', 190, 190, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10054, 'Очищающие влажные салфетки NIVEA Baby Soft&Cream, 63 шт.', '', 0, 'http://wildberries.win/54.jpg', 'http://wildberries.win/54.jpg', '/admin/dist/img/no-img.png', 'Описание\nКожа младенца очень нежная и нуждается в особом уходе. Очищающие влажные салфетки NIVEA Baby Soft & Cream (63 салфетки в упаковке) деликатно очищают и успокаивают чувствительную кожу малыша. Пропитанные мягким ухаживающим кремом, они сразу же питает и успокаивает чувствительную кожу.', 296, 298, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10055, 'Черная тканевая маска для лица матирующая 1 шт', '', 0, 'http://wildberries.win/55.png', 'http://wildberries.win/55.png', '/admin/dist/img/no-img.png', 'Описание\nЕжедневные стрессы, окружающая среда и загрязнения могут отрицательно сказаться на коже. Идеальный детокс-уход для кожи, уставшей от стресса - Черная тканевая маска для лица Nivea Детокс супер-очищение за 10 минут. Маска не только очищает поры, но и выводит из кожи скопившиеся в ней токсины. Черная тканевая маска для лица Nivea Детокс супер-очищение с зеленым чаем и очищающим углём удаляет загрязнения, обеспечивает матирующий эффект, освежает и снимает следы усталости. Для чистой кожи, которая выглядит здоровой и невероятно свежей. Для наилучшего результата используйте маску дважды в неделю. Перед применением маски убедитесь, что макияж полностью удалён с лица. Подходит для всех типов кожи, включая чувствительную. Не наносите на раздраж', 170, 170, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10056, 'Увлажняющая маска для сна', '', 0, 'http://wildberries.win/56.png', 'http://wildberries.win/56.png', '/admin/dist/img/no-img.png', 'Идеальная маска для сна, которая увлажняет кожу и помогает восстановить ее здоровье', 150, 150, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10057, 'Домашнее платье хлопковое/Туника', '', 0, 'http://wildberries.win/57.jpg', 'http://wildberries.win/57.jpg', '/admin/dist/img/no-img.png', 'Описание\nДомашнее платье хлопковое Туника для дома и дачи большие размеры одежда для отдыха. Отличная замена халатам, позволит выглядеть в домашней обстановке ярко и красиво. Платье женское вечернее летнее праздничное серое больших размеров сарафан одежда беременных женщин. платье женское хлопковое домашнее для дачи летнее для беременных больших размеров трикотажное. Домашнее платье(туника домашняя удлиненная женская ) миди - практичная одежда дома, красивое платье, которое заменит вам домашний халат женский и даже пижаму со штанами и с шортами. Платье в горошек - хлопок, домашнее платье прямого силуэта длиной до колена выполнено из ткани в горох. V-образный вырез горловины оформлен бейкой с ассиметрией. С левой стороны вставка из отделочной ткани с принтом. Рукав свободного объема длиной 3/4. По боковым швам по низу изделия умеренные разрезы.', 1518, 1518, 993, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10058, 'Домашний комплект/пижама/', 'эластан 8%, вискоза 92%', 0, 'http://wildberries.win/58.jpg', 'http://wildberries.win/58.jpg', '/admin/dist/img/no-img.png', 'Описание\nКомплект майка, шорты женская Mia Cara серая полоса/леопардовый.Комплект домашней одежды, состоящий из майки на бретелях и укороченных шорт, выполнен из шелковистой трикотажной вискозы. Майка умеренного объема с фигурным вырезом, который отделан тонким ажурным кружевом. Короткие шортики с поясом на резинке и со складками на передней части.', 1449, 1449, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10059, 'полутороспальное/140х205/бамбук', '', 0, 'http://wildberries.win/59.jpg', 'http://wildberries.win/59.jpg', '/admin/dist/img/no-img.png', 'Описание\nСтеганое одеяло Mia Cara Wellness с бамбуковым наполнителем.Зеленый кант в цвет ткани. Размер изделия - 140x205 см.Сатиновая брендированная лента.Одеяла линейки Balance гипоаллергенны,великолепно впитывают влагу,просты в уходе,быстро стираются и сохнут в домашних условиях.Подойдут для детей и для взрослых. Прекрасный вариант подарка близким на праздники:новоселье, юбилей, день рождения и т.п.Сочетание натуральных и искусственных наполнителей, плотный жаккардовый тик чехла с фигурной стежкой,стильно оформленный атласным кантом,сатиновая брендированная лента на уголке позволят удовлетворить вкус любого взыскательного потребителя.Ткань чехла - тик 100% п/э.Одеяла просты в уходе: рекомендована машинная стирка при температуре 40 градусов.Mia Cara - это ваша добрая подруга, которая выслушает и поможет сделать дом по-настоящему своим:теплым, уютным, надежным.одеяло/одеяла 1,5/одеяла/одеяло 1,5/одеяла 1,5 спальные/одеяло 140х205/новогодние подарки/ новый год/ новый год 2023/ подарки на новый год', 1191, 1191, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10060, 'Одеяло/1.5 спальное/', '', 0, 'http://wildberries.win/60.jpg', 'http://wildberries.win/60.jpg', '/admin/dist/img/no-img.png', 'Описание\nОдеяло стеганое 1,5спальное легкое шерстяное зимнее и теплое. Наполнитель с овечьей шерстью не сбивается, не сминается, обладает вентилирующими и теплозащитными свойствами, при этом сохраняет комфортную температуру для сна и отдыха. Ткань чехла из плотного тика с приятной расцветкой и гладкая на ощупь. Благодаря стежке ткани наполнитель не пробивается сквозь чехол изделия и выдерживает многократную стирку. Одеяло долговечное, имеет долгий срок эксплуатации. Отличный подарок на праздник: день рождения, юбилей, годовщину, новоселье. Подойдет на кровати 120х200см, 140х200см, 160х200см.Одеяло всесезонное, детское, взрослое, подходит для дома, дачи. Допускается стирка в стиральной машине на 30 градусах, или химчистка. Обратите внимание на широкий ассортимент домашнего текстиля, домашней одежды, текстиля для кухни и постельное белье Mia Cara./новогодние подарки/ новый год/ новый год 2023/ подарки на новый год', 1229, 1229, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10061, ' Постельное белье 1.5 спальное, хлопок перкаль, 70х70 см', '', 0, 'http://wildberries.win/61.jpg', 'http://wildberries.win/61.jpg', '/admin/dist/img/no-img.png', 'Описание\nПостельное белье 1,5 спальное Унисон перкаль 100% хлопок, сочетает красоту и отменное качество. Комплект станет достойным дополнением в вашей спальни. Отлично стирается, выдерживая более сотни стирок, сохраняя размеры, цвета и рисунок. Поверхность перкаля гладкая, но матовая. Чтобы постельное белье 1,5 спальное из перкаль прослужило долгие годы, за ними нужно правильно ухаживать. Стирать постельные белье из перкаля следует при температуре воды от 30 до 40 градусов. При стирке комплект постельного белья не смешивать с другими типами тканей. Запрещено использование отбеливающих средств и порошков с пометкой для белого белья. Легкий, мягкий и одновременно прочный материал великолепно подходит для постельного белья среднего ценового сегмента. Комплектация изделия: пододеяльник 145х215 см-1шт(без застежки), простыня (обычная) 150х220 см-1шт, наволочки 70х70 см-2шт(клапан-25см), плотность ткани 110г/м2. При распаковке комплекта может присутствовать незначительный запах ПВХ от комплекта, который уходит при первой стирке. Обращаем внимание, что оттенок комплекта, может незначительно отличаться от оттенка на фото. Так же в ТМ Унисон Вы можете приобрести постельные принадлежности для Вашей спальни отдельно: наволочки 50х70, наволочки 70х70, пододеяльник 1 5 спальный, пододеяльник евро 200х220, простынь на резинке 160х200, простынь на резинке 180х200, евро простынь 220х240 см и другие размеры постельного белья: постельное белье 1,5 спальное, постельное белье 2.0 (2 спальное), постельное белье семейное, постельное белье евро, все это есть в рекомендациях либо задайте нам вопрос интересующего Вас товара. Комплект постельного белья 1,5 /1.5 спальное постельное белье/постельное белье перкаль 1,5 спальный комплект /евро простынь/для дачи для дома/подарок на новоселье/уют в доме/декор/ новоселье/ ремонт переезд новая квартира/подарок на свадьбу', 1972, 1972, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10062, 'Постельное белье 2 спальное, хлопок бязь, 70х70 см', '', 0, 'http://wildberries.win/62.jpg', 'http://wildberries.win/62.jpg', '/admin/dist/img/no-img.png', 'Описание\nПостельное белье 2 спальное ФЛОРАНС бязь 100% хлопок, сочетает красоту и отменное качество. Комплект станет достойным дополнением в вашей спальни. Отлично стирается, выдерживая более сотни стирок, сохраняя размеры, цвета и рисунок. Поверхность бязи гладкая, но матовая. Чтобы постельное белье 2 спальное из бязь прослужило долгие годы, за ними нужно правильно ухаживать. Стирать постельные белье из бязи следует при температуре воды от 30 до 40 градусов. При стирке комплект постельного белья не смешивать с другими типами тканей. Запрещено использование отбеливающих средств и порошков с пометкой для белого белья. Легкий, мягкий и одновременно прочный материал великолепно подходит для постельного белья среднего ценового сегмента. Комплектация изделия: пододеяльник 175х215 см-1шт(без застежки), евро простыня (обычная) 200х220 см-1шт, наволочки 70х70 см-2шт(клапан-25см), плотность ткани 120г/м2. При распаковке комплекта может присутствовать незначительный запах ПВХ от комплекта, который уходит при первой стирке. Обращаем внимание, что оттенок комплекта, может незначительно отличаться от оттенка на фото.', 1883, 1883, 1000, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10064, 'Постельное белье 1.5 спальное, хлопок бязь , 70х70 см', '', 0, 'http://wildberries.win/64.jpg', 'http://wildberries.win/64.jpg', '/admin/dist/img/no-img.png', 'Описание\nПостельное белье 1,5 спальное Mia Cara бязь 100% хлопок, сочетает красоту и отменное качество. Комплект станет достойным дополнением в вашей спальне. Отлично стирается, выдерживая более сотни стирок, сохраняя размеры, цвета и рисунок. Поверхность бязи гладкая, но матовая. Чтобы постельное белье 1,5 спальное из бязь прослужило долгие годы, за ними нужно правильно ухаживать. Стирать постельные белье из бязи следует при температуре воды от 30 до 40 градусов. При стирке комплект постельного белья не смешивать с другими типами тканей. Запрещено использование отбеливающих средств и порошков с пометкой для белого белья. Легкий, мягкий и одновременно прочный материал великолепно подходит для постельного белья среднего ценового сегмента. Комплектация изделия: пододеяльник 145х215 см-1шт(без застежки), простыня (обычная) 150х220 см-1шт, наволочки 70х70 см-2шт(клапан-25см), плотность ткани 120г/м2. При распаковке комплекта может присутствовать незначительный запах ПВХ от комплекта, который уходит при первой стирке. Обращаем внимание, что оттенок комплекта, может незначительно отличаться от оттенка на фото. Так же в ТМ Mia Cara Вы можете приобрести постельные принадлежности для Вашей спальни отдельно: наволочки 50х70, наволочки 70х70, пододеяльник 1 5 спальный, пододеяльник евро 200х220, простынь на резинке 160х200, простынь на резинке 180х200, евро простынь 220х240 см и другие размеры постельного белья: постельное белье 1,5 спальное, постельное белье 2.0 (2 спальное), постельное белье семейное, постельное белье евро, все это есть в рекомендациях либо задайте нам вопрос интересующего Вас товара. Комплект постельного белья 1,5 /1.5 спальное постельное белье/постельное белье бязь 1,5 спальный комплект /евро простынь/для дачи для дома/подарок на новоселье/уют в доме/декор/ новоселье/ ремонт переезд новая квартира/подарок на свадьбу', 1648, 1080, 990, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10065, 'Постельное белье евро на резинке простынь, хлопок перкаль ', '', 0, 'http://wildberries.win/65.jpg', 'http://wildberries.win/65.jpg', '/admin/dist/img/no-img.png', 'Описание\nПостельное белье евро, с простыней на резинке, Унисон перкаль 100% хлопок, сочетает красоту и отменное качество. Комплект станет достойным дополнением в вашей спальне. Отлично стирается, выдерживая более сотни стирок, сохраняя размеры, цвета и рисунок. Поверхность перкаля гладкая, но матовая. Чтобы постельное белье евро из перкаль прослужило долгие годы, за ними нужно правильно ухаживать. Стирать постельные белье из перкаля следует при температуре воды от 30 до 40 градусов. При стирке комплект постельного белья не смешивать с другими типами тканей. Запрещено использование отбеливающих средств и порошков с пометкой для белого белья. Легкий, мягкий и одновременно прочный материал великолепно подходит для постельного белья среднего ценового сегмента. Комплектация изделия: пододеяльник 215х220 см-1шт(без застежки), простынь на резинке 180х200х25 см-1шт, наволочки 70х70 см-2шт и 50х70 см-2шт (клапан-25см), плотность ткани 110г/м2. При распаковке комплекта может присутствовать незначительный запах ПВХ от комплекта, который уходит при первой стирке. Обращаем внимание, что оттенок комплекта, может незначительно отличаться от оттенка на фото. Так же в ТМ Унисон Вы можете приобрести постельные принадлежности для Вашей спальне отдельно: наволочки 50х70, наволочки 70х70, пододеяльник 1 5 спальный, пододеяльник евро 215х220, простынь на резинке 160х200, простынь на резинке 180х200, евро простынь 220х240 см и другие размеры постельного белья: постельное белье 1,5 спальное, постельное белье 2.0 (2 спальное), постельное белье семейное, постельное белье евро, все это есть в рекомендациях либо задайте нам вопрос интересующего Вас товара. Комплект постельного белья евро /евро постельное белье/постельное белье перкаль евро комплект /евро простынь/ для дачи для дома / подарок на новоселье / уют в доме / новоселье/ ремонт переезд новая квартира/подарок на свадьбу', 3059, 2300, 997, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10066, 'Постельное белье евро, хлопок поплин, наволочки 70х70', '', 0, 'http://wildberries.win/66.jpg', 'http://wildberries.win/66.jpg', '/admin/dist/img/no-img.png', 'Описание\nОписания пока нет. Возможно, оно появится тут позже', 2303, 2300, 987, '', 0, 0, '2019-09-18 13:19:02', 0, '2019-09-18 13:19:02'),
+(10067, 'Халат домашний с поясом', '', 0, 'http://wildberries.win/67.png', 'http://wildberries.win/67.png', '/admin/dist/img/no-img.png', 'Описание\nженский хлопковый халат на запах/женский домашний халат/ больших размеров халат с поясом и капюшоном отлично подойдет для дома, дачи, бани, для беременных и кормящих мам, для женщин и девушек стильный дизайн нежный цвет серый со звездочками понравится каждой женщине.прямого и свободного кроя, для стройных, полных, для отдыха, а также для лета и зимы, демисезонные (весна и осень). Банных халат с длинным рукавом из хлопка,для бани отлично подойдет.При правильном уходе халат из 96% хлопка не линяет, не дает усадку после стирки и долго сохраняет первоначальный внешний вид. Все халаты бренда Mia Cara удобные, комфортные, приятные к телу. Домашний хб халат женский красивый дизайн На передней части присутствуют объемные карманы. Изюминкой халата является пояс-резинка с авторским принтом на спинке, переходящая на полочку в завязывающийся пояс. Благодаря чему подчеркнута идеально талия его обладательницы.', 1725, 2300, 986, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10068, 'Халат с кружевами', '', 0, 'http://wildberries.win/68.png', 'http://wildberries.win/68.png', '/admin/dist/img/no-img.png', 'Описание\nДомашний халат длиной до колена в лаконичном графитовом цвете. Прямой рукав 3/4 украшен кружевом. Крой халата слегка прилегающий, на запах. Халат изготовлен из мягкой вискозной ткани - комфортной и неприхотливой. Халат позволяет защитить пижаму или сорочку, если вы случайно испачкаетесь. Кроме того, это удобная домашняя одежда, в которой всегда будет комфортно и удобно. домашняя женская одежда премиум качества,подойдет беременным в роддом. Халат женский домашний летний трикотажный длинный на запах банный, кимоно пеньюар большие размеры.В моду входят шелковый, вафельный, вискоза, с надписью. Трикотажный халат с длинным и коротким рукавом большие размеры подойдет для всех, в том числе и для беременных и кормящих женщин. Халат детский для девочек подростка - часть гардероба женщины, летний макси на запах леопардовый трендовый Халат - удобный предмет домашнего гардероба. Женский домашний красивый халат/ночной халат с кружевом длинный для беременных Пляжный халат на море', 2231, 2300, 965, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07');
+INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_carousel_1`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`) VALUES
+(10069, 'Моноблок Apple iMac A1419', '', 0, 'http://wildberries.win/69.jpg', 'http://wildberries.win/69.jpg', '/admin/dist/img/no-img.png', 'Описание\nТовар был в употреблении и возврату не подлежит. Гарантия магазина 14 дней.', 115000, 100000, 999, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10070, 'Игровой компьютер Roo24 x4 950 GT1030V1', '', 0, 'http://wildberries.win/70.jpg', 'http://wildberries.win/70.jpg', '/admin/dist/img/no-img.png', 'Описание\nИгровой компьютер Roo24 AMD Athlon x4 950/A320/8Gb DDR4/GT1030 2Gb/SSD 480Gb/Wi-Fi/Windows10. Гарантия 3 года. - простое и эффективное решение для обустройства рабочего места или домашнего уголка геймера, подключение к интернет через WI-FI. Модель в лаконичном черном корпусе уместила внутри четырех ядерный процессор AMD Athlon x4 950, 2 модуля оперативной памяти по 4 ГБ общим объемом 8 ГБ, а также видеокарту Geforce GT 1030 2Gb. Нашлось место и для твердотельного накопителя SSD на 480 ГБ. Все необходимые разъемы и порты для подключения аппаратуры и периферии имеются в достаточном количестве. Игровой компьютер компьютер для игр мощный компьютер компьютер игровой системный блок пк игровой игровой пк игры для дома для учебы компьютер для танков компьютер для CS GO игровой пк системный блок игровой пк системный блок', 29990, 19900, 996, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10071, 'Оперативная память Wolfcat', '', 0, 'http://wildberries.win/71.jpg', 'http://wildberries.win/71.jpg', '/admin/dist/img/no-img.png', 'Описание\nОперативная память Wolfcat 4 ГБ DDR4 2400 МГц CL17 объемом в 4 гигабайта. Оперативная память нужна для работы майнинг фермы, но на производительность практически не влияет, поэтому владельцу установки не обязательно гнаться за большим объемом или высоким быстродействием. Так, даже одной планки Wolfcat хватит, чтобы обеспечить необходимую работоспособность системы. Частота данного ОЗУ 2400 МГц, пропускная способность - PC19200, обозначение CL17 показывает основной тайминг, характерный для этой модели. ОЗУ требуется напряжение в 1.2В. Устройство совместимо с большинством современных материнских плат, например BTC B250, представленных в нашем магазине. Модель хорошо подходит для обслуживания даже самых мощных майнинг-ферм. Она достаточно надежна и энергоэффективна,', 3200, 3380, 996, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10072, 'Автокресло Nania BEONE SP Luxe Blue для гр. 0+/переноска', '', 0, 'http://wildberries.win/72.jpg', 'http://wildberries.win/72.jpg', '/admin/dist/img/no-img.png', 'Легкое детское автокресло переноска для новорожденных предназначено для детей с рождения до года, весом до 13 кг. Автокресло детское устанавливается только против хода движения и крепится с помощью 3-точечных штатных ремней автомобиля. Ребенок в кресле фиксируется внутренними трехточечными ремнями, которые легко затягиваются одной рукой. Мягкие подголовники и вкладыш для новорожденного обеспечивают комфортную правильную посадку ребенка в кресле и усиленную боковую защиту. Съемный тент-капюшон защищает малыша от солнца и непогоды. Благодаря слегка изогнутому корпусу автолюлька BEONE подходит для укачивания малыша. Вся обивка детского автокресла снимается и может быть постирана в стиральной машине. Модель BEONE прошла испытания и рекомендована международной ассоциацией ADAC. Соответствует стандартам безопасности ECE R44/04. В асс-те бренда Nania представлен широкий выбор автокресел с различным дизайном для детей разных весовых групп, и новинки 2021 года - бустеры с креплением isofix.', 5320, 5320, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10073, 'MacBook Pro 16 M1 Pro/16 ГБ/512 Гб/RU', '', 0, 'http://wildberries.win/73.jpg', 'http://wildberries.win/73.jpg', '/admin/dist/img/no-img.png', 'Описание\nРусская версия. Мы создали самый мощный MacBook Pro в истории. И это монстр. Супербыстрые M1 Pro и M1 Max - первые чипы Apple, разработанные специально для профессионалов. Они дают феноменальную производительность и обеспечивают удивительно долгое время работы без подзарядки. Прибавьте к этому потрясающий дисплей Liquid Retina XDR, превосходную камеру и звук, а также больше портов для профессиональной работы. С этим ноутбуком все становится возможным.', 218490, 218490, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10075, 'Игровой компьютер Roo24 AMD Ryzen 5 5600G 324801000', '', 0, 'http://wildberries.win/75.jpeg', 'http://wildberries.win/75.jpeg', '/admin/dist/img/no-img.png', 'Описание\nИгровой компьютер Roo24 AMD Ryzen 5 5600G/A520/32Gb DDR4/Vega 7/SSD 240Gb/HDD 1Tb/WiFi/Windows 10 Игровой компьютер , компьютер для игр , мощный компьютер , компьютер игровой , системный блок , пк игровой , игровой пк , игры , для дома , для учебы , компьютер для танков , компьютер для CS GO.', 47706, 47706, 999, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10076, 'Мини ПК Beelink T4 PRO 4/64 GB', '', 0, 'http://wildberries.win/76.jpg', 'http://wildberries.win/76.jpg', '/admin/dist/img/no-img.png', 'Описание\n- Операционная система: Windows 10- Процессор: Intel Atom X5-Z8500- Тактовая частота процессора: 2,24 ГГц- Графический процессор: Intel HD Graphics 600- Оперативная память4 ГБ- Встроенная память: 64 ГБ- Wi-Fi: 2.4/5ГГц 802.11 b/g/n/ac- Bluetooth 4.0: Да- Разъемы: HDMI, RJ45, USB3.0, DisplayPort, 3,5-мм разъем- HDMI: 1,4- Поддержка декодеров: AVS, H.263, H.264/AVC, H.265/AVC, HD AVC/VC-1, HD MPEG1/2/4, RealVideo 8/9/10, RM/RMVB, Xvid/DivX3/4/5/6- Вес: 250 г- Размеры: 106х106х17.7 мм.', 9750, 9750, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10077, 'Мини ПК Beelink GK mini 8/128Gb', '', 0, 'http://wildberries.win/77.jpg', 'http://wildberries.win/77.jpg', '/admin/dist/img/no-img.png', 'Описание\nМини ПК Beelink GK mini 8/128 G J4125 - мощный мини компьютер на базе четырехядерного процессора Intel Lake Refresh J4125 с частотой до 2,7Ггц и интегрированной видеокартой Intel UHD graphics 600. Неттоп оснащен 8 Гб быстрой оперативной памяти DDR4 и SSD на 128 Гб, в корпусе также есть место для установки дополнительного SATA жесткого диска или SSD. Два выхода HDMI позволяют одновременно подключить несколько мониторов. Мощности чипсета достаточно для выполнения большинства офисных задач: просмотра страниц в интернете, просмотра видео и даже запуска нетребовательных игр. Благодаря поддержке высокого разрешения 4K Beelink GK mini можно использовать как медиаплеер и просматривать на нем фильмы и видео со стриминговых сервисов. Оба разъема поддерживают вывод изображения с высоким разрешением 4K UltraHD и частотой обновления 60 Гц. В Beelink GK Mini используется активная система охлаждения. Видеокарта: Intel UHD Graphics 600.', 12099, 12099, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10078, 'омпьютер TC-1660 CI3-10105 DG.BGZER.005', '', 0, 'http://wildberries.win/78.jpg', 'http://wildberries.win/78.jpg', '/admin/dist/img/no-img.png', 'Описание\nПовседневная работа на компьютере необязательно должна быть скучной. Внутри темного корпуса Tower компьютера Aspire TC скрыто мощное оборудование для эффективной многозадачности каждый день. Наслаждайтесь плавным переключением между различными задачами благодаря процессорам Intel® и видеокарте NVIDIA®. Вы с легкостью найдете модель в соответствии со своими предпочтениями по размеру или стилю.', 54969, 56780, 996, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10079, 'Моноблок 23.8" C24-1650 [DQ.BFSER.005]', '', 0, 'http://wildberries.win/79.jpg', 'http://wildberries.win/79.jpg', '/admin/dist/img/no-img.png', 'Описание\nМоноблок Acer Aspire C24-1650 [DQ.BFSER.005] обладает всем необходимым для продуктивной и удобной работы. Матрица IPS диагональю 23.8 дюйма стандарта FullHD обеспечивает высокое качество изображения с реалистичной цветопередачей. Высокий уровень производительности достигается благодаря процессору Intel Core i5 1135G7, 8 ГБ памяти ОЗУ и твердотельному накопителю SSD на 256 ГБ.', 69047, 76680, 1000, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10081, 'TOYOTA LAND CRUISER 200 toyotalcwn200\n', '', 0, 'http://wildberries.win/81.jpeg', 'http://wildberries.win/81.jpeg', '/admin/dist/img/no-img.png', 'Описание\nЛучшее качество по доступной цене - Большой выбор машинок на разный вкус! - Лучший подарок для ребенка! Ребенок доволен, родители отдыхают - Удобно хранить дома - Можно ездить и на улице и в дома Детский электромобиль Toyota Land cruiser WN-189Характеристики: Рассчитан на возраст до 7 лет Максимальная нагрузка 50 кг Максимальная скорость 10 км/ч Размер 115x63x43 см Вес 18 кг Аккумулятор 12V/7Аh Время работы 80 мин Время зарядки 5 ч Дистанционное управление Задний ход Колёса EVA (гелиевые) Количество посадочных мест 1 Открывающиеся двери MP3, AUX Ремни безопасности.', 19800, 19900, 991, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10082, 'Электросамокат AOVO M365 PRO', '', 0, 'http://wildberries.win/82.jpeg', 'http://wildberries.win/82.jpeg', '/admin/dist/img/no-img.png', 'Описание\nAOVO M365 PRO / KAMUKAI - отличные электросамокаты для городских улиц и мегаполиса! Достаточно мощное мотор-колесо 350W разгоняет самокат до 30 км/ч и позволяет преодолевать угол подъёма до 20 градусов. Аккумуляторная батарея ёмкостью 7,8Ah позволит иметь запас хода до 30 км! Рама выполнена из алюминиевого сплава, благодаря чему изделие весит всего 12 кг и имеет запас прочности до 120 кг. Одним из безусловных преимуществ по сравнению с конкурентами, это усиленная аквазащита ip65.', 26465, 28390, 994, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10083, 'Беспроводные наушники с активным шумоподавлением ANC+ENC', '', 0, 'http://wildberries.win/83.jpeg', 'http://wildberries.win/83.jpeg', '/admin/dist/img/no-img.png', 'Описание\nСтильные беспроводные наушники с шумоподавлением HAWA – это аксессуар, который должен быть у каждого, кто ценит свое личное пространство и любит наслаждаться хорошей музыкой или любимой игрой. Активный режим шумоподавления позволяет полностью насладиться всеми гранями звучания, получив настоящее удовольствие от прослушивания любимой музыки или просмотра фильмов. Режим «Прозрачность» позволяет слышать, что происходит вокруг во время разговора и лучше всего работает эта функция когда плотно прилегаю в ушной раковине. Беспроводные наушники совместимы с любим видом устройства, подключаясь по интерфейсу Bluetooth. Например, вы можете подключить их к телефону, планшету или ноутбуку всего за секунду. Также эта модель наушников совместима с устройствами Apple, что делает их более универсальными. Сенсорное управление позволяет быстро настроить наушники под свои нужды. Например, вы можете с помощью жестов переключать треки, менять громкость, устанавливать другие характеристики. Беспроводные наушники хорошо сидят в ушной раковине – это позволяет полностью насладиться хорошим звучанием с минимальными рисками выпадения наушника во время использования. Качественный материал делает наушники еще более практичными и долговечными. Этот материал приятен на ощупь, функционален и прост в повседневном использовании. В комплект входят запасные амбушюры, которые можно заменить самостоятельно в любой момент. Беспроводные наушники работают до четырех часов от аккумулятора. Для зарядки потребуется 1,5 часа. В режиме ожидания наушники способны проработать до 140 дней. Среди главных особенностей модели – доступно несколько беспроводных интерфейсов, что делает их более практичными в использовании. Заряжаются наушники через разъём Type-C. С помощью встроенного микрофона можно легко совершать звонки. Во время разговора батарея также сохраняет свой заряд на протяжении четырех часов. Беспроводные наушники – это хороший подарок на День рождения, Новый год, 23 февраля, 8-Марта и другие праздники. Их можно подарить другу, подруге или самому себе. Беспроводные наушники с шумоподавлением – стильный современный аксессуар, который отлично смотрится. Наушники беспроводные HAWA имеют активное шумоподавление, шумоподавление вызова, режим прозрачности, соединение со всеми устройствами, сенсорное управление. ANC+ENC LOW LATENCY.', 2772, 2800, 978, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10084, 'Компьютерное офисное кресло на колесиках стул экокожа ', '', 0, 'http://wildberries.win/84.jpeg', 'http://wildberries.win/84.jpeg', '/admin/dist/img/no-img.png', 'Описание\nПривлекательная модель стула для письменного стола для работы с комфортом! Необычный дизайн модели на колесиках напрямую связан с ее эргономичностью. Спинка плавно переходит в сиденье и имеет удобную форму с небольшим изгибом. Сидеть на таком стуле на колесах от бренда АМИ настоящее удовольствие. Более того, Вы сможете отрегулировать кресло в зависимости от своего роста. Кресло имеет регулировку высоты (76/87 см), что позволяет комфортно расположиться в нем людям с разной комплекцией, а также функцию вращения на 360 градусов. Ширина сиденья: 48 см. Глубина сиденья: 39 см. Тщательно продуманная конструкция кресла выдерживает до 100 кг. Кресло подходит для взрослых, детей и школьников. Обивка мягкого сиденья выполнена из прочной, мягкой и приятной на ощупь экокожи. Высота сиденья рабочего кресла регулируется с помощью системы газлифт. Качественный газлифт, нейлоновая крестовина и бесшумные колесики позволяют выдерживать нагрузку до 100 кг. Модель кресла от бренда ami стоит на нейлоновых колесиках, с помощью которых можно передвигаться по комнате, не вставая с кресла. Они не оставляют следов на паркете или ламинате. Эффектный дизайн впишется в любой интерьер: в гостиную, в спальню, в детскую комнату. Игровое кресло для компьютера подходит для дома и офиса. Кресло подарит Вам комфортную посадку и порадует своей надёжностью. Также наш товар можно найти по запросу: мебель для квартиры, стул офисный, геймерское кресло, кресло на колесиках, стол и стулья, кресло ортопедическое, кресла в комнату, кресло кожаное, кресло с подлокотниками, кресло для геймеров, кресло комнатное, кресло для девочки, кресло для персонала, кресло мебель, кресло рабочее, офисная мебель, эргономичное кресло, кресло для пк, купить кресло, удобное кресло, геймерское кресло, кресло на колесиках, office, кресло руководителя компьютерное, офисный интерьер, кресло в офис, стул компьютерный,кресло компьютерное ,компьютерное кресло ,компьютерный стул ,кресло офисное ,стул компьютерный для школьника ,игровое кресло ,офисное кресло ,детское компьютерное кресло ,кресла ,кресло компьютерное детское ,кресло на колесиках ,компьютерное кресло для школьника ,кресло компьютерное игровое ,кресло компьютерное для школьника ,игровое кресло для компьютера ,компьютерные кресла ,стул для школьника ,стул компьютерный детский ,кресла компьютерные ,стул компьютерный игровой ,компьютерное кресло детское ,кресла компьютерное ,стулья компьютерные ,кресло компьютерное белое ,кресло для компьютера ,компьютерное кресло игровое ,кресло детское компьютерное ,игровой стул ,геймерское кресло,стул для компьютера ,офисные кресла ,игровое компьютерное кресло ,стул офисный на колесиках ,компьютерное кресло белое ,игровые кресла ,компьютерные стулья ,стул для школьника на колесах ,кресло рабочее ,стул детский компьютерный ,стул игровой ,стул компьютерный для ребенка ,компьютерный стул детский ,кресло для офиса ,компьютерное кресло дом ,геймерский стул ,ami ,компьютерный стул для девочки ,кресло офисное для руководителя ,компьютерное офисное кресло ,рабочее кресло ,детское кресло компьютерное ,кресла для дома ,кресло мягкое ,офисное кресло на колесах ,стулья компьютерный ,кресла офисные ,мягкое кресло ,кресло геймерское ,кресло детское мягкое ,кресло для гостиной ,детский компьютерный стул ,стул для компьютерный,кресло для пк ,кресло в гостиную ,компьютерный кресло ,стул для школьника ортопедический ,офисный стул на колесах ,компьютерный ,кресло офисное детское,кресло белое,кресло игровое компьютерное,кресло с высокой спинкой,детское кресло мягкое, ортопедическое кресло ,мебель для школьника ,столы и стулья ,кресло для работы ,игровые стулья ,стул для компьютерного стола ,кресло пластиковое ,кресло кожаное ,детские компьютерные кресла ,кресла игровые ,кресло в прихожую ,кресло ортопедическое ,стул компьютерный белый ,ami мебель,стул школьника ,мягкие кресла ,стул на колесиках ,компьютерное игровое кресло ,офисная мебель ,компьютерные кресло ,кресло комнатное ,ортопедический стул для школьника ,игровой кресло,для компьютера ,кресло геймера ,стул компьютерный ортопедический ,кресло мебель,мебель из пластика ,кресло для дома,кресла для гостиной ,стул геймера ,эргономичное кресло ,купить кресло ,кресло на дачу ,кресло пластик ,мебель для офиса ,для кабинета,кресло офисное на колесах,комната подростка, кресло ,стул компьютерный , кресло компьютерное ,компьютерное кресло ,кресло офисное ,игровое кресло ,офисное кресло ,компьютерный стул ,кресло игровое ,стул компьютерный игровой ,кресла ,кресло компьютерное игровое ,компьютерное кресло игровое ,игровое кресло для компьютера ,геймерское кресло ,игровой стул ,кресло мягкое ,игровые кресла ,геймерский стул ,мягкое кресло ,кресло офисное для руководителя ,кресла для дома ,для пк.', 4999, 3160, 999, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10086, 'Компьютерное кресло руководителя Oliver', '', 0, 'http://wildberries.win/86.jpeg', 'http://wildberries.win/86.jpeg', '/admin/dist/img/no-img.png', 'Описание\nЭргономичное компьютерное кресло Oliver с анатомически правильной спинкой и мягким сидением, сочетает в себе передовые дизайнерские и эргономические решения. Офисное кресло Oliver позволяет разгрузить позвоночник, придав ему физиологически правильное положение за счет поясничного упора, а индивидуальная настройка рабочего кресла на колесиках с синхромеханизмом позволяет создать максимально удобную посадку. Возможность регулировки подголовника, высоты сидения (газпатрон 8 см), а также фиксации кресла в любом положении позволяют подобрать идеально комфортное положение. Кресло Oliver благодаря эргономичным свойствам и дизайну можно использовать как кресло руководителя или геймерское кресло, так как это достойный выбор для организации современного рабочего места. Размер (ШхГхВ): 620x580x1230, Ширина верхней части спинки (мм): 440, Ширина поясничной обл.спинки (мм): 475, Ширина сиденья (мм): 520, Глубина сиденья (мм): 510, Высота спинки (мм): 540, Высота сиденья (мм): 450-530.', 11977, 11280, 999, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10087, 'Регистратор с радаром EVO LaserVision WiFi Signature Dual', '', 0, 'http://wildberries.win/87.jpeg', 'http://wildberries.win/87.jpeg', '/admin/dist/img/no-img.png', 'Описание\niBOX EVO LaserVision WiFi Signature Dual – современное комбо-устройство с фирменной технологией LaserVision дальнобойным модулем XDR и усилителем сигнала LNA. Устройство оснащено WiFi-модулем, магнитным креплением со сквозным питанием и возможностью подключения второй камеры. В карточке товара доступно три варианта комплектации: iBOX EVO LaserVision WiFi Signature Dual без дополнительной камеры/ iBOX EVO LaserVision WiFi Signature Dual с камерой заднего вида iBOX RearCam FHD11/ iBOX EVO LaserVision WiFi Signature Dual с внутрисалонной камерой iBOX RearCam FHD4. Технология LaserVision, совместно с технологией Signature Mode и модулем XDR, с усилителем сигнала LNA, позволяет детектировать лазерные радары типа ПОЛИСКАН, АМАТА, ЛИСД, ЛИСД 2, маломощные радары типа КОРДОН и Multaradar (Робот), в том числе направленные «в спину». Благодаря новому лазерному модулю, с усовершенствованной двойной линзой и двумя приемниками значительно увеличивает дальность детектирования лазерных радаров. Мощный процессор MStar в сочетании с матрицей Sony Starvis обеспечивают детализированную съемку в Full HD разрешении одновременно с двух камер. Угол обзора фронтальной камеры, 170 градусов, захватывает до шести полос дорожного полотна и обочину. Камера заднего вида* обладает углом обзора 160 градусов.*Камера заднего вида в комплект не входит. CPL-фильтр эффективно уменьшает количество солнечных бликов на видеозаписи и улучшает контрастность видео. iBOX EVO LaserVision WiFi Signature Dual может записывать видео в режиме таймлапс. Таким образом, даже длительная съемка в течение нескольких часов будет сохранена в короткое ускоренное видео, что значительно экономит место на карте памяти. Встроенный WiFi-модуль позволяет обновить прошивку, базу камер и скопировать видео на мобильное устройство, не выходя из автомобиля. Установите мобильное приложение на смартфон «iBOX Drive» из App Store или Google Play. Магнитное крепление с активным питанием и двумя способами установки: на скотче и присоске надежно фиксирует устройство на лобовом стекле. Подключение питания и камеры заднего вида через крепление позволяет, не отсоединяя провод, быстро установить и снять устройство. В устройство загружена GPS/ GALILEO/ГЛОНАСС база радаров и камер 45-ти стран (Россия, СНГ: Узбекистан, Казахстан и др.). База включает данные более чем о десятках тысяч камер. Еженедельное обновление базы можно скачать с официального сайта. Встроенные светодиоды являются световым дополнением к звуковому оповещению при приближении автомобиля к полицейским радарам или камере. Новые технологические и программные решения, примененные в устройстве, позволили значительно упростить и переработать режим СМАРТ. Теперь передвигаться в городских условиях стало еще комфортнее, а при достижении высоких скоростей количество помех минимальное. Технология SIGNATURE MODE, сокращает ложные срабатывания от устройств (раздвижных дверей, заправок, шлагбаумов, датчиков «мертвых» зон и т.д.), сводя их до минимума, и одновременно распознаёт по типу и названию большинство полицейских радаров. Встроенный суперконденсатор обладает большим количеством циклов заряда/разряда, большим сроком службы, широким диапазоном рабочих температур по сравнению с литиевыми аккумуляторами. Видеорегистратор с радар детектором / Видеорегистратор с радаром / Комбо устройство / Комбо видеорегистратор / Регистратор с радаром /регистратор с антирадаром / Видеорегистратор 3 в 1 / Комбо-радар / Комбо-регистратор / Антирадар 3 в 1 / Видеорегистратор гибрид / Регистратор 3 в 1 / Радар 3 в 1', 22999, 38340, 991, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10088, 'Видеорегистратор зеркало сенсорный с камерой заднего вида', '', 0, 'http://wildberries.win/88.jpeg', 'http://wildberries.win/88.jpeg', '/admin/dist/img/no-img.png', 'Описание\nВидеорегистратор зеркало сенсорное с камерой заднего вида от магазина Case_City. Регистратор в автомобиль фиксирует обстановку впереди и позади автомобиля. Угол обзора передней камеры видеонаблюдения 170 градусов (задней видеокамеры 120) захватывает все происходящее, видеоконтроль до 5-ти полос проезжей части, включая обочину. Особое отличие регистратора в машину - СЕНСОРНЫЙ ДИСПЛЕЙ ( монитор расположен в правой части зеркала). Экран можно перевести в фоновый режим с помощью одного нажатия, чтобы картинка не отвлекала от движения, и использовать как полноценное зеркало заднего вида, запись видео при этом не прерывается. Видеорегистратор в машину имеет меню на русском языке. Зеркало с АНТИБЛИКОВЫМ покрытием прекрасно впишется в интерьер Вашего автомобиля (все для салона автомобиля, машины) и не слепит глаза водителя от фар позади едущих машин! Зеркало видеорегистратор с разрешением FullHD 1080 позволяет записывать поездку в хорошем качестве. Снимает видео разной длины - 1,3 и 5 минут. Для хранения видео устройство поддерживает карты памяти Micro SD (флешка от 8 до 32 Гб, Идет в подарок и вставлена уже в регистратор). Регистратор зеркало разработан с учётом ситуаций, способных возникнуть на дороге: тряска, резкие остановки и столкновения. Регистратор автомобильный может внести ясность в спорные ситуации, подтвердить, что вы проехали на мигающий зеленый или желтый сигнал светофора. Преимущества нашего видеорегистратора ( не антирадар, не радар детектор, автоэлектроника и навигация, не навигатор): отличное разрешение съемки, простая установка автомобильного регистратора, сенсорный экран, хороший угол обзора, антибликовое покрытие. Наши видеорегистраторы автомобильные - отличный подарок мужчине, папе, брату, другу, мужу, сестре, жене, бабушке, подруге на День рождение, Новый год, 23 февраля, 8 марта и любой другой праздник! НЕ ЗАБУДЬТЕ СНЯТЬ ЗАЩИТНУЮ ПЛЕНКУ С ЗЕРКАЛА И С КАМЕРЫ! Автотовары видеорегистратор автомобильные Автоаксессуары Автоэлектроника', 3264, 4080, 980, '', 0, 0, '2019-09-18 13:19:07', 0, '2019-09-18 13:19:07'),
+(10089, 'солнечные очки', '', 0, 'http://wildberries.win/89.jpeg', 'http://wildberries.win/89.jpeg', '/admin/dist/img/no-img.png', 'Описание\nКрупные красивые унисекс (мужские, женские) солнцезащитные авиаторы Gucci из облегченного металла золотистого цвета, с золотистыми градиентными линзами и гравировкой бренда на заушниках.', 35091, 19980, 983, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17'),
+(10093, 'Сумка', '', 0, 'http://wildberries.win/93.jpeg', 'http://wildberries.win/93.jpeg', '/admin/dist/img/no-img.png', 'Описание\nОписания пока нет. Возможно, оно появится тут позже', 13200, 13280, 998, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17'),
+(10094, 'Emporio Armani', '', 0, 'http://wildberries.win/94.jpeg', 'http://wildberries.win/94.jpeg', '/admin/dist/img/no-img.png', 'Описание\nКоллекция мужских наручных часов RENATO от бренда EMPORIO ARMANI - точное попадание в идеальное представление об исключительной элегантности современного мужчины. Дизайнерам бренда удалось найти идеальное сочетание классических и современных элементов в оформлении циферблата, конструкции корпуса и цветовых сочетаниях. Ланцетные стрелки, напоминающие острие копья, идеально контрастируют с фоном циферблата и точно указывают время, обозначаемое накладными индексами-штрихами. На 12-часовой отметке расположился прекрасно узнаваемый логотип EMPORIO ARMANI в виде стилизованного изображения орла. Достаточно крупный идеально круглый корпус диаметром 43-мм выполнен из нержавеющей стали с отделкой, достойной ювелирных украшений или настоящих шедевров современного дизайнерского искусства. Зеркально отполированные поверхности сочетаются с матовой сатинированной сталью. Безупречную точность хода часам Армани обеспечивает кварцевый механизм Miyota.', 9309, 9309, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17'),
+(10095, 'Оригинальные мужские наручные часы Emporio Armani 40 мм', '', 0, 'http://wildberries.win/95.jpeg', 'http://wildberries.win/95.jpeg', '/admin/dist/img/no-img.png', '\nДополнительная информация\nШирина упаковки	12 см\nВысота упаковки	12 см\nДлина упаковки	12 см\nДиаметр корпуса	4 см\nСтрана производства	США\nТип индикации	римские цифры\nМеханизм часов	Кварцевый\nМатериал циферблата	нержавеющая сталь\nКласс водонепроницаемости	WR50 (5 atm)\nМатериал браслета	Кожаный\nФорма корпуса	круглая\nВид стекла	минеральное\nЦиферблат часов	аналоговый\nСтиль часов	классические; модельные; повседневные\nКомплектация	гарантийный талон; фирменная коробка; Наручные часы Emporio Armani\nПол	Мужской\nОбщие характеристики\nГарантийный срок	2 года\n', 7375, 7760, 989, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17'),
+(10096, 'Calvin Klein Сумка\n', '', 0, 'http://wildberries.win/96.jpeg', 'http://wildberries.win/96.jpeg', '/admin/dist/img/no-img.png', '\nДополнительная информация\nШирина упаковки	21 см\nВысота упаковки	17 см\nДлина упаковки	10 см\nКоллекция	Весна-Лето 2022\nСтрана производства	Китай\nНазначение	вечерняя мода; выпускной; офис\nКомплектация	Сумка - 1 шт\nПол	Женский\n', 8850, 8850, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17'),
+(10097, 'Комплект (шапка и снуд) женский', '', 0, 'http://wildberries.win/97.jpeg', 'http://wildberries.win/97.jpeg', '/admin/dist/img/no-img.png', 'Описание\nЖенский вязаный комплект, состоящий из шапки и снуда выполнен из пряжи, имеющей в своем составе шерсть, благодаря чему согреет Вас даже в сильные морозы. Шапка утеплена поларфлисом, материалом, который обладает уникальными терморегулирующими свойствами. Данный комплект - идеальное решение для холодого времени года. Широкая палитра цветов подчеркнет Вашу индивидуальность и создаст неповторимый запоминающийся образ. Объемный шарф-снуд можно носить как на шее, так и на голове вместо головного убора. Является Must have текущего сезона и просто обязан быть в гардеробе истинной модницы. Все наши изделия проходят предварительную стирку и последующую обработку паром для улучшения износостойкости, комфорта и приятных тактильных ощущений.', 1484, 1080, 954, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17'),
+(10099, 'Кольцо обручальное из золота', '', 0, 'http://wildberries.win/99.webp', 'http://wildberries.win/99.webp', 'http://wildberries.win/99.webp', 'Описание\nКлассическое обручальное кольцо из золота 585 пробы подойдет как мужчине, так и женщине. Ширина 4 мм, кольцо полновесное. Значение веса на фото и в характеристиках являются примерными и могут отличаться от фактического. Обручальное кольцо - это символ благословения двух любящих людей на создание крепкой и дружной семьи. Гладкое золотое кольцо, с которым вы не расстаётесь всю свою жизнь, выполнено в классическом дизайне. Оно не помешает в повседневных делах и будет легко сочетаться с другими украшениями.', 12757, 13280, 989, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17'),
+(10100, 'Серьги пусеты из золота 585 пробы с фианитами', '', 0, 'http://wildberries.win/100.jpeg', 'http://wildberries.win/100.jpeg', 'http://wildberries.win/100.jpeg', 'Описание\nЖенские пусеты/гвоздики из золота 585 пробы с фианитом. Стильные дизайнерские серёжки с классическим винтовым замком отлично подходят для повседневной носки, а также эффектно дополнят нарядный, вечерний, праздничный или свадебный образ. Современные ювелирные изделия легко сочетаются с любой одеждой. Украшения SOKOLOV (Соколов) приходят в комплекте с подарочной упаковкой, идеально подходят для подарка любимой женщине, девушке, девочке на День рождения, Новый год, 8 марта, день всех влюбленных (14 февраля) или любой праздник, и повод. Значение веса на фото и в характеристиках являются примерными и могут отличаться от фактического. Изделие выполнено из красного золота 585 пробы; Вставка: Фианит недраг Бесцветный 4.00', 8740, 8740, 1000, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17'),
+(10101, 'Gerry Weber Куртка', '', 0, 'http://wildberries.win/101.jpeg', 'http://wildberries.win/101.jpeg', 'http://wildberries.win/101.jpeg', 'Описание\nКуртка свободного кроя идеально впишется в ваш гардероб в прохладное время года. Куртка выполнена из водоотталкивающей ткани и обеспечит надежную защиту от ветра и дождя. Кулиски снизу по бокам позволят менять силуэт с расслабленного на более приталенный. Леопардовый принт добавит образу динамики. Модель представлена в широкой размерной сетке: 36, 38, 40, 42, 44, 46, 48, 50. GERRY WEBER - бренд одежды премиального качества, которая подойдет для офиса и повседневной носки, будет комфортна для беременных, девушек больших размеров, для высоких и невысоких девушек. Plus size/для больших размеров/для беременных/ Куртка женская/демисезонная куртка/куртка осень весна/купить куртку женскую/куртки 2022/весенняя куртка/модные куртки/укороченная куртка/теплая куртка женская.', 18620, 1080, 896, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17'),
+(10102, 'adidas Рюкзак', '', 0, 'http://wildberries.win/102.jpeg', 'http://wildberries.win/102.jpeg', 'http://wildberries.win/102.jpeg', 'Дополнительная информация\nКоллекция	Весна-Лето 2022\nСтрана производства	Индонезия\nКомплектация	рюкзак\nПол	Мужской', 2589, 600, 912, '', 0, 0, '2019-09-18 13:19:17', 0, '2019-09-18 13:19:17'),
+(10103, ' MacBook Air 13 M1/8G /256G ', '', 0, 'http://wildberries.win/10103a.jpg', 'http://wildberries.win/10103b.jpg', 'http://wildberries.win/10103c.jpg', 'С появлением чипа Apple M1 наш самый тонкий и лёгкий ноутбук полностью преобразился. Центральный процессор теперь работает до 3,5 раза быстрее. Графический - до 5 раз. А благодаря нашей передовой системе Neural Engine скорость машинного обучения возросла до 9 раз. Новый MacBook Air работает без подзарядки дольше, чем предыдущие модели. И совсем не шумит, потому что у него нет вентилятора. Мощность ещё никогда не была такой компактной.', 78092, 78092, 8887, '', 0, 0, '2023-01-31 12:28:35', 0, '2023-01-31 12:28:35');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tb_newbee_mall_index_config`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_index_config` (
+  `config_id` bigint(20) NOT NULL COMMENT '首页配置项主键id',
   `config_name` varchar(50) NOT NULL DEFAULT '' COMMENT '显示字符(配置搜索时不可为空，其他可为空)',
   `config_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1-搜索框热搜 2-搜索下拉框热搜 3-(首页)热销商品 4-(首页)新品上线 5-(首页)为你推荐',
   `goods_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '商品id 默认为0',
@@ -835,47 +286,54 @@ CREATE TABLE `tb_newbee_mall_index_config` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `create_user` int(11) NOT NULL DEFAULT '0' COMMENT '创建者id',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最新修改时间',
-  `update_user` int(11) DEFAULT '0' COMMENT '修改者id',
-  PRIMARY KEY (`config_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+  `update_user` int(11) DEFAULT '0' COMMENT '修改者id'
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of tb_newbee_mall_index_config
--- ----------------------------
-BEGIN;
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (1, '热销商品 iPhone XR', 3, 10284, '##', 10, 0, '2019-09-18 17:04:56', 0, '2019-09-18 17:04:56', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (2, '热销商品 华为 Mate20', 3, 10779, '##', 100, 0, '2019-09-18 17:05:27', 0, '2019-09-18 17:05:27', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (3, '热销商品 荣耀8X', 3, 10700, '##', 300, 0, '2019-09-18 17:08:02', 0, '2019-09-18 17:08:02', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (4, '热销商品 Apple AirPods', 3, 10159, '##', 101, 0, '2019-09-18 17:08:56', 0, '2019-09-18 17:08:56', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (5, '新品上线 Macbook Pro', 4, 10269, '##', 100, 0, '2019-09-18 17:10:36', 0, '2019-09-18 17:10:36', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (6, '新品上线 荣耀 9X Pro', 4, 10755, '##', 100, 1, '2019-09-18 17:11:05', 0, '2019-12-14 16:04:26', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (7, '新品上线 iPhone 11', 4, 10283, '##', 102, 0, '2019-09-18 17:11:44', 0, '2019-09-18 17:11:44', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (8, '新品上线 iPhone 11 Pro', 4, 10320, '##', 101, 0, '2019-09-18 17:11:58', 0, '2019-09-18 17:11:58', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (9, '新品上线 华为无线耳机', 4, 10186, '##', 100, 1, '2019-09-18 17:12:29', 0, '2019-12-14 16:04:26', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (10, '纪梵希高定香榭天鹅绒唇膏', 5, 10233, '##', 98, 0, '2019-09-18 17:47:23', 0, '2019-09-18 17:47:23', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (11, 'MAC 磨砂系列', 5, 10237, '##', 100, 0, '2019-09-18 17:47:44', 0, '2019-09-18 17:47:44', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (12, '索尼 WH-1000XM3', 5, 10195, '##', 102, 0, '2019-09-18 17:48:00', 0, '2019-09-18 17:48:00', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (13, 'Apple AirPods', 5, 10180, '##', 101, 0, '2019-09-18 17:49:11', 0, '2019-09-18 17:49:11', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (14, '小米 Redmi AirDots', 5, 10160, '##', 100, 0, '2019-09-18 17:49:28', 0, '2019-09-18 17:49:28', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (15, '2019 MacBookAir 13', 5, 10254, '##', 100, 0, '2019-09-18 17:50:18', 0, '2019-09-18 17:50:18', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (16, '女式粗棉线条纹长袖T恤', 5, 10158, '##', 99, 0, '2019-09-18 17:52:03', 0, '2019-09-18 17:52:03', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (17, '塑料浴室座椅', 5, 10154, '##', 100, 0, '2019-09-18 17:52:19', 0, '2019-09-18 17:52:19', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (18, '靠垫', 5, 10147, '##', 101, 0, '2019-09-18 17:52:50', 0, '2019-09-18 17:52:50', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (19, '小型超声波香薰机', 5, 10113, '##', 100, 0, '2019-09-18 17:54:07', 0, '2019-09-18 17:54:07', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (20, '11', 5, 1, '##', 0, 1, '2019-09-19 08:31:11', 0, '2019-09-19 08:31:20', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (21, '热销商品 华为2 P30', 3, 10742, '##', 200, 0, '2019-09-19 23:23:38', 0, '2019-09-19 23:23:38', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (22, '新品上线 华为1Mate30 Pro', 4, 10893, '##', 200, 0, '2019-09-19 23:26:05', 0, '2019-09-19 23:26:05', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (23, '新品上线 华为3 Mate 30', 4, 10895, '##', 199, 0, '2019-09-19 23:26:32', 0, '2019-09-19 23:26:32', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (24, '华为 Mate 30 Pro', 5, 10894, '##', 101, 0, '2019-09-19 23:27:00', 0, '2019-09-19 23:27:00', 0);
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES (29, '新品上线 华为 matex', 4, 10901, '##', 12, 0, '2019-12-14 15:53:34', 0, '2019-12-14 15:53:34', 0);
-COMMIT;
+--
+-- 转存表中的数据 `tb_newbee_mall_index_config`
+--
 
--- ----------------------------
--- Table structure for tb_newbee_mall_order
--- ----------------------------
-DROP TABLE IF EXISTS `tb_newbee_mall_order`;
-CREATE TABLE `tb_newbee_mall_order` (
-  `order_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '订单表主键id',
+INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`) VALUES
+(1, 'Apple iPad 10.2 Wi-Fi 64GB\n', 3, 10003, '##', 10, 0, '2019-09-18 17:04:56', 0, '2019-09-18 17:04:56', 0),
+(2, 'Apple iPhone 14 Pro Max 128 GB\n', 3, 10007, '##', 100, 0, '2019-09-18 17:05:27', 0, '2019-09-18 17:05:27', 0),
+(3, 'Irbis IRBIS NB81 13.3" Z3735F LCD ', 3, 10006, '##', 300, 0, '2019-09-18 17:08:02', 0, '2019-09-18 17:08:02', 0),
+(4, 'Apple MacBook Pro 13 M2/8 ГБ/256\n', 3, 10008, '##', 101, 0, '2019-09-18 17:08:56', 0, '2019-09-18 17:08:56', 0),
+(5, 'Популярные беспроводные наушники', 4, 10009, '##', 100, 0, '2019-09-18 17:10:36', 0, '2019-09-18 17:10:36', 0),
+(6, 'Polaris Робот-пылесос PVCR', 4, 10010, '##', 100, 1, '2019-09-18 17:11:05', 0, '2019-12-14 16:04:26', 0),
+(7, 'DiBa''s Care Смарт вотч ', 4, 10011, '##', 102, 0, '2019-09-18 17:11:44', 0, '2019-09-18 17:11:44', 0),
+(8, 'iPhone 13 Pro 512GB\n', 4, 10012, '##', 101, 0, '2019-09-18 17:11:58', 0, '2019-09-18 17:11:58', 0),
+(9, ' Планетарный миксер с чашей', 4, 10013, '##', 100, 1, '2019-09-18 17:12:29', 0, '2019-12-14 16:04:26', 0),
+(10, 'Капучинатор КТ-710\n', 5, 10015, '##', 98, 0, '2019-09-18 17:47:23', 0, '2019-09-18 17:47:23', 0),
+(11, 'Сушилка для овощей и фруктов ', 5, 10016, '##', 100, 0, '2019-09-18 17:47:44', 0, '2019-09-18 17:47:44', 0),
+(12, 'adidas Рюкзак', 5, 10102, '##', 102, 0, '2019-09-18 17:48:00', 0, '2019-09-18 17:48:00', 0),
+(13, 'Gerry Weber Куртка', 5, 10101, '##', 101, 0, '2019-09-18 17:49:11', 0, '2019-09-18 17:49:11', 0),
+(14, 'Серьги пусеты из золота ', 5, 10100, '##', 100, 0, '2019-09-18 17:49:28', 0, '2019-09-18 17:49:28', 0),
+(15, 'Calvin Klein Сумка\n', 5, 10096, '##', 100, 0, '2019-09-18 17:50:18', 0, '2019-09-18 17:50:18', 0),
+(16, 'Кольцо обручальное из золота', 5, 10099, '##', 99, 0, '2019-09-18 17:52:03', 0, '2019-09-18 17:52:03', 0),
+(17, 'Emporio Armani', 5, 10094, '##', 100, 0, '2019-09-18 17:52:19', 0, '2019-09-18 17:52:19', 0),
+(18, 'Сумка', 5, 10093, '##', 101, 0, '2019-09-18 17:52:50', 0, '2019-09-18 17:52:50', 0),
+(19, 'Оперативная память Wolfcat', 5, 10071, '##', 100, 0, '2019-09-18 17:54:07', 0, '2019-09-18 17:54:07', 0),
+(20, 'Автокресло Nania BEONE ', 5, 10072, '##', 0, 1, '2019-09-19 08:31:11', 0, '2019-09-19 08:31:20', 0),
+(21, 'Мини ПК Beelink T4 PRO 4/64 GB', 3, 10076, '##', 200, 0, '2019-09-19 23:23:38', 0, '2019-09-19 23:23:38', 0),
+(22, 'Беспроводные наушники ', 4, 10083, '##', 200, 0, '2019-09-19 23:26:05', 0, '2019-09-19 23:26:05', 0),
+(23, 'Apple iMac A1419', 4, 10069, '##', 199, 0, '2019-09-19 23:26:32', 0, '2019-09-19 23:26:32', 0),
+(24, 'Халат домашний с поясом', 5, 10067, '##', 101, 0, '2019-09-19 23:27:00', 0, '2019-09-19 23:27:00', 0),
+(29, 'MacBook Pro 16 M1 ', 4, 10073, '##', 12, 0, '2019-12-14 15:53:34', 0, '2019-12-14 15:53:34', 0),
+(30, 'TOYOTA LAND CRUISER 200\n', 4, 10081, '##', 12, 0, '2019-12-14 15:53:34', 0, '2019-12-14 15:53:34', 0),
+(31, 'Электросамокат AOVO M365 PRO', 4, 10082, '##', 12, 0, '2019-12-14 15:53:34', 0, '2019-12-14 15:53:34', 0),
+(32, 'Халат с кружевами', 4, 10068, '##', 12, 0, '2019-12-14 15:53:34', 0, '2019-12-14 15:53:34', 0),
+(33, 'Одеяло/1.5 спальное', 4, 10060, '##', 12, 0, '2019-12-14 15:53:34', 0, '2019-12-14 15:53:34', 0),
+(34, 'Домашнее платье хлопковое', 4, 10057, '##', 12, 0, '2019-12-14 15:53:34', 0, '2019-12-14 15:53:34', 0),
+(35, ' MacBook Air 13 M1/8G /256G ', 3, 10103, '##', 100, 0, '2023-01-31 12:55:23', 0, '2023-01-31 12:55:23', 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tb_newbee_mall_order`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_order` (
+  `order_id` bigint(20) NOT NULL COMMENT '订单表主键id',
   `order_no` varchar(20) NOT NULL DEFAULT '' COMMENT '订单号',
   `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '用户主键id',
   `total_price` int(11) NOT NULL DEFAULT '1' COMMENT '订单总价',
@@ -887,97 +345,1741 @@ CREATE TABLE `tb_newbee_mall_order` (
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标识字段(0-未删除 1-已删除)',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最新修改时间',
-  PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `user_name` text NOT NULL,
+  `agent_id` varchar(20) DEFAULT '0' COMMENT '代理ID '
+) ENGINE=InnoDB AUTO_INCREMENT=535 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of tb_newbee_mall_order
--- ----------------------------
-BEGIN;
-INSERT INTO `tb_newbee_mall_order` (`order_id`, `order_no`, `user_id`, `total_price`, `pay_status`, `pay_type`, `pay_time`, `order_status`, `extra_info`, `is_deleted`, `create_time`, `update_time`) VALUES (1, '16692144504276691', 7, 12999, 1, 2, '2022-11-23 22:48:32', 1, '', 0, '2022-11-23 22:40:50', '2022-11-23 22:48:32');
-INSERT INTO `tb_newbee_mall_order` (`order_id`, `order_no`, `user_id`, `total_price`, `pay_status`, `pay_type`, `pay_time`, `order_status`, `extra_info`, `is_deleted`, `create_time`, `update_time`) VALUES (2, '16692149258848160', 7, 6799, 1, 1, '2022-11-23 22:48:46', 1, '', 0, '2022-11-23 22:48:46', '2022-11-23 22:48:46');
-INSERT INTO `tb_newbee_mall_order` (`order_id`, `order_no`, `user_id`, `total_price`, `pay_status`, `pay_type`, `pay_time`, `order_status`, `extra_info`, `is_deleted`, `create_time`, `update_time`) VALUES (3, '16692149401088186', 7, 3199, 0, 0, NULL, 0, '', 0, '2022-11-23 22:49:00', '2022-11-23 22:49:00');
-INSERT INTO `tb_newbee_mall_order` (`order_id`, `order_no`, `user_id`, `total_price`, `pay_status`, `pay_type`, `pay_time`, `order_status`, `extra_info`, `is_deleted`, `create_time`, `update_time`) VALUES (4, '16692149865413395', 7, 6799, 0, 0, NULL, 0, '', 0, '2022-11-23 22:49:47', '2022-11-23 22:49:47');
-COMMIT;
+--
+-- 转存表中的数据 `tb_newbee_mall_order`
+--
 
--- ----------------------------
--- Table structure for tb_newbee_mall_order_address
--- ----------------------------
-DROP TABLE IF EXISTS `tb_newbee_mall_order_address`;
-CREATE TABLE `tb_newbee_mall_order_address` (
+INSERT INTO `tb_newbee_mall_order` (`order_id`, `order_no`, `user_id`, `total_price`, `pay_status`, `pay_type`, `pay_time`, `order_status`, `extra_info`, `is_deleted`, `create_time`, `update_time`, `user_name`, `agent_id`) VALUES
+(67, '16749847536367960', 21, 13280, 1, 2, '2023-01-29 17:43:34', 5, '', 0, '2023-01-29 17:32:34', '2023-01-29 17:43:45', '9517861543 ', '6002'),
+(68, '16749847690974197', 17, 7760, 0, 0, NULL, 0, '', 0, '2023-01-29 17:32:49', '2023-01-29 17:32:49', '9085945017 ', '6002'),
+(69, '16749848946467824', 24, 600, 1, 1, '2023-01-29 17:34:55', 5, '', 0, '2023-01-29 17:34:55', '2023-01-29 17:35:12', '9278115524', '6002'),
+(70, '16749849001695990', 23, 600, 1, 1, '2023-01-29 17:35:01', 5, '', 0, '2023-01-29 17:35:00', '2023-01-29 17:35:13', '9041209790', '6002'),
+(71, '16749888250217685', 21, 19800, 1, 1, '2023-01-29 18:40:25', 4, '', 0, '2023-01-29 18:40:25', '2023-01-29 18:40:32', '9517861543 ', '6002'),
+(72, '16749888710173532', 21, 19800, 1, 1, '2023-01-29 18:41:11', 4, '', 0, '2023-01-29 18:41:11', '2023-01-29 18:41:15', '9517861543 ', '6002'),
+(73, '16749889702134949', 21, 39600, 0, 0, NULL, 0, '', 0, '2023-01-29 18:42:50', '2023-01-29 18:42:50', '9517861543 ', '6002'),
+(74, '16749942058008048', 23, 2300, 0, 0, NULL, 0, '', 0, '2023-01-29 20:10:06', '2023-01-29 20:10:06', '9041209790', '6002'),
+(75, '16749943123725036', 23, 2300, 0, 0, NULL, 0, '', 0, '2023-01-29 20:11:52', '2023-01-29 20:11:52', '9041209790', '6002'),
+(76, '16749944745054142', 23, 2300, 1, 1, '2023-01-29 20:14:35', 5, '', 0, '2023-01-29 20:14:35', '2023-01-29 20:14:44', '9041209790', '6002'),
+(77, '16749952633597393', 24, 2300, 1, 1, '2023-01-29 20:27:44', 4, '', 0, '2023-01-29 20:27:43', '2023-01-29 20:27:54', '9278115524', '6002'),
+(78, '16749957069036467', 23, 2300, 0, 0, NULL, 0, '', 0, '2023-01-29 20:35:07', '2023-01-29 20:35:07', '9041209790', '6002'),
+(79, '16749958297867992', 23, 1080, 1, 1, '2023-01-29 20:37:11', 5, '', 0, '2023-01-29 20:37:10', '2023-01-29 20:37:16', '9041209790', '6002'),
+(80, '16749977109710446', 26, 110491, 0, 0, NULL, 0, '', 0, '2023-01-29 21:08:31', '2023-01-29 21:08:31', '12', '6001'),
+(81, '16749977469045575', 26, 2500, 1, 1, '2023-01-29 21:09:07', 4, '', 0, '2023-01-29 21:09:07', '2023-01-29 21:09:12', '12', '6001'),
+(82, '16749977617865230', 26, 1518, 1, 1, '2023-01-29 21:09:22', 4, '', 0, '2023-01-29 21:09:22', '2023-01-29 21:09:24', '12', '6001'),
+(83, '16750006119305409', 26, 2449, 1, 1, '2023-01-29 21:56:52', 5, '', 0, '2023-01-29 21:56:52', '2023-01-29 21:56:54', '12', '6001'),
+(84, '16750696004723639', 23, 4080, 1, 1, '2023-01-30 17:06:41', 5, '', 0, '2023-01-30 17:06:40', '2023-01-30 17:06:46', '9041209790', '6002'),
+(85, '16750710596784094', 26, 205982, 0, 0, NULL, 0, '', 0, '2023-01-30 17:31:00', '2023-01-30 17:31:00', '12', '6001'),
+(86, '16750717528875760', 29, 600, 1, 1, '2023-01-30 17:42:33', 5, '', 0, '2023-01-30 17:42:33', '2023-01-30 17:42:52', '9066799002', '6002'),
+(87, '16750723373560785', 27, 600, 1, 1, '2023-01-30 17:52:18', 5, '', 0, '2023-01-30 17:52:17', '2023-01-30 17:52:29', '9061380877', '6001'),
+(88, '16750724524255049', 28, 600, 1, 1, '2023-01-30 17:54:13', 5, '', 0, '2023-01-30 17:54:12', '2023-01-30 17:54:21', '9065107960', '6002'),
+(89, '16750726075005130', 30, 1080, 1, 1, '2023-01-30 17:56:48', 5, '', 0, '2023-01-30 17:56:48', '2023-01-30 18:01:07', '9041124583', '6001'),
+(90, '16750726805865909', 23, 2449, 1, 1, '2023-01-30 17:58:01', 5, '', 0, '2023-01-30 17:58:01', '2023-01-30 17:58:11', '9041209790', '6002'),
+(91, '16750816006304008', 28, 1080, 1, 1, '2023-01-30 20:26:41', 5, '', 0, '2023-01-30 20:26:41', '2023-01-30 20:26:46', '9065107960', '6002'),
+(92, '16750828644900741', 28, 1080, 1, 1, '2023-01-30 20:47:45', 5, '', 0, '2023-01-30 20:47:44', '2023-01-30 20:47:48', '9065107960', '6002'),
+(93, '16750831507929945', 27, 1080, 1, 1, '2023-01-30 20:52:31', 5, '', 0, '2023-01-30 20:52:31', '2023-01-30 20:52:35', '9061380877', '6001'),
+(94, '16750853391758557', 27, 2300, 1, 1, '2023-01-30 21:29:00', 5, '', 0, '2023-01-30 21:28:59', '2023-01-30 21:29:04', '9061380877', '6001'),
+(95, '16750940086678712', 30, 2300, 1, 1, '2023-01-30 23:53:29', 5, '', 0, '2023-01-30 23:53:29', '2023-01-30 23:53:42', '9041124583', '6001'),
+(96, '16750953540604345', 30, 2300, 1, 1, '2023-01-31 00:15:55', 5, '', 0, '2023-01-31 00:15:54', '2023-01-31 00:16:03', '9041124583', '6001'),
+(97, '16751489119764880', 17, 13280, 1, 1, '2023-01-31 15:08:32', 4, '', 0, '2023-01-31 15:08:32', '2023-01-31 15:08:42', '9085945017 ', '6002'),
+(98, '16751536001705043', 28, 4080, 1, 1, '2023-01-31 16:26:40', 5, '', 0, '2023-01-31 16:26:40', '2023-01-31 16:26:50', '9065107960', '6002'),
+(99, '16751543307326727', 33, 1080, 1, 1, '2023-01-31 16:38:51', 5, '', 0, '2023-01-31 16:38:51', '2023-01-31 16:39:01', '9062905598', '6007'),
+(100, '16751547604546591', 32, 600, 1, 1, '2023-01-31 16:46:01', 5, '', 0, '2023-01-31 16:46:00', '2023-01-31 16:49:13', '9033020693', '6003'),
+(101, '16751557224715643', 36, 1080, 1, 1, '2023-01-31 17:02:03', 5, '', 0, '2023-01-31 17:02:02', '2023-01-31 17:10:07', '9966190811', '6006'),
+(102, '16751559200446875', 35, 600, 1, 1, '2023-01-31 17:05:20', 5, '', 0, '2023-01-31 17:05:20', '2023-01-31 17:05:29', '9114577333', '6002'),
+(103, '16751559404558625', 34, 600, 1, 1, '2023-01-31 17:05:42', 5, '', 0, '2023-01-31 17:05:40', '2023-01-31 17:06:11', '9951517419', '6002'),
+(104, '16751562990139662', 39, 600, 1, 1, '2023-01-31 17:11:40', 5, '', 0, '2023-01-31 17:11:39', '2023-01-31 17:11:47', '9050879820', '6007'),
+(105, '16751569413769291', 37, 600, 1, 1, '2023-01-31 17:22:22', 5, '', 0, '2023-01-31 17:22:21', '2023-01-31 17:22:37', '9501252978', '6006'),
+(106, '16751574636907861', 38, 600, 1, 1, '2023-01-31 17:31:04', 5, '', 0, '2023-01-31 17:31:04', '2023-01-31 17:31:21', '9526323862', '6001'),
+(107, '16751575052608757', 40, 600, 1, 1, '2023-01-31 17:31:46', 5, '', 0, '2023-01-31 17:31:45', '2023-01-31 17:40:25', '9603680268', '6006'),
+(108, '16751577340927502', 28, 19980, 1, 1, '2023-01-31 17:35:35', 5, '', 0, '2023-01-31 17:35:34', '2023-01-31 17:35:39', '9065107960', '6002'),
+(109, '16751578401746973', 30, 7760, 1, 1, '2023-01-31 17:37:21', 5, '', 0, '2023-01-31 17:37:20', '2023-01-31 17:37:26', '9041124583', '6001'),
+(110, '16751592136842199', 50, 1080, 1, 1, '2023-01-31 18:00:14', 5, '', 0, '2023-01-31 18:00:14', '2023-01-31 18:00:47', '9041124586', '6001'),
+(111, '16751593598303123', 42, 3160, 1, 1, '2023-01-31 18:02:41', 5, '', 0, '2023-01-31 18:02:40', '2023-01-31 18:03:59', '9225426247', '6006'),
+(112, '16751611310558546', 51, 600, 1, 1, '2023-01-31 18:32:11', 5, '', 0, '2023-01-31 18:32:11', '2023-01-31 18:32:25', '9511160853', '6001'),
+(113, '16751628625640978', 52, 600, 1, 1, '2023-01-31 19:01:03', 5, '', 0, '2023-01-31 19:01:03', '2023-01-31 19:03:14', '9200116625', '6003'),
+(114, '16751645712797695', 30, 19980, 1, 1, '2023-01-31 19:29:32', 5, '', 0, '2023-01-31 19:29:31', '2023-01-31 19:29:38', '9041124583', '6001'),
+(115, '16751673546683038', 26, 2500, 1, 1, '2023-01-31 20:15:55', 4, '', 0, '2023-01-31 20:15:55', '2023-01-31 20:16:00', '12', '6001'),
+(116, '16751674080429410', 26, 3160, 1, 1, '2023-01-31 20:16:48', 1, '', 0, '2023-01-31 20:16:48', '2023-01-31 20:16:48', '12', '6001'),
+(117, '16751674308143955', 26, 6320, 1, 1, '2023-01-31 20:17:11', 4, '', 0, '2023-01-31 20:17:11', '2023-01-31 20:17:13', '12', '6001'),
+(118, '16751675691261741', 33, 2300, 1, 1, '2023-01-31 20:19:30', 5, '', 0, '2023-01-31 20:19:29', '2023-01-31 20:19:39', '9062905598', '6007'),
+(119, '16751676102280056', 32, 2300, 1, 1, '2023-01-31 20:20:11', 5, '', 0, '2023-01-31 20:20:10', '2023-01-31 20:20:16', '9033020693', '6003'),
+(120, '16751676378586840', 42, 2300, 1, 1, '2023-01-31 20:20:38', 5, '', 0, '2023-01-31 20:20:38', '2023-01-31 20:20:45', '9225426247', '6006'),
+(121, '16751677999070190', 36, 2300, 1, 1, '2023-01-31 20:23:20', 5, '', 0, '2023-01-31 20:23:20', '2023-01-31 20:23:26', '9966190811', '6006'),
+(122, '16751678296338845', 39, 2300, 1, 1, '2023-01-31 20:23:50', 5, '', 0, '2023-01-31 20:23:50', '2023-01-31 20:24:00', '9050879820', '6007'),
+(123, '16751679015346210', 34, 1080, 1, 1, '2023-01-31 20:25:14', 5, '', 0, '2023-01-31 20:25:02', '2023-01-31 20:26:26', '9951517419', '6002'),
+(124, '16751679843445669', 35, 2300, 1, 1, '2023-01-31 20:26:25', 5, '', 0, '2023-01-31 20:26:24', '2023-01-31 20:26:34', '9114577333', '6002'),
+(125, '16751681628355643', 51, 1080, 1, 1, '2023-01-31 20:29:23', 5, '', 0, '2023-01-31 20:29:23', '2023-01-31 20:29:27', '9511160853', '6001'),
+(126, '16751683987938876', 38, 2300, 1, 1, '2023-01-31 20:33:19', 5, '', 0, '2023-01-31 20:33:19', '2023-01-31 20:35:12', '9526323862', '6001'),
+(127, '16751685229850483', 39, 1080, 1, 1, '2023-01-31 20:35:23', 5, '', 0, '2023-01-31 20:35:23', '2023-01-31 20:35:28', '9050879820', '6007'),
+(128, '16751685903699750', 52, 1080, 1, 1, '2023-01-31 20:36:31', 5, '', 0, '2023-01-31 20:36:30', '2023-01-31 20:36:36', '9200116625', '6003'),
+(129, '16751687345366235', 33, 1080, 1, 1, '2023-01-31 20:38:55', 5, '', 0, '2023-01-31 20:38:55', '2023-01-31 20:39:01', '9062905598', '6007'),
+(130, '16751689995718285', 32, 1080, 1, 1, '2023-01-31 20:43:20', 5, '', 0, '2023-01-31 20:43:20', '2023-01-31 20:43:25', '9033020693', '6003'),
+(131, '16751690512583348', 36, 1080, 1, 1, '2023-01-31 20:44:12', 5, '', 0, '2023-01-31 20:44:11', '2023-01-31 20:44:17', '9966190811', '6006'),
+(132, '16751690604019224', 42, 1080, 1, 1, '2023-01-31 20:44:21', 5, '', 0, '2023-01-31 20:44:20', '2023-01-31 20:44:26', '9225426247', '6006'),
+(133, '16751691547943566', 37, 1080, 1, 1, '2023-01-31 20:45:55', 5, '', 0, '2023-01-31 20:45:55', '2023-01-31 20:46:01', '9501252978', '6006'),
+(134, '16751696657165261', 35, 1080, 1, 1, '2023-01-31 20:54:26', 5, '', 0, '2023-01-31 20:54:26', '2023-01-31 20:54:31', '9114577333', '6002'),
+(135, '16751700894429711', 38, 1080, 1, 1, '2023-01-31 21:01:30', 5, '', 0, '2023-01-31 21:01:29', '2023-01-31 21:01:42', '9526323862', '6001'),
+(136, '16751701317176479', 50, 2300, 1, 1, '2023-01-31 21:02:12', 5, '', 0, '2023-01-31 21:02:12', '2023-01-31 21:02:21', '9041124586', '6001'),
+(137, '16751702863093351', 37, 1080, 1, 1, '2023-01-31 21:04:47', 5, '', 0, '2023-01-31 21:04:46', '2023-01-31 21:04:52', '9501252978', '6006'),
+(138, '16751703617171363', 53, 1080, 1, 1, '2023-01-31 21:06:02', 5, '', 0, '2023-01-31 21:06:02', '2023-01-31 21:06:15', '89086425444', '6001'),
+(139, '16751703901034667', 54, 2300, 1, 1, '2023-01-31 21:06:31', 5, '', 0, '2023-01-31 21:06:30', '2023-01-31 21:09:38', '9149523452', '6007'),
+(140, '16751738352467354', 40, 1080, 1, 1, '2023-01-31 22:03:56', 5, '', 0, '2023-01-31 22:03:55', '2023-01-31 22:04:05', '9603680268', '6006'),
+(141, '16751746740134237', 55, 1080, 1, 1, '2023-01-31 22:17:55', 5, '', 0, '2023-01-31 22:17:54', '2023-01-31 22:24:21', '9821911070', '6006'),
+(142, '16751748349248088', 55, 1080, 0, 0, NULL, 0, '', 0, '2023-01-31 22:20:35', '2023-01-31 22:20:35', '9821911070', '6006'),
+(143, '16751748629768077', 55, 1080, 0, 0, NULL, 0, '', 0, '2023-01-31 22:21:03', '2023-01-31 22:21:03', '9821911070', '6006'),
+(144, '16751750161987830', 55, 1080, 0, 0, NULL, 0, '', 0, '2023-01-31 22:23:36', '2023-01-31 22:23:36', '9821911070', '6006'),
+(145, '16751755522341695', 40, 1080, 1, 1, '2023-01-31 22:32:33', 5, '', 0, '2023-01-31 22:32:32', '2023-01-31 22:32:38', '9603680268', '6006'),
+(146, '16751775448774215', 55, 16800, 1, 1, '2023-01-31 23:05:46', 5, '', 0, '2023-01-31 23:05:45', '2023-01-31 23:05:57', '9821911070', '6006'),
+(147, '16751964143712043', 34, 1080, 0, 0, NULL, 0, '', 0, '2023-02-01 04:20:14', '2023-02-01 04:20:14', '9951517419', '6002'),
+(148, '16752391339313270', 55, 38800, 1, 1, '2023-02-01 16:12:15', 5, '', 0, '2023-02-01 16:12:14', '2023-02-01 16:12:21', '9821911070', '6006'),
+(149, '16752394126176267', 33, 7760, 1, 1, '2023-02-01 16:16:53', 5, '', 0, '2023-02-01 16:16:53', '2023-02-01 16:16:57', '9062905598', '6007'),
+(150, '16752395363533687', 35, 19980, 1, 1, '2023-02-01 16:18:57', 5, '', 0, '2023-02-01 16:18:56', '2023-02-01 16:19:01', '9114577333', '6002'),
+(151, '16752396075835199', 36, 19980, 1, 1, '2023-02-01 16:20:08', 5, '', 0, '2023-02-01 16:20:08', '2023-02-01 16:20:13', '9966190811', '6006'),
+(152, '16752396922478607', 37, 4080, 1, 1, '2023-02-01 16:21:33', 5, '', 0, '2023-02-01 16:21:32', '2023-02-01 16:21:44', '9501252978', '6006'),
+(153, '16752396935983128', 39, 4080, 1, 1, '2023-02-01 16:21:34', 5, '', 0, '2023-02-01 16:21:34', '2023-02-01 16:21:41', '9050879820', '6007'),
+(154, '16752397021991040', 54, 19980, 1, 1, '2023-02-01 16:21:43', 5, '', 0, '2023-02-01 16:21:42', '2023-02-01 16:21:58', '9149523452', '6007'),
+(155, '16752398945893512', 32, 2800, 1, 1, '2023-02-01 16:24:55', 5, '', 0, '2023-02-01 16:24:55', '2023-02-01 16:24:59', '9033020693', '6003'),
+(156, '16752407613478841', 57, 600, 1, 2, '2023-02-01 16:46:58', 5, '', 0, '2023-02-01 16:39:21', '2023-02-01 16:47:35', '9620736675', '6003'),
+(157, '16752409922208557', 57, 600, 0, 0, NULL, 0, '', 0, '2023-02-01 16:43:12', '2023-02-01 16:43:12', '9620736675', '6003'),
+(158, '16752410434867204', 17, 11280, 1, 1, '2023-02-01 16:44:04', 5, '', 0, '2023-02-01 16:44:03', '2023-02-01 16:44:14', '9085945017 ', '6002'),
+(159, '16752413024326505', 36, 49800, 1, 1, '2023-02-01 16:48:23', 5, '', 0, '2023-02-01 16:48:22', '2023-02-01 16:48:32', '9966190811', '6006'),
+(160, '16752415009273239', 42, 13280, 1, 1, '2023-02-01 16:51:41', 5, '', 0, '2023-02-01 16:51:41', '2023-02-01 16:51:47', '9225426247', '6006'),
+(161, '16752417389101775', 54, 54969, 1, 1, '2023-02-01 16:55:39', 5, '', 0, '2023-02-01 16:55:39', '2023-02-01 16:55:44', '9149523452', '6007'),
+(162, '16752423495680093', 33, 19980, 1, 1, '2023-02-01 17:05:50', 5, '', 0, '2023-02-01 17:05:50', '2023-02-01 17:05:57', '9062905598', '6007'),
+(163, '16752423939621584', 32, 13280, 1, 1, '2023-02-01 17:06:34', 5, '', 0, '2023-02-01 17:06:34', '2023-02-01 17:06:40', '9033020693', '6003'),
+(164, '16752434723944315', 54, 98800, 1, 1, '2023-02-01 17:24:33', 4, '', 0, '2023-02-01 17:24:32', '2023-02-01 17:24:37', '9149523452', '6007'),
+(165, '16752441406849652', 35, 56700, 1, 1, '2023-02-01 17:35:41', 5, '', 0, '2023-02-01 17:35:41', '2023-02-01 17:35:52', '9114577333', '6002'),
+(166, '16752442249587723', 42, 39800, 1, 1, '2023-02-01 17:37:05', 5, '', 0, '2023-02-01 17:37:05', '2023-02-01 17:37:10', '9225426247', '6006'),
+(167, '16752442902635265', 39, 19980, 1, 1, '2023-02-01 17:38:11', 5, '', 0, '2023-02-01 17:38:10', '2023-02-01 17:38:15', '9050879820', '6007'),
+(168, '16752442959050167', 59, 600, 1, 1, '2023-02-01 17:38:16', 5, '', 0, '2023-02-01 17:38:16', '2023-02-01 17:39:04', '9836984402', '6005'),
+(169, '16752450438610704', 36, 39400, 1, 1, '2023-02-01 17:50:44', 4, '', 0, '2023-02-01 17:50:44', '2023-02-01 17:50:47', '9966190811', '6006'),
+(170, '16752451020068720', 36, 39400, 1, 1, '2023-02-01 17:51:42', 4, '', 0, '2023-02-01 17:51:42', '2023-02-01 17:51:50', '9966190811', '6006'),
+(171, '16752455239696654', 54, 150000, 1, 1, '2023-02-01 17:58:44', 5, '', 0, '2023-02-01 17:58:44', '2023-02-01 17:59:02', '9149523452', '6007'),
+(172, '16752456409276529', 58, 600, 1, 1, '2023-02-01 18:00:42', 5, '', 0, '2023-02-01 18:00:41', '2023-02-01 18:00:48', '9678003841', '6007'),
+(173, '16752458639855317', 55, 17900, 1, 1, '2023-02-01 18:04:25', 4, '', 0, '2023-02-01 18:04:24', '2023-02-01 18:04:29', '9821911070', '6006'),
+(174, '16752460218332582', 55, 35800, 1, 1, '2023-02-01 18:07:02', 4, '', 0, '2023-02-01 18:07:02', '2023-02-01 18:07:06', '9821911070', '6006'),
+(175, '16752475028503528', 60, 1080, 1, 1, '2023-02-01 18:31:43', 5, '', 0, '2023-02-01 18:31:43', '2023-02-01 18:37:34', '9301630727', '6006'),
+(176, '16752476437181365', 36, 150000, 1, 1, '2023-02-01 18:34:04', 5, '', 0, '2023-02-01 18:34:04', '2023-02-01 18:34:08', '9966190811', '6006'),
+(177, '16752478423607288', 60, 1080, 0, 0, NULL, 0, '', 0, '2023-02-01 18:37:22', '2023-02-01 18:37:22', '9301630727', '6006'),
+(178, '16752482405998490', 61, 1080, 1, 1, '2023-02-01 18:44:01', 5, '', 0, '2023-02-01 18:44:01', '2023-02-01 18:44:14', '9516262024', '6006'),
+(179, '16752485182135913', 42, 39400, 1, 1, '2023-02-01 18:48:39', 4, '', 0, '2023-02-01 18:48:38', '2023-02-01 18:48:48', '9225426247', '6006'),
+(180, '16752515566647525', 58, 1080, 1, 1, '2023-02-01 19:39:17', 5, '', 0, '2023-02-01 19:39:17', '2023-02-01 19:39:26', '9678003841', '6007'),
+(181, '16752521902277067', 58, 1080, 1, 1, '2023-02-01 19:49:51', 5, '', 0, '2023-02-01 19:49:50', '2023-02-01 19:49:56', '9678003841', '6007'),
+(182, '16752522933492576', 61, 2300, 1, 1, '2023-02-01 19:51:34', 5, '', 0, '2023-02-01 19:51:33', '2023-02-01 19:51:43', '9516262024', '6006'),
+(183, '16752535615413353', 61, 1080, 1, 1, '2023-02-01 20:12:42', 5, '', 0, '2023-02-01 20:12:42', '2023-02-01 20:12:47', '9516262024', '6006'),
+(184, '16752538131149698', 57, 1080, 1, 1, '2023-02-01 20:16:53', 5, '', 0, '2023-02-01 20:16:53', '2023-02-01 20:16:59', '9620736675', '6003'),
+(185, '16752551766141905', 60, 2300, 1, 1, '2023-02-01 20:39:37', 5, '', 0, '2023-02-01 20:39:37', '2023-02-01 20:39:41', '9301630727', '6006'),
+(186, '16752554787912145', 64, 6320, 1, 1, '2023-02-01 20:44:39', 5, '', 0, '2023-02-01 20:44:39', '2023-02-01 20:44:43', 'noe111', 'test'),
+(187, '16752560508679002', 39, 28930, 1, 1, '2023-02-01 20:54:11', 4, '', 0, '2023-02-01 20:54:11', '2023-02-01 20:54:14', '9050879820', '6007'),
+(188, '16752561465661186', 35, 19900, 1, 1, '2023-02-01 20:55:47', 4, '', 0, '2023-02-01 20:55:47', '2023-02-01 20:55:50', '9114577333', '6002'),
+(189, '16752565038597821', 39, 28930, 1, 1, '2023-02-01 21:01:44', 4, '', 0, '2023-02-01 21:01:44', '2023-02-01 21:01:49', '9050879820', '6007'),
+(190, '16752566452853390', 60, 1080, 1, 1, '2023-02-01 21:04:06', 5, '', 0, '2023-02-01 21:04:05', '2023-02-01 21:04:09', '9301630727', '6006'),
+(191, '16752566998361041', 50, 4080, 1, 1, '2023-02-01 21:05:00', 5, '', 0, '2023-02-01 21:05:00', '2023-02-01 21:05:07', '9041124586', '6001'),
+(192, '16752567216924194', 34, 1518, 1, 1, '2023-02-01 21:05:23', 4, '', 0, '2023-02-01 21:05:22', '2023-02-01 21:05:35', '9951517419', '6002'),
+(193, '16752581611023202', 50, 19980, 1, 1, '2023-02-01 21:29:22', 5, '', 0, '2023-02-01 21:29:21', '2023-02-01 21:29:29', '9041124586', '6001'),
+(194, '16752612497799284', 50, 28930, 0, 0, NULL, 0, '', 0, '2023-02-01 22:20:50', '2023-02-01 22:20:50', '9041124586', '6001'),
+(195, '16752628031852365', 35, 19900, 0, 0, NULL, 0, '', 0, '2023-02-01 22:46:43', '2023-02-01 22:46:43', '9114577333', '6002'),
+(196, '16752632944528382', 50, 28594, 1, 1, '2023-02-01 22:54:55', 4, '', 0, '2023-02-01 22:54:54', '2023-02-01 22:58:49', '9041124586', '6001'),
+(197, '16752669876781131', 35, 39800, 0, 0, NULL, 0, '', 0, '2023-02-01 23:56:28', '2023-02-01 23:56:28', '9114577333', '6002'),
+(198, '16752675586376021', 64, 1518, 1, 1, '2023-02-02 00:06:00', 5, '', 0, '2023-02-02 00:05:59', '2023-02-02 00:17:58', 'noe111', 'test'),
+(199, '16752683344430471', 64, 1725, 1, 1, '2023-02-02 00:18:55', 5, '', 0, '2023-02-02 00:18:54', '2023-02-02 00:19:08', 'noe111', 'test'),
+(200, '16752686883296429', 64, 2800, 1, 1, '2023-02-02 00:24:49', 5, '', 0, '2023-02-02 00:24:48', '2023-02-02 00:25:02', 'noe111', 'test'),
+(201, '16752691064057627', 64, 1080, 1, 1, '2023-02-02 00:31:47', 5, '', 0, '2023-02-02 00:31:46', '2023-02-02 00:31:56', 'noe111', 'test'),
+(202, '16752697337631019', 64, 1080, 1, 1, '2023-02-02 00:42:14', 5, '', 0, '2023-02-02 00:42:14', '2023-02-02 00:42:25', 'noe111', 'test'),
+(203, '16752729737558285', 64, 1080, 1, 1, '2023-02-02 01:36:14', 5, '', 0, '2023-02-02 01:36:14', '2023-02-02 01:36:36', 'noe111', 'test'),
+(204, '16752730636740334', 64, 600, 1, 1, '2023-02-02 01:37:44', 5, '', 0, '2023-02-02 01:37:44', '2023-02-02 01:38:28', 'noe111', 'test'),
+(205, '16752747135207823', 64, 6640, 0, 0, NULL, 0, '', 0, '2023-02-02 02:05:14', '2023-02-02 02:05:14', 'noe111', 'test'),
+(206, '16752747501712939', 64, 600, 1, 1, '2023-02-02 02:05:50', 5, '', 0, '2023-02-02 02:05:50', '2023-02-02 02:05:53', 'noe111', 'test'),
+(207, '16752747725222924', 64, 600, 1, 1, '2023-02-02 02:06:13', 5, '', 0, '2023-02-02 02:06:13', '2023-02-02 02:06:20', 'noe111', 'test'),
+(208, '16752755666866510', 64, 600, 1, 1, '2023-02-02 02:19:27', 5, '', 0, '2023-02-02 02:19:27', '2023-02-02 02:19:30', 'noe111', 'test'),
+(209, '16752756620652976', 64, 600, 1, 1, '2023-02-02 02:21:02', 5, '', 0, '2023-02-02 02:21:02', '2023-02-02 02:21:04', 'noe111', 'test'),
+(210, '16752763588618102', 64, 600, 1, 1, '2023-02-02 02:32:39', 5, '', 0, '2023-02-02 02:32:39', '2023-02-02 02:32:46', 'noe111', 'test'),
+(211, '16753265813762861', 60, 4080, 1, 1, '2023-02-02 16:29:42', 5, '', 0, '2023-02-02 16:29:41', '2023-02-02 16:29:45', '9301630727', '6006'),
+(212, '16753269296605422', 58, 2800, 1, 1, '2023-02-02 16:35:30', 5, '', 0, '2023-02-02 16:35:30', '2023-02-02 16:35:36', '9678003841', '6007'),
+(213, '16753273129631393', 61, 13280, 1, 1, '2023-02-02 16:41:53', 5, '', 0, '2023-02-02 16:41:53', '2023-02-02 16:41:59', '9516262024', '6006'),
+(214, '16753279771148033', 22, 600, 1, 1, '2023-02-02 16:52:57', 5, '', 0, '2023-02-02 16:52:57', '2023-02-02 16:53:21', '9630789138', '6003'),
+(215, '16753284344667083', 60, 19800, 1, 1, '2023-02-02 17:00:35', 5, '', 0, '2023-02-02 17:00:34', '2023-02-02 17:00:39', '9301630727', '6006'),
+(216, '16753293476984596', 65, 600, 1, 1, '2023-02-02 17:15:48', 5, '', 0, '2023-02-02 17:15:48', '2023-02-02 17:20:36', '9915886803', '6003'),
+(217, '16753295680989327', 66, 1080, 1, 1, '2023-02-02 17:19:28', 5, '', 0, '2023-02-02 17:19:28', '2023-02-02 17:19:46', '9052257725', '6006'),
+(218, '16753295949550239', 61, 49800, 1, 1, '2023-02-02 17:19:55', 5, '', 0, '2023-02-02 17:19:55', '2023-02-02 17:19:59', '9516262024', '6006'),
+(219, '16753303438167442', 67, 600, 1, 1, '2023-02-02 17:32:24', 5, '', 0, '2023-02-02 17:32:24', '2023-02-02 17:32:33', '9526252216', '6003'),
+(220, '16753309534174396', 22, 600, 1, 1, '2023-02-02 17:42:34', 5, '', 0, '2023-02-02 17:42:33', '2023-02-02 17:45:36', '9630789138', '6003'),
+(221, '16753319695870229', 68, 600, 1, 1, '2023-02-02 17:59:30', 5, '', 0, '2023-02-02 17:59:30', '2023-02-02 17:59:40', '9017103696', '6003'),
+(222, '16753321973410633', 69, 600, 1, 1, '2023-02-02 18:03:18', 5, '', 0, '2023-02-02 18:03:17', '2023-02-02 18:04:16', '9178105309', '6005'),
+(223, '16753342356427841', 61, 49900, 0, 0, NULL, 0, '', 0, '2023-02-02 18:37:16', '2023-02-02 18:37:16', '9516262024', '6006'),
+(224, '16753342573849711', 61, 49900, 0, 0, NULL, 0, '', 0, '2023-02-02 18:37:37', '2023-02-02 18:37:37', '9516262024', '6006'),
+(225, '16753343185347030', 61, 49900, 0, 0, NULL, 0, '', 0, '2023-02-02 18:38:39', '2023-02-02 18:38:39', '9516262024', '6006'),
+(226, '16753343643645582', 61, 49900, 0, 0, NULL, 0, '', 0, '2023-02-02 18:39:24', '2023-02-02 18:39:24', '9516262024', '6006'),
+(227, '16753343882605878', 61, 49900, 1, 1, '2023-02-02 18:39:49', 5, '', 0, '2023-02-02 18:39:48', '2023-02-02 18:39:53', '9516262024', '6006'),
+(228, '16753344249866375', 61, 49900, 1, 1, '2023-02-02 18:40:25', 5, '', 0, '2023-02-02 18:40:25', '2023-02-02 18:40:29', '9516262024', '6006'),
+(229, '16753347352936918', 61, 99800, 0, 0, NULL, 0, '', 0, '2023-02-02 18:45:35', '2023-02-02 18:45:35', '9516262024', '6006'),
+(230, '16753347578858481', 61, 99800, 0, 0, NULL, 0, '', 0, '2023-02-02 18:45:58', '2023-02-02 18:45:58', '9516262024', '6006'),
+(231, '16753347735024553', 61, 99800, 0, 0, NULL, 0, '', 0, '2023-02-02 18:46:14', '2023-02-02 18:46:14', '9516262024', '6006'),
+(232, '16753392904451276', 67, 1080, 1, 1, '2023-02-02 20:01:31', 5, '', 0, '2023-02-02 20:01:30', '2023-02-02 20:03:58', '9526252216', '6003'),
+(233, '16753393724928063', 65, 2300, 1, 1, '2023-02-02 20:02:53', 5, '', 0, '2023-02-02 20:02:52', '2023-02-02 20:03:00', '9915886803', '6003'),
+(234, '16753395809876670', 68, 2300, 1, 1, '2023-02-02 20:06:21', 5, '', 0, '2023-02-02 20:06:21', '2023-02-02 20:06:27', '9017103696', '6003'),
+(235, '16753396463022835', 66, 2300, 1, 1, '2023-02-02 20:07:27', 5, '', 0, '2023-02-02 20:07:26', '2023-02-02 20:07:36', '9052257725', '6006'),
+(236, '16753402621263740', 70, 600, 1, 1, '2023-02-02 20:17:43', 5, '', 0, '2023-02-02 20:17:42', '2023-02-02 20:18:56', '9834508183', '6006'),
+(237, '16753405462235297', 66, 1080, 0, 0, NULL, 0, '', 0, '2023-02-02 20:22:26', '2023-02-02 20:22:26', '9052257725', '6006'),
+(238, '16753410138875366', 66, 1080, 1, 1, '2023-02-02 20:30:14', 5, '', 0, '2023-02-02 20:30:14', '2023-02-02 20:30:19', '9052257725', '6006'),
+(239, '16753410634030936', 68, 1080, 1, 1, '2023-02-02 20:31:04', 5, '', 0, '2023-02-02 20:31:03', '2023-02-02 20:31:09', '9017103696', '6003'),
+(240, '16753413206672112', 65, 1080, 1, 1, '2023-02-02 20:35:21', 5, '', 0, '2023-02-02 20:35:21', '2023-02-02 20:35:25', '9915886803', '6003'),
+(241, '16753418839921118', 67, 1080, 1, 1, '2023-02-02 20:44:45', 5, '', 0, '2023-02-02 20:44:44', '2023-02-02 20:44:49', '9526252216', '6003'),
+(242, '16753478200746895', 70, 1080, 1, 1, '2023-02-02 22:23:41', 5, '', 0, '2023-02-02 22:23:40', '2023-02-02 22:23:45', '9834508183', '6006'),
+(243, '16753954310863394', 36, 176892, 1, 1, '2023-02-03 11:37:11', 4, '', 0, '2023-02-03 11:37:11', '2023-02-03 11:37:18', '9966190811', '6006'),
+(244, '16753956493292634', 36, 99800, 1, 1, '2023-02-03 11:40:50', 4, '', 0, '2023-02-03 11:40:49', '2023-02-03 11:40:53', '9966190811', '6006'),
+(245, '16754119798013196', 66, 19980, 1, 1, '2023-02-03 16:13:00', 5, '', 0, '2023-02-03 16:13:00', '2023-02-03 16:13:06', '9052257725', '6006'),
+(246, '16754120029240058', 65, 13280, 1, 1, '2023-02-03 16:13:24', 5, '', 0, '2023-02-03 16:13:23', '2023-02-03 16:13:30', '9915886803', '6003'),
+(247, '16754130323655009', 72, 600, 1, 1, '2023-02-03 16:30:33', 5, '', 0, '2023-02-03 16:30:32', '2023-02-03 16:30:41', '9603147979', '6005'),
+(248, '16754134345719679', 68, 2800, 1, 1, '2023-02-03 16:37:15', 5, '', 0, '2023-02-03 16:37:15', '2023-02-03 16:37:22', '9017103696', '6003'),
+(249, '16754140460107627', 74, 1080, 1, 1, '2023-02-03 16:47:26', 5, '', 0, '2023-02-03 16:47:26', '2023-02-03 16:47:36', '9028609444', '6007'),
+(250, '16754140908707962', 75, 1080, 1, 1, '2023-02-03 16:48:12', 5, '', 0, '2023-02-03 16:48:11', '2023-02-03 16:48:25', '9782260158', '6007'),
+(251, '16754141068925546', 73, 600, 1, 1, '2023-02-03 16:48:27', 5, '', 0, '2023-02-03 16:48:27', '2023-02-03 16:48:34', '9850391729', '6005'),
+(252, '16754144336724286', 77, 1080, 1, 1, '2023-02-03 16:53:54', 5, '', 0, '2023-02-03 16:53:54', '2023-02-03 16:56:05', '9042557936', '6005'),
+(253, '16754145523504185', 77, 1080, 0, 0, NULL, 0, '', 0, '2023-02-03 16:55:52', '2023-02-03 16:55:52', '9042557936', '6005'),
+(254, '16754147961544903', 76, 600, 1, 1, '2023-02-03 16:59:57', 5, '', 0, '2023-02-03 16:59:56', '2023-02-03 17:00:19', '9278036178', '6007'),
+(255, '16754151142129068', 67, 2800, 1, 1, '2023-02-03 17:05:15', 5, '', 0, '2023-02-03 17:05:14', '2023-02-03 17:05:21', '9526252216', '6003'),
+(256, '16754159005520706', 80, 600, 1, 1, '2023-02-03 17:18:21', 5, '', 0, '2023-02-03 17:18:21', '2023-02-03 17:19:30', '9091961624 ', '6005'),
+(257, '16754165007733772', 82, 600, 1, 1, '2023-02-03 17:28:21', 5, '', 0, '2023-02-03 17:28:21', '2023-02-03 17:28:47', '9833782778', '6007'),
+(258, '16754165015591421', 81, 600, 1, 1, '2023-02-03 17:28:22', 5, '', 0, '2023-02-03 17:28:22', '2023-02-03 17:28:49', '9252253744', '6007'),
+(259, '16754169387886001', 83, 600, 1, 1, '2023-02-03 17:35:39', 5, '', 0, '2023-02-03 17:35:39', '2023-02-03 17:35:54', '79539476366', '6002'),
+(260, '16754174574609192', 61, 150000, 1, 1, '2023-02-03 17:44:18', 5, '', 0, '2023-02-03 17:44:17', '2023-02-03 17:44:30', '9516262024', '6006'),
+(261, '16754175005466363', 78, 600, 1, 1, '2023-02-03 17:45:01', 5, '', 0, '2023-02-03 17:45:01', '2023-02-03 17:45:18', '9788431467', '6007'),
+(262, '16754176066349174', 58, 13280, 1, 1, '2023-02-03 17:46:47', 5, '', 0, '2023-02-03 17:46:47', '2023-02-03 17:46:51', '9678003841', '6007'),
+(263, '16754180172544791', 84, 600, 1, 1, '2023-02-03 17:53:38', 5, '', 0, '2023-02-03 17:53:37', '2023-02-03 17:57:31', '9247019900', '6001'),
+(264, '16754241132814187', 85, 1080, 1, 1, '2023-02-03 19:35:14', 5, '', 0, '2023-02-03 19:35:13', '2023-02-03 19:35:27', '9246119191', '6003'),
+(265, '16754250858469179', 75, 1080, 1, 1, '2023-02-03 19:51:27', 5, '', 0, '2023-02-03 19:51:26', '2023-02-03 19:51:37', '9782260158', '6007'),
+(266, '16754251463462954', 76, 1080, 1, 1, '2023-02-03 19:52:27', 5, '', 0, '2023-02-03 19:52:26', '2023-02-03 19:52:32', '9278036178', '6007'),
+(267, '16754255301030088', 73, 2300, 1, 1, '2023-02-03 19:58:50', 5, '', 0, '2023-02-03 19:58:50', '2023-02-03 19:58:56', '9850391729', '6005'),
+(268, '16754255499062556', 72, 2300, 1, 1, '2023-02-03 19:59:10', 5, '', 0, '2023-02-03 19:59:10', '2023-02-03 20:01:12', '9603147979', '6005'),
+(269, '16754256273764539', 78, 1080, 1, 1, '2023-02-03 20:00:28', 5, '', 0, '2023-02-03 20:00:27', '2023-02-03 20:00:40', '9788431467', '6007'),
+(270, '16754256624430641', 72, 2300, 0, 0, NULL, 0, '', 0, '2023-02-03 20:01:02', '2023-02-03 20:01:02', '9603147979', '6005'),
+(271, '16754257822859141', 81, 2300, 1, 1, '2023-02-03 20:03:03', 5, '', 0, '2023-02-03 20:03:02', '2023-02-03 20:03:20', '9252253744', '6007'),
+(272, '16754258348162997', 77, 2300, 1, 1, '2023-02-03 20:03:55', 5, '', 0, '2023-02-03 20:03:55', '2023-02-03 20:04:03', '9042557936', '6005'),
+(273, '16754258648392022', 80, 2300, 1, 1, '2023-02-03 20:04:25', 5, '', 0, '2023-02-03 20:04:25', '2023-02-03 20:04:31', '9091961624 ', '6005'),
+(274, '16754261546431332', 74, 2300, 1, 1, '2023-02-03 20:09:15', 5, '', 0, '2023-02-03 20:09:15', '2023-02-03 20:09:24', '9028609444', '6007'),
+(275, '16754265993014057', 86, 2300, 1, 1, '2023-02-03 20:16:40', 5, '', 0, '2023-02-03 20:16:39', '2023-02-03 20:16:53', '9021675944', '6003'),
+(276, '16754268281576473', 73, 1080, 1, 1, '2023-02-03 20:20:29', 5, '', 0, '2023-02-03 20:20:28', '2023-02-03 20:20:32', '9850391729', '6005'),
+(277, '16754269187937449', 75, 2160, 1, 1, '2023-02-03 20:22:00', 5, '', 0, '2023-02-03 20:21:59', '2023-02-03 20:22:14', '9782260158', '6007'),
+(278, '16754271462226977', 74, 1080, 1, 1, '2023-02-03 20:25:47', 5, '', 0, '2023-02-03 20:25:46', '2023-02-03 20:25:51', '9028609444', '6007'),
+(279, '16754273652225053', 76, 1080, 1, 1, '2023-02-03 20:29:26', 5, '', 0, '2023-02-03 20:29:25', '2023-02-03 20:29:31', '9278036178', '6007'),
+(280, '16754276608386243', 77, 1080, 1, 1, '2023-02-03 20:34:21', 5, '', 0, '2023-02-03 20:34:21', '2023-02-03 20:34:27', '9042557936', '6005'),
+(281, '16754279318928132', 85, 1080, 1, 1, '2023-02-03 20:38:52', 5, '', 0, '2023-02-03 20:38:52', '2023-02-03 20:38:57', '9246119191', '6003'),
+(282, '16754279389821535', 89, 2800, 1, 1, '2023-02-03 20:39:00', 5, '', 0, '2023-02-03 20:38:59', '2023-02-03 20:39:19', '9042593149', '6006'),
+(283, '16754279780291220', 90, 1080, 1, 1, '2023-02-03 20:39:38', 5, '', 0, '2023-02-03 20:39:38', '2023-02-03 20:39:59', '9506202437', '6003'),
+(284, '16754279892431423', 78, 1080, 1, 1, '2023-02-03 20:39:50', 5, '', 0, '2023-02-03 20:39:49', '2023-02-03 20:39:54', '9788431467', '6007'),
+(285, '16754280351257317', 72, 1080, 1, 1, '2023-02-03 20:40:36', 5, '', 0, '2023-02-03 20:40:35', '2023-02-03 20:40:39', '9603147979', '6005'),
+(286, '16754281600530850', 80, 1080, 1, 1, '2023-02-03 20:42:40', 5, '', 0, '2023-02-03 20:42:40', '2023-02-03 20:42:45', '9091961624 ', '6005'),
+(287, '16754283941053129', 91, 2300, 1, 1, '2023-02-03 20:46:35', 5, '', 0, '2023-02-03 20:46:34', '2023-02-03 20:46:48', '9084992724', '6005'),
+(288, '16754284251059533', 81, 1080, 1, 1, '2023-02-03 20:47:06', 5, '', 0, '2023-02-03 20:47:05', '2023-02-03 20:47:10', '9252253744', '6007'),
+(289, '16754284675628474', 86, 1080, 1, 1, '2023-02-03 20:47:48', 5, '', 0, '2023-02-03 20:47:48', '2023-02-03 20:47:56', '9021675944', '6003'),
+(290, '16754294757236295', 85, 1080, 1, 1, '2023-02-03 21:04:36', 5, '', 0, '2023-02-03 21:04:36', '2023-02-03 21:04:40', '9246119191', '6003'),
+(291, '16754304569086985', 89, 600, 1, 1, '2023-02-03 21:20:58', 5, '', 0, '2023-02-03 21:20:57', '2023-02-03 21:21:02', '9042593149', '6006'),
+(292, '16754329373736976', 90, 1080, 1, 1, '2023-02-03 22:02:18', 5, '', 0, '2023-02-03 22:02:17', '2023-02-03 22:02:23', '9506202437', '6003'),
+(293, '16754388665573775', 91, 1080, 1, 1, '2023-02-03 23:41:07', 5, '', 0, '2023-02-03 23:41:07', '2023-02-03 23:41:11', '9084992724', '6005'),
+(294, '16754458506102723', 26, 17900, 1, 1, '2023-02-04 01:37:31', 1, '', 0, '2023-02-04 01:37:31', '2023-02-04 01:37:31', '12', '6001'),
+(295, '16754984941617899', 73, 2800, 1, 1, '2023-02-04 16:14:55', 5, '', 0, '2023-02-04 16:14:54', '2023-02-04 16:14:59', '9850391729', '6005'),
+(296, '16754985243280136', 72, 2800, 1, 1, '2023-02-04 16:15:25', 5, '', 0, '2023-02-04 16:15:24', '2023-02-04 16:15:29', '9603147979', '6005'),
+(297, '16754988914435858', 81, 2800, 1, 1, '2023-02-04 16:21:32', 5, '', 0, '2023-02-04 16:21:31', '2023-02-04 16:21:36', '9252253744', '6007'),
+(298, '16754989616675510', 90, 2800, 1, 1, '2023-02-04 16:22:42', 5, '', 0, '2023-02-04 16:22:42', '2023-02-04 16:22:46', '9506202437', '6003'),
+(299, '16754989789850411', 86, 2800, 1, 1, '2023-02-04 16:22:59', 5, '', 0, '2023-02-04 16:22:59', '2023-02-04 16:23:06', '9021675944', '6003'),
+(300, '16754989869250899', 77, 7760, 1, 1, '2023-02-04 16:23:07', 5, '', 0, '2023-02-04 16:23:07', '2023-02-04 16:23:12', '9042557936', '6005'),
+(301, '16754991934120429', 84, 1080, 1, 1, '2023-02-04 16:26:34', 5, '', 0, '2023-02-04 16:26:33', '2023-02-04 16:26:39', '9247019900', '6001'),
+(302, '16755001594447465', 93, 600, 1, 1, '2023-02-04 16:42:40', 5, '', 0, '2023-02-04 16:42:39', '2023-02-04 16:42:52', '79061369712', '6001'),
+(303, '16755003865088391', 96, 1080, 0, 0, NULL, 0, '', 0, '2023-02-04 16:46:27', '2023-02-04 16:46:27', '9823394679', '6005'),
+(304, '16755004914457625', 96, 1080, 1, 1, '2023-02-04 16:48:12', 5, '', 0, '2023-02-04 16:48:11', '2023-02-04 16:48:27', '9823394679', '6005'),
+(305, '16755006245382204', 94, 600, 1, 1, '2023-02-04 16:50:25', 5, '', 0, '2023-02-04 16:50:25', '2023-02-04 16:50:31', '9101743439', '6007'),
+(306, '16755006872440227', 97, 1080, 1, 1, '2023-02-04 16:51:28', 5, '', 0, '2023-02-04 16:51:27', '2023-02-04 16:51:42', '9771114242', '6006'),
+(307, '16755007087897742', 94, 600, 1, 1, '2023-02-04 16:51:49', 5, '', 0, '2023-02-04 16:51:49', '2023-02-04 16:51:59', '9101743439', '6007'),
+(308, '16755008428455777', 98, 600, 1, 1, '2023-02-04 16:54:03', 1, '', 0, '2023-02-04 16:54:03', '2023-02-04 16:54:03', '9671971880', '6006'),
+(309, '16755008630313703', 99, 600, 1, 1, '2023-02-04 16:54:23', 5, '', 0, '2023-02-04 16:54:23', '2023-02-04 16:54:42', '9307151408', '6007'),
+(310, '16755008898943651', 95, 600, 1, 1, '2023-02-04 16:54:50', 5, '', 0, '2023-02-04 16:54:50', '2023-02-04 16:55:02', '9048846340', '6007'),
+(311, '16755010904099758', 73, 13280, 1, 1, '2023-02-04 16:58:11', 5, '', 0, '2023-02-04 16:58:10', '2023-02-04 16:58:14', '9850391729', '6005'),
+(312, '16755010993846633', 77, 19980, 1, 1, '2023-02-04 16:58:20', 5, '', 0, '2023-02-04 16:58:19', '2023-02-04 16:58:25', '9042557936', '6005'),
+(313, '16755011030383306', 86, 19980, 1, 1, '2023-02-04 16:58:24', 5, '', 0, '2023-02-04 16:58:23', '2023-02-04 16:58:28', '9021675944', '6003'),
+(314, '16755011180993879', 85, 7760, 1, 1, '2023-02-04 16:58:39', 5, '', 0, '2023-02-04 16:58:38', '2023-02-04 16:58:43', '9246119191', '6003'),
+(315, '16755012061815881', 64, 19800, 1, 1, '2023-02-04 17:00:06', 4, '', 0, '2023-02-04 17:00:06', '2023-02-04 17:00:18', 'noe111', 'test'),
+(316, '16755019587460407', 100, 600, 1, 1, '2023-02-04 17:12:39', 5, '', 0, '2023-02-04 17:12:39', '2023-02-04 17:12:48', '9376514612', '6006'),
+(317, '16755021039282098', 101, 1080, 1, 1, '2023-02-04 17:15:04', 5, '', 0, '2023-02-04 17:15:04', '2023-02-04 17:17:20', '9788489778', '6005'),
+(318, '16755022916026648', 102, 600, 1, 2, '2023-02-04 17:19:22', 5, '', 0, '2023-02-04 17:18:12', '2023-02-04 17:19:34', '9836110013', '6006'),
+(319, '16755033753708935', 90, 7760, 1, 1, '2023-02-04 17:36:16', 5, '', 0, '2023-02-04 17:36:15', '2023-02-04 17:36:19', '9506202437', '6003'),
+(320, '16755044935631023', 86, 56780, 1, 1, '2023-02-04 17:54:54', 4, '', 0, '2023-02-04 17:54:54', '2023-02-04 17:54:58', '9021675944', '6003'),
+(321, '16755049118619860', 104, 600, 1, 1, '2023-02-04 18:01:53', 5, '', 0, '2023-02-04 18:01:52', '2023-02-04 18:03:37', '9148412842', '6006'),
+(322, '16755053965561549', 89, 150000, 0, 0, NULL, 0, '', 0, '2023-02-04 18:09:57', '2023-02-04 18:09:57', '9042593149', '6006'),
+(323, '16755058174200502', 90, 13280, 1, 1, '2023-02-04 18:16:58', 4, '', 0, '2023-02-04 18:16:57', '2023-02-04 18:17:01', '9506202437', '6003'),
+(324, '16755061814665956', 103, 600, 1, 1, '2023-02-04 18:23:02', 5, '', 0, '2023-02-04 18:23:01', '2023-02-04 18:24:15', '9379533713', '6005'),
+(325, '16755062275173200', 103, 600, 0, 0, NULL, 0, '', 0, '2023-02-04 18:23:48', '2023-02-04 18:23:48', '9379533713', '6005'),
+(326, '16755063824915775', 103, 600, 1, 1, '2023-02-04 18:26:23', 5, '', 0, '2023-02-04 18:26:22', '2023-02-04 18:26:27', '9379533713', '6005'),
+(327, '16755077872817067', 73, 26465, 1, 1, '2023-02-04 18:49:48', 4, '', 0, '2023-02-04 18:49:47', '2023-02-04 18:49:51', '9850391729', '6005'),
+(328, '16755096663344404', 84, 2300, 1, 1, '2023-02-04 19:21:07', 5, '', 0, '2023-02-04 19:21:06', '2023-02-04 19:21:15', '9247019900', '6001'),
+(329, '16755114721125186', 97, 2300, 1, 1, '2023-02-04 19:51:12', 5, '', 0, '2023-02-04 19:51:12', '2023-02-04 19:51:19', '9771114242', '6006'),
+(330, '16755114772461420', 98, 2300, 1, 2, '2023-02-04 19:54:10', 1, '', 0, '2023-02-04 19:51:17', '2023-02-04 19:54:10', '9671971880', '6006'),
+(331, '16755120242589721', 96, 2300, 1, 1, '2023-02-04 20:00:25', 5, '', 0, '2023-02-04 20:00:24', '2023-02-04 20:01:17', '9823394679', '6005'),
+(332, '16755122756490972', 105, 1080, 1, 1, '2023-02-04 20:04:36', 5, '', 0, '2023-02-04 20:04:36', '2023-02-04 20:04:43', '9131839008', '6001'),
+(333, '16755122851384808', 95, 3380, 1, 1, '2023-02-04 20:04:46', 5, '', 0, '2023-02-04 20:04:45', '2023-02-04 20:16:29', '9048846340', '6007'),
+(334, '16755123097567822', 93, 1080, 1, 1, '2023-02-04 20:05:10', 5, '', 0, '2023-02-04 20:05:10', '2023-02-04 20:05:15', '79061369712', '6001'),
+(335, '16755123155740604', 104, 1080, 1, 1, '2023-02-04 20:05:16', 5, '', 0, '2023-02-04 20:05:16', '2023-02-04 20:08:44', '9148412842', '6006'),
+(336, '16755123305735298', 94, 2300, 1, 1, '2023-02-04 20:05:31', 5, '', 0, '2023-02-04 20:05:31', '2023-02-04 20:05:35', '9101743439', '6007'),
+(337, '16755123723023127', 101, 1080, 1, 1, '2023-02-04 20:06:13', 5, '', 0, '2023-02-04 20:06:12', '2023-02-04 20:06:20', '9788489778', '6005'),
+(338, '16755124604367999', 99, 1080, 1, 1, '2023-02-04 20:07:41', 5, '', 0, '2023-02-04 20:07:40', '2023-02-04 20:07:50', '9307151408', '6007'),
+(339, '16755124650346282', 95, 3380, 0, 0, NULL, 0, '', 0, '2023-02-04 20:07:45', '2023-02-04 20:07:45', '9048846340', '6007'),
+(340, '16755126169726160', 97, 1080, 0, 0, NULL, 0, '', 0, '2023-02-04 20:10:17', '2023-02-04 20:10:17', '9771114242', '6006'),
+(341, '16755127747666842', 95, 3380, 0, 0, NULL, 0, '', 0, '2023-02-04 20:12:55', '2023-02-04 20:12:55', '9048846340', '6007'),
+(342, '16755128267030584', 102, 2300, 1, 1, '2023-02-04 20:13:47', 5, '', 0, '2023-02-04 20:13:47', '2023-02-04 20:13:55', '9836110013', '6006'),
+(343, '16755128836246225', 97, 1080, 1, 1, '2023-02-04 20:14:45', 5, '', 0, '2023-02-04 20:14:44', '2023-02-04 20:14:56', '9771114242', '6006'),
+(344, '16755129510129534', 98, 1080, 1, 1, '2023-02-04 20:15:51', 5, '', 0, '2023-02-04 20:15:51', '2023-02-04 20:15:57', '9671971880', '6006'),
+(345, '16755129781218349', 100, 2300, 1, 1, '2023-02-04 20:16:19', 5, '', 0, '2023-02-04 20:16:18', '2023-02-04 20:16:40', '9376514612', '6006'),
+(346, '16755130839509114', 96, 1080, 1, 1, '2023-02-04 20:18:04', 5, '', 0, '2023-02-04 20:18:04', '2023-02-04 20:18:08', '9823394679', '6005'),
+(347, '16755133455671455', 106, 1080, 1, 1, '2023-02-04 20:22:26', 5, '', 0, '2023-02-04 20:22:26', '2023-02-04 20:22:41', '9036337682', '6001'),
+(348, '16755134721206389', 107, 1080, 1, 1, '2023-02-04 20:24:33', 5, '', 0, '2023-02-04 20:24:32', '2023-02-04 20:30:21', '9377156540', '6005'),
+(349, '16755135092571012', 94, 1080, 1, 1, '2023-02-04 20:25:10', 5, '', 0, '2023-02-04 20:25:09', '2023-02-04 20:25:16', '9101743439', '6007'),
+(350, '16755137904117589', 101, 2300, 1, 1, '2023-02-04 20:29:51', 5, '', 0, '2023-02-04 20:29:50', '2023-02-04 20:29:55', '9788489778', '6005'),
+(351, '16755138001116089', 107, 1080, 0, 0, NULL, 0, '', 0, '2023-02-04 20:30:00', '2023-02-04 20:30:00', '9377156540', '6005'),
+(352, '16755140125106068', 100, 1080, 1, 1, '2023-02-04 20:33:34', 5, '', 0, '2023-02-04 20:33:33', '2023-02-04 20:33:37', '9376514612', '6006'),
+(353, '16755142139559256', 99, 1080, 1, 1, '2023-02-04 20:36:54', 5, '', 0, '2023-02-04 20:36:54', '2023-02-04 20:37:03', '9307151408', '6007'),
+(354, '16755143490777698', 102, 1080, 1, 1, '2023-02-04 20:39:09', 1, '', 0, '2023-02-04 20:39:09', '2023-02-04 20:39:09', '9836110013', '6006'),
+(355, '16755143695754667', 104, 1080, 1, 1, '2023-02-04 20:39:30', 5, '', 0, '2023-02-04 20:39:30', '2023-02-04 20:39:35', '9148412842', '6006'),
+(356, '16755144214743461', 102, 1080, 1, 1, '2023-02-04 20:40:22', 5, '', 0, '2023-02-04 20:40:21', '2023-02-04 20:40:24', '9836110013', '6006'),
+(357, '16755146394065474', 105, 2300, 1, 1, '2023-02-04 20:44:00', 5, '', 0, '2023-02-04 20:43:59', '2023-02-04 20:44:05', '9131839008', '6001'),
+(358, '16755150554420010', 109, 1080, 1, 1, '2023-02-04 20:50:56', 5, '', 0, '2023-02-04 20:50:55', '2023-02-04 20:51:02', '9526195169', '6007'),
+(359, '16755162581741305', 109, 1080, 1, 1, '2023-02-04 21:10:59', 5, '', 0, '2023-02-04 21:10:58', '2023-02-04 21:11:03', '9526195169', '6007'),
+(360, '16755165138897532', 95, 3380, 1, 1, '2023-02-04 21:15:14', 5, '', 0, '2023-02-04 21:15:14', '2023-02-04 21:15:22', '9048846340', '6007'),
+(361, '16755166539455443', 77, 38340, 1, 1, '2023-02-04 21:17:34', 4, '', 0, '2023-02-04 21:17:34', '2023-02-04 21:17:38', '9042557936', '6005'),
+(362, '16755166937231661', 77, 38340, 1, 1, '2023-02-04 21:18:14', 4, '', 0, '2023-02-04 21:18:14', '2023-02-04 21:18:18', '9042557936', '6005'),
+(363, '16755182709194966', 95, 1680, 1, 1, '2023-02-04 21:44:31', 4, '', 0, '2023-02-04 21:44:31', '2023-02-04 21:44:40', '9048846340', '6007'),
+(364, '16755184064188882', 95, 1080, 1, 1, '2023-02-04 21:46:47', 4, '', 0, '2023-02-04 21:46:46', '2023-02-04 21:46:53', '9048846340', '6007'),
+(365, '16755192732385644', 93, 2300, 1, 1, '2023-02-04 22:01:14', 5, '', 0, '2023-02-04 22:01:13', '2023-02-04 22:01:28', '79061369712', '6001'),
+(366, '16755198321658413', 103, 1080, 1, 1, '2023-02-04 22:10:33', 5, '', 0, '2023-02-04 22:10:32', '2023-02-04 22:10:39', '9379533713', '6005'),
+(367, '16755198685812345', 103, 1080, 1, 1, '2023-02-04 22:11:09', 5, '', 0, '2023-02-04 22:11:09', '2023-02-04 22:11:14', '9379533713', '6005'),
+(368, '16755199147458118', 103, 1080, 1, 2, '2023-02-05 01:33:21', 1, '', 0, '2023-02-04 22:11:55', '2023-02-05 01:33:21', '9379533713', '6005'),
+(369, '16755200603575840', 103, 1080, 1, 1, '2023-02-04 22:14:21', 5, '', 0, '2023-02-04 22:14:20', '2023-02-04 22:14:24', '9379533713', '6005'),
+(370, '16755221480286233', 77, 100000, 1, 1, '2023-02-04 22:49:08', 5, '', 0, '2023-02-04 22:49:08', '2023-02-04 22:49:13', '9042557936', '6005'),
+(371, '16755249120396051', 81, 3590, 1, 1, '2023-02-04 23:35:12', 4, '', 0, '2023-02-04 23:35:12', '2023-02-04 23:36:39', '9252253744', '6007'),
+(372, '16755319362829079', 103, 2300, 1, 1, '2023-02-05 01:32:17', 5, '', 0, '2023-02-05 01:32:16', '2023-02-05 01:32:21', '9379533713', '6005'),
+(373, '16755319842948922', 103, 2300, 0, 0, NULL, 0, '', 0, '2023-02-05 01:33:04', '2023-02-05 01:33:04', '9379533713', '6005'),
+(374, '16755319957517416', 103, 2300, 0, 0, NULL, 0, '', 0, '2023-02-05 01:33:16', '2023-02-05 01:33:16', '9379533713', '6005'),
+(375, '16755325288601715', 103, 2300, 0, 0, NULL, 0, '', 0, '2023-02-05 01:42:09', '2023-02-05 01:42:09', '9379533713', '6005'),
+(376, '16755358873886243', 90, 6640, 1, 1, '2023-02-05 02:38:08', 4, '', 0, '2023-02-05 02:38:07', '2023-02-05 02:38:12', '9506202437', '6003'),
+(377, '16755857150400322', 94, 4080, 1, 1, '2023-02-05 16:28:35', 5, '', 0, '2023-02-05 16:28:35', '2023-02-05 16:28:40', '9101743439', '6007'),
+(378, '16755858570300850', 109, 2800, 1, 1, '2023-02-05 16:30:57', 5, '', 0, '2023-02-05 16:30:57', '2023-02-05 16:31:01', '9526195169', '6007'),
+(379, '16755858589123762', 78, 2800, 1, 1, '2023-02-05 16:30:59', 5, '', 0, '2023-02-05 16:30:59', '2023-02-05 16:31:07', '9788431467', '6007'),
+(380, '16755859448118837', 100, 39800, 1, 1, '2023-02-05 16:32:25', 5, '', 0, '2023-02-05 16:32:25', '2023-02-05 16:32:32', '9376514612', '6006'),
+(381, '16755861075989036', 101, 2800, 1, 1, '2023-02-05 16:35:08', 5, '', 0, '2023-02-05 16:35:08', '2023-02-05 16:35:12', '9788489778', '6005'),
+(382, '16755862225209097', 98, 7760, 1, 1, '2023-02-05 16:37:03', 5, '', 0, '2023-02-05 16:37:03', '2023-02-05 16:37:08', '9671971880', '6006'),
+(383, '16755862811754835', 96, 4080, 1, 1, '2023-02-05 16:38:02', 5, '', 0, '2023-02-05 16:38:01', '2023-02-05 16:38:05', '9823394679', '6005'),
+(384, '16755863066953421', 93, 4080, 1, 1, '2023-02-05 16:38:27', 5, '', 0, '2023-02-05 16:38:27', '2023-02-05 16:38:30', '79061369712', '6001'),
+(385, '16755863493605630', 104, 4080, 1, 1, '2023-02-05 16:39:10', 5, '', 0, '2023-02-05 16:39:09', '2023-02-05 16:39:13', '9148412842', '6006'),
+(386, '16755863827304647', 91, 4080, 1, 1, '2023-02-05 16:39:43', 5, '', 0, '2023-02-05 16:39:43', '2023-02-05 16:39:57', '9084992724', '6005'),
+(387, '16755864852817096', 103, 2800, 1, 1, '2023-02-05 16:41:26', 5, '', 0, '2023-02-05 16:41:25', '2023-02-05 16:41:29', '9379533713', '6005'),
+(388, '16755865157319965', 103, 2800, 0, 0, NULL, 0, '', 0, '2023-02-05 16:41:56', '2023-02-05 16:41:56', '9379533713', '6005'),
+(389, '16755866373107570', 94, 19980, 1, 1, '2023-02-05 16:43:58', 5, '', 0, '2023-02-05 16:43:57', '2023-02-05 16:44:00', '9101743439', '6007'),
+(390, '16755868498149658', 114, 600, 1, 1, '2023-02-05 16:47:30', 5, '', 0, '2023-02-05 16:47:30', '2023-02-05 16:47:41', '79085771599', '6003'),
+(391, '16755868600651791', 116, 600, 0, 0, NULL, 0, '', 0, '2023-02-05 16:47:40', '2023-02-05 16:47:40', '9156954343', '6003'),
+(392, '16755871515683895', 116, 600, 1, 1, '2023-02-05 16:52:32', 5, '', 0, '2023-02-05 16:52:32', '2023-02-05 16:52:39', '9156954343', '6003'),
+(393, '16755871537146582', 110, 13280, 1, 1, '2023-02-05 16:52:34', 5, '', 0, '2023-02-05 16:52:34', '2023-02-05 16:54:28', '9068436163', '6005'),
+(394, '16755872024277828', 110, 13280, 0, 0, NULL, 0, '', 0, '2023-02-05 16:53:22', '2023-02-05 16:53:22', '9068436163', '6005'),
+(395, '16755874029768505', 115, 3160, 1, 1, '2023-02-05 16:56:43', 5, '', 0, '2023-02-05 16:56:43', '2023-02-05 16:56:47', '9875763463', '6001'),
+(396, '16755874160255924', 97, 39800, 1, 1, '2023-02-05 16:56:56', 5, '', 0, '2023-02-05 16:56:56', '2023-02-05 16:57:02', '9771114242', '6006'),
+(397, '16755874339542103', 119, 600, 1, 1, '2023-02-05 16:57:14', 5, '', 0, '2023-02-05 16:57:14', '2023-02-05 16:59:00', '9091160004', '6001'),
+(398, '16755875820079784', 100, 59800, 1, 1, '2023-02-05 16:59:42', 5, '', 0, '2023-02-05 16:59:42', '2023-02-05 16:59:46', '9376514612', '6006'),
+(399, '16755877682707616', 118, 600, 1, 1, '2023-02-05 17:02:49', 5, '', 0, '2023-02-05 17:02:48', '2023-02-05 17:03:59', '9821332473', '6002'),
+(400, '16755878948723844', 117, 600, 1, 1, '2023-02-05 17:04:55', 5, '', 0, '2023-02-05 17:04:55', '2023-02-05 17:05:18', '9649733118', '6002'),
+(401, '16755879206207821', 121, 600, 1, 2, '2023-02-05 17:21:48', 5, '', 0, '2023-02-05 17:05:21', '2023-02-05 17:23:20', '9523435304', '6003'),
+(402, '16755879496650788', 104, 19800, 1, 1, '2023-02-05 17:05:50', 5, '', 0, '2023-02-05 17:05:50', '2023-02-05 17:05:55', '9148412842', '6006'),
+(403, '16755879937392074', 123, 600, 1, 1, '2023-02-05 17:06:34', 5, '', 0, '2023-02-05 17:06:34', '2023-02-05 17:06:42', '9103874805', '6007'),
+(404, '16755880952717494', 94, 38340, 1, 1, '2023-02-05 17:08:16', 4, '', 0, '2023-02-05 17:08:15', '2023-02-05 17:08:19', '9101743439', '6007'),
+(405, '16755884846866529', 109, 13280, 1, 1, '2023-02-05 17:14:45', 5, '', 0, '2023-02-05 17:14:45', '2023-02-05 17:14:49', '9526195169', '6007'),
+(406, '16755886524519386', 110, 19980, 1, 1, '2023-02-05 17:17:33', 5, '', 0, '2023-02-05 17:17:32', '2023-02-05 17:17:37', '9068436163', '6005'),
+(407, '16755886613848376', 120, 1080, 1, 1, '2023-02-05 17:17:42', 5, '', 0, '2023-02-05 17:17:41', '2023-02-05 17:17:47', '9621384738', '6003'),
+(408, '16755888642074417', 93, 19980, 1, 1, '2023-02-05 17:21:05', 5, '', 0, '2023-02-05 17:21:04', '2023-02-05 17:21:07', '79061369712', '6001'),
+(409, '16755891197017196', 94, 38340, 1, 1, '2023-02-05 17:25:20', 4, '', 0, '2023-02-05 17:25:20', '2023-02-05 17:25:22', '9101743439', '6007'),
+(410, '16755891744045630', 124, 600, 1, 1, '2023-02-05 17:26:15', 5, '', 0, '2023-02-05 17:26:14', '2023-02-05 17:27:23', '9205507200', '6001'),
+(411, '16755893351363379', 122, 600, 1, 1, '2023-02-05 17:28:56', 5, '', 0, '2023-02-05 17:28:55', '2023-02-05 17:29:08', '9374488803', '6005'),
+(412, '16755894296278826', 96, 19980, 1, 1, '2023-02-05 17:30:30', 5, '', 0, '2023-02-05 17:30:30', '2023-02-05 17:30:33', '9823394679', '6005'),
+(413, '16755896396372386', 125, 1080, 1, 1, '2023-02-05 17:34:01', 5, '', 0, '2023-02-05 17:34:00', '2023-02-05 17:34:41', '9512652091', '6003'),
+(414, '16755898152850296', 110, 38340, 1, 1, '2023-02-05 17:36:56', 4, '', 0, '2023-02-05 17:36:55', '2023-02-05 17:37:15', '9068436163', '6005'),
+(415, '16755907971241916', 100, 98800, 1, 1, '2023-02-05 17:53:18', 5, '', 0, '2023-02-05 17:53:17', '2023-02-05 17:53:22', '9376514612', '6006'),
+(416, '16755913994779695', 104, 19900, 1, 1, '2023-02-05 18:03:20', 4, '', 0, '2023-02-05 18:03:19', '2023-02-05 18:03:23', '9148412842', '6006'),
+(417, '16755919238706277', 98, 29800, 1, 1, '2023-02-05 18:12:04', 5, '', 0, '2023-02-05 18:12:04', '2023-02-05 18:12:09', '9671971880', '6006'),
+(418, '16755920112283517', 126, 600, 1, 1, '2023-02-05 18:13:32', 5, '', 0, '2023-02-05 18:13:31', '2023-02-05 18:13:43', '9097852870', '6002'),
+(419, '16755920160400239', 97, 59800, 1, 1, '2023-02-05 18:13:36', 5, '', 0, '2023-02-05 18:13:36', '2023-02-05 18:13:40', '9771114242', '6006');
+INSERT INTO `tb_newbee_mall_order` (`order_id`, `order_no`, `user_id`, `total_price`, `pay_status`, `pay_type`, `pay_time`, `order_status`, `extra_info`, `is_deleted`, `create_time`, `update_time`, `user_name`, `agent_id`) VALUES
+(420, '16755923732811542', 109, 56780, 1, 1, '2023-02-05 18:19:34', 4, '', 0, '2023-02-05 18:19:33', '2023-02-05 18:19:37', '9526195169', '6007'),
+(421, '16755932329824555', 125, 1080, 1, 1, '2023-02-05 18:33:53', 5, '', 0, '2023-02-05 18:33:53', '2023-02-05 18:33:58', '9512652091', '6003'),
+(422, '16755947328237986', 127, 600, 1, 1, '2023-02-05 18:58:53', 5, '', 0, '2023-02-05 18:58:53', '2023-02-05 18:59:02', '9021726665', '6007'),
+(423, '16755984177904989', 100, 150000, 1, 1, '2023-02-05 20:00:18', 5, '', 0, '2023-02-05 20:00:18', '2023-02-05 20:00:22', '9376514612', '6006'),
+(424, '16755984551962777', 126, 2300, 1, 1, '2023-02-05 20:00:56', 5, '', 0, '2023-02-05 20:00:55', '2023-02-05 20:01:05', '9097852870', '6002'),
+(425, '16755988193034865', 96, 38340, 1, 1, '2023-02-05 20:07:00', 4, '', 0, '2023-02-05 20:06:59', '2023-02-05 20:12:30', '9823394679', '6005'),
+(426, '16755988763775136', 118, 1080, 1, 1, '2023-02-05 20:07:57', 5, '', 0, '2023-02-05 20:07:56', '2023-02-05 20:08:02', '9821332473', '6002'),
+(427, '16755989450994424', 96, 76680, 0, 0, NULL, 0, '', 0, '2023-02-05 20:09:05', '2023-02-05 20:09:05', '9823394679', '6005'),
+(428, '16755990547089771', 97, 44900, 0, 0, NULL, 0, '', 0, '2023-02-05 20:10:55', '2023-02-05 20:10:55', '9771114242', '6006'),
+(429, '16755990828582950', 120, 1080, 1, 1, '2023-02-05 20:11:23', 5, '', 0, '2023-02-05 20:11:23', '2023-02-05 20:11:29', '9621384738', '6003'),
+(430, '16755990900658580', 97, 44900, 0, 0, NULL, 0, '', 0, '2023-02-05 20:11:30', '2023-02-05 20:11:30', '9771114242', '6006'),
+(431, '16755991183559304', 119, 2300, 1, 1, '2023-02-05 20:11:59', 5, '', 0, '2023-02-05 20:11:58', '2023-02-05 20:13:32', '9091160004', '6001'),
+(432, '16755991254812583', 96, 38340, 1, 1, '2023-02-05 20:12:06', 4, '', 0, '2023-02-05 20:12:05', '2023-02-05 20:12:25', '9823394679', '6005'),
+(433, '16755991802984896', 97, 44900, 1, 1, '2023-02-05 20:13:01', 4, '', 0, '2023-02-05 20:13:00', '2023-02-05 20:13:04', '9771114242', '6006'),
+(434, '16755991958660520', 117, 1080, 1, 1, '2023-02-05 20:13:16', 5, '', 0, '2023-02-05 20:13:16', '2023-02-05 20:13:20', '9649733118', '6002'),
+(435, '16755992276528149', 115, 2300, 1, 1, '2023-02-05 20:13:48', 5, '', 0, '2023-02-05 20:13:48', '2023-02-05 20:13:57', '9875763463', '6001'),
+(436, '16755992602701269', 124, 1080, 1, 1, '2023-02-05 20:14:21', 5, '', 0, '2023-02-05 20:14:20', '2023-02-05 20:14:30', '9205507200', '6001'),
+(437, '16755992796723696', 123, 1080, 1, 1, '2023-02-05 20:14:40', 5, '', 0, '2023-02-05 20:14:40', '2023-02-05 20:14:48', '9103874805', '6007'),
+(438, '16755992807516181', 97, 44900, 1, 1, '2023-02-05 20:14:41', 4, '', 0, '2023-02-05 20:14:41', '2023-02-05 20:14:45', '9771114242', '6006'),
+(439, '16755993709803677', 126, 1080, 1, 1, '2023-02-05 20:16:12', 5, '', 0, '2023-02-05 20:16:11', '2023-02-05 20:16:20', '9097852870', '6002'),
+(440, '16755993938349111', 122, 1080, 1, 1, '2023-02-05 20:16:34', 5, '', 0, '2023-02-05 20:16:34', '2023-02-05 20:16:46', '9374488803', '6005'),
+(441, '16755994872598462', 97, 89800, 1, 1, '2023-02-05 20:18:08', 4, '', 0, '2023-02-05 20:18:07', '2023-02-05 20:18:15', '9771114242', '6006'),
+(442, '16755995324446031', 125, 1080, 1, 1, '2023-02-05 20:18:53', 5, '', 0, '2023-02-05 20:18:52', '2023-02-05 20:18:57', '9512652091', '6003'),
+(443, '16755995686042581', 116, 2300, 1, 1, '2023-02-05 20:19:29', 5, '', 0, '2023-02-05 20:19:29', '2023-02-05 20:19:36', '9156954343', '6003'),
+(444, '16756003932384453', 119, 1080, 1, 1, '2023-02-05 20:33:14', 5, '', 0, '2023-02-05 20:33:13', '2023-02-05 20:33:53', '9091160004', '6001'),
+(445, '16756005704005867', 115, 1080, 1, 1, '2023-02-05 20:36:11', 5, '', 0, '2023-02-05 20:36:10', '2023-02-05 20:36:23', '9875763463', '6001'),
+(446, '16756008656175873', 128, 600, 1, 1, '2023-02-05 20:41:07', 5, '', 0, '2023-02-05 20:41:06', '2023-02-05 20:41:13', '79182564596', '6003'),
+(447, '16756013065310860', 117, 1080, 1, 1, '2023-02-05 20:48:27', 5, '', 0, '2023-02-05 20:48:27', '2023-02-05 20:48:31', '9649733118', '6002'),
+(448, '16756015107283612', 123, 600, 0, 0, NULL, 0, '', 0, '2023-02-05 20:51:51', '2023-02-05 20:51:51', '9103874805', '6007'),
+(449, '16756015500171317', 122, 2300, 1, 1, '2023-02-05 20:52:30', 5, '', 0, '2023-02-05 20:52:30', '2023-02-05 20:52:36', '9374488803', '6005'),
+(450, '16756015527810539', 124, 2300, 1, 1, '2023-02-05 20:52:33', 5, '', 0, '2023-02-05 20:52:33', '2023-02-05 20:52:41', '9205507200', '6001'),
+(451, '16756017456891159', 116, 1080, 1, 1, '2023-02-05 20:55:46', 5, '', 0, '2023-02-05 20:55:46', '2023-02-05 20:55:50', '9156954343', '6003'),
+(452, '16756061304978924', 98, 29900, 1, 1, '2023-02-05 22:08:51', 4, '', 0, '2023-02-05 22:08:50', '2023-02-05 22:08:56', '9671971880', '6006'),
+(453, '16756061790674584', 127, 1080, 1, 1, '2023-02-05 22:09:39', 5, '', 0, '2023-02-05 22:09:39', '2023-02-05 22:09:54', '9021726665', '6007'),
+(454, '16756069627174354', 100, 150000, 1, 1, '2023-02-05 22:22:43', 5, '', 0, '2023-02-05 22:22:43', '2023-02-05 22:22:47', '9376514612', '6006'),
+(455, '16756070679709589', 112, 2300, 1, 1, '2023-02-05 22:24:28', 5, '', 0, '2023-02-05 22:24:28', '2023-02-05 22:24:43', '123456789', 'test'),
+(456, '16756075843960946', 104, 47706, 1, 1, '2023-02-05 22:33:05', 4, '', 0, '2023-02-05 22:33:04', '2023-02-05 22:33:17', '9148412842', '6006'),
+(457, '16756080798079252', 120, 1080, 1, 1, '2023-02-05 22:41:20', 5, '', 0, '2023-02-05 22:41:20', '2023-02-05 22:41:26', '9621384738', '6003'),
+(458, '16756098096405728', 128, 1080, 1, 1, '2023-02-05 23:10:10', 5, '', 0, '2023-02-05 23:10:10', '2023-02-05 23:10:15', '79182564596', '6003'),
+(459, '16756124685896380', 77, 150000, 1, 1, '2023-02-05 23:54:29', 4, '', 0, '2023-02-05 23:54:29', '2023-02-05 23:54:33', '9042557936', '6005'),
+(460, '16756124764655409', 127, 1080, 1, 1, '2023-02-05 23:54:37', 5, '', 0, '2023-02-05 23:54:36', '2023-02-05 23:55:10', '9021726665', '6007'),
+(461, '16756706228149426', 105, 4080, 1, 1, '2023-02-06 16:03:44', 5, '', 0, '2023-02-06 16:03:43', '2023-02-06 16:03:51', '9131839008', '6001'),
+(462, '16756713437260329', 116, 56780, 1, 1, '2023-02-06 16:15:45', 5, '', 0, '2023-02-06 16:15:44', '2023-02-06 16:15:51', '9156954343', '6003'),
+(463, '16756713928924488', 125, 4080, 1, 1, '2023-02-06 16:16:34', 5, '', 0, '2023-02-06 16:16:33', '2023-02-06 16:16:40', '9512652091', '6003'),
+(464, '16756715304732475', 127, 2800, 1, 1, '2023-02-06 16:18:51', 5, '', 0, '2023-02-06 16:18:50', '2023-02-06 16:18:58', '9021726665', '6007'),
+(465, '16756715688529893', 105, 13280, 1, 1, '2023-02-06 16:19:31', 5, '', 0, '2023-02-06 16:19:29', '2023-02-06 16:19:37', '9131839008', '6001'),
+(466, '16756719904704045', 126, 7760, 1, 1, '2023-02-06 16:26:31', 5, '', 0, '2023-02-06 16:26:30', '2023-02-06 16:26:44', '9097852870', '6002'),
+(467, '16756719939973077', 117, 4080, 1, 1, '2023-02-06 16:26:35', 5, '', 0, '2023-02-06 16:26:34', '2023-02-06 16:26:39', '9649733118', '6002'),
+(468, '16756719949240041', 131, 1080, 1, 1, '2023-02-06 16:26:36', 5, '', 0, '2023-02-06 16:26:35', '2023-02-06 16:26:52', '9203555183', '6007'),
+(469, '16756722769890425', 119, 4080, 1, 1, '2023-02-06 16:31:18', 5, '', 0, '2023-02-06 16:31:17', '2023-02-06 16:48:53', '9091160004', '6001'),
+(470, '16756723172188237', 115, 4080, 1, 1, '2023-02-06 16:31:58', 5, '', 0, '2023-02-06 16:31:57', '2023-02-06 16:32:04', '9875763463', '6001'),
+(471, '16756724137296959', 125, 19980, 1, 1, '2023-02-06 16:33:35', 5, '', 0, '2023-02-06 16:33:34', '2023-02-06 16:33:39', '9512652091', '6003'),
+(472, '16756726108210370', 133, 600, 1, 1, '2023-02-06 16:36:52', 5, '', 0, '2023-02-06 16:36:51', '2023-02-06 16:39:15', '9649735075', '6006'),
+(473, '16756726459573649', 135, 600, 1, 1, '2023-02-06 16:37:27', 5, '', 0, '2023-02-06 16:37:26', '2023-02-06 16:41:48', '9631112503', '6008'),
+(474, '16756726623792217', 134, 600, 1, 1, '2023-02-06 16:37:43', 5, '', 0, '2023-02-06 16:37:42', '2023-02-06 16:39:46', '79527691745', '6005'),
+(475, '16756727644054413', 134, 600, 0, 0, NULL, 0, '', 0, '2023-02-06 16:39:24', '2023-02-06 16:39:24', '79527691745', '6005'),
+(476, '16756728528463136', 132, 600, 1, 1, '2023-02-06 16:40:54', 5, '', 0, '2023-02-06 16:40:53', '2023-02-06 16:41:05', '9129258777', '6001'),
+(477, '16756731698767875', 136, 600, 1, 1, '2023-02-06 16:46:11', 5, '', 0, '2023-02-06 16:46:10', '2023-02-06 16:46:57', '9233407902', '6002'),
+(478, '16756732608029738', 138, 1080, 1, 1, '2023-02-06 16:47:42', 5, '', 0, '2023-02-06 16:47:41', '2023-02-06 16:49:14', '9021720894', '6007'),
+(479, '16756732916835314', 137, 600, 1, 1, '2023-02-06 16:48:12', 5, '', 0, '2023-02-06 16:48:12', '2023-02-06 16:49:38', '9209073900', '6005'),
+(480, '16756735025292285', 139, 600, 1, 1, '2023-02-06 16:51:44', 5, '', 0, '2023-02-06 16:51:43', '2023-02-06 16:54:34', '9200047838', '6006'),
+(481, '16756735715276993', 140, 600, 1, 1, '2023-02-06 16:52:52', 5, '', 0, '2023-02-06 16:52:52', '2023-02-06 16:53:07', '9028582947', '6007'),
+(482, '16756737487169032', 141, 600, 1, 1, '2023-02-06 16:55:50', 5, '', 0, '2023-02-06 16:55:49', '2023-02-06 16:56:05', '9832018320', '6008'),
+(483, '16756741800378289', 125, 28390, 1, 1, '2023-02-06 17:03:01', 4, '', 0, '2023-02-06 17:03:00', '2023-02-06 17:03:07', '9512652091', '6003'),
+(484, '16756742091641920', 120, 4080, 1, 1, '2023-02-06 17:03:30', 5, '', 0, '2023-02-06 17:03:29', '2023-02-06 17:03:37', '9621384738', '6003'),
+(485, '16756743460562201', 130, 600, 1, 1, '2023-02-06 17:05:47', 5, '', 0, '2023-02-06 17:05:46', '2023-02-06 17:08:12', '9504359544', '6001'),
+(486, '16756745564549652', 117, 13280, 1, 1, '2023-02-06 17:09:17', 5, '', 0, '2023-02-06 17:09:16', '2023-02-06 17:09:21', '9649733118', '6002'),
+(487, '16756746239386501', 126, 19980, 1, 1, '2023-02-06 17:10:25', 5, '', 0, '2023-02-06 17:10:24', '2023-02-06 17:10:30', '9097852870', '6002'),
+(488, '16756748342523572', 144, 600, 1, 1, '2023-02-06 17:13:56', 5, '', 0, '2023-02-06 17:13:54', '2023-02-06 17:14:54', '9199406587', '6005'),
+(489, '16756749520401278', 142, 1080, 1, 1, '2023-02-06 17:15:53', 5, '', 0, '2023-02-06 17:15:52', '2023-02-06 17:17:05', '9103420014', '6008'),
+(490, '16756751654059284', 143, 600, 1, 1, '2023-02-06 17:19:26', 5, '', 0, '2023-02-06 17:19:25', '2023-02-06 17:19:40', '9787138941', '6001'),
+(491, '16756752629405591', 115, 56780, 1, 1, '2023-02-06 17:21:04', 5, '', 0, '2023-02-06 17:21:03', '2023-02-06 17:21:23', '9875763463', '6001'),
+(492, '16756762888219910', 145, 1080, 0, 0, NULL, 0, '', 0, '2023-02-06 17:38:09', '2023-02-06 17:38:09', '9950503565', '6003'),
+(493, '16756765466702580', 125, 28390, 1, 1, '2023-02-06 17:42:28', 4, '', 0, '2023-02-06 17:42:27', '2023-02-06 17:42:31', '9512652091', '6003'),
+(494, '16756766961180419', 145, 1080, 1, 1, '2023-02-06 17:44:57', 5, '', 0, '2023-02-06 17:44:56', '2023-02-06 17:45:02', '9950503565', '6003'),
+(495, '16756767516020011', 120, 19980, 1, 1, '2023-02-06 17:45:52', 5, '', 0, '2023-02-06 17:45:52', '2023-02-06 17:45:59', '9621384738', '6003'),
+(496, '16756770373838402', 117, 19900, 1, 1, '2023-02-06 17:50:38', 4, '', 0, '2023-02-06 17:50:37', '2023-02-06 17:50:44', '9649733118', '6002'),
+(497, '16756771057244439', 117, 39800, 1, 1, '2023-02-06 17:51:47', 4, '', 0, '2023-02-06 17:51:46', '2023-02-06 17:51:50', '9649733118', '6002'),
+(498, '16756785009231503', 120, 28390, 1, 1, '2023-02-06 18:15:02', 4, '', 0, '2023-02-06 18:15:01', '2023-02-06 18:15:08', '9621384738', '6003'),
+(499, '16756791139523515', 146, 600, 1, 1, '2023-02-06 18:25:15', 5, '', 0, '2023-02-06 18:25:14', '2023-02-06 18:25:51', '9785028506', '6005'),
+(500, '16756794180769037', 99, 4080, 1, 1, '2023-02-06 18:30:19', 5, '', 0, '2023-02-06 18:30:18', '2023-02-06 18:33:37', '9307151408', '6007'),
+(501, '16756795371511276', 99, 4080, 0, 0, NULL, 0, '', 0, '2023-02-06 18:32:17', '2023-02-06 18:32:17', '9307151408', '6007'),
+(502, '16756809490119512', 146, 1080, 1, 1, '2023-02-06 18:55:50', 5, '', 0, '2023-02-06 18:55:49', '2023-02-06 18:55:55', '9785028506', '6005'),
+(503, '16756836808779021', 91, 19980, 1, 1, '2023-02-06 19:41:21', 5, '', 0, '2023-02-06 19:41:21', '2023-02-06 19:41:24', '9084992724', '6005'),
+(504, '16756842509349174', 139, 1080, 1, 1, '2023-02-06 19:50:52', 5, '', 0, '2023-02-06 19:50:51', '2023-02-06 19:51:12', '9200047838', '6006'),
+(505, '16756844015422195', 144, 2300, 1, 1, '2023-02-06 19:53:23', 5, '', 0, '2023-02-06 19:53:22', '2023-02-06 19:53:29', '9199406587', '6005'),
+(506, '16756847479080048', 140, 1080, 1, 1, '2023-02-06 19:59:09', 5, '', 0, '2023-02-06 19:59:08', '2023-02-06 19:59:17', '9028582947', '6007'),
+(507, '16756847539683873', 138, 2300, 1, 1, '2023-02-06 19:59:15', 5, '', 0, '2023-02-06 19:59:14', '2023-02-06 19:59:19', '9021720894', '6007'),
+(508, '16756848005211713', 134, 2300, 1, 1, '2023-02-06 20:00:02', 5, '', 0, '2023-02-06 20:00:01', '2023-02-06 20:00:24', '79527691745', '6005'),
+(509, '16756848619583880', 137, 2300, 1, 1, '2023-02-06 20:01:03', 5, '', 0, '2023-02-06 20:01:02', '2023-02-06 20:01:09', '9209073900', '6005'),
+(510, '16756848872889312', 123, 1080, 1, 1, '2023-02-06 20:01:28', 1, '', 0, '2023-02-06 20:01:27', '2023-02-06 20:01:28', '9103874805', '6007'),
+(511, '16756849268974441', 132, 1080, 1, 1, '2023-02-06 20:02:08', 5, '', 0, '2023-02-06 20:02:07', '2023-02-06 20:02:17', '9129258777', '6001'),
+(512, '16756849421446077', 123, 246, 1, 1, '2023-02-06 20:02:23', 4, '', 0, '2023-02-06 20:02:22', '2023-02-06 20:02:41', '9103874805', '6007'),
+(513, '16756850718181339', 147, 600, 1, 1, '2023-02-06 20:04:32', 5, '', 0, '2023-02-06 20:04:32', '2023-02-06 20:04:38', '9034986787', '6009'),
+(514, '16756851144217043', 142, 2300, 1, 1, '2023-02-06 20:05:15', 5, '', 0, '2023-02-06 20:05:14', '2023-02-06 20:05:21', '9103420014', '6008'),
+(515, '16756851247434629', 135, 1080, 1, 1, '2023-02-06 20:05:26', 5, '', 0, '2023-02-06 20:05:25', '2023-02-06 20:05:33', '9631112503', '6008'),
+(516, '16756851602697676', 136, 2300, 1, 1, '2023-02-06 20:06:01', 5, '', 0, '2023-02-06 20:06:00', '2023-02-06 20:06:06', '9233407902', '6002'),
+(517, '16756854243923515', 138, 1080, 1, 1, '2023-02-06 20:10:25', 5, '', 0, '2023-02-06 20:10:24', '2023-02-06 20:10:32', '9021720894', '6007'),
+(518, '16756854936783842', 139, 1080, 1, 1, '2023-02-06 20:11:35', 5, '', 0, '2023-02-06 20:11:34', '2023-02-06 20:11:46', '9200047838', '6006'),
+(519, '16756856953634052', 144, 1080, 1, 1, '2023-02-06 20:14:57', 5, '', 0, '2023-02-06 20:14:55', '2023-02-06 20:15:01', '9199406587', '6005'),
+(520, '16756857234347543', 134, 1080, 1, 1, '2023-02-06 20:15:24', 5, '', 0, '2023-02-06 20:15:23', '2023-02-06 20:15:29', '79527691745', '6005'),
+(521, '16756857319825541', 136, 1080, 1, 1, '2023-02-06 20:15:33', 5, '', 0, '2023-02-06 20:15:32', '2023-02-06 20:15:37', '9233407902', '6002'),
+(522, '16756861457729155', 141, 1080, 1, 1, '2023-02-06 20:22:27', 5, '', 0, '2023-02-06 20:22:26', '2023-02-06 20:22:42', '9832018320', '6008'),
+(523, '16756869056272606', 142, 1080, 1, 1, '2023-02-06 20:35:07', 5, '', 0, '2023-02-06 20:35:06', '2023-02-06 20:35:11', '9103420014', '6008'),
+(524, '16756872630189005', 137, 1080, 1, 1, '2023-02-06 20:41:04', 5, '', 0, '2023-02-06 20:41:03', '2023-02-06 20:41:09', '9209073900', '6005'),
+(525, '16756876653626883', 130, 1080, 1, 1, '2023-02-06 20:47:50', 5, '', 0, '2023-02-06 20:47:45', '2023-02-06 20:48:06', '9504359544', '6001'),
+(526, '16756878424463295', 143, 2300, 0, 0, NULL, 0, '', 0, '2023-02-06 20:50:42', '2023-02-06 20:50:42', '9787138941', '6001'),
+(527, '16756881950292122', 132, 2300, 1, 1, '2023-02-06 20:56:36', 5, '', 0, '2023-02-06 20:56:35', '2023-02-06 20:56:42', '9129258777', '6001'),
+(528, '16756884602221503', 140, 1080, 1, 1, '2023-02-06 21:01:01', 5, '', 0, '2023-02-06 21:01:00', '2023-02-06 21:01:10', '9028582947', '6007'),
+(529, '16756884680355817', 141, 2300, 1, 1, '2023-02-06 21:01:09', 5, '', 0, '2023-02-06 21:01:08', '2023-02-06 21:01:15', '9832018320', '6008'),
+(530, '16756884814654268', 143, 2300, 1, 1, '2023-02-06 21:01:22', 5, '', 0, '2023-02-06 21:01:21', '2023-02-06 21:01:35', '9787138941', '6001'),
+(531, '16756884957835374', 135, 2300, 1, 1, '2023-02-06 21:01:37', 5, '', 0, '2023-02-06 21:01:36', '2023-02-06 21:01:53', '9631112503', '6008'),
+(532, '16756896810243551', 130, 2300, 1, 1, '2023-02-06 21:21:22', 5, '', 0, '2023-02-06 21:21:21', '2023-02-06 21:21:27', '9504359544', '6001'),
+(533, '16756897205528659', 143, 1080, 1, 1, '2023-02-06 21:22:01', 5, '', 0, '2023-02-06 21:22:01', '2023-02-06 21:22:07', '9787138941', '6001'),
+(534, '16757501552755266', 112, 4320, 1, 1, '2023-02-07 14:09:15', 4, '', 0, '2023-02-07 14:09:15', '2023-02-07 14:09:19', '123456789', 'test');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tb_newbee_mall_order_address`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_order_address` (
   `order_id` bigint(20) NOT NULL,
   `user_name` varchar(30) NOT NULL DEFAULT '' COMMENT '收货人姓名',
   `user_phone` varchar(11) NOT NULL DEFAULT '' COMMENT '收货人手机号',
   `province_name` varchar(32) NOT NULL DEFAULT '' COMMENT '省',
   `city_name` varchar(32) NOT NULL DEFAULT '' COMMENT '城',
   `region_name` varchar(32) NOT NULL DEFAULT '' COMMENT '区',
-  `detail_address` varchar(64) NOT NULL DEFAULT '' COMMENT '收件详细地址(街道/楼宇/单元)',
-  PRIMARY KEY (`order_id`)
+  `detail_address` varchar(64) NOT NULL DEFAULT '' COMMENT '收件详细地址(街道/楼宇/单元)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单收货地址关联表';
 
--- ----------------------------
--- Records of tb_newbee_mall_order_address
--- ----------------------------
-BEGIN;
-COMMIT;
+-- --------------------------------------------------------
 
--- ----------------------------
--- Table structure for tb_newbee_mall_order_item
--- ----------------------------
-DROP TABLE IF EXISTS `tb_newbee_mall_order_item`;
-CREATE TABLE `tb_newbee_mall_order_item` (
-  `order_item_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '订单关联购物项主键id',
+--
+-- 表的结构 `tb_newbee_mall_order_item`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_order_item` (
+  `order_item_id` bigint(20) NOT NULL COMMENT '订单关联购物项主键id',
   `order_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '订单主键id',
   `goods_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '关联商品id',
   `goods_name` varchar(200) NOT NULL DEFAULT '' COMMENT '下单时商品的名称(订单快照)',
   `goods_cover_img` varchar(200) NOT NULL DEFAULT '' COMMENT '下单时商品的主图(订单快照)',
   `selling_price` int(11) NOT NULL DEFAULT '1' COMMENT '下单时商品的价格(订单快照)',
   `goods_count` int(11) NOT NULL DEFAULT '1' COMMENT '数量(订单快照)',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  PRIMARY KEY (`order_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+) ENGINE=InnoDB AUTO_INCREMENT=544 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of tb_newbee_mall_order_item
--- ----------------------------
-BEGIN;
-INSERT INTO `tb_newbee_mall_order_item` (`order_item_id`, `order_id`, `goods_id`, `goods_name`, `goods_cover_img`, `selling_price`, `goods_count`, `create_time`) VALUES (1, 1, 10269, 'Apple 2019新品 Macbook Pro 13...', '/goods-img/a2afdb6c-69a7-4081-bd09-62174f9f5624.jpg', 12999, 1, '2022-11-23 22:40:50');
-INSERT INTO `tb_newbee_mall_order_item` (`order_item_id`, `order_id`, `goods_id`, `goods_name`, `goods_cover_img`, `selling_price`, `goods_count`, `create_time`) VALUES (2, 2, 10283, 'Apple iPhone 11 (A2223)', '/goods-img/075a188a-9045-45f0-9c67-1e42e0552aa2.jpg', 6799, 1, '2022-11-23 22:48:46');
-INSERT INTO `tb_newbee_mall_order_item` (`order_item_id`, `order_id`, `goods_id`, `goods_name`, `goods_cover_img`, `selling_price`, `goods_count`, `create_time`) VALUES (3, 3, 10779, '华为 HUAWEI Mate 20', '/goods-img/08f9a912-f049-4cf8-a839-115fc6582398.jpg', 3199, 1, '2022-11-23 22:49:00');
-INSERT INTO `tb_newbee_mall_order_item` (`order_item_id`, `order_id`, `goods_id`, `goods_name`, `goods_cover_img`, `selling_price`, `goods_count`, `create_time`) VALUES (4, 4, 10283, 'Apple iPhone 11 (A2223)', '/goods-img/075a188a-9045-45f0-9c67-1e42e0552aa2.jpg', 6799, 1, '2022-11-23 22:49:47');
-COMMIT;
+--
+-- 转存表中的数据 `tb_newbee_mall_order_item`
+--
 
--- ----------------------------
--- Table structure for tb_newbee_mall_shopping_cart_item
--- ----------------------------
-DROP TABLE IF EXISTS `tb_newbee_mall_shopping_cart_item`;
-CREATE TABLE `tb_newbee_mall_shopping_cart_item` (
-  `cart_item_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '购物项主键id',
+INSERT INTO `tb_newbee_mall_order_item` (`order_item_id`, `order_id`, `goods_id`, `goods_name`, `goods_cover_img`, `selling_price`, `goods_count`, `create_time`) VALUES
+(66, 63, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-01-29 17:06:02'),
+(67, 64, 10095, 'Оригинальные мужские наручн...', 'http://wildberries.win/95.jpeg', 7760, 1, '2023-01-29 17:30:48'),
+(68, 65, 10095, 'Оригинальные мужские наручн...', 'http://wildberries.win/95.jpeg', 7760, 1, '2023-01-29 17:31:33'),
+(69, 66, 10095, 'Оригинальные мужские наручн...', 'http://wildberries.win/95.jpeg', 7760, 1, '2023-01-29 17:32:06'),
+(70, 67, 10099, 'Кольцо обручальное из золот...', 'http://wildberries.win/99.webp', 13280, 1, '2023-01-29 17:32:34'),
+(71, 68, 10095, 'Оригинальные мужские наручн...', 'http://wildberries.win/95.jpeg', 7760, 1, '2023-01-29 17:32:49'),
+(72, 69, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-01-29 17:34:55'),
+(73, 70, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-01-29 17:35:00'),
+(74, 71, 10081, 'TOYOTA LAND CRUISER 200 toy...', 'http://wildberries.win/81.jpeg', 19800, 1, '2023-01-29 18:40:25'),
+(75, 72, 10081, 'TOYOTA LAND CRUISER 200 toy...', 'http://wildberries.win/81.jpeg', 19800, 1, '2023-01-29 18:41:11'),
+(76, 73, 10081, 'TOYOTA LAND CRUISER 200 toy...', 'http://wildberries.win/81.jpeg', 19800, 2, '2023-01-29 18:42:50'),
+(77, 74, 10066, 'Постельное белье евро, хлоп...', 'http://wildberries.win/66.jpg', 2300, 1, '2023-01-29 20:10:06'),
+(78, 75, 10066, 'Постельное белье евро, хлоп...', 'http://wildberries.win/66.jpg', 2300, 1, '2023-01-29 20:11:52'),
+(79, 76, 10066, 'Постельное белье евро, хлоп...', 'http://wildberries.win/66.jpg', 2300, 1, '2023-01-29 20:14:35'),
+(80, 77, 10066, 'Постельное белье евро, хлоп...', 'http://wildberries.win/66.jpg', 2300, 1, '2023-01-29 20:27:43'),
+(81, 78, 10066, 'Постельное белье евро, хлоп...', 'http://wildberries.win/66.jpg', 2300, 1, '2023-01-29 20:35:07'),
+(82, 79, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-01-29 20:37:10'),
+(83, 80, 10008, 'Apple MacBook Pro 13 M2/8 Г...', 'http://wildberries.win/10008.jpg', 110491, 1, '2023-01-29 21:08:31'),
+(84, 81, 10009, 'Популярные беспроводные нау...', 'http://wildberries.win/10009a.jpg', 2500, 1, '2023-01-29 21:09:07'),
+(85, 82, 10057, 'Домашнее платье хлопковое/Т...', 'http://wildberries.win/57.jpg', 1518, 1, '2023-01-29 21:09:22'),
+(86, 83, 10011, 'DiBa''s Care Смарт вотч часы...', 'http://wildberries.win/10011.jpg', 2449, 1, '2023-01-29 21:56:52'),
+(87, 84, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-01-30 17:06:40'),
+(88, 85, 10012, 'Apple iPhone 13 Pro 512GB (...', 'http://wildberries.win/10012a.jpg', 100491, 2, '2023-01-30 17:31:00'),
+(89, 85, 10009, 'Популярные беспроводные нау...', 'http://wildberries.win/10009a.jpg', 2500, 2, '2023-01-30 17:31:00'),
+(90, 86, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-01-30 17:42:33'),
+(91, 87, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-01-30 17:52:17'),
+(92, 88, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-01-30 17:54:12'),
+(93, 89, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-30 17:56:48'),
+(94, 90, 10011, 'DiBa''s Care Смарт вотч часы...', 'http://wildberries.win/10011.jpg', 2449, 1, '2023-01-30 17:58:01'),
+(95, 91, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-30 20:26:41'),
+(96, 92, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-01-30 20:47:44'),
+(97, 93, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-30 20:52:31'),
+(98, 94, 10066, 'Постельное белье евро, хлоп...', 'http://wildberries.win/66.jpg', 2300, 1, '2023-01-30 21:28:59'),
+(99, 95, 10066, 'Постельное белье евро, хлоп...', 'http://wildberries.win/66.jpg', 2300, 1, '2023-01-30 23:53:29'),
+(100, 96, 10065, 'Постельное белье евро на ре...', 'http://wildberries.win/65.jpg', 2300, 1, '2023-01-31 00:15:54'),
+(101, 97, 10016, 'Сушилка для овощей и фрукто...', 'http://wildberries.win/16.jpg', 6640, 2, '2023-01-31 15:08:32'),
+(102, 98, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-01-31 16:26:40'),
+(103, 99, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 16:38:51'),
+(104, 100, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-01-31 16:46:00'),
+(105, 101, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 17:02:02'),
+(106, 102, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-01-31 17:05:20'),
+(107, 103, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-01-31 17:05:40'),
+(108, 104, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-01-31 17:11:39'),
+(109, 105, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-01-31 17:22:21'),
+(110, 106, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-01-31 17:31:04'),
+(111, 107, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-01-31 17:31:45'),
+(112, 108, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-01-31 17:35:34'),
+(113, 109, 10095, 'Оригинальные мужские наручн...', 'http://wildberries.win/95.jpeg', 7760, 1, '2023-01-31 17:37:20'),
+(114, 110, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 18:00:14'),
+(115, 111, 10011, 'DiBa''s Care Смарт вотч часы...', 'http://wildberries.win/10011.jpg', 3160, 1, '2023-01-31 18:02:40'),
+(116, 112, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-01-31 18:32:11'),
+(117, 113, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-01-31 19:01:03'),
+(118, 114, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-01-31 19:29:31'),
+(119, 115, 10009, 'Популярные беспроводные нау...', 'http://wildberries.win/10009a.jpg', 2500, 1, '2023-01-31 20:15:55'),
+(120, 116, 10011, 'DiBa''s Care Смарт вотч часы...', 'http://wildberries.win/10011.jpg', 3160, 1, '2023-01-31 20:16:48'),
+(121, 117, 10011, 'DiBa''s Care Смарт вотч часы...', 'http://wildberries.win/10011.jpg', 3160, 2, '2023-01-31 20:17:11'),
+(122, 118, 10066, 'Постельное белье евро, хлоп...', 'http://wildberries.win/66.jpg', 2300, 1, '2023-01-31 20:19:29'),
+(123, 119, 10066, 'Постельное белье евро, хлоп...', 'http://wildberries.win/66.jpg', 2300, 1, '2023-01-31 20:20:10'),
+(124, 120, 10066, 'Постельное белье евро, хлоп...', 'http://wildberries.win/66.jpg', 2300, 1, '2023-01-31 20:20:38'),
+(125, 121, 10066, 'Постельное белье евро, хлоп...', 'http://wildberries.win/66.jpg', 2300, 1, '2023-01-31 20:23:20'),
+(126, 122, 10066, 'Постельное белье евро, хлоп...', 'http://wildberries.win/66.jpg', 2300, 1, '2023-01-31 20:23:50'),
+(127, 123, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 20:25:02'),
+(128, 124, 10066, 'Постельное белье евро, хлоп...', 'http://wildberries.win/66.jpg', 2300, 1, '2023-01-31 20:26:24'),
+(129, 125, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 20:29:23'),
+(130, 126, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-01-31 20:33:19'),
+(131, 127, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 20:35:23'),
+(132, 128, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-01-31 20:36:30'),
+(133, 129, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 20:38:55'),
+(134, 130, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-01-31 20:43:20'),
+(135, 131, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 20:44:11'),
+(136, 132, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 20:44:20'),
+(137, 133, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 20:45:55'),
+(138, 134, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-01-31 20:54:26'),
+(139, 135, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-01-31 21:01:29'),
+(140, 136, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-01-31 21:02:12'),
+(141, 137, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-01-31 21:04:46'),
+(142, 138, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 21:06:02'),
+(143, 139, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-01-31 21:06:30'),
+(144, 140, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 22:03:55'),
+(145, 141, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 22:17:54'),
+(146, 142, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 22:20:35'),
+(147, 143, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 22:21:03'),
+(148, 144, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-01-31 22:23:36'),
+(149, 145, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-01-31 22:32:32'),
+(150, 146, 10010, 'Polaris Робот-пылесос PVCR ...', 'http://wildberries.win/10010.jpg', 16800, 1, '2023-01-31 23:05:45'),
+(151, 147, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-01 04:20:14'),
+(152, 148, 10009, 'Популярные беспроводные нау...', 'http://wildberries.win/10009a.jpg', 38800, 1, '2023-02-01 16:12:14'),
+(153, 149, 10095, 'Оригинальные мужские наручн...', 'http://wildberries.win/95.jpeg', 7760, 1, '2023-02-01 16:16:53'),
+(154, 150, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-02-01 16:18:56'),
+(155, 151, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-02-01 16:20:08'),
+(156, 152, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-01 16:21:32'),
+(157, 153, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-01 16:21:34'),
+(158, 154, 10081, 'TOYOTA LAND CRUISER 200 toy...', 'http://wildberries.win/81.jpeg', 19980, 1, '2023-02-01 16:21:42'),
+(159, 155, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-02-01 16:24:55'),
+(160, 156, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-01 16:39:21'),
+(161, 157, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-01 16:43:12'),
+(162, 158, 10086, 'Компьютерное кресло руковод...', 'http://wildberries.win/86.jpeg', 11280, 1, '2023-02-01 16:44:03'),
+(163, 159, 10007, 'Apple Смартфон Apple iPhone...', 'http://wildberries.win/10007.jpg', 49800, 1, '2023-02-01 16:48:22'),
+(164, 160, 10093, 'Сумка', 'http://wildberries.win/93.jpeg', 13280, 1, '2023-02-01 16:51:41'),
+(165, 161, 10078, 'омпьютер TC-1660 CI3-10105 ...', 'http://wildberries.win/78.jpg', 54969, 1, '2023-02-01 16:55:39'),
+(166, 162, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-02-01 17:05:50'),
+(167, 163, 10099, 'Кольцо обручальное из золот...', 'http://wildberries.win/99.webp', 13280, 1, '2023-02-01 17:06:34'),
+(168, 164, 10007, 'Apple Смартфон Apple iPhone...', 'http://wildberries.win/10007.jpg', 49400, 1, '2023-02-01 17:24:32'),
+(169, 164, 10007, 'Apple Смартфон Apple iPhone...', 'http://wildberries.win/10007.jpg', 49400, 1, '2023-02-01 17:24:32'),
+(170, 165, 10078, 'омпьютер TC-1660 CI3-10105 ...', 'http://wildberries.win/78.jpg', 56700, 1, '2023-02-01 17:35:41'),
+(171, 166, 10008, 'Apple MacBook Pro 13 M2/8 Г...', 'http://wildberries.win/10008.jpg', 39800, 1, '2023-02-01 17:37:05'),
+(172, 167, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-02-01 17:38:10'),
+(173, 168, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-01 17:38:16'),
+(174, 169, 10009, 'Популярные беспроводные нау...', 'http://wildberries.win/10009a.jpg', 39400, 1, '2023-02-01 17:50:44'),
+(175, 170, 10009, 'Популярные беспроводные нау...', 'http://wildberries.win/10009a.jpg', 39400, 1, '2023-02-01 17:51:42'),
+(176, 171, 10012, 'Apple iPhone 13 Pro 512GB (...', 'http://wildberries.win/10012a.jpg', 150000, 1, '2023-02-01 17:58:44'),
+(177, 172, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-01 18:00:41'),
+(178, 173, 10006, 'Irbis IRBIS NB81 13.3" Z373...', 'http://wildberries.win/10006.jpg', 17900, 1, '2023-02-01 18:04:24'),
+(179, 174, 10006, 'Irbis IRBIS NB81 13.3" Z373...', 'http://wildberries.win/10006.jpg', 17900, 2, '2023-02-01 18:07:02'),
+(180, 175, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-01 18:31:43'),
+(181, 176, 10012, 'Apple iPhone 13 Pro 512GB (...', 'http://wildberries.win/10012a.jpg', 150000, 1, '2023-02-01 18:34:04'),
+(182, 177, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-01 18:37:22'),
+(183, 178, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-01 18:44:01'),
+(184, 179, 10009, 'Популярные беспроводные нау...', 'http://wildberries.win/10009a.jpg', 39400, 1, '2023-02-01 18:48:38'),
+(185, 180, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-01 19:39:17'),
+(186, 181, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-01 19:49:50'),
+(187, 182, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-01 19:51:33'),
+(188, 183, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-01 20:12:42'),
+(189, 184, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-01 20:16:53'),
+(190, 185, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-01 20:39:37'),
+(191, 186, 10011, 'DiBa''s Care Смарт вотч часы...', 'http://wildberries.win/10011.jpg', 3160, 2, '2023-02-01 20:44:39'),
+(192, 187, 10013, ' Планетарный миксер с чашей...', 'http://wildberries.win/13a.webp', 28930, 1, '2023-02-01 20:54:11'),
+(193, 188, 10070, 'Игровой компьютер Roo24 x4 ...', 'http://wildberries.win/70.jpg', 19900, 1, '2023-02-01 20:55:47'),
+(194, 189, 10013, ' Планетарный миксер с чашей...', 'http://wildberries.win/13a.webp', 28930, 1, '2023-02-01 21:01:44'),
+(195, 190, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-01 21:04:05'),
+(196, 191, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-01 21:05:00'),
+(197, 192, 10057, 'Домашнее платье хлопковое/Т...', 'http://wildberries.win/57.jpg', 1518, 1, '2023-02-01 21:05:22'),
+(198, 193, 10081, 'TOYOTA LAND CRUISER 200 toy...', 'http://wildberries.win/81.jpeg', 19980, 1, '2023-02-01 21:29:21'),
+(199, 194, 10013, ' Планетарный миксер с чашей...', 'http://wildberries.win/13a.webp', 28930, 1, '2023-02-01 22:20:50'),
+(200, 195, 10070, 'Игровой компьютер Roo24 x4 ...', 'http://wildberries.win/70.jpg', 19900, 1, '2023-02-01 22:46:43'),
+(201, 196, 10003, 'Apple iPad 10.2 Wi-Fi 64GB ...', 'http://wildberries.win/10003.jpg', 28594, 1, '2023-02-01 22:54:54'),
+(202, 197, 10070, 'Игровой компьютер Roo24 x4 ...', 'http://wildberries.win/70.jpg', 19900, 2, '2023-02-01 23:56:28'),
+(203, 198, 10057, 'Домашнее платье хлопковое/Т...', 'http://wildberries.win/57.jpg', 1518, 1, '2023-02-02 00:05:59'),
+(204, 199, 10067, 'Халат домашний с поясом\0\0\0\0...', 'http://wildberries.win/67.png', 1725, 1, '2023-02-02 00:18:54'),
+(205, 200, 10018, ' Шашлычница ', 'http://wildberries.win/18.png', 2800, 1, '2023-02-02 00:24:48'),
+(206, 201, 10064, 'Постельное белье 1.5 спальн...', 'http://wildberries.win/64.jpg', 1080, 1, '2023-02-02 00:31:46'),
+(207, 202, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-02 00:42:14'),
+(208, 203, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-02 01:36:14'),
+(209, 204, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-02 01:37:44'),
+(210, 205, 10016, 'Сушилка для овощей и фрукто...', 'http://wildberries.win/16.jpg', 6640, 1, '2023-02-02 02:05:14'),
+(211, 206, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-02 02:05:50'),
+(212, 207, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-02 02:06:13'),
+(213, 208, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-02 02:19:27'),
+(214, 209, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-02 02:21:02'),
+(215, 210, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-02 02:32:39'),
+(216, 211, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-02 16:29:41'),
+(217, 212, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-02-02 16:35:30'),
+(218, 213, 10099, 'Кольцо обручальное из золот...', 'http://wildberries.win/99.webp', 13280, 1, '2023-02-02 16:41:53'),
+(219, 214, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-02 16:52:57'),
+(220, 215, 10009, 'Популярные беспроводные нау...', 'http://wildberries.win/10009a.jpg', 19800, 1, '2023-02-02 17:00:34'),
+(221, 216, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-02 17:15:48'),
+(222, 217, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-02 17:19:28'),
+(223, 218, 10008, 'Apple MacBook Pro 13 M2/8 Г...', 'http://wildberries.win/10008.jpg', 49800, 1, '2023-02-02 17:19:55'),
+(224, 219, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-02 17:32:24'),
+(225, 220, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-02 17:42:33'),
+(226, 221, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-02 17:59:30'),
+(227, 222, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-02 18:03:17'),
+(228, 223, 10003, 'Apple iPad 10.2 Wi-Fi 64GB ...', 'http://wildberries.win/10003.jpg', 49900, 1, '2023-02-02 18:37:16'),
+(229, 224, 10003, 'Apple iPad 10.2 Wi-Fi 64GB ...', 'http://wildberries.win/10003.jpg', 49900, 1, '2023-02-02 18:37:37'),
+(230, 225, 10003, 'Apple iPad 10.2 Wi-Fi 64GB ...', 'http://wildberries.win/10003.jpg', 49900, 1, '2023-02-02 18:38:39'),
+(231, 226, 10003, 'Apple iPad 10.2 Wi-Fi 64GB ...', 'http://wildberries.win/10003.jpg', 49900, 1, '2023-02-02 18:39:24'),
+(232, 227, 10003, 'Apple iPad 10.2 Wi-Fi 64GB ...', 'http://wildberries.win/10003.jpg', 49900, 1, '2023-02-02 18:39:48'),
+(233, 228, 10003, 'Apple iPad 10.2 Wi-Fi 64GB ...', 'http://wildberries.win/10003.jpg', 49900, 1, '2023-02-02 18:40:25'),
+(234, 229, 10003, 'Apple iPad 10.2 Wi-Fi 64GB ...', 'http://wildberries.win/10003.jpg', 49900, 2, '2023-02-02 18:45:35'),
+(235, 230, 10003, 'Apple iPad 10.2 Wi-Fi 64GB ...', 'http://wildberries.win/10003.jpg', 49900, 2, '2023-02-02 18:45:58'),
+(236, 231, 10003, 'Apple iPad 10.2 Wi-Fi 64GB ...', 'http://wildberries.win/10003.jpg', 49900, 2, '2023-02-02 18:46:14'),
+(237, 232, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-02 20:01:30'),
+(238, 233, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-02 20:02:52'),
+(239, 234, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-02 20:06:21'),
+(240, 235, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-02 20:07:26'),
+(241, 236, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-02 20:17:42'),
+(242, 237, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-02 20:22:26'),
+(243, 238, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-02 20:30:14'),
+(244, 239, 10064, 'Постельное белье 1.5 спальн...', 'http://wildberries.win/64.jpg', 1080, 1, '2023-02-02 20:31:03'),
+(245, 240, 10064, 'Постельное белье 1.5 спальн...', 'http://wildberries.win/64.jpg', 1080, 1, '2023-02-02 20:35:21'),
+(246, 241, 10064, 'Постельное белье 1.5 спальн...', 'http://wildberries.win/64.jpg', 1080, 1, '2023-02-02 20:44:44'),
+(247, 242, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-02 22:23:40'),
+(248, 243, 10007, 'Apple Смартфон Apple iPhone...', 'http://wildberries.win/10007.jpg', 98800, 1, '2023-02-03 11:37:11'),
+(249, 243, 10103, ' MacBook Air 13 M1/8G /256G ', 'http://wildberries.win/10103a.jpg', 78092, 1, '2023-02-03 11:37:11'),
+(250, 244, 10003, 'Apple iPad 10.2 Wi-Fi 64GB ...', 'http://wildberries.win/10003.jpg', 49900, 2, '2023-02-03 11:40:49'),
+(251, 245, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-02-03 16:13:00'),
+(252, 246, 10099, 'Кольцо обручальное из золот...', 'http://wildberries.win/99.webp', 13280, 1, '2023-02-03 16:13:23'),
+(253, 247, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-03 16:30:32'),
+(254, 248, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-02-03 16:37:15'),
+(255, 249, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 16:47:26'),
+(256, 250, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 16:48:11'),
+(257, 251, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-03 16:48:27'),
+(258, 252, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 16:53:54'),
+(259, 253, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 16:55:52'),
+(260, 254, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-03 16:59:56'),
+(261, 255, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-02-03 17:05:14'),
+(262, 256, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-03 17:18:21'),
+(263, 257, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-03 17:28:21'),
+(264, 258, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-03 17:28:22'),
+(265, 259, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-03 17:35:39'),
+(266, 260, 10003, 'Apple iPad 10.2 Wi-Fi 64GB ...', 'http://wildberries.win/10003.jpg', 150000, 1, '2023-02-03 17:44:17'),
+(267, 261, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-03 17:45:01'),
+(268, 262, 10099, 'Кольцо обручальное из золот...', 'http://wildberries.win/99.webp', 13280, 1, '2023-02-03 17:46:47'),
+(269, 263, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-03 17:53:37'),
+(270, 264, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 19:35:13'),
+(271, 265, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 19:51:26'),
+(272, 266, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 19:52:26'),
+(273, 267, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-03 19:58:50'),
+(274, 268, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-03 19:59:10'),
+(275, 269, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 20:00:27'),
+(276, 270, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-03 20:01:02'),
+(277, 271, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-03 20:03:02'),
+(278, 272, 10065, 'Постельное белье евро на ре...', 'http://wildberries.win/65.jpg', 2300, 1, '2023-02-03 20:03:55'),
+(279, 273, 10065, 'Постельное белье евро на ре...', 'http://wildberries.win/65.jpg', 2300, 1, '2023-02-03 20:04:25'),
+(280, 274, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-03 20:09:15'),
+(281, 275, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-03 20:16:39'),
+(282, 276, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 20:20:28'),
+(283, 277, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 20:21:59'),
+(284, 277, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 20:21:59'),
+(285, 278, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 20:25:46'),
+(286, 279, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 20:29:25'),
+(287, 280, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 20:34:21'),
+(288, 281, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-03 20:38:52'),
+(289, 282, 10010, 'Polaris Робот-пылесос PVCR ...', 'http://wildberries.win/10010.jpg', 2800, 1, '2023-02-03 20:38:59'),
+(290, 283, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 20:39:38'),
+(291, 284, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 20:39:49'),
+(292, 285, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 20:40:35'),
+(293, 286, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 20:42:40'),
+(294, 287, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-03 20:46:34'),
+(295, 288, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 20:47:05'),
+(296, 289, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-03 20:47:48'),
+(297, 290, 10021, 'риль электрический\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/21a.webp', 1080, 1, '2023-02-03 21:04:36'),
+(298, 291, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-03 21:20:57'),
+(299, 292, 10064, 'Постельное белье 1.5 спальн...', 'http://wildberries.win/64.jpg', 1080, 1, '2023-02-03 22:02:17'),
+(300, 293, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-03 23:41:07'),
+(301, 294, 10006, 'Irbis IRBIS NB81 13.3" Z373...', 'http://wildberries.win/10006.jpg', 17900, 1, '2023-02-04 01:37:31'),
+(302, 295, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-02-04 16:14:54'),
+(303, 296, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-02-04 16:15:24'),
+(304, 297, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-02-04 16:21:31'),
+(305, 298, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-02-04 16:22:42'),
+(306, 299, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-02-04 16:22:59'),
+(307, 300, 10095, 'Оригинальные мужские наручн...', 'http://wildberries.win/95.jpeg', 7760, 1, '2023-02-04 16:23:07'),
+(308, 301, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-04 16:26:33'),
+(309, 302, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-04 16:42:39'),
+(310, 303, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 16:46:27'),
+(311, 304, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 16:48:11'),
+(312, 305, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-04 16:50:25'),
+(313, 306, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 16:51:27'),
+(314, 307, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-04 16:51:49'),
+(315, 308, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-04 16:54:03'),
+(316, 309, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-04 16:54:23'),
+(317, 310, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-04 16:54:50'),
+(318, 311, 10099, 'Кольцо обручальное из золот...', 'http://wildberries.win/99.webp', 13280, 1, '2023-02-04 16:58:10'),
+(319, 312, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-02-04 16:58:19'),
+(320, 313, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-02-04 16:58:23'),
+(321, 314, 10095, 'Оригинальные мужские наручн...', 'http://wildberries.win/95.jpeg', 7760, 1, '2023-02-04 16:58:38'),
+(322, 315, 10009, 'Популярные беспроводные нау...', 'http://wildberries.win/10009a.jpg', 19800, 1, '2023-02-04 17:00:06'),
+(323, 316, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-04 17:12:39'),
+(324, 317, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 17:15:04'),
+(325, 318, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-04 17:18:12'),
+(326, 319, 10095, 'Оригинальные мужские наручн...', 'http://wildberries.win/95.jpeg', 7760, 1, '2023-02-04 17:36:15'),
+(327, 320, 10008, 'Apple MacBook Pro 13 M2/8 Г...', 'http://wildberries.win/10008.jpg', 28390, 2, '2023-02-04 17:54:54'),
+(328, 321, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-04 18:01:52'),
+(329, 322, 10012, 'Apple iPhone 13 Pro 512GB (...', 'http://wildberries.win/10012a.jpg', 150000, 1, '2023-02-04 18:09:57'),
+(330, 323, 10015, 'Капучинатор КТ-710\n\0\0\0\0\0\0\0\0...', 'http://wildberries.win/15a.webp', 6640, 2, '2023-02-04 18:16:57'),
+(331, 324, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-04 18:23:01'),
+(332, 325, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-04 18:23:48'),
+(333, 326, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-04 18:26:22'),
+(334, 327, 10082, 'Электросамокат AOVO M365 PR...', 'http://wildberries.win/82.jpeg', 26465, 1, '2023-02-04 18:49:47'),
+(335, 328, 10067, 'Халат домашний с поясом\0\0\0\0...', 'http://wildberries.win/67.png', 2300, 1, '2023-02-04 19:21:06'),
+(336, 329, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-04 19:51:12'),
+(337, 330, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-04 19:51:17'),
+(338, 331, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-04 20:00:24'),
+(339, 332, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-04 20:04:36'),
+(340, 333, 10071, 'Оперативная память Wolfcat\0...', 'http://wildberries.win/71.jpg', 3380, 1, '2023-02-04 20:04:45'),
+(341, 334, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-04 20:05:10'),
+(342, 335, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 20:05:16'),
+(343, 336, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-04 20:05:31'),
+(344, 337, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 20:06:12'),
+(345, 338, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 20:07:40'),
+(346, 339, 10071, 'Оперативная память Wolfcat\0...', 'http://wildberries.win/71.jpg', 3380, 1, '2023-02-04 20:07:45'),
+(347, 340, 10064, 'Постельное белье 1.5 спальн...', 'http://wildberries.win/64.jpg', 1080, 1, '2023-02-04 20:10:17'),
+(348, 341, 10071, 'Оперативная память Wolfcat\0...', 'http://wildberries.win/71.jpg', 3380, 1, '2023-02-04 20:12:55'),
+(349, 342, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-04 20:13:47'),
+(350, 343, 10064, 'Постельное белье 1.5 спальн...', 'http://wildberries.win/64.jpg', 1080, 1, '2023-02-04 20:14:44'),
+(351, 344, 10064, 'Постельное белье 1.5 спальн...', 'http://wildberries.win/64.jpg', 1080, 1, '2023-02-04 20:15:51'),
+(352, 345, 10067, 'Халат домашний с поясом\0\0\0\0...', 'http://wildberries.win/67.png', 2300, 1, '2023-02-04 20:16:18'),
+(353, 346, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-04 20:18:04'),
+(354, 347, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 20:22:26'),
+(355, 348, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 20:24:32'),
+(356, 349, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 20:25:09'),
+(357, 350, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-04 20:29:50'),
+(358, 351, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 20:30:00'),
+(359, 352, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-04 20:33:33'),
+(360, 353, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 20:36:54'),
+(361, 354, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 20:39:09'),
+(362, 355, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-04 20:39:30'),
+(363, 356, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 20:40:21'),
+(364, 357, 10067, 'Халат домашний с поясом\0\0\0\0...', 'http://wildberries.win/67.png', 2300, 1, '2023-02-04 20:43:59'),
+(365, 358, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 20:50:55'),
+(366, 359, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 21:10:58'),
+(367, 360, 10071, 'Оперативная память Wolfcat\0...', 'http://wildberries.win/71.jpg', 3380, 1, '2023-02-04 21:15:14'),
+(368, 361, 10087, 'Регистратор с радаром EVO L...', 'http://wildberries.win/87.jpeg', 38340, 1, '2023-02-04 21:17:34'),
+(369, 362, 10087, 'Регистратор с радаром EVO L...', 'http://wildberries.win/87.jpeg', 38340, 1, '2023-02-04 21:18:14'),
+(370, 363, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-04 21:44:31'),
+(371, 363, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 21:44:31'),
+(372, 364, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-04 21:46:46'),
+(373, 365, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-04 22:01:13'),
+(374, 366, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-04 22:10:32'),
+(375, 367, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-04 22:11:09'),
+(376, 368, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-04 22:11:55'),
+(377, 369, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-04 22:14:20'),
+(378, 370, 10069, 'Моноблок Apple iMac A1419\0\0...', 'http://wildberries.win/69.jpg', 100000, 1, '2023-02-04 22:49:08'),
+(379, 371, 10044, 'Электромассажер \0\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/44.jpg', 3590, 1, '2023-02-04 23:35:12'),
+(380, 372, 10067, 'Халат домашний с поясом\0\0\0\0...', 'http://wildberries.win/67.png', 2300, 1, '2023-02-05 01:32:16'),
+(381, 373, 10067, 'Халат домашний с поясом\0\0\0\0...', 'http://wildberries.win/67.png', 2300, 1, '2023-02-05 01:33:04'),
+(382, 374, 10067, 'Халат домашний с поясом\0\0\0\0...', 'http://wildberries.win/67.png', 2300, 1, '2023-02-05 01:33:16'),
+(383, 375, 10067, 'Халат домашний с поясом\0\0\0\0...', 'http://wildberries.win/67.png', 2300, 1, '2023-02-05 01:42:09'),
+(384, 376, 10011, 'DiBa''s Care Смарт вотч часы...', 'http://wildberries.win/10011.jpg', 6640, 1, '2023-02-05 02:38:07'),
+(385, 377, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-05 16:28:35'),
+(386, 378, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-02-05 16:30:57'),
+(387, 379, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-02-05 16:30:59'),
+(388, 380, 10008, 'Apple MacBook Pro 13 M2/8 Г...', 'http://wildberries.win/10008.jpg', 39800, 1, '2023-02-05 16:32:25'),
+(389, 381, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-02-05 16:35:08'),
+(390, 382, 10095, 'Оригинальные мужские наручн...', 'http://wildberries.win/95.jpeg', 7760, 1, '2023-02-05 16:37:03'),
+(391, 383, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-05 16:38:01'),
+(392, 384, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-05 16:38:27'),
+(393, 385, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-05 16:39:09'),
+(394, 386, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-05 16:39:43'),
+(395, 387, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-02-05 16:41:25'),
+(396, 388, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-02-05 16:41:56'),
+(397, 389, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-02-05 16:43:57'),
+(398, 390, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-05 16:47:30'),
+(399, 391, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-05 16:47:40'),
+(400, 392, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-05 16:52:32'),
+(401, 393, 10099, 'Кольцо обручальное из золот...', 'http://wildberries.win/99.webp', 13280, 1, '2023-02-05 16:52:34'),
+(402, 394, 10099, 'Кольцо обручальное из золот...', 'http://wildberries.win/99.webp', 13280, 1, '2023-02-05 16:53:22'),
+(403, 395, 10084, 'Компьютерное офисное кресло...', 'http://wildberries.win/84.jpeg', 3160, 1, '2023-02-05 16:56:43'),
+(404, 396, 10008, 'Apple MacBook Pro 13 M2/8 Г...', 'http://wildberries.win/10008.jpg', 39800, 1, '2023-02-05 16:56:56'),
+(405, 397, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-05 16:57:14'),
+(406, 398, 10007, 'Apple Смартфон Apple iPhone...', 'http://wildberries.win/10007.jpg', 59800, 1, '2023-02-05 16:59:42'),
+(407, 399, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-05 17:02:48'),
+(408, 400, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-05 17:04:55'),
+(409, 401, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-05 17:05:21'),
+(410, 402, 10009, 'Популярные беспроводные нау...', 'http://wildberries.win/10009a.jpg', 19800, 1, '2023-02-05 17:05:50'),
+(411, 403, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-05 17:06:34'),
+(412, 404, 10087, 'Регистратор с радаром EVO L...', 'http://wildberries.win/87.jpeg', 38340, 1, '2023-02-05 17:08:15'),
+(413, 405, 10099, 'Кольцо обручальное из золот...', 'http://wildberries.win/99.webp', 13280, 1, '2023-02-05 17:14:45'),
+(414, 406, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-02-05 17:17:32'),
+(415, 407, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-05 17:17:41'),
+(416, 408, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-02-05 17:21:04'),
+(417, 409, 10087, 'Регистратор с радаром EVO L...', 'http://wildberries.win/87.jpeg', 38340, 1, '2023-02-05 17:25:20'),
+(418, 410, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-05 17:26:14'),
+(419, 411, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-05 17:28:55'),
+(420, 412, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-02-05 17:30:30'),
+(421, 413, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-05 17:34:00'),
+(422, 414, 10087, 'Регистратор с радаром EVO L...', 'http://wildberries.win/87.jpeg', 38340, 1, '2023-02-05 17:36:55'),
+(423, 415, 10006, 'Irbis IRBIS NB81 13.3" Z373...', 'http://wildberries.win/10006.jpg', 49400, 2, '2023-02-05 17:53:17'),
+(424, 416, 10013, ' Планетарный миксер с чашей...', 'http://wildberries.win/13a.webp', 19900, 1, '2023-02-05 18:03:19'),
+(425, 417, 10022, 'Кофеварка КТ-730', 'http://wildberries.win/22a.webp', 29800, 1, '2023-02-05 18:12:04'),
+(426, 418, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-05 18:13:31'),
+(427, 419, 10007, 'Apple Смартфон Apple iPhone...', 'http://wildberries.win/10007.jpg', 59800, 1, '2023-02-05 18:13:36'),
+(428, 420, 10082, 'Электросамокат AOVO M365 PR...', 'http://wildberries.win/82.jpeg', 28390, 1, '2023-02-05 18:19:33'),
+(429, 420, 10082, 'Электросамокат AOVO M365 PR...', 'http://wildberries.win/82.jpeg', 28390, 1, '2023-02-05 18:19:33'),
+(430, 421, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-05 18:33:53'),
+(431, 422, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-05 18:58:53'),
+(432, 423, 10003, 'Apple iPad 10.2 Wi-Fi 64GB ...', 'http://wildberries.win/10003.jpg', 150000, 1, '2023-02-05 20:00:18'),
+(433, 424, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-05 20:00:55'),
+(434, 425, 10087, 'Регистратор с радаром EVO L...', 'http://wildberries.win/87.jpeg', 38340, 1, '2023-02-05 20:06:59'),
+(435, 426, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-05 20:07:56'),
+(436, 427, 10087, 'Регистратор с радаром EVO L...', 'http://wildberries.win/87.jpeg', 38340, 2, '2023-02-05 20:09:05'),
+(437, 428, 10022, 'Кофеварка КТ-730', 'http://wildberries.win/22a.webp', 44900, 1, '2023-02-05 20:10:55'),
+(438, 429, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-05 20:11:23'),
+(439, 430, 10022, 'Кофеварка КТ-730', 'http://wildberries.win/22a.webp', 44900, 1, '2023-02-05 20:11:30'),
+(440, 431, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-05 20:11:58'),
+(441, 432, 10087, 'Регистратор с радаром EVO L...', 'http://wildberries.win/87.jpeg', 38340, 1, '2023-02-05 20:12:05'),
+(442, 433, 10022, 'Кофеварка КТ-730', 'http://wildberries.win/22a.webp', 44900, 1, '2023-02-05 20:13:00'),
+(443, 434, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-05 20:13:16'),
+(444, 435, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-05 20:13:48'),
+(445, 436, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-05 20:14:20'),
+(446, 437, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-05 20:14:40'),
+(447, 438, 10022, 'Кофеварка КТ-730', 'http://wildberries.win/22a.webp', 44900, 1, '2023-02-05 20:14:41'),
+(448, 439, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-05 20:16:11'),
+(449, 440, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-05 20:16:34'),
+(450, 441, 10022, 'Кофеварка КТ-730', 'http://wildberries.win/22a.webp', 44900, 2, '2023-02-05 20:18:07'),
+(451, 442, 10064, 'Постельное белье 1.5 спальн...', 'http://wildberries.win/64.jpg', 1080, 1, '2023-02-05 20:18:52'),
+(452, 443, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-05 20:19:29'),
+(453, 444, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-05 20:33:13'),
+(454, 445, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-05 20:36:10'),
+(455, 446, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-05 20:41:06'),
+(456, 447, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-05 20:48:27'),
+(457, 448, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-05 20:51:51'),
+(458, 449, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-05 20:52:30'),
+(459, 450, 10067, 'Халат домашний с поясом\0\0\0\0...', 'http://wildberries.win/67.png', 2300, 1, '2023-02-05 20:52:33'),
+(460, 451, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-05 20:55:46'),
+(461, 452, 10022, 'Кофеварка КТ-730', 'http://wildberries.win/22a.webp', 29900, 1, '2023-02-05 22:08:50'),
+(462, 453, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-05 22:09:39'),
+(463, 454, 10003, 'Apple iPad 10.2 Wi-Fi 64GB ...', 'http://wildberries.win/10003.jpg', 150000, 1, '2023-02-05 22:22:43'),
+(464, 455, 10067, 'Халат домашний с поясом\0\0\0\0...', 'http://wildberries.win/67.png', 2300, 1, '2023-02-05 22:24:28'),
+(465, 456, 10075, 'Игровой компьютер Roo24 AMD...', 'http://wildberries.win/75.jpeg', 47706, 1, '2023-02-05 22:33:04'),
+(466, 457, 10064, 'Постельное белье 1.5 спальн...', 'http://wildberries.win/64.jpg', 1080, 1, '2023-02-05 22:41:20'),
+(467, 458, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-05 23:10:10'),
+(468, 459, 10003, 'Apple iPad 10.2 Wi-Fi 64GB ...', 'http://wildberries.win/10003.jpg', 150000, 1, '2023-02-05 23:54:29'),
+(469, 460, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-05 23:54:36'),
+(470, 461, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-06 16:03:43'),
+(471, 462, 10078, 'омпьютер TC-1660 CI3-10105 ...', 'http://wildberries.win/78.jpg', 56780, 1, '2023-02-06 16:15:44'),
+(472, 463, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-06 16:16:33'),
+(473, 464, 10083, 'Беспроводные наушники с акт...', 'http://wildberries.win/83.jpeg', 2800, 1, '2023-02-06 16:18:50'),
+(474, 465, 10093, 'Сумка', 'http://wildberries.win/93.jpeg', 13280, 1, '2023-02-06 16:19:29'),
+(475, 466, 10095, 'Оригинальные мужские наручн...', 'http://wildberries.win/95.jpeg', 7760, 1, '2023-02-06 16:26:30'),
+(476, 467, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-06 16:26:34'),
+(477, 468, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 16:26:35'),
+(478, 469, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-06 16:31:17'),
+(479, 470, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-06 16:31:57'),
+(480, 471, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-02-06 16:33:34'),
+(481, 472, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-06 16:36:51'),
+(482, 473, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-06 16:37:26'),
+(483, 474, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-06 16:37:42'),
+(484, 475, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-06 16:39:24'),
+(485, 476, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-06 16:40:53'),
+(486, 477, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-06 16:46:10'),
+(487, 478, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 16:47:41'),
+(488, 479, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-06 16:48:12'),
+(489, 480, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-06 16:51:43'),
+(490, 481, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-06 16:52:52'),
+(491, 482, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-06 16:55:49'),
+(492, 483, 10082, 'Электросамокат AOVO M365 PR...', 'http://wildberries.win/82.jpeg', 28390, 1, '2023-02-06 17:03:00'),
+(493, 484, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-06 17:03:29'),
+(494, 485, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-06 17:05:46'),
+(495, 486, 10099, 'Кольцо обручальное из золот...', 'http://wildberries.win/99.webp', 13280, 1, '2023-02-06 17:09:16'),
+(496, 487, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-02-06 17:10:24'),
+(497, 488, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-06 17:13:54'),
+(498, 489, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-06 17:15:52'),
+(499, 490, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-06 17:19:25'),
+(500, 491, 10078, 'омпьютер TC-1660 CI3-10105 ...', 'http://wildberries.win/78.jpg', 56780, 1, '2023-02-06 17:21:03'),
+(501, 492, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 17:38:09'),
+(502, 493, 10082, 'Электросамокат AOVO M365 PR...', 'http://wildberries.win/82.jpeg', 28390, 1, '2023-02-06 17:42:27'),
+(503, 494, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 17:44:56'),
+(504, 495, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-02-06 17:45:52'),
+(505, 496, 10081, 'TOYOTA LAND CRUISER 200 toy...', 'http://wildberries.win/81.jpeg', 19900, 1, '2023-02-06 17:50:37'),
+(506, 497, 10081, 'TOYOTA LAND CRUISER 200 toy...', 'http://wildberries.win/81.jpeg', 19900, 2, '2023-02-06 17:51:46'),
+(507, 498, 10082, 'Электросамокат AOVO M365 PR...', 'http://wildberries.win/82.jpeg', 28390, 1, '2023-02-06 18:15:01'),
+(508, 499, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-06 18:25:14'),
+(509, 500, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-06 18:30:18'),
+(510, 501, 10088, 'Видеорегистратор зеркало се...', 'http://wildberries.win/88.jpeg', 4080, 1, '2023-02-06 18:32:17');
+INSERT INTO `tb_newbee_mall_order_item` (`order_item_id`, `order_id`, `goods_id`, `goods_name`, `goods_cover_img`, `selling_price`, `goods_count`, `create_time`) VALUES
+(511, 502, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 18:55:49'),
+(512, 503, 10089, 'солнечные очки', 'http://wildberries.win/89.jpeg', 19980, 1, '2023-02-06 19:41:21'),
+(513, 504, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 19:50:51'),
+(514, 505, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-06 19:53:22'),
+(515, 506, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 19:59:08'),
+(516, 507, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-06 19:59:14'),
+(517, 508, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-06 20:00:01'),
+(518, 509, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-06 20:01:02'),
+(519, 510, 10021, 'риль электрический\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/21a.webp', 1080, 1, '2023-02-06 20:01:27'),
+(520, 511, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 20:02:07'),
+(521, 512, 10046, '2в1 Скраб + Бальзам для губ...', 'http://wildberries.win/46.jpg', 246, 1, '2023-02-06 20:02:22'),
+(522, 513, 10102, 'adidas Рюкзак', 'http://wildberries.win/102.jpeg', 600, 1, '2023-02-06 20:04:32'),
+(523, 514, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-06 20:05:14'),
+(524, 515, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 20:05:25'),
+(525, 516, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-06 20:06:00'),
+(526, 517, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-06 20:10:24'),
+(527, 518, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-06 20:11:34'),
+(528, 519, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 20:14:55'),
+(529, 520, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 20:15:23'),
+(530, 521, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 20:15:32'),
+(531, 522, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 20:22:26'),
+(532, 523, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 20:35:06'),
+(533, 524, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 20:41:03'),
+(534, 525, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 20:47:45'),
+(535, 526, 10067, 'Халат домашний с поясом\0\0\0\0...', 'http://wildberries.win/67.png', 2300, 1, '2023-02-06 20:50:42'),
+(536, 527, 10067, 'Халат домашний с поясом\0\0\0\0...', 'http://wildberries.win/67.png', 2300, 1, '2023-02-06 20:56:35'),
+(537, 528, 10097, 'Комплект (шапка и снуд) жен...', 'http://wildberries.win/97.jpeg', 1080, 1, '2023-02-06 21:01:00'),
+(538, 529, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-06 21:01:08'),
+(539, 530, 10067, 'Халат домашний с поясом\0\0\0\0...', 'http://wildberries.win/67.png', 2300, 1, '2023-02-06 21:01:21'),
+(540, 531, 10068, 'Халат с кружевами\0\0\0\0\0\0\0\0\0\0...', 'http://wildberries.win/68.png', 2300, 1, '2023-02-06 21:01:36'),
+(541, 532, 10067, 'Халат домашний с поясом\0\0\0\0...', 'http://wildberries.win/67.png', 2300, 1, '2023-02-06 21:21:21'),
+(542, 533, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 1, '2023-02-06 21:22:01'),
+(543, 534, 10101, 'Gerry Weber Куртка', 'http://wildberries.win/101.jpeg', 1080, 4, '2023-02-07 14:09:15');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tb_newbee_mall_service`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_service` (
+  `chat_id` int(10) unsigned zerofill NOT NULL DEFAULT '0000000000',
+  `chat_name` char(20) NOT NULL,
+  `chat_value` varchar(50) NOT NULL,
+  `is_delete` tinyint(4) DEFAULT '0' COMMENT '1-删除 2-未删除',
+  `type` tinyint(3) DEFAULT '0' COMMENT '1-tg 2-ws 3-vb'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客服联系方式';
+
+--
+-- 转存表中的数据 `tb_newbee_mall_service`
+--
+
+INSERT INTO `tb_newbee_mall_service` (`chat_id`, `chat_name`, `chat_value`, `is_delete`, `type`) VALUES
+(0000000001, 'telegram', 'https://t.me/wildberries11165', 1, 1),
+(0000000002, 'whatsapp', 'https://t.me/nine18318321121', 2, 2),
+(0000000003, 'viber', 'https://t.me/nine18318321121', 2, 3);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tb_newbee_mall_shopping_cart_item`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_shopping_cart_item` (
+  `cart_item_id` bigint(20) NOT NULL COMMENT '购物项主键id',
   `user_id` bigint(20) NOT NULL COMMENT '用户主键id',
   `goods_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '关联商品id',
   `goods_count` int(11) NOT NULL DEFAULT '1' COMMENT '数量(最大为5)',
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标识字段(0-未删除 1-已删除)',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最新修改时间',
-  PRIMARY KEY (`cart_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最新修改时间'
+) ENGINE=InnoDB AUTO_INCREMENT=704 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of tb_newbee_mall_shopping_cart_item
--- ----------------------------
-BEGIN;
-INSERT INTO `tb_newbee_mall_shopping_cart_item` (`cart_item_id`, `user_id`, `goods_id`, `goods_count`, `is_deleted`, `create_time`, `update_time`) VALUES (1, 7, 10269, 1, 1, '2022-11-23 22:40:31', '2022-11-23 22:40:31');
-INSERT INTO `tb_newbee_mall_shopping_cart_item` (`cart_item_id`, `user_id`, `goods_id`, `goods_count`, `is_deleted`, `create_time`, `update_time`) VALUES (2, 7, 10283, 1, 1, '2022-11-23 22:48:43', '2022-11-23 22:48:43');
-INSERT INTO `tb_newbee_mall_shopping_cart_item` (`cart_item_id`, `user_id`, `goods_id`, `goods_count`, `is_deleted`, `create_time`, `update_time`) VALUES (3, 7, 10779, 1, 1, '2022-11-23 22:48:58', '2022-11-23 22:48:58');
-INSERT INTO `tb_newbee_mall_shopping_cart_item` (`cart_item_id`, `user_id`, `goods_id`, `goods_count`, `is_deleted`, `create_time`, `update_time`) VALUES (4, 7, 10283, 1, 1, '2022-11-23 22:49:38', '2022-11-23 22:49:38');
-COMMIT;
+--
+-- 转存表中的数据 `tb_newbee_mall_shopping_cart_item`
+--
 
--- ----------------------------
--- Table structure for tb_newbee_mall_user
--- ----------------------------
-DROP TABLE IF EXISTS `tb_newbee_mall_user`;
-CREATE TABLE `tb_newbee_mall_user` (
-  `user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户主键id',
+INSERT INTO `tb_newbee_mall_shopping_cart_item` (`cart_item_id`, `user_id`, `goods_id`, `goods_count`, `is_deleted`, `create_time`, `update_time`) VALUES
+(19, 7, 10011, 1, 1, '2022-12-19 09:58:32', '2022-12-19 09:58:32'),
+(20, 7, 10007, 1, 1, '2022-12-19 10:23:16', '2022-12-19 10:23:16'),
+(21, 7, 10012, 1, 1, '2022-12-19 10:37:03', '2022-12-19 10:37:03'),
+(22, 7, 10012, 1, 1, '2022-12-19 10:37:09', '2022-12-19 10:37:09'),
+(23, 7, 10057, 1, 1, '2022-12-19 11:46:04', '2022-12-19 11:46:04'),
+(24, 7, 10016, 1, 1, '2022-12-19 11:54:24', '2022-12-19 11:54:24'),
+(25, 7, 10009, 1, 1, '2022-12-19 12:10:35', '2022-12-19 12:10:35'),
+(26, 7, 10069, 1, 1, '2022-12-19 12:33:28', '2022-12-19 12:33:28'),
+(27, 7, 10069, 1, 1, '2022-12-19 12:33:29', '2022-12-19 12:33:29'),
+(28, 7, 10069, 1, 1, '2022-12-19 12:33:29', '2022-12-19 12:33:29'),
+(29, 7, 10069, 1, 1, '2022-12-19 12:33:29', '2022-12-19 12:33:29'),
+(30, 7, 10069, 1, 1, '2022-12-19 12:33:29', '2022-12-19 12:33:29'),
+(31, 7, 10069, 1, 1, '2022-12-19 12:33:30', '2022-12-19 12:33:30'),
+(32, 7, 10009, 1, 1, '2022-12-20 00:05:42', '2022-12-20 00:05:42'),
+(33, 7, 10009, 1, 1, '2022-12-20 00:05:42', '2022-12-20 00:05:42'),
+(34, 7, 10009, 1, 1, '2022-12-20 00:05:51', '2022-12-20 00:05:51'),
+(35, 7, 10057, 1, 1, '2022-12-20 08:55:36', '2022-12-20 08:55:36'),
+(36, 7, 10009, 1, 1, '2022-12-20 22:44:00', '2022-12-20 22:44:00'),
+(37, 7, 10009, 1, 1, '2022-12-20 22:44:02', '2022-12-20 22:44:02'),
+(38, 7, 10009, 1, 1, '2022-12-20 22:44:23', '2022-12-20 22:44:23'),
+(39, 7, 10009, 1, 1, '2022-12-20 22:44:46', '2022-12-20 22:44:46'),
+(40, 6, 10009, 1, 1, '2022-12-21 23:20:04', '2022-12-21 23:20:04'),
+(41, 6, 10057, 1, 1, '2022-12-21 23:20:37', '2022-12-21 23:20:37'),
+(42, 7, 10011, 1, 1, '2022-12-22 23:32:19', '2022-12-22 23:32:19'),
+(43, 9, 10006, 1, 0, '2022-12-24 13:42:50', '2022-12-24 13:43:37'),
+(44, 10, 10009, 1, 0, '2022-12-24 14:15:00', '2022-12-24 14:15:00'),
+(45, 7, 10009, 1, 1, '2022-12-24 20:22:01', '2022-12-24 20:22:01'),
+(46, 7, 10009, 1, 1, '2022-12-24 20:23:01', '2022-12-24 20:23:01'),
+(47, 7, 10009, 1, 1, '2022-12-24 20:24:15', '2022-12-24 20:24:15'),
+(48, 7, 10009, 1, 1, '2022-12-24 20:25:41', '2022-12-24 20:25:41'),
+(49, 7, 10015, 1, 1, '2022-12-24 20:53:55', '2022-12-24 20:53:55'),
+(50, 7, 10011, 1, 1, '2022-12-24 22:56:53', '2022-12-24 22:56:53'),
+(51, 11, 10102, 1, 0, '2022-12-25 15:35:51', '2022-12-25 15:35:51'),
+(52, 7, 10013, 1, 1, '2023-01-05 00:04:55', '2023-01-05 00:04:55'),
+(53, 6, 10102, 1, 1, '2023-01-08 00:32:51', '2023-01-08 00:32:51'),
+(54, 6, 10102, 1, 1, '2023-01-08 00:33:04', '2023-01-08 00:33:04'),
+(55, 6, 10102, 1, 1, '2023-01-08 00:33:31', '2023-01-08 00:33:31'),
+(56, 7, 10009, 1, 1, '2023-01-08 00:45:55', '2023-01-08 00:45:55'),
+(57, 6, 10011, 1, 0, '2023-01-08 00:47:10', '2023-01-08 00:47:10'),
+(58, 14, 10009, 1, 1, '2023-01-14 14:00:41', '2023-01-14 14:00:41'),
+(59, 15, 10102, 1, 1, '2023-01-17 18:04:23', '2023-01-17 18:04:23'),
+(60, 16, 10009, 1, 1, '2023-01-17 18:06:28', '2023-01-17 18:06:28'),
+(61, 15, 10101, 1, 1, '2023-01-17 20:52:08', '2023-01-17 20:52:08'),
+(62, 15, 10097, 1, 1, '2023-01-17 21:08:47', '2023-01-17 21:08:47'),
+(63, 15, 10083, 1, 1, '2023-01-18 16:57:01', '2023-01-18 16:57:01'),
+(64, 16, 10009, 1, 0, '2023-01-18 17:59:02', '2023-01-18 17:59:05'),
+(65, 15, 10099, 1, 1, '2023-01-18 18:00:00', '2023-01-18 18:00:00'),
+(66, 16, 10009, 1, 0, '2023-01-18 18:34:23', '2023-01-18 18:34:23'),
+(67, 18, 10102, 1, 1, '2023-01-28 17:06:34', '2023-01-28 17:06:34'),
+(68, 18, 10102, 1, 0, '2023-01-28 17:07:05', '2023-01-28 17:07:05'),
+(69, 17, 10101, 1, 1, '2023-01-28 17:10:55', '2023-01-28 17:10:55'),
+(70, 17, 10101, 1, 1, '2023-01-28 17:12:40', '2023-01-28 17:12:40'),
+(71, 20, 10102, 1, 1, '2023-01-28 17:38:25', '2023-01-28 17:38:25'),
+(72, 19, 10102, 1, 1, '2023-01-28 17:38:29', '2023-01-28 17:38:29'),
+(73, 7, 10011, 1, 1, '2023-01-28 19:10:22', '2023-01-28 19:10:22'),
+(74, 7, 10011, 1, 1, '2023-01-28 19:23:05', '2023-01-28 19:23:05'),
+(75, 17, 10097, 1, 1, '2023-01-28 19:53:32', '2023-01-28 19:53:32'),
+(76, 18, 10097, 1, 1, '2023-01-28 19:53:36', '2023-01-28 19:53:36'),
+(77, 20, 10097, 1, 1, '2023-01-28 19:54:01', '2023-01-28 19:54:01'),
+(78, 18, 10097, 1, 1, '2023-01-28 19:55:38', '2023-01-28 19:55:38'),
+(79, 20, 10097, 1, 1, '2023-01-28 19:56:26', '2023-01-28 19:56:26'),
+(80, 17, 10097, 1, 0, '2023-01-28 19:57:17', '2023-01-28 19:57:17'),
+(81, 17, 10097, 1, 1, '2023-01-28 19:58:12', '2023-01-28 19:58:12'),
+(82, 17, 10101, 1, 0, '2023-01-28 20:35:00', '2023-01-28 20:35:00'),
+(83, 18, 10101, 1, 0, '2023-01-28 20:37:02', '2023-01-28 20:37:02'),
+(84, 18, 10101, 1, 1, '2023-01-28 20:37:17', '2023-01-28 20:37:17'),
+(85, 21, 10101, 1, 1, '2023-01-28 20:52:52', '2023-01-28 20:52:52'),
+(86, 20, 10097, 1, 1, '2023-01-28 21:03:10', '2023-01-28 21:03:10'),
+(87, 19, 10101, 1, 1, '2023-01-28 21:07:35', '2023-01-28 21:07:35'),
+(88, 21, 10097, 1, 1, '2023-01-28 21:29:51', '2023-01-28 21:29:51'),
+(89, 22, 10009, 1, 1, '2023-01-29 01:44:31', '2023-01-29 01:44:31'),
+(90, 22, 10009, 1, 1, '2023-01-29 01:44:35', '2023-01-29 01:44:35'),
+(91, 22, 10011, 1, 1, '2023-01-29 01:58:09', '2023-01-29 01:58:09'),
+(92, 22, 10006, 1, 1, '2023-01-29 02:09:41', '2023-01-29 02:09:41'),
+(93, 22, 10102, 1, 1, '2023-01-29 04:18:58', '2023-01-29 04:18:58'),
+(94, 7, 10057, 1, 1, '2023-01-29 15:57:27', '2023-01-29 15:57:27'),
+(95, 21, 10088, 1, 1, '2023-01-29 16:58:46', '2023-01-29 16:58:46'),
+(96, 17, 10083, 1, 1, '2023-01-29 16:59:54', '2023-01-29 16:59:54'),
+(97, 18, 10083, 1, 1, '2023-01-29 17:00:15', '2023-01-29 17:00:15'),
+(98, 17, 10083, 1, 1, '2023-01-29 17:01:06', '2023-01-29 17:01:06'),
+(99, 17, 10083, 1, 1, '2023-01-29 17:02:04', '2023-01-29 17:02:04'),
+(100, 17, 10083, 1, 1, '2023-01-29 17:03:26', '2023-01-29 17:03:26'),
+(101, 17, 10083, 1, 1, '2023-01-29 17:05:54', '2023-01-29 17:05:54'),
+(102, 17, 10095, 1, 1, '2023-01-29 17:30:36', '2023-01-29 17:30:36'),
+(103, 17, 10095, 1, 1, '2023-01-29 17:31:10', '2023-01-29 17:31:10'),
+(104, 17, 10095, 1, 1, '2023-01-29 17:31:57', '2023-01-29 17:31:57'),
+(105, 21, 10099, 1, 1, '2023-01-29 17:32:27', '2023-01-29 17:32:27'),
+(106, 17, 10095, 1, 1, '2023-01-29 17:32:39', '2023-01-29 17:32:39'),
+(107, 24, 10102, 1, 1, '2023-01-29 17:34:27', '2023-01-29 17:34:27'),
+(108, 23, 10102, 1, 1, '2023-01-29 17:34:46', '2023-01-29 17:34:46'),
+(109, 21, 10081, 1, 1, '2023-01-29 18:40:12', '2023-01-29 18:40:12'),
+(110, 21, 10081, 1, 1, '2023-01-29 18:41:02', '2023-01-29 18:41:02'),
+(111, 21, 10081, 2, 1, '2023-01-29 18:42:40', '2023-01-29 18:42:43'),
+(112, 21, 10081, 2, 1, '2023-01-29 18:48:47', '2023-01-29 18:51:59'),
+(113, 21, 10081, 1, 1, '2023-01-29 18:48:47', '2023-01-29 18:48:47'),
+(114, 21, 10081, 1, 1, '2023-01-29 18:48:47', '2023-01-29 18:48:47'),
+(115, 21, 10081, 1, 1, '2023-01-29 18:48:47', '2023-01-29 18:51:25'),
+(116, 21, 10081, 1, 1, '2023-01-29 18:48:47', '2023-01-29 18:48:47'),
+(117, 21, 10081, 1, 1, '2023-01-29 18:48:51', '2023-01-29 18:48:51'),
+(118, 21, 10081, 1, 1, '2023-01-29 18:49:37', '2023-01-29 19:09:17'),
+(119, 21, 10081, 1, 1, '2023-01-29 18:50:59', '2023-01-29 18:50:59'),
+(120, 23, 10066, 1, 1, '2023-01-29 20:09:56', '2023-01-29 20:09:56'),
+(121, 23, 10066, 1, 1, '2023-01-29 20:11:34', '2023-01-29 20:11:34'),
+(122, 23, 10066, 1, 1, '2023-01-29 20:14:26', '2023-01-29 20:14:26'),
+(123, 24, 10066, 1, 1, '2023-01-29 20:27:36', '2023-01-29 20:27:36'),
+(124, 23, 10066, 1, 1, '2023-01-29 20:34:58', '2023-01-29 20:34:58'),
+(125, 23, 10097, 1, 1, '2023-01-29 20:37:03', '2023-01-29 20:37:03'),
+(126, 26, 10008, 1, 1, '2023-01-29 21:07:44', '2023-01-29 21:07:44'),
+(127, 26, 10009, 1, 1, '2023-01-29 21:09:05', '2023-01-29 21:09:05'),
+(128, 26, 10057, 1, 1, '2023-01-29 21:09:19', '2023-01-29 21:09:19'),
+(129, 26, 10011, 1, 1, '2023-01-29 21:56:49', '2023-01-29 21:56:49'),
+(130, 21, 10088, 1, 1, '2023-01-29 22:08:05', '2023-01-29 22:08:05'),
+(131, 23, 10088, 1, 0, '2023-01-30 17:06:29', '2023-01-30 17:06:29'),
+(132, 23, 10088, 1, 1, '2023-01-30 17:06:29', '2023-01-30 17:06:29'),
+(133, 26, 10012, 2, 1, '2023-01-30 17:30:39', '2023-01-30 17:30:55'),
+(134, 26, 10009, 2, 1, '2023-01-30 17:30:54', '2023-01-30 17:30:56'),
+(135, 26, 10009, 1, 1, '2023-01-30 17:31:08', '2023-01-30 17:31:08'),
+(136, 29, 10102, 1, 1, '2023-01-30 17:39:58', '2023-01-30 17:39:58'),
+(137, 27, 10102, 1, 1, '2023-01-30 17:52:05', '2023-01-30 17:52:05'),
+(138, 30, 10101, 1, 1, '2023-01-30 17:52:27', '2023-01-30 17:52:27'),
+(139, 28, 10102, 1, 1, '2023-01-30 17:53:36', '2023-01-30 17:53:36'),
+(140, 30, 10101, 0, 0, '2023-01-30 17:54:55', '2023-01-31 17:37:02'),
+(141, 23, 10011, 1, 1, '2023-01-30 17:57:50', '2023-01-30 17:57:50'),
+(142, 28, 10101, 1, 1, '2023-01-30 20:26:34', '2023-01-30 20:26:34'),
+(143, 28, 10097, 1, 1, '2023-01-30 20:47:39', '2023-01-30 20:47:39'),
+(144, 27, 10101, 1, 1, '2023-01-30 20:52:16', '2023-01-30 20:52:16'),
+(145, 27, 10020, 1, 0, '2023-01-30 21:04:30', '2023-01-30 21:04:30'),
+(146, 27, 10082, 1, 0, '2023-01-30 21:05:37', '2023-01-30 21:05:37'),
+(147, 27, 10066, 1, 1, '2023-01-30 21:28:45', '2023-01-30 21:28:45'),
+(148, 30, 10066, 1, 1, '2023-01-30 23:53:06', '2023-01-30 23:53:06'),
+(149, 30, 10065, 1, 1, '2023-01-31 00:15:26', '2023-01-31 00:15:26'),
+(150, 31, 10009, 1, 0, '2023-01-31 00:54:51', '2023-01-31 00:54:51'),
+(151, 17, 10016, 2, 1, '2023-01-31 15:08:05', '2023-01-31 15:08:10'),
+(152, 28, 10088, 1, 1, '2023-01-31 16:26:32', '2023-01-31 16:26:32'),
+(153, 33, 10101, 1, 1, '2023-01-31 16:34:15', '2023-01-31 16:34:15'),
+(154, 33, 10101, 1, 1, '2023-01-31 16:34:45', '2023-01-31 16:34:45'),
+(155, 33, 10101, 1, 1, '2023-01-31 16:36:36', '2023-01-31 16:36:36'),
+(156, 33, 10101, 1, 1, '2023-01-31 16:38:42', '2023-01-31 16:38:42'),
+(157, 32, 10102, 1, 1, '2023-01-31 16:44:10', '2023-01-31 16:44:10'),
+(158, 7, 10103, 1, 1, '2023-01-31 16:55:37', '2023-01-31 16:55:37'),
+(159, 38, 10102, 1, 0, '2023-01-31 16:59:09', '2023-01-31 21:01:20'),
+(160, 36, 10101, 1, 1, '2023-01-31 17:01:43', '2023-01-31 17:01:43'),
+(161, 39, 10102, 1, 1, '2023-01-31 17:04:38', '2023-01-31 17:04:38'),
+(162, 35, 10102, 1, 1, '2023-01-31 17:05:06', '2023-01-31 17:05:06'),
+(163, 34, 10102, 1, 1, '2023-01-31 17:05:17', '2023-01-31 17:05:17'),
+(164, 39, 10102, 1, 0, '2023-01-31 17:05:56', '2023-01-31 17:05:56'),
+(165, 37, 10102, 1, 1, '2023-01-31 17:22:09', '2023-01-31 17:22:09'),
+(166, 38, 10102, 1, 1, '2023-01-31 17:30:53', '2023-01-31 17:30:53'),
+(167, 40, 10102, 1, 1, '2023-01-31 17:31:26', '2023-01-31 17:31:26'),
+(168, 28, 10089, 1, 1, '2023-01-31 17:35:24', '2023-01-31 17:35:24'),
+(169, 30, 10095, 1, 1, '2023-01-31 17:36:46', '2023-01-31 17:36:46'),
+(170, 50, 10101, 1, 1, '2023-01-31 17:59:59', '2023-01-31 17:59:59'),
+(171, 42, 10011, 1, 1, '2023-01-31 18:00:11', '2023-01-31 18:00:11'),
+(172, 51, 10102, 1, 1, '2023-01-31 18:32:03', '2023-01-31 18:32:03'),
+(173, 52, 10102, 1, 1, '2023-01-31 18:58:15', '2023-01-31 18:58:15'),
+(174, 30, 10089, 1, 1, '2023-01-31 19:29:11', '2023-01-31 19:29:11'),
+(175, 26, 10009, 1, 1, '2023-01-31 20:15:50', '2023-01-31 20:15:50'),
+(176, 26, 10011, 1, 1, '2023-01-31 20:16:37', '2023-01-31 20:16:37'),
+(177, 26, 10011, 2, 1, '2023-01-31 20:17:02', '2023-01-31 20:17:08'),
+(178, 33, 10066, 1, 1, '2023-01-31 20:19:13', '2023-01-31 20:19:13'),
+(179, 32, 10066, 1, 1, '2023-01-31 20:20:01', '2023-01-31 20:20:01'),
+(180, 42, 10066, 1, 1, '2023-01-31 20:20:30', '2023-01-31 20:20:30'),
+(181, 36, 10066, 1, 1, '2023-01-31 20:22:51', '2023-01-31 20:22:51'),
+(182, 39, 10066, 1, 1, '2023-01-31 20:23:37', '2023-01-31 20:23:37'),
+(183, 34, 10101, 1, 1, '2023-01-31 20:24:39', '2023-01-31 20:24:39'),
+(184, 35, 10066, 1, 1, '2023-01-31 20:26:14', '2023-01-31 20:26:14'),
+(185, 51, 10101, 1, 1, '2023-01-31 20:29:18', '2023-01-31 20:29:18'),
+(186, 38, 10068, 1, 1, '2023-01-31 20:33:00', '2023-01-31 20:33:00'),
+(187, 33, 10101, 1, 1, '2023-01-31 20:34:11', '2023-01-31 20:34:11'),
+(188, 39, 10101, 1, 1, '2023-01-31 20:35:11', '2023-01-31 20:35:11'),
+(189, 52, 10097, 1, 1, '2023-01-31 20:36:09', '2023-01-31 20:36:09'),
+(190, 33, 10101, 1, 1, '2023-01-31 20:37:43', '2023-01-31 20:37:43'),
+(191, 33, 10101, 1, 1, '2023-01-31 20:38:32', '2023-01-31 20:38:32'),
+(192, 32, 10097, 1, 1, '2023-01-31 20:43:11', '2023-01-31 20:43:11'),
+(193, 36, 10101, 1, 1, '2023-01-31 20:44:02', '2023-01-31 20:44:02'),
+(194, 42, 10101, 1, 1, '2023-01-31 20:44:14', '2023-01-31 20:44:14'),
+(195, 37, 10101, 1, 1, '2023-01-31 20:45:49', '2023-01-31 20:45:49'),
+(196, 36, 10101, 1, 0, '2023-01-31 20:47:59', '2023-01-31 20:47:59'),
+(197, 35, 10097, 1, 1, '2023-01-31 20:54:19', '2023-01-31 20:54:19'),
+(198, 38, 10097, 1, 1, '2023-01-31 21:01:12', '2023-01-31 21:01:12'),
+(199, 50, 10068, 1, 1, '2023-01-31 21:01:42', '2023-01-31 21:01:42'),
+(200, 53, 10101, 1, 1, '2023-01-31 21:03:37', '2023-01-31 21:03:37'),
+(201, 37, 10097, 1, 1, '2023-01-31 21:04:41', '2023-01-31 21:04:41'),
+(202, 54, 10068, 1, 1, '2023-01-31 21:05:05', '2023-01-31 21:05:05'),
+(203, 40, 10101, 1, 1, '2023-01-31 22:03:40', '2023-01-31 22:03:40'),
+(204, 55, 10101, 1, 1, '2023-01-31 22:08:28', '2023-01-31 22:08:28'),
+(205, 55, 10101, 1, 1, '2023-01-31 22:19:11', '2023-01-31 22:19:11'),
+(206, 55, 10101, 1, 1, '2023-01-31 22:20:18', '2023-01-31 22:20:18'),
+(207, 55, 10101, 1, 1, '2023-01-31 22:20:51', '2023-01-31 22:20:51'),
+(208, 55, 10101, 1, 0, '2023-01-31 22:23:19', '2023-01-31 22:23:19'),
+(209, 40, 10097, 1, 1, '2023-01-31 22:32:22', '2023-01-31 22:32:22'),
+(210, 55, 10010, 1, 1, '2023-01-31 23:05:31', '2023-01-31 23:05:31'),
+(211, 34, 10101, 1, 1, '2023-01-31 23:51:25', '2023-01-31 23:51:25'),
+(212, 55, 10009, 1, 0, '2023-02-01 16:11:51', '2023-02-01 16:11:51'),
+(213, 55, 10009, 1, 1, '2023-02-01 16:11:56', '2023-02-01 16:11:56'),
+(214, 55, 10009, 1, 0, '2023-02-01 16:15:14', '2023-02-01 16:15:14'),
+(215, 55, 10009, 1, 0, '2023-02-01 16:15:17', '2023-02-01 16:15:17'),
+(216, 55, 10009, 1, 0, '2023-02-01 16:16:09', '2023-02-01 16:16:09'),
+(217, 33, 10095, 1, 1, '2023-02-01 16:16:46', '2023-02-01 16:16:46'),
+(218, 35, 10089, 1, 1, '2023-02-01 16:18:49', '2023-02-01 16:18:49'),
+(219, 55, 10009, 1, 0, '2023-02-01 16:19:19', '2023-02-01 16:19:19'),
+(220, 36, 10089, 1, 1, '2023-02-01 16:19:53', '2023-02-01 16:19:53'),
+(221, 37, 10088, 1, 1, '2023-02-01 16:21:10', '2023-02-01 16:21:10'),
+(222, 39, 10088, 1, 1, '2023-02-01 16:21:15', '2023-02-01 16:21:15'),
+(223, 54, 10081, 1, 1, '2023-02-01 16:21:32', '2023-02-01 16:21:32'),
+(224, 32, 10083, 1, 1, '2023-02-01 16:24:46', '2023-02-01 16:24:46'),
+(225, 55, 10009, 1, 0, '2023-02-01 16:31:05', '2023-02-01 16:31:05'),
+(226, 57, 10102, 1, 1, '2023-02-01 16:39:08', '2023-02-01 16:39:08'),
+(227, 57, 10102, 1, 1, '2023-02-01 16:42:36', '2023-02-01 16:42:36'),
+(228, 17, 10086, 1, 1, '2023-02-01 16:43:41', '2023-02-01 16:43:41'),
+(229, 55, 10009, 1, 0, '2023-02-01 16:45:00', '2023-02-01 16:45:00'),
+(230, 36, 10007, 1, 1, '2023-02-01 16:48:00', '2023-02-01 16:48:00'),
+(231, 36, 10007, 1, 1, '2023-02-01 16:48:11', '2023-02-01 16:48:11'),
+(232, 42, 10093, 1, 1, '2023-02-01 16:51:33', '2023-02-01 16:51:33'),
+(233, 54, 10078, 1, 1, '2023-02-01 16:54:17', '2023-02-01 16:54:17'),
+(234, 54, 10078, 1, 0, '2023-02-01 16:54:25', '2023-02-01 21:23:01'),
+(235, 54, 10078, 1, 0, '2023-02-01 16:54:53', '2023-02-01 16:54:53'),
+(236, 54, 10078, 1, 0, '2023-02-01 16:55:24', '2023-02-01 16:55:24'),
+(237, 33, 10089, 1, 1, '2023-02-01 17:05:43', '2023-02-01 17:05:43'),
+(238, 32, 10099, 1, 1, '2023-02-01 17:06:24', '2023-02-01 17:06:24'),
+(239, 55, 10009, 1, 0, '2023-02-01 17:09:14', '2023-02-01 17:09:14'),
+(240, 54, 10007, 1, 1, '2023-02-01 17:24:10', '2023-02-01 17:24:10'),
+(241, 54, 10007, 1, 1, '2023-02-01 17:24:12', '2023-02-01 17:24:12'),
+(242, 35, 10078, 1, 1, '2023-02-01 17:35:31', '2023-02-01 17:35:31'),
+(243, 59, 10102, 1, 1, '2023-02-01 17:36:20', '2023-02-01 17:36:20'),
+(244, 42, 10008, 1, 1, '2023-02-01 17:36:58', '2023-02-01 17:36:58'),
+(245, 59, 10102, 1, 0, '2023-02-01 17:37:49', '2023-02-01 17:37:49'),
+(246, 39, 10089, 1, 1, '2023-02-01 17:38:03', '2023-02-01 17:38:03'),
+(247, 36, 10009, 1, 1, '2023-02-01 17:50:35', '2023-02-01 17:50:35'),
+(248, 36, 10009, 1, 0, '2023-02-01 17:51:26', '2023-02-01 17:51:26'),
+(249, 36, 10009, 1, 1, '2023-02-01 17:51:35', '2023-02-01 17:51:35'),
+(250, 54, 10012, 1, 1, '2023-02-01 17:58:26', '2023-02-01 17:58:26'),
+(251, 58, 10102, 1, 1, '2023-02-01 17:58:55', '2023-02-01 17:58:55'),
+(252, 55, 10009, 1, 0, '2023-02-01 17:59:46', '2023-02-01 17:59:46'),
+(253, 55, 10006, 1, 1, '2023-02-01 18:04:02', '2023-02-01 18:04:02'),
+(254, 55, 10006, 2, 1, '2023-02-01 18:06:31', '2023-02-01 18:06:53'),
+(255, 55, 10006, 1, 0, '2023-02-01 18:10:13', '2023-02-01 18:10:13'),
+(256, 60, 10097, 1, 1, '2023-02-01 18:22:41', '2023-02-01 18:22:41'),
+(257, 55, 10006, 1, 0, '2023-02-01 18:22:49', '2023-02-01 18:22:49'),
+(258, 36, 10012, 1, 1, '2023-02-01 18:33:53', '2023-02-01 18:33:53'),
+(259, 60, 10097, 1, 1, '2023-02-01 18:37:11', '2023-02-01 18:37:11'),
+(260, 61, 10101, 1, 1, '2023-02-01 18:40:27', '2023-02-01 18:40:27'),
+(261, 42, 10009, 1, 1, '2023-02-01 18:48:32', '2023-02-01 18:48:32'),
+(262, 55, 10006, 1, 0, '2023-02-01 19:31:46', '2023-02-01 19:31:46'),
+(263, 58, 10101, 1, 1, '2023-02-01 19:39:09', '2023-02-01 19:39:09'),
+(264, 58, 10101, 1, 1, '2023-02-01 19:49:44', '2023-02-01 19:49:44'),
+(265, 61, 10068, 1, 1, '2023-02-01 19:51:18', '2023-02-01 19:51:18'),
+(266, 61, 10101, 1, 1, '2023-02-01 20:12:34', '2023-02-01 20:12:34'),
+(267, 57, 10101, 1, 1, '2023-02-01 20:16:37', '2023-02-01 20:16:37'),
+(268, 60, 10068, 1, 1, '2023-02-01 20:39:29', '2023-02-01 20:39:29'),
+(269, 64, 10011, 2, 1, '2023-02-01 20:43:56', '2023-02-01 20:43:59'),
+(270, 55, 10006, 1, 0, '2023-02-01 20:50:25', '2023-02-01 20:50:25'),
+(271, 55, 10006, 1, 0, '2023-02-01 20:50:25', '2023-02-01 20:50:25'),
+(272, 57, 10101, 1, 0, '2023-02-01 20:51:41', '2023-02-01 20:51:41'),
+(273, 39, 10013, 1, 1, '2023-02-01 20:54:04', '2023-02-01 20:54:04'),
+(274, 35, 10070, 1, 1, '2023-02-01 20:55:41', '2023-02-01 20:55:41'),
+(275, 39, 10013, 1, 1, '2023-02-01 21:01:27', '2023-02-01 21:01:27'),
+(276, 60, 10097, 1, 1, '2023-02-01 21:04:00', '2023-02-01 21:04:00'),
+(277, 50, 10088, 1, 1, '2023-02-01 21:04:45', '2023-02-01 21:04:45'),
+(278, 34, 10057, 1, 1, '2023-02-01 21:05:04', '2023-02-01 21:05:04'),
+(279, 50, 10081, 1, 1, '2023-02-01 21:29:15', '2023-02-01 21:29:15'),
+(280, 23, 10011, 1, 0, '2023-02-01 21:39:46', '2023-02-01 21:39:46'),
+(281, 55, 10006, 1, 0, '2023-02-01 22:02:40', '2023-02-01 22:02:40'),
+(282, 50, 10013, 1, 1, '2023-02-01 22:20:32', '2023-02-01 22:20:32'),
+(283, 35, 10070, 1, 1, '2023-02-01 22:46:33', '2023-02-01 22:46:33'),
+(284, 50, 10003, 1, 1, '2023-02-01 22:54:46', '2023-02-01 22:54:46'),
+(285, 35, 10078, 1, 0, '2023-02-01 23:12:30', '2023-02-01 23:12:30'),
+(286, 35, 10078, 1, 0, '2023-02-01 23:24:12', '2023-02-01 23:55:46'),
+(287, 35, 10070, 2, 1, '2023-02-01 23:56:10', '2023-02-01 23:56:13'),
+(288, 64, 10057, 1, 1, '2023-02-02 00:05:55', '2023-02-02 00:05:55'),
+(289, 64, 10067, 1, 1, '2023-02-02 00:18:50', '2023-02-02 00:18:50'),
+(290, 64, 10018, 1, 1, '2023-02-02 00:24:43', '2023-02-02 00:24:43'),
+(291, 64, 10064, 1, 1, '2023-02-02 00:31:44', '2023-02-02 00:31:44'),
+(292, 64, 10101, 1, 1, '2023-02-02 00:41:59', '2023-02-02 00:41:59'),
+(293, 35, 10057, 1, 0, '2023-02-02 00:54:08', '2023-02-02 00:54:08'),
+(294, 35, 10057, 1, 0, '2023-02-02 00:54:11', '2023-02-02 03:37:09'),
+(295, 64, 10101, 1, 1, '2023-02-02 01:36:10', '2023-02-02 01:36:10'),
+(296, 64, 10102, 1, 1, '2023-02-02 01:37:40', '2023-02-02 01:37:40'),
+(297, 64, 10016, 1, 1, '2023-02-02 02:05:11', '2023-02-02 02:05:11'),
+(298, 64, 10102, 1, 1, '2023-02-02 02:05:48', '2023-02-02 02:05:48'),
+(299, 64, 10102, 1, 1, '2023-02-02 02:06:10', '2023-02-02 02:06:10'),
+(300, 64, 10102, 1, 1, '2023-02-02 02:19:24', '2023-02-02 02:19:24'),
+(301, 64, 10102, 1, 1, '2023-02-02 02:20:59', '2023-02-02 02:20:59'),
+(302, 64, 10102, 1, 1, '2023-02-02 02:32:36', '2023-02-02 02:32:36'),
+(303, 57, 10101, 1, 0, '2023-02-02 09:23:03', '2023-02-02 09:23:03'),
+(304, 60, 10088, 1, 1, '2023-02-02 16:29:36', '2023-02-02 16:29:36'),
+(305, 58, 10083, 1, 1, '2023-02-02 16:35:22', '2023-02-02 16:35:22'),
+(306, 61, 10099, 1, 1, '2023-02-02 16:41:45', '2023-02-02 16:41:45'),
+(307, 22, 10102, 1, 1, '2023-02-02 16:52:48', '2023-02-02 16:52:48'),
+(308, 60, 10009, 1, 1, '2023-02-02 17:00:29', '2023-02-02 17:00:29'),
+(309, 65, 10102, 1, 1, '2023-02-02 17:12:42', '2023-02-02 17:12:42'),
+(310, 66, 10101, 1, 1, '2023-02-02 17:17:44', '2023-02-02 17:17:44'),
+(311, 61, 10008, 1, 1, '2023-02-02 17:19:47', '2023-02-02 17:19:47'),
+(312, 67, 10102, 1, 1, '2023-02-02 17:31:27', '2023-02-02 17:31:27'),
+(313, 22, 10102, 1, 1, '2023-02-02 17:42:29', '2023-02-02 17:42:29'),
+(314, 68, 10102, 1, 1, '2023-02-02 17:57:57', '2023-02-02 17:57:57'),
+(315, 69, 10102, 1, 1, '2023-02-02 18:03:04', '2023-02-02 18:03:04'),
+(316, 61, 10003, 1, 1, '2023-02-02 18:37:09', '2023-02-02 18:37:09'),
+(317, 61, 10003, 1, 1, '2023-02-02 18:37:32', '2023-02-02 18:37:32'),
+(318, 61, 10003, 1, 1, '2023-02-02 18:38:31', '2023-02-02 18:38:31'),
+(319, 61, 10003, 1, 1, '2023-02-02 18:39:18', '2023-02-02 18:39:18'),
+(320, 26, 10006, 1, 1, '2023-02-02 18:39:20', '2023-02-02 18:39:20'),
+(321, 61, 10003, 1, 1, '2023-02-02 18:39:38', '2023-02-02 18:39:38'),
+(322, 61, 10003, 1, 1, '2023-02-02 18:40:20', '2023-02-02 18:40:20'),
+(323, 61, 10003, 2, 1, '2023-02-02 18:45:25', '2023-02-02 18:45:27'),
+(324, 61, 10003, 2, 1, '2023-02-02 18:45:50', '2023-02-02 18:45:52'),
+(325, 61, 10003, 2, 1, '2023-02-02 18:46:07', '2023-02-02 18:46:09'),
+(326, 61, 10003, 1, 1, '2023-02-02 18:47:50', '2023-02-02 18:47:50'),
+(327, 67, 10097, 1, 1, '2023-02-02 20:01:24', '2023-02-02 20:01:24'),
+(328, 65, 10068, 1, 1, '2023-02-02 20:02:44', '2023-02-02 20:02:44'),
+(329, 68, 10068, 1, 1, '2023-02-02 20:06:06', '2023-02-02 20:06:06'),
+(330, 66, 10068, 1, 1, '2023-02-02 20:07:17', '2023-02-02 20:07:17'),
+(331, 70, 10102, 1, 1, '2023-02-02 20:15:36', '2023-02-02 20:15:36'),
+(332, 66, 10097, 1, 1, '2023-02-02 20:22:20', '2023-02-02 20:22:20'),
+(333, 66, 10097, 1, 0, '2023-02-02 20:29:39', '2023-02-03 16:35:32'),
+(334, 66, 10097, 1, 1, '2023-02-02 20:29:58', '2023-02-02 20:29:58'),
+(335, 68, 10064, 1, 1, '2023-02-02 20:30:57', '2023-02-02 20:30:57'),
+(336, 65, 10064, 1, 1, '2023-02-02 20:35:11', '2023-02-02 20:35:11'),
+(337, 67, 10064, 1, 1, '2023-02-02 20:44:34', '2023-02-02 20:44:34'),
+(338, 70, 10101, 1, 1, '2023-02-02 22:23:18', '2023-02-02 22:23:18'),
+(339, 59, 10019, 1, 0, '2023-02-02 23:35:29', '2023-02-02 23:35:29'),
+(340, 36, 10103, 1, 1, '2023-02-03 11:36:55', '2023-02-03 11:36:55'),
+(341, 36, 10003, 2, 1, '2023-02-03 11:40:40', '2023-02-03 11:40:45'),
+(342, 35, 10070, 1, 0, '2023-02-03 15:54:43', '2023-02-03 15:54:43'),
+(343, 66, 10089, 1, 1, '2023-02-03 16:12:38', '2023-02-03 16:12:38'),
+(344, 65, 10099, 1, 1, '2023-02-03 16:13:08', '2023-02-03 16:13:08'),
+(345, 72, 10102, 1, 1, '2023-02-03 16:30:20', '2023-02-03 16:30:20'),
+(346, 68, 10083, 1, 1, '2023-02-03 16:36:51', '2023-02-03 16:36:51'),
+(347, 75, 10101, 1, 1, '2023-02-03 16:44:35', '2023-02-03 16:44:35'),
+(348, 74, 10101, 1, 1, '2023-02-03 16:45:31', '2023-02-03 16:45:31'),
+(349, 73, 10102, 1, 1, '2023-02-03 16:45:33', '2023-02-03 16:45:33'),
+(350, 74, 10101, 1, 1, '2023-02-03 16:45:58', '2023-02-03 16:45:58'),
+(351, 75, 10101, 1, 1, '2023-02-03 16:46:24', '2023-02-03 16:46:24'),
+(352, 77, 10101, 1, 1, '2023-02-03 16:53:36', '2023-02-03 16:53:36'),
+(353, 77, 10101, 1, 1, '2023-02-03 16:55:43', '2023-02-03 16:55:43'),
+(354, 75, 10101, 1, 1, '2023-02-03 16:58:34', '2023-02-03 16:58:34'),
+(355, 76, 10102, 1, 1, '2023-02-03 16:59:40', '2023-02-03 16:59:40'),
+(356, 67, 10083, 1, 1, '2023-02-03 17:05:05', '2023-02-03 17:05:05'),
+(357, 80, 10102, 1, 1, '2023-02-03 17:17:15', '2023-02-03 17:17:15'),
+(358, 80, 10102, 1, 0, '2023-02-03 17:17:49', '2023-02-03 17:17:49'),
+(359, 81, 10102, 1, 1, '2023-02-03 17:26:52', '2023-02-03 17:26:52'),
+(360, 81, 10102, 0, 1, '2023-02-03 17:27:54', '2023-02-03 17:28:09'),
+(361, 82, 10102, 1, 1, '2023-02-03 17:27:58', '2023-02-03 17:27:58'),
+(362, 83, 10102, 1, 1, '2023-02-03 17:35:18', '2023-02-03 17:35:18'),
+(363, 61, 10003, 1, 1, '2023-02-03 17:37:10', '2023-02-03 17:37:10'),
+(364, 82, 10102, 1, 0, '2023-02-03 17:37:51', '2023-02-03 17:37:51'),
+(365, 61, 10003, 1, 1, '2023-02-03 17:40:09', '2023-02-03 17:40:09'),
+(366, 78, 10102, 1, 1, '2023-02-03 17:44:33', '2023-02-03 17:44:33'),
+(367, 58, 10099, 1, 1, '2023-02-03 17:46:41', '2023-02-03 17:46:41'),
+(368, 84, 10102, 1, 1, '2023-02-03 17:53:14', '2023-02-03 17:53:14'),
+(369, 85, 10101, 1, 0, '2023-02-03 19:26:07', '2023-02-03 19:26:07'),
+(370, 85, 10101, 1, 0, '2023-02-03 19:27:59', '2023-02-03 19:27:59'),
+(371, 85, 10101, 1, 0, '2023-02-03 19:33:58', '2023-02-03 19:33:58'),
+(372, 85, 10101, 1, 1, '2023-02-03 19:34:46', '2023-02-03 19:34:46'),
+(373, 55, 10006, 1, 0, '2023-02-03 19:38:03', '2023-02-03 19:38:03'),
+(374, 67, 10083, 1, 0, '2023-02-03 19:40:37', '2023-02-03 19:40:37'),
+(375, 75, 10101, 1, 1, '2023-02-03 19:51:02', '2023-02-03 19:51:02'),
+(376, 76, 10101, 1, 1, '2023-02-03 19:52:15', '2023-02-03 19:52:15'),
+(377, 73, 10068, 1, 1, '2023-02-03 19:58:45', '2023-02-03 19:58:45'),
+(378, 72, 10068, 1, 1, '2023-02-03 19:59:03', '2023-02-03 19:59:03'),
+(379, 78, 10101, 1, 1, '2023-02-03 20:00:17', '2023-02-03 20:00:17'),
+(380, 72, 10068, 1, 1, '2023-02-03 20:00:58', '2023-02-03 20:00:58'),
+(381, 81, 10068, 1, 1, '2023-02-03 20:02:45', '2023-02-03 20:02:45'),
+(382, 77, 10065, 1, 1, '2023-02-03 20:03:39', '2023-02-03 20:03:39'),
+(383, 80, 10065, 1, 1, '2023-02-03 20:04:12', '2023-02-03 20:04:12'),
+(384, 74, 10068, 1, 1, '2023-02-03 20:09:01', '2023-02-03 20:09:01'),
+(385, 86, 10068, 0, 0, '2023-02-03 20:11:59', '2023-02-03 20:16:31'),
+(386, 86, 10068, 1, 1, '2023-02-03 20:15:31', '2023-02-03 20:15:31'),
+(387, 73, 10101, 1, 1, '2023-02-03 20:20:24', '2023-02-03 20:20:24'),
+(388, 75, 10101, 1, 1, '2023-02-03 20:21:30', '2023-02-03 20:21:30'),
+(389, 74, 10101, 1, 1, '2023-02-03 20:25:39', '2023-02-03 20:25:39'),
+(390, 76, 10101, 1, 1, '2023-02-03 20:29:18', '2023-02-03 20:29:18'),
+(391, 89, 10010, 1, 1, '2023-02-03 20:33:11', '2023-02-03 20:33:11'),
+(392, 90, 10101, 1, 1, '2023-02-03 20:34:04', '2023-02-03 20:34:04'),
+(393, 77, 10101, 1, 1, '2023-02-03 20:34:12', '2023-02-03 20:34:12'),
+(394, 85, 10097, 1, 1, '2023-02-03 20:38:33', '2023-02-03 20:38:33'),
+(395, 78, 10101, 1, 1, '2023-02-03 20:39:41', '2023-02-03 20:39:41'),
+(396, 72, 10101, 1, 0, '2023-02-03 20:40:11', '2023-02-03 20:40:11'),
+(397, 72, 10101, 1, 1, '2023-02-03 20:40:21', '2023-02-03 20:40:21'),
+(398, 80, 10101, 1, 1, '2023-02-03 20:42:30', '2023-02-03 20:42:30'),
+(399, 91, 10068, 1, 1, '2023-02-03 20:46:27', '2023-02-03 20:46:27'),
+(400, 81, 10101, 1, 1, '2023-02-03 20:46:58', '2023-02-03 20:46:58'),
+(401, 86, 10097, 1, 1, '2023-02-03 20:47:37', '2023-02-03 20:47:37'),
+(402, 85, 10021, 1, 1, '2023-02-03 21:04:23', '2023-02-03 21:04:23'),
+(403, 89, 10102, 1, 1, '2023-02-03 21:20:47', '2023-02-03 21:20:47'),
+(404, 90, 10064, 1, 1, '2023-02-03 22:01:57', '2023-02-03 22:01:57'),
+(405, 91, 10101, 1, 1, '2023-02-03 23:40:55', '2023-02-03 23:40:55'),
+(406, 73, 10083, 1, 1, '2023-02-04 16:14:49', '2023-02-04 16:14:49'),
+(407, 72, 10083, 1, 1, '2023-02-04 16:15:14', '2023-02-04 16:15:14'),
+(408, 84, 10102, 1, 0, '2023-02-04 16:19:54', '2023-02-04 16:19:54'),
+(409, 81, 10083, 1, 1, '2023-02-04 16:21:20', '2023-02-04 16:21:20'),
+(410, 90, 10083, 1, 1, '2023-02-04 16:22:32', '2023-02-04 16:22:32'),
+(411, 86, 10083, 1, 1, '2023-02-04 16:22:47', '2023-02-04 16:22:47'),
+(412, 77, 10095, 1, 1, '2023-02-04 16:23:01', '2023-02-04 16:23:01'),
+(413, 84, 10097, 1, 1, '2023-02-04 16:26:17', '2023-02-04 16:26:17'),
+(414, 93, 10102, 1, 1, '2023-02-04 16:42:28', '2023-02-04 16:42:28'),
+(415, 96, 10101, 1, 1, '2023-02-04 16:46:15', '2023-02-04 16:46:15'),
+(416, 96, 10101, 1, 1, '2023-02-04 16:47:48', '2023-02-04 16:47:48'),
+(417, 96, 10101, 1, 0, '2023-02-04 16:47:50', '2023-02-04 16:47:50'),
+(418, 94, 10102, 1, 1, '2023-02-04 16:50:13', '2023-02-04 16:50:13'),
+(419, 97, 10101, 1, 1, '2023-02-04 16:51:10', '2023-02-04 16:51:10'),
+(420, 94, 10102, 1, 1, '2023-02-04 16:51:39', '2023-02-04 16:51:39'),
+(421, 98, 10102, 1, 1, '2023-02-04 16:53:50', '2023-02-04 16:53:50'),
+(422, 99, 10102, 1, 1, '2023-02-04 16:54:12', '2023-02-04 16:54:12'),
+(423, 95, 10102, 1, 1, '2023-02-04 16:54:32', '2023-02-04 16:54:32'),
+(424, 73, 10099, 1, 1, '2023-02-04 16:58:06', '2023-02-04 16:58:06'),
+(425, 77, 10089, 1, 1, '2023-02-04 16:58:13', '2023-02-04 16:58:13'),
+(426, 86, 10089, 1, 1, '2023-02-04 16:58:14', '2023-02-04 16:58:14'),
+(427, 85, 10095, 1, 1, '2023-02-04 16:58:22', '2023-02-04 16:58:22'),
+(428, 64, 10009, 1, 1, '2023-02-04 17:00:03', '2023-02-04 17:00:03'),
+(429, 100, 10102, 1, 1, '2023-02-04 17:12:00', '2023-02-04 17:12:00'),
+(430, 101, 10101, 1, 1, '2023-02-04 17:14:26', '2023-02-04 17:14:26'),
+(431, 102, 10102, 1, 1, '2023-02-04 17:18:04', '2023-02-04 17:18:04'),
+(432, 102, 10102, 1, 1, '2023-02-04 17:19:01', '2023-02-04 17:19:01'),
+(433, 90, 10095, 1, 1, '2023-02-04 17:36:06', '2023-02-04 17:36:06'),
+(434, 86, 10008, 2, 1, '2023-02-04 17:54:43', '2023-02-04 17:54:48'),
+(435, 104, 10102, 1, 1, '2023-02-04 18:01:31', '2023-02-04 18:01:31'),
+(436, 89, 10012, 1, 1, '2023-02-04 18:09:53', '2023-02-04 18:09:53'),
+(437, 103, 10102, 1, 1, '2023-02-04 18:14:15', '2023-02-04 18:14:15'),
+(438, 103, 10102, 1, 1, '2023-02-04 18:14:18', '2023-02-04 18:14:18'),
+(439, 103, 10102, 1, 1, '2023-02-04 18:15:07', '2023-02-04 18:15:07'),
+(440, 90, 10015, 2, 1, '2023-02-04 18:16:41', '2023-02-04 18:16:45'),
+(441, 73, 10082, 1, 1, '2023-02-04 18:49:39', '2023-02-04 18:49:39'),
+(442, 73, 10082, 1, 0, '2023-02-04 18:50:54', '2023-02-04 18:50:54'),
+(443, 84, 10067, 1, 1, '2023-02-04 19:20:56', '2023-02-04 19:20:56'),
+(444, 81, 10044, 1, 1, '2023-02-04 19:47:31', '2023-02-04 19:47:31'),
+(445, 98, 10068, 1, 1, '2023-02-04 19:51:03', '2023-02-04 19:51:03'),
+(446, 97, 10068, 1, 1, '2023-02-04 19:51:05', '2023-02-04 19:51:05'),
+(447, 96, 10068, 1, 0, '2023-02-04 19:57:42', '2023-02-04 19:57:42'),
+(448, 96, 10068, 1, 1, '2023-02-04 19:58:53', '2023-02-04 19:58:53'),
+(449, 105, 10097, 1, 1, '2023-02-04 20:02:19', '2023-02-04 20:02:19'),
+(450, 95, 10071, 1, 1, '2023-02-04 20:04:31', '2023-02-04 20:04:31'),
+(451, 104, 10101, 1, 1, '2023-02-04 20:05:02', '2023-02-04 20:05:02'),
+(452, 93, 10097, 1, 1, '2023-02-04 20:05:02', '2023-02-04 20:05:02'),
+(453, 94, 10068, 1, 1, '2023-02-04 20:05:23', '2023-02-04 20:05:23'),
+(454, 101, 10101, 1, 1, '2023-02-04 20:06:03', '2023-02-04 20:06:03'),
+(455, 94, 10068, 1, 0, '2023-02-04 20:07:10', '2023-02-04 20:07:10'),
+(456, 99, 10101, 1, 1, '2023-02-04 20:07:20', '2023-02-04 20:07:20'),
+(457, 95, 10071, 1, 1, '2023-02-04 20:07:39', '2023-02-04 20:07:39'),
+(458, 94, 10068, 1, 0, '2023-02-04 20:09:30', '2023-02-04 20:09:30'),
+(459, 97, 10064, 1, 1, '2023-02-04 20:10:12', '2023-02-04 20:10:12'),
+(460, 95, 10071, 1, 1, '2023-02-04 20:12:42', '2023-02-04 20:12:42'),
+(461, 102, 10068, 1, 1, '2023-02-04 20:13:35', '2023-02-04 20:13:35'),
+(462, 97, 10064, 1, 1, '2023-02-04 20:14:38', '2023-02-04 20:14:38'),
+(463, 98, 10064, 1, 1, '2023-02-04 20:15:37', '2023-02-04 20:15:37'),
+(464, 100, 10067, 1, 1, '2023-02-04 20:15:56', '2023-02-04 20:15:56'),
+(465, 96, 10097, 1, 1, '2023-02-04 20:17:56', '2023-02-04 20:17:56'),
+(466, 106, 10101, 1, 1, '2023-02-04 20:21:38', '2023-02-04 20:21:38'),
+(467, 107, 10101, 1, 1, '2023-02-04 20:24:05', '2023-02-04 20:24:05'),
+(468, 107, 10101, 1, 0, '2023-02-04 20:24:19', '2023-02-04 20:31:04'),
+(469, 94, 10101, 1, 1, '2023-02-04 20:24:55', '2023-02-04 20:24:55'),
+(470, 101, 10068, 1, 1, '2023-02-04 20:29:42', '2023-02-04 20:29:42'),
+(471, 107, 10101, 1, 1, '2023-02-04 20:29:51', '2023-02-04 20:29:51'),
+(472, 100, 10097, 1, 1, '2023-02-04 20:33:24', '2023-02-04 20:33:24'),
+(473, 99, 10101, 1, 1, '2023-02-04 20:36:44', '2023-02-04 20:36:44'),
+(474, 102, 10101, 1, 1, '2023-02-04 20:39:02', '2023-02-04 20:39:02'),
+(475, 104, 10097, 1, 1, '2023-02-04 20:39:23', '2023-02-04 20:39:23'),
+(476, 102, 10101, 1, 1, '2023-02-04 20:40:18', '2023-02-04 20:40:18'),
+(477, 105, 10067, 1, 1, '2023-02-04 20:43:53', '2023-02-04 20:43:53'),
+(478, 109, 10101, 1, 1, '2023-02-04 20:50:13', '2023-02-04 20:50:13'),
+(479, 109, 10101, 1, 1, '2023-02-04 21:10:52', '2023-02-04 21:10:52'),
+(480, 95, 10071, 1, 1, '2023-02-04 21:15:02', '2023-02-04 21:15:02'),
+(481, 77, 10087, 1, 1, '2023-02-04 21:17:25', '2023-02-04 21:17:25'),
+(482, 77, 10087, 1, 1, '2023-02-04 21:18:06', '2023-02-04 21:18:06'),
+(483, 95, 10102, 1, 1, '2023-02-04 21:22:00', '2023-02-04 21:22:00'),
+(484, 95, 10101, 1, 1, '2023-02-04 21:44:23', '2023-02-04 21:44:23'),
+(485, 95, 10101, 1, 1, '2023-02-04 21:46:36', '2023-02-04 21:46:36'),
+(486, 93, 10068, 1, 1, '2023-02-04 22:01:07', '2023-02-04 22:01:07'),
+(487, 103, 10097, 1, 1, '2023-02-04 22:09:20', '2023-02-04 22:09:20'),
+(488, 103, 10097, 1, 1, '2023-02-04 22:10:01', '2023-02-04 22:10:01'),
+(489, 103, 10097, 1, 1, '2023-02-04 22:10:25', '2023-02-04 22:10:25'),
+(490, 103, 10097, 1, 1, '2023-02-04 22:11:01', '2023-02-04 22:11:01'),
+(491, 103, 10097, 1, 1, '2023-02-04 22:14:14', '2023-02-04 22:14:14'),
+(492, 77, 10069, 1, 1, '2023-02-04 22:48:52', '2023-02-04 22:48:52'),
+(493, 103, 10067, 1, 1, '2023-02-05 01:32:06', '2023-02-05 01:32:06'),
+(494, 103, 10067, 1, 1, '2023-02-05 01:32:09', '2023-02-05 01:32:09'),
+(495, 103, 10067, 1, 1, '2023-02-05 01:32:55', '2023-02-05 01:32:55'),
+(496, 103, 10067, 1, 1, '2023-02-05 01:32:57', '2023-02-05 01:32:57'),
+(497, 90, 10011, 1, 1, '2023-02-05 02:37:49', '2023-02-05 02:37:49'),
+(498, 77, 10003, 1, 1, '2023-02-05 11:41:58', '2023-02-05 11:41:58'),
+(499, 94, 10088, 1, 1, '2023-02-05 16:28:24', '2023-02-05 16:28:24'),
+(500, 78, 10083, 1, 1, '2023-02-05 16:30:50', '2023-02-05 16:30:50'),
+(501, 109, 10083, 1, 1, '2023-02-05 16:30:51', '2023-02-05 16:30:51'),
+(502, 100, 10008, 1, 1, '2023-02-05 16:32:12', '2023-02-05 16:32:12'),
+(503, 101, 10083, 1, 1, '2023-02-05 16:35:02', '2023-02-05 16:35:02'),
+(504, 98, 10095, 1, 1, '2023-02-05 16:36:49', '2023-02-05 16:36:49'),
+(505, 96, 10088, 1, 1, '2023-02-05 16:37:51', '2023-02-05 16:37:51'),
+(506, 93, 10088, 1, 1, '2023-02-05 16:38:20', '2023-02-05 16:38:20'),
+(507, 104, 10088, 1, 1, '2023-02-05 16:39:03', '2023-02-05 16:39:03'),
+(508, 91, 10088, 1, 1, '2023-02-05 16:39:38', '2023-02-05 16:39:38'),
+(509, 103, 10083, 1, 1, '2023-02-05 16:41:04', '2023-02-05 16:41:04'),
+(510, 103, 10083, 1, 1, '2023-02-05 16:41:06', '2023-02-05 16:41:06'),
+(511, 103, 10083, 1, 0, '2023-02-05 16:42:39', '2023-02-05 16:42:39'),
+(512, 94, 10089, 1, 1, '2023-02-05 16:43:51', '2023-02-05 16:43:51'),
+(513, 114, 10102, 1, 1, '2023-02-05 16:47:08', '2023-02-05 16:47:08'),
+(514, 116, 10102, 1, 1, '2023-02-05 16:47:15', '2023-02-05 16:47:15'),
+(515, 34, 10101, 1, 0, '2023-02-05 16:47:16', '2023-02-05 16:47:16'),
+(516, 110, 10099, 1, 1, '2023-02-05 16:51:38', '2023-02-05 16:51:38'),
+(517, 116, 10102, 1, 1, '2023-02-05 16:52:19', '2023-02-05 16:52:19'),
+(518, 110, 10099, 1, 1, '2023-02-05 16:53:14', '2023-02-05 16:53:14'),
+(519, 115, 10084, 1, 1, '2023-02-05 16:56:37', '2023-02-05 16:56:37'),
+(520, 97, 10008, 1, 1, '2023-02-05 16:56:48', '2023-02-05 16:56:48'),
+(521, 119, 10102, 1, 1, '2023-02-05 16:57:03', '2023-02-05 16:57:03'),
+(522, 118, 10102, 1, 1, '2023-02-05 16:57:38', '2023-02-05 16:57:38'),
+(523, 100, 10007, 1, 1, '2023-02-05 16:59:34', '2023-02-05 16:59:34'),
+(524, 117, 10102, 1, 1, '2023-02-05 17:04:30', '2023-02-05 17:04:30'),
+(525, 121, 10102, 1, 1, '2023-02-05 17:05:10', '2023-02-05 17:05:10'),
+(526, 123, 10102, 1, 1, '2023-02-05 17:05:24', '2023-02-05 17:05:24'),
+(527, 104, 10009, 1, 1, '2023-02-05 17:05:43', '2023-02-05 17:05:43'),
+(528, 123, 10102, 1, 1, '2023-02-05 17:06:11', '2023-02-05 17:06:11'),
+(529, 94, 10087, 1, 1, '2023-02-05 17:08:05', '2023-02-05 17:08:05'),
+(530, 109, 10099, 1, 1, '2023-02-05 17:14:39', '2023-02-05 17:14:39'),
+(531, 110, 10089, 1, 1, '2023-02-05 17:17:22', '2023-02-05 17:17:22'),
+(532, 120, 10101, 1, 1, '2023-02-05 17:17:26', '2023-02-05 17:17:26'),
+(533, 93, 10089, 1, 1, '2023-02-05 17:20:59', '2023-02-05 17:20:59'),
+(534, 94, 10087, 1, 1, '2023-02-05 17:25:07', '2023-02-05 17:25:07'),
+(535, 124, 10102, 1, 1, '2023-02-05 17:25:44', '2023-02-05 17:25:44'),
+(536, 122, 10102, 1, 1, '2023-02-05 17:28:44', '2023-02-05 17:28:44'),
+(537, 96, 10089, 1, 1, '2023-02-05 17:30:22', '2023-02-05 17:30:22'),
+(538, 125, 10101, 1, 1, '2023-02-05 17:33:40', '2023-02-05 17:33:40'),
+(539, 110, 10087, 1, 1, '2023-02-05 17:36:47', '2023-02-05 17:36:47'),
+(540, 94, 10087, 1, 0, '2023-02-05 17:37:16', '2023-02-05 17:37:16'),
+(541, 94, 10087, 1, 0, '2023-02-05 17:45:49', '2023-02-05 17:45:49'),
+(542, 94, 10087, 1, 0, '2023-02-05 17:45:51', '2023-02-05 17:45:51'),
+(543, 100, 10006, 2, 1, '2023-02-05 17:52:58', '2023-02-05 17:53:08'),
+(544, 126, 10051, 1, 0, '2023-02-05 18:02:40', '2023-02-05 18:07:10'),
+(545, 104, 10013, 1, 1, '2023-02-05 18:03:14', '2023-02-05 18:03:14'),
+(546, 94, 10087, 2, 0, '2023-02-05 18:05:47', '2023-02-05 22:46:38'),
+(547, 98, 10022, 1, 1, '2023-02-05 18:11:58', '2023-02-05 18:11:58'),
+(548, 126, 10102, 1, 1, '2023-02-05 18:13:10', '2023-02-05 18:13:10'),
+(549, 97, 10007, 1, 1, '2023-02-05 18:13:31', '2023-02-05 18:13:31'),
+(550, 109, 10082, 1, 1, '2023-02-05 18:19:06', '2023-02-05 18:19:06'),
+(551, 109, 10082, 1, 1, '2023-02-05 18:19:26', '2023-02-05 18:19:26'),
+(552, 125, 10097, 1, 1, '2023-02-05 18:33:46', '2023-02-05 18:33:46'),
+(553, 127, 10102, 1, 0, '2023-02-05 18:53:02', '2023-02-05 18:53:02'),
+(554, 127, 10102, 1, 0, '2023-02-05 18:53:02', '2023-02-05 18:53:02'),
+(555, 127, 10102, 1, 1, '2023-02-05 18:53:02', '2023-02-05 18:53:19'),
+(556, 78, 10006, 1, 0, '2023-02-05 19:45:19', '2023-02-05 19:45:19'),
+(557, 100, 10003, 1, 1, '2023-02-05 20:00:12', '2023-02-05 20:00:12'),
+(558, 126, 10068, 1, 0, '2023-02-05 20:00:30', '2023-02-05 20:00:30'),
+(559, 126, 10068, 1, 1, '2023-02-05 20:00:35', '2023-02-05 20:00:35'),
+(560, 96, 10087, 1, 1, '2023-02-05 20:05:33', '2023-02-05 20:05:33'),
+(561, 118, 10101, 1, 1, '2023-02-05 20:07:43', '2023-02-05 20:07:43'),
+(562, 96, 10087, 2, 1, '2023-02-05 20:08:51', '2023-02-05 20:08:58'),
+(563, 97, 10022, 1, 1, '2023-02-05 20:10:50', '2023-02-05 20:10:50'),
+(564, 120, 10097, 1, 1, '2023-02-05 20:11:17', '2023-02-05 20:11:17'),
+(565, 97, 10022, 1, 1, '2023-02-05 20:11:25', '2023-02-05 20:11:25'),
+(566, 119, 10068, 1, 1, '2023-02-05 20:11:48', '2023-02-05 20:11:48'),
+(567, 96, 10087, 1, 1, '2023-02-05 20:11:59', '2023-02-05 20:11:59'),
+(568, 97, 10022, 1, 1, '2023-02-05 20:12:56', '2023-02-05 20:12:56'),
+(569, 117, 10101, 1, 1, '2023-02-05 20:12:58', '2023-02-05 20:12:58'),
+(570, 115, 10068, 1, 1, '2023-02-05 20:13:41', '2023-02-05 20:13:41'),
+(571, 124, 10101, 1, 1, '2023-02-05 20:14:11', '2023-02-05 20:14:11'),
+(572, 123, 10101, 1, 1, '2023-02-05 20:14:29', '2023-02-05 20:14:29'),
+(573, 97, 10022, 1, 1, '2023-02-05 20:14:36', '2023-02-05 20:14:36'),
+(574, 126, 10101, 1, 1, '2023-02-05 20:15:48', '2023-02-05 20:15:48'),
+(575, 126, 10101, 1, 0, '2023-02-05 20:15:51', '2023-02-05 20:15:51'),
+(576, 122, 10101, 1, 1, '2023-02-05 20:16:25', '2023-02-05 20:16:25'),
+(577, 97, 10022, 2, 1, '2023-02-05 20:17:53', '2023-02-05 20:17:56'),
+(578, 125, 10064, 1, 1, '2023-02-05 20:18:47', '2023-02-05 20:18:47'),
+(579, 116, 10068, 1, 1, '2023-02-05 20:19:14', '2023-02-05 20:19:14'),
+(580, 119, 10097, 1, 1, '2023-02-05 20:33:08', '2023-02-05 20:33:08'),
+(581, 104, 10071, 1, 0, '2023-02-05 20:34:52', '2023-02-05 20:34:52'),
+(582, 115, 10097, 1, 1, '2023-02-05 20:36:05', '2023-02-05 20:36:05'),
+(583, 128, 10102, 1, 1, '2023-02-05 20:40:56', '2023-02-05 20:40:56'),
+(584, 117, 10097, 1, 1, '2023-02-05 20:48:21', '2023-02-05 20:48:21'),
+(585, 117, 10097, 1, 0, '2023-02-05 20:51:31', '2023-02-05 20:51:31'),
+(586, 122, 10068, 1, 1, '2023-02-05 20:52:22', '2023-02-05 20:52:22'),
+(587, 124, 10067, 1, 1, '2023-02-05 20:52:27', '2023-02-05 20:52:27'),
+(588, 116, 10097, 1, 1, '2023-02-05 20:55:39', '2023-02-05 20:55:39'),
+(589, 104, 10075, 1, 0, '2023-02-05 21:34:46', '2023-02-05 21:34:46'),
+(590, 98, 10022, 1, 1, '2023-02-05 22:08:38', '2023-02-05 22:08:38'),
+(591, 127, 10101, 1, 1, '2023-02-05 22:09:28', '2023-02-05 22:09:28'),
+(592, 100, 10003, 1, 1, '2023-02-05 22:22:37', '2023-02-05 22:22:37'),
+(593, 112, 10067, 1, 1, '2023-02-05 22:24:04', '2023-02-05 22:24:04'),
+(594, 104, 10075, 1, 0, '2023-02-05 22:31:57', '2023-02-05 22:31:57'),
+(595, 104, 10075, 1, 1, '2023-02-05 22:32:49', '2023-02-05 22:32:49'),
+(596, 120, 10064, 1, 1, '2023-02-05 22:41:13', '2023-02-05 22:41:13'),
+(597, 94, 10087, 1, 0, '2023-02-05 22:46:27', '2023-02-05 22:46:27'),
+(598, 94, 10087, 1, 0, '2023-02-05 22:48:30', '2023-02-05 22:48:30'),
+(599, 98, 10022, 2, 0, '2023-02-05 22:51:43', '2023-02-05 22:51:47'),
+(600, 94, 10087, 1, 0, '2023-02-05 22:57:56', '2023-02-05 22:57:56'),
+(601, 128, 10101, 1, 1, '2023-02-05 23:09:55', '2023-02-05 23:09:55'),
+(602, 98, 10022, 1, 0, '2023-02-05 23:21:54', '2023-02-05 23:21:54'),
+(603, 127, 10097, 1, 0, '2023-02-05 23:34:21', '2023-02-05 23:34:21'),
+(604, 104, 10013, 1, 0, '2023-02-05 23:36:37', '2023-02-05 23:36:37'),
+(605, 127, 10097, 1, 1, '2023-02-05 23:54:02', '2023-02-05 23:54:02'),
+(606, 94, 10087, 1, 0, '2023-02-06 02:00:16', '2023-02-06 02:00:36'),
+(607, 94, 10087, 1, 0, '2023-02-06 02:01:44', '2023-02-06 02:01:44'),
+(608, 22, 10081, 1, 0, '2023-02-06 04:38:09', '2023-02-06 04:38:09'),
+(609, 105, 10088, 1, 1, '2023-02-06 16:03:30', '2023-02-06 16:03:30'),
+(610, 116, 10078, 1, 1, '2023-02-06 16:15:32', '2023-02-06 16:15:32'),
+(611, 125, 10088, 1, 1, '2023-02-06 16:16:20', '2023-02-06 16:16:20'),
+(612, 127, 10083, 1, 1, '2023-02-06 16:18:41', '2023-02-06 16:18:41'),
+(613, 105, 10093, 1, 1, '2023-02-06 16:19:20', '2023-02-06 16:19:20'),
+(614, 126, 10095, 1, 1, '2023-02-06 16:26:10', '2023-02-06 16:26:10'),
+(615, 131, 10101, 1, 1, '2023-02-06 16:26:14', '2023-02-06 16:26:14'),
+(616, 117, 10088, 1, 1, '2023-02-06 16:26:18', '2023-02-06 16:26:18'),
+(617, 119, 10088, 1, 1, '2023-02-06 16:31:10', '2023-02-06 16:31:10'),
+(618, 115, 10088, 1, 1, '2023-02-06 16:31:47', '2023-02-06 16:31:47'),
+(619, 135, 10102, 1, 1, '2023-02-06 16:32:19', '2023-02-06 16:32:19'),
+(620, 125, 10089, 1, 1, '2023-02-06 16:33:27', '2023-02-06 16:33:27'),
+(621, 133, 10102, 1, 1, '2023-02-06 16:36:24', '2023-02-06 16:36:24'),
+(622, 134, 10102, 1, 1, '2023-02-06 16:37:26', '2023-02-06 16:37:26'),
+(623, 134, 10102, 1, 1, '2023-02-06 16:39:18', '2023-02-06 16:39:18'),
+(624, 132, 10102, 1, 1, '2023-02-06 16:40:36', '2023-02-06 16:40:36'),
+(625, 136, 10102, 1, 1, '2023-02-06 16:42:55', '2023-02-06 16:42:55'),
+(626, 136, 10102, 1, 0, '2023-02-06 16:45:35', '2023-02-06 16:45:35'),
+(627, 138, 10101, 1, 1, '2023-02-06 16:47:21', '2023-02-06 16:47:21'),
+(628, 137, 10102, 1, 1, '2023-02-06 16:47:55', '2023-02-06 16:47:55'),
+(629, 134, 10102, 1, 1, '2023-02-06 16:48:58', '2023-02-06 16:48:58'),
+(630, 139, 10102, 1, 1, '2023-02-06 16:50:00', '2023-02-06 16:50:00'),
+(631, 139, 10102, 1, 1, '2023-02-06 16:50:00', '2023-02-06 16:50:00'),
+(632, 134, 10102, 1, 1, '2023-02-06 16:51:18', '2023-02-06 16:51:18'),
+(633, 140, 10102, 1, 1, '2023-02-06 16:52:36', '2023-02-06 16:52:36'),
+(634, 130, 10102, 1, 1, '2023-02-06 16:53:07', '2023-02-06 16:53:07'),
+(635, 141, 10102, 1, 1, '2023-02-06 16:55:37', '2023-02-06 16:55:37'),
+(636, 130, 10102, 1, 0, '2023-02-06 16:55:41', '2023-02-06 16:55:51'),
+(637, 125, 10082, 1, 1, '2023-02-06 17:02:51', '2023-02-06 17:02:51'),
+(638, 120, 10088, 1, 1, '2023-02-06 17:03:18', '2023-02-06 17:03:18'),
+(639, 130, 10102, 1, 0, '2023-02-06 17:05:27', '2023-02-06 17:05:27'),
+(640, 134, 10102, 1, 1, '2023-02-06 17:08:47', '2023-02-06 17:08:47'),
+(641, 117, 10099, 1, 1, '2023-02-06 17:09:09', '2023-02-06 17:09:09'),
+(642, 126, 10089, 1, 1, '2023-02-06 17:10:10', '2023-02-06 17:10:10'),
+(643, 126, 10089, 1, 0, '2023-02-06 17:10:13', '2023-02-06 17:10:13'),
+(644, 144, 10102, 1, 1, '2023-02-06 17:13:13', '2023-02-06 17:13:13'),
+(645, 142, 10097, 1, 1, '2023-02-06 17:15:37', '2023-02-06 17:15:37'),
+(646, 143, 10102, 1, 1, '2023-02-06 17:18:36', '2023-02-06 17:18:36'),
+(647, 115, 10078, 1, 1, '2023-02-06 17:20:54', '2023-02-06 17:20:54'),
+(648, 145, 10101, 1, 1, '2023-02-06 17:37:59', '2023-02-06 17:37:59'),
+(649, 125, 10082, 1, 1, '2023-02-06 17:42:20', '2023-02-06 17:42:20'),
+(650, 145, 10101, 1, 1, '2023-02-06 17:44:28', '2023-02-06 17:44:28'),
+(651, 120, 10089, 1, 1, '2023-02-06 17:45:41', '2023-02-06 17:45:41'),
+(652, 117, 10081, 1, 1, '2023-02-06 17:50:25', '2023-02-06 17:50:25'),
+(653, 117, 10081, 2, 1, '2023-02-06 17:51:32', '2023-02-06 17:51:37'),
+(654, 120, 10082, 1, 1, '2023-02-06 18:14:51', '2023-02-06 18:14:51'),
+(655, 146, 10102, 1, 1, '2023-02-06 18:24:25', '2023-02-06 18:24:25'),
+(656, 146, 10102, 0, 0, '2023-02-06 18:24:54', '2023-02-06 20:07:59'),
+(657, 99, 10088, 1, 1, '2023-02-06 18:26:38', '2023-02-06 18:26:38'),
+(658, 99, 10088, 1, 0, '2023-02-06 18:27:13', '2023-02-06 18:27:13'),
+(659, 99, 10088, 1, 0, '2023-02-06 18:28:13', '2023-02-06 18:28:13'),
+(660, 99, 10088, 1, 0, '2023-02-06 18:29:40', '2023-02-06 18:29:40'),
+(661, 99, 10088, 1, 0, '2023-02-06 18:29:59', '2023-02-06 18:29:59'),
+(662, 99, 10088, 1, 1, '2023-02-06 18:32:00', '2023-02-06 18:32:00'),
+(663, 117, 10081, 1, 0, '2023-02-06 18:52:59', '2023-02-06 18:52:59'),
+(664, 146, 10101, 1, 1, '2023-02-06 18:55:39', '2023-02-06 18:55:39'),
+(665, 91, 10089, 1, 1, '2023-02-06 19:41:14', '2023-02-06 19:41:14'),
+(666, 139, 10101, 1, 1, '2023-02-06 19:50:34', '2023-02-06 19:50:34'),
+(667, 144, 10068, 1, 1, '2023-02-06 19:53:14', '2023-02-06 19:53:14'),
+(668, 123, 10102, 1, 0, '2023-02-06 19:56:49', '2023-02-06 19:56:49'),
+(669, 140, 10101, 1, 1, '2023-02-06 19:58:54', '2023-02-06 19:58:54'),
+(670, 138, 10068, 1, 1, '2023-02-06 19:59:04', '2023-02-06 19:59:04'),
+(671, 134, 10068, 1, 1, '2023-02-06 19:59:52', '2023-02-06 19:59:52'),
+(672, 137, 10068, 1, 1, '2023-02-06 20:00:47', '2023-02-06 20:00:47'),
+(673, 137, 10068, 1, 1, '2023-02-06 20:00:47', '2023-02-06 20:00:47'),
+(674, 123, 10021, 1, 1, '2023-02-06 20:01:11', '2023-02-06 20:01:11'),
+(675, 132, 10101, 1, 1, '2023-02-06 20:01:55', '2023-02-06 20:01:55'),
+(676, 123, 10046, 1, 1, '2023-02-06 20:02:16', '2023-02-06 20:02:16'),
+(677, 147, 10102, 1, 1, '2023-02-06 20:03:55', '2023-02-06 20:03:55'),
+(678, 142, 10068, 1, 1, '2023-02-06 20:05:02', '2023-02-06 20:05:02'),
+(679, 135, 10101, 1, 1, '2023-02-06 20:05:15', '2023-02-06 20:05:15'),
+(680, 136, 10068, 1, 1, '2023-02-06 20:05:47', '2023-02-06 20:05:47'),
+(681, 138, 10097, 1, 1, '2023-02-06 20:10:16', '2023-02-06 20:10:16'),
+(682, 139, 10097, 1, 1, '2023-02-06 20:11:08', '2023-02-06 20:11:08'),
+(683, 147, 10102, 1, 0, '2023-02-06 20:12:40', '2023-02-06 20:12:40'),
+(684, 144, 10101, 1, 1, '2023-02-06 20:14:46', '2023-02-06 20:14:46'),
+(685, 134, 10101, 1, 1, '2023-02-06 20:15:10', '2023-02-06 20:15:10'),
+(686, 136, 10101, 1, 1, '2023-02-06 20:15:22', '2023-02-06 20:15:22'),
+(687, 141, 10101, 1, 1, '2023-02-06 20:22:19', '2023-02-06 20:22:19'),
+(688, 142, 10101, 1, 1, '2023-02-06 20:34:55', '2023-02-06 20:34:55'),
+(689, 137, 10101, 1, 1, '2023-02-06 20:40:54', '2023-02-06 20:40:54'),
+(690, 130, 10101, 1, 1, '2023-02-06 20:47:14', '2023-02-06 20:47:14'),
+(691, 130, 10101, 1, 0, '2023-02-06 20:47:14', '2023-02-06 20:47:14'),
+(692, 143, 10067, 1, 1, '2023-02-06 20:50:25', '2023-02-06 20:50:25'),
+(693, 132, 10067, 1, 1, '2023-02-06 20:56:23', '2023-02-06 20:56:23'),
+(694, 143, 10067, 1, 0, '2023-02-06 20:58:50', '2023-02-06 20:58:50'),
+(695, 135, 10068, 1, 0, '2023-02-06 21:00:34', '2023-02-06 21:00:34'),
+(696, 140, 10097, 1, 1, '2023-02-06 21:00:47', '2023-02-06 21:00:47'),
+(697, 143, 10067, 1, 1, '2023-02-06 21:00:57', '2023-02-06 21:00:57'),
+(698, 141, 10068, 1, 1, '2023-02-06 21:01:01', '2023-02-06 21:01:01'),
+(699, 135, 10068, 1, 1, '2023-02-06 21:01:06', '2023-02-06 21:01:06'),
+(700, 130, 10067, 1, 1, '2023-02-06 21:21:10', '2023-02-06 21:21:10'),
+(701, 143, 10101, 1, 1, '2023-02-06 21:21:47', '2023-02-06 21:21:47'),
+(702, 119, 10102, 1, 0, '2023-02-07 11:29:04', '2023-02-07 11:29:04'),
+(703, 112, 10101, 4, 1, '2023-02-07 14:09:09', '2023-02-07 14:09:12');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tb_newbee_mall_user`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_user` (
+  `user_id` bigint(20) NOT NULL COMMENT '用户主键id',
   `nick_name` varchar(50) NOT NULL DEFAULT '' COMMENT '用户昵称',
   `login_name` varchar(11) NOT NULL DEFAULT '' COMMENT '登陆名称(默认为手机号)',
   `password_md5` varchar(32) NOT NULL DEFAULT '' COMMENT 'MD5加密后的密码',
@@ -987,27 +2089,151 @@ CREATE TABLE `tb_newbee_mall_user` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
   `user_money` bigint(20) DEFAULT '0',
   `user_level` tinyint(4) DEFAULT '0',
-  PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+  `user_ip_addr` char(50) CHARACTER SET utf8mb4 NOT NULL DEFAULT '"127.0.0.1"',
+  `agent_id` varchar(10) DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Records of tb_newbee_mall_user
--- ----------------------------
-BEGIN;
-INSERT INTO `tb_newbee_mall_user` (`user_id`, `nick_name`, `login_name`, `password_md5`, `introduce_sign`, `is_deleted`, `locked_flag`, `create_time`, `user_money`, `user_level`) VALUES (1, '十三', '13700002703', 'e10adc3949ba59abbe56e057f20f883e', '我不怕千万人阻挡，只怕自己投降', 0, 0, '2020-05-22 08:44:57', NULL, NULL);
-INSERT INTO `tb_newbee_mall_user` (`user_id`, `nick_name`, `login_name`, `password_md5`, `introduce_sign`, `is_deleted`, `locked_flag`, `create_time`, `user_money`, `user_level`) VALUES (6, '陈尼克', '13711113333', 'e10adc3949ba59abbe56e057f20f883e', '测试用户陈尼克', 0, 0, '2020-05-22 08:44:57', NULL, NULL);
-INSERT INTO `tb_newbee_mall_user` (`user_id`, `nick_name`, `login_name`, `password_md5`, `introduce_sign`, `is_deleted`, `locked_flag`, `create_time`, `user_money`, `user_level`) VALUES (7, '', 'noe', '46f94c8de14fb36680850768ff1b7f2a', '随新所欲，蜂富多彩', 0, 0, '2022-11-19 12:40:29', 2424, 2);
-COMMIT;
+--
+-- 转存表中的数据 `tb_newbee_mall_user`
+--
 
--- ----------------------------
--- Table structure for tb_newbee_mall_user_address
--- ----------------------------
-DROP TABLE IF EXISTS `tb_newbee_mall_user_address`;
-CREATE TABLE `tb_newbee_mall_user_address` (
-  `address_id` bigint(20) NOT NULL AUTO_INCREMENT,
+INSERT INTO `tb_newbee_mall_user` (`user_id`, `nick_name`, `login_name`, `password_md5`, `introduce_sign`, `is_deleted`, `locked_flag`, `create_time`, `user_money`, `user_level`, `user_ip_addr`, `agent_id`) VALUES
+(14, '', '999999', 'e10adc3949ba59abbe56e057f20f883e', '....', 0, 0, '2023-01-14 13:59:22', 17500, 5, '', '6001'),
+(15, '', '89501237859', '2d290812b8f79924f7078b0eb3f6dd63', '....', 0, 0, '2023-01-17 16:51:26', 20200, 0, '', '6001'),
+(16, '', '98765432101', '4297f44b13955235245b2497399d7a93', '....', 0, 0, '2023-01-17 17:42:38', 0, 2, '', '6001'),
+(17, '', '9085945017 ', '17d56b32c1a5fe6cc549ed39cb260ecf', '....', 0, 0, '2023-01-28 16:51:50', 29332, 0, '', '6002'),
+(18, '', '9194650897', 'ec4f7a62693f3a10f168c82418d4a570', '....', 0, 0, '2023-01-28 16:55:52', 2520, 0, '', '6002'),
+(19, '', '9087095087', '85064efb60a9601805dcea56ec5402f7', '....', 0, 0, '2023-01-28 17:12:46', 36, 0, '', '6001'),
+(20, '', '9205884750', '28f5120653a8a33ce1d5acc2bcc000d5', '....', 0, 0, '2023-01-28 17:14:11', 0, 0, '', '6002'),
+(21, '', '9517861543 ', '60931e201406088960ca2a1dae816abf', '....', 0, 0, '2023-01-28 20:29:26', 29860, 0, '', '6002'),
+(22, '', '9630789138', 'a1847d1cbb64a105bde18eec701afba9', '....', 0, 0, '2023-01-29 01:35:56', 8571, 0, '', '6003'),
+(23, '', '9041209790', 'cd54df477a95e385c01d247f776c82cd', '....', 0, 0, '2023-01-29 17:20:43', 5136, 0, '', '6002'),
+(24, '', '9278115524', '3d7b49fc8f5608a89c5ea0a7e4c2e55a', '....', 0, 0, '2023-01-29 17:21:40', 0, 0, '', '6002'),
+(25, '', '9996000505', '15f652f6c683a35fb28932d3a7e0dbc0', '....', 0, 0, '2023-01-29 18:23:47', 1080, 0, '', '6001'),
+(26, '', '12', 'c20ad4d76fe97759aa27a0c99bff6710', '....', 0, 0, '2023-01-29 21:06:57', 0, 0, '', '6001'),
+(27, '', '9061380877', 'af0f03f9a6781d7bf28677b6258bc02a', '....', 0, 0, '2023-01-30 17:18:05', 0, 0, '', '6001'),
+(28, '', '9065107960', '42f8855747dd50ef87a90af126b4e454', '....', 0, 0, '2023-01-30 17:25:30', 30111, 0, '', '6002'),
+(29, '', '9066799002', '92c61aa74a3435d1aec38ec19ad2039f', '....', 0, 0, '2023-01-30 17:27:52', 0, 0, '', '6002'),
+(30, '', '9041124583', '74d90aafda34e6060f9e8433962d14fd', '....', 0, 0, '2023-01-30 17:33:21', 33768, 0, '', '6001'),
+(31, '', '98789787', '4297f44b13955235245b2497399d7a93', '....', 0, 0, '2023-01-31 00:54:19', 0, 0, '', '123'),
+(32, '', '9033020693', '7c3349793d7221d1d89a6f9853009048', '....', 0, 0, '2023-01-31 16:24:51', 20200, 0, '', '6003'),
+(33, '', '9062905598', 'b252f692df51debbd0d30b4aa6b24509', '....', 0, 0, '2023-01-31 16:26:33', 34122, 0, '', '6007'),
+(34, '', '9951517419', 'f1ae3999c5480d7997ae2cb5b2c38fe8', '....', 0, 0, '2023-01-31 16:27:04', 18, 0, '', '6002'),
+(35, '', '9114577333', '697e784ae7d4c79b7fe5c3eb0f8b0ac2', '....', 0, 0, '2023-01-31 16:27:12', 114991, 0, '', '6002'),
+(36, '', '9966190811', '27d5b5fd04fab043c0c64468fe18e488', '....', 0, 0, '2023-01-31 16:49:20', 774, 0, '', '6006'),
+(37, '', '9501252978', '057efaf343bd0a387f86467a321203fc', '....', 0, 0, '2023-01-31 16:49:47', 51360, 0, '', '6006'),
+(38, '', '9526323862', '8e403db050d57d3dbc5d99f368b41fe8', '....', 0, 0, '2023-01-31 16:56:48', 0, 0, '', '6001'),
+(39, '', '9050879820', 'e134589c479374c4c28d776eaee176b9', '....', 0, 0, '2023-01-31 16:57:19', 29031, 0, '', '6007'),
+(40, '', '9603680268', 'a46298774dd800db0ac9c65cacaec8c9', '....', 0, 0, '2023-01-31 17:15:21', 0, 0, '', '6006'),
+(42, '', '9225426247', '73ad3a111b5ef546b9dcdba407f13612', '....', 0, 0, '2023-01-31 17:29:01', 565340, 0, '', '6006'),
+(50, '', '9041124586', 'e10adc3949ba59abbe56e057f20f883e', '....', 0, 0, '2023-01-31 17:46:31', 1112, 0, '', '6001'),
+(51, '', '9511160853', '657fd3453cd6a993d4efa3e3848fa556', '....', 0, 0, '2023-01-31 18:07:46', 0, 0, '', '6001'),
+(52, '', '9200116625', '3f7202a2ca59b6f3d6a66c300cf28d36', '....', 0, 0, '2023-01-31 18:18:05', 1536, 0, '', '6003'),
+(53, '', '89086425444', '702217ee5363513a00dd851158c4da05', '....', 0, 0, '2023-01-31 20:41:57', 0, 0, '', '6001'),
+(54, '', '9149523452', '4ca5bf5c5f0165ddfff4283bb62dcfc0', '....', 0, 0, '2023-01-31 20:43:59', 303926, 0, '', '6007'),
+(55, '', '9821911070', 'ba2b27421ade5cc19f1a68dff39cbabe', '....', 0, 0, '2023-01-31 21:56:23', 51036, 0, '', '6006'),
+(56, '', '9261123493', 'f1ae3999c5480d7997ae2cb5b2c38fe8', '....', 0, 0, '2023-02-01 03:02:31', 0, 0, '', '6003'),
+(57, '', '9620736675', 'f5e95aef558dee3d20c15833e16ad9e6', '....', 0, 0, '2023-02-01 16:34:31', 1536, 0, '', '6003'),
+(58, '', '9678003841', 'd64db9d15d196fafa64932325f195a8b', '....', 0, 0, '2023-02-01 16:43:45', 20200, 0, '', '6007'),
+(59, '', '9836984402', 'cee2fb6e63be15c5512970817743f531', '....', 0, 0, '2023-02-01 17:21:10', 0, 0, '', '6005'),
+(60, '', '9301630727', 'b148325a76be0249a1643209e421aee4', '....', 0, 0, '2023-02-01 17:34:31', 30330, 0, '', '6006'),
+(61, '', '9516262024', '2b29c9d644c33daa647c0568f9775562', '....', 0, 0, '2023-02-01 18:08:52', 639720, 0, '', '6006'),
+(62, '', '79883315015', '3a300c48b47b714d9821dc473304aa84', '....', 0, 0, '2023-02-01 19:32:35', 0, 0, '', '1'),
+(63, '', '9525082312', '28af71d77b2e7b4cd5fe26ee1b7e889a', '....', 0, 0, '2023-02-01 19:53:34', 600, 0, '', '6007'),
+(64, '', 'noe111', '46f94c8de14fb36680850768ff1b7f2a', '....', 0, 0, '2023-02-01 20:42:11', 57588, 0, '', 'test'),
+(65, '', '9915886803', '4bafe1b749d85d548d59ca4f707e0029', '....', 0, 0, '2023-02-02 16:43:25', 16176, 0, '', '6003'),
+(66, '', '9052257725', 'd916114bac0db539c6ee49f0a2c7d0bd', '....', 0, 0, '2023-02-02 16:55:08', 24216, 0, '', '6006'),
+(67, '', '9526252216', 'c35c42c7c0f551f0cac65672dbe8ac03', '....', 0, 0, '2023-02-02 17:18:33', 3600, 0, '', '6003'),
+(68, '', '9017103696', 'd62544ef8a4bfd522a6e068b820312bd', '....', 0, 0, '2023-02-02 17:49:16', 0, 0, '', '6003'),
+(69, '', '9178105309', 'fd2b78b068a10b76cbd5111e2661c9df', '....', 0, 0, '2023-02-02 17:52:21', 0, 0, '', '6005'),
+(70, '', '9834508183', '3fd26956e29b8a620807f2a8c4c68964', '....', 0, 0, '2023-02-02 20:04:19', 1536, 0, '', '6006'),
+(71, '', '983 450-81-', '3fd26956e29b8a620807f2a8c4c68964', '....', 0, 0, '2023-02-02 20:07:30', 0, 0, '', '6006'),
+(72, '', '9603147979', 'fea6c90801f3a096a48b571ea00fc5d3', '....', 0, 0, '2023-02-03 16:25:42', 3600, 0, '', '6005'),
+(73, '', '9850391729', 'f5bf6a3054115d7f2581cde452cd67e2', '....', 0, 0, '2023-02-03 16:32:06', 33535, 0, '', '6005'),
+(74, '', '9028609444', 'bacadc62d6e67d7897cef027fa2d416c', '....', 0, 0, '2023-02-03 16:33:23', 0, 0, '', '6007'),
+(75, '', '9782260158', 'e4a46a4fa60c8f744548948c65abc87a', '....', 0, 0, '2023-02-03 16:39:21', 0, 0, '', '6007'),
+(76, '', '9278036178', '94667bb7981127f65a11ee80e61c1892', '....', 0, 0, '2023-02-03 16:40:41', 0, 0, '', '6007'),
+(77, '', '9042557936', 'ec96562a907c67edd42cba101013b57e', '....', 0, 0, '2023-02-03 16:46:17', 24527, 0, '', '6005'),
+(78, '', '9788431467', 'e10adc3949ba59abbe56e057f20f883e', '....', 0, 0, '2023-02-03 17:01:54', 3600, 0, '', '6007'),
+(79, '', '9012356965', '32e76c23a9cf6be2683a0abcd402f45d', '....', 0, 0, '2023-02-03 17:02:47', 0, 0, '', '6067'),
+(80, '', '9091961624 ', '46f94c8de14fb36680850768ff1b7f2a', '....', 0, 0, '2023-02-03 17:11:36', 0, 0, '', '6005'),
+(81, '', '9252253744', '02507bb5c577cdb375980df292604bfc', '....', 0, 0, '2023-02-03 17:18:03', 10, 0, '', '6007'),
+(82, '', '9833782778', '32e76c23a9cf6be2683a0abcd402f45d', '....', 0, 0, '2023-02-03 17:23:00', 0, 0, '', '6007'),
+(83, '', '79539476366', 'b959ea7afb8335ddb2c029c26080d3ab', '....', 0, 0, '2023-02-03 17:24:31', 0, 0, '', '6002'),
+(84, '', '9247019900', '0dabdec6caff7009b2a467182e22d8d7', '....', 0, 0, '2023-02-03 17:40:46', 0, 0, '', '6001'),
+(85, '', '9246119191', 'a89f3dd6d0be1091c1ed55145aae69ef', '....', 0, 0, '2023-02-03 18:00:43', 9552, 0, '', '6003'),
+(86, '', '9021675944', 'daebf078d104afa8bd410049b2935b34', '....', 0, 0, '2023-02-03 20:04:18', 28575, 0, '', '6003'),
+(89, '', '9042593149', '5d12a9bed5786fc3c5312351fdde0512', '....', 0, 0, '2023-02-03 20:20:46', 4100, 0, '', '6006'),
+(90, '', '9506202437', 'af2dbe3136f0bb1f57a9fb6d5fde347f', '....', 0, 0, '2023-02-03 20:23:31', 6660, 0, '', '6003'),
+(91, '', '9084992724', '7216fa74447edff86762b2816d8993e8', '....', 0, 0, '2023-02-03 20:26:39', 9111, 0, '', '6005'),
+(92, '', '2156464654', '1344c44eff77196f53b4c49961b63509', '....', 0, 0, '2023-02-03 20:35:59', 0, 0, '', '6001'),
+(93, '', '79061369712', '1a2389391d5a2c373791d4439e78c2a3', '....', 0, 0, '2023-02-04 16:22:19', 30111, 0, '', '6001'),
+(94, '', '9101743439', 'bd63b918ed81e72613288fa958f82d44', '....', 0, 0, '2023-02-04 16:25:39', 30111, 0, '', '6007'),
+(95, '', '9048846340', 'be9c5e8aa4fa0d887d61b478baed0d48', '....', 0, 0, '2023-02-04 16:30:32', 2616, 0, '', '6007'),
+(96, '', '9823394679', '030d6ea0a2549c0a7465d6c6e4a187cc', '....', 0, 0, '2023-02-04 16:37:36', 30111, 0, '', '6005'),
+(97, '', '9771114242', 'cfdfaf115b97f4540feb29dc13be27ae', '....', 0, 0, '2023-02-04 16:40:03', 34940, 0, '', '6006'),
+(98, '', '9671971880', '9b51058898ed238ffa0f071bdf435555', '....', 0, 0, '2023-02-04 16:42:52', 76702, 0, '', '6006'),
+(99, '', '9307151408', '15ab465b07f1e770d2ca747ca567384a', '....', 0, 0, '2023-02-04 16:43:33', 96, 0, '', '6007'),
+(100, '', '9376514612', 'c708bbb3a4f09c131c3e0fe09f3a32b8', '....', 0, 0, '2023-02-04 16:50:26', 671250, 0, '', '6006'),
+(101, '', '9788489778', '50c1f44e426560f3f2cdcb3e19e39903', '....', 0, 0, '2023-02-04 17:00:47', 3883, 0, '', '6005'),
+(102, '', '9836110013', 'bb332482a638036ca44965c5f069d197', '....', 0, 0, '2023-02-04 17:04:53', 0, 0, '', '6006'),
+(103, '', '9379533713', 'fef8c5e1249dd518ae3f4cf1b742b9e8', '....', 0, 0, '2023-02-04 17:43:36', 3611, 0, '', '6005'),
+(104, '', '9148412842', '8f1d43620bc6bb580df6e80b0dc05c48', '....', 0, 0, '2023-02-04 17:48:10', 2284, 0, '', '6006'),
+(105, '', '9131839008', '22c27eded048c7c9a08fe867694a097b', '....', 0, 0, '2023-02-04 19:44:46', 21736, 0, '', '6001'),
+(106, '', '9036337682', '827ccb0eea8a706c4c34a16891f84e7b', '....', 0, 0, '2023-02-04 20:02:13', 1536, 0, '', '6001'),
+(107, '', '9377156540', '9178c8509378404e78863eee717dd552', '....', 0, 0, '2023-02-04 20:11:20', 1536, 0, '', '6005'),
+(109, '', '9526195169', '79156f67d5b9e4026bbd6f7ebb6b1b2d', '....', 0, 0, '2023-02-04 20:42:42', 0, 0, '', '6007'),
+(110, '', '9068436163', '47dcb15a6038d81278ccf51c4f3e09bc', '....', 0, 0, '2023-02-04 23:15:18', 79491, 0, '', '6005'),
+(111, '', '9046584923', '6f4336eef1e703163cf1abc2faee890e', '....', 0, 0, '2023-02-05 01:16:08', 0, 0, '', '6005'),
+(112, '', '123456789', '46f94c8de14fb36680850768ff1b7f2a', '....', 0, 0, '2023-02-05 02:00:02', 15880, 0, '', 'test'),
+(113, '', '9227878510', '97bbb40694ecf8d60b2cbd68729d3620', '....', 0, 0, '2023-02-05 02:19:10', 0, 0, '', '6005'),
+(114, '', '79085771599', 'c8ef240bbd094422172d5caebc226e0b', '....', 0, 0, '2023-02-05 16:35:13', 0, 0, '', '6003'),
+(115, '', '9875763463', '3b6434a4b0539de0749809964be01bd2', '....', 0, 0, '2023-02-05 16:36:18', 76113, 0, '', '6001'),
+(116, '', '9156954343', '45d5ec5e1c2221522511f6e18de9bedf', '....', 0, 0, '2023-02-05 16:36:58', 68376, 0, '', '6003'),
+(117, '', '9649733118', '8418d71980a9b12a1e8a9c0f3f819e47', '....', 0, 0, '2023-02-05 16:40:05', 0, 0, '', '6002'),
+(118, '', '9821332473', '25f9e794323b453885f5181f1b624d0b', '....', 0, 0, '2023-02-05 16:41:19', 1536, 0, '', '6002'),
+(119, '', '9091160004', '016707749ceb2c7104d597710e34b85f', '....', 0, 0, '2023-02-05 16:47:58', 0, 0, '', '6001'),
+(120, '', '9621384738', '3d6205ee6476785d90e2446a069c39fd', '....', 0, 0, '2023-02-05 16:48:33', 58501, 0, '', '6003'),
+(121, '', '9523435304', '3bf4a5272e2d48d743068ec7f912ddf1', '....', 0, 0, '2023-02-05 16:53:29', 0, 0, '', '6003'),
+(122, '', '9374488803', 'b016ba545cfb3c3650b99423900b2fad', '....', 0, 0, '2023-02-05 16:55:12', 0, 0, '', '6005'),
+(123, '', '9103874805', '83dcc3a9278d4231e0bd5c4fd2770140', '....', 0, 0, '2023-02-05 17:00:24', 210, 0, '', '6007'),
+(124, '', '9205507200', '6be282007d309c1e32c0b3ffb4b90fbb', '....', 0, 0, '2023-02-05 17:07:54', 0, 0, '', '6001'),
+(125, '', '9512652091', 'd6bca58400122a628245f9a3f964990f', '....', 0, 0, '2023-02-05 17:26:20', 0, 0, '', '6003'),
+(126, '', '9097852870', '1843f441c4648a8d4730639bf3383177', '....', 0, 0, '2023-02-05 17:47:55', 34527, 0, '', '6002'),
+(127, '', '9021726665', '56454134dbe6913af18e6f5045fa76b0', '....', 0, 0, '2023-02-05 18:05:11', 3600, 0, '', '6007'),
+(128, '', '79182564596', '9c7d0bf24b8957c1d8add0ac0e23d8e8', '....', 0, 0, '2023-02-05 19:55:58', 0, 0, '', '6003'),
+(129, '', '678912345', 'e10adc3949ba59abbe56e057f20f883e', '....', 0, 0, '2023-02-06 11:34:21', 0, 0, '', 'test'),
+(130, '', '9504359544', 'c60841569f0c6c0bfaa12f9789361a17', '....', 0, 0, '2023-02-06 16:13:36', 0, 0, '', '6001'),
+(131, '', '9203555183', '2a80504503cc34b9933b5bffd01f4cbc', '....', 0, 0, '2023-02-06 16:18:02', 0, 0, '', '6007'),
+(132, '', '9129258777', '68626ed9a3adbaf5bfd9148d42edd26b', '....', 0, 0, '2023-02-06 16:21:03', 0, 0, '', '6001'),
+(133, '', '9649735075', '08117eb1f8250ae6efb3acbc24409160', '....', 0, 0, '2023-02-06 16:22:31', 0, 0, '', '6006'),
+(134, '', '79527691745', '5fea565b6c72beff0c29bcee866591d6', '....', 0, 0, '2023-02-06 16:23:14', 0, 0, '', '6005'),
+(135, '', '9631112503', '47c949747fb000ed5a5d8917deaca03f', '....', 0, 0, '2023-02-06 16:24:26', 0, 0, '', '6008'),
+(136, '', '9233407902', 'e10adc3949ba59abbe56e057f20f883e', '....', 0, 0, '2023-02-06 16:30:21', 0, 0, '', '6002'),
+(137, '', '9209073900', 'a58b410d3e0de3818e6f498304a1c9f5', '....', 0, 0, '2023-02-06 16:34:19', 0, 0, '', '6005'),
+(138, '', '9021720894', '24f3bf8b4e6d0ae76e39ec57a581e004', '....', 0, 0, '2023-02-06 16:36:13', 0, 0, '', '6007'),
+(139, '', '9200047838', '85064efb60a9601805dcea56ec5402f7', '....', 0, 0, '2023-02-06 16:37:49', 0, 0, '', '6006'),
+(140, '', '9028582947', '02c75fb22c75b23dc963c7eb91a062cc', '....', 0, 0, '2023-02-06 16:39:46', 0, 0, '', '6007'),
+(141, '', '9832018320', '5b96aef2bb34678461317ddca28154d7', '....', 0, 0, '2023-02-06 16:50:57', 11, 0, '', '6008'),
+(142, '', '9103420014', '358cbe8093b704ac02f3823836a56bdc', '....', 0, 0, '2023-02-06 17:02:34', 0, 0, '', '6008'),
+(143, '', '9787138941', '170750674405f6a780ce8896324fb8a0', '....', 0, 0, '2023-02-06 17:02:54', 0, 0, '', '6001'),
+(144, '', '9199406587', '7c18e4079e442419247ef3ef5cc62fbe', '....', 0, 0, '2023-02-06 17:08:48', 0, 0, '', '6005'),
+(145, '', '9950503565', 'e753e2c4230c923abd924f3389371076', '....', 0, 0, '2023-02-06 17:30:25', 0, 0, '', '6003'),
+(146, '', '9785028506', '9365099b3735b65098243452b2642eaf', '....', 0, 0, '2023-02-06 18:09:25', 0, 0, '', '6005'),
+(147, '', '9034986787', 'c44a471bd78cc6c2fea32b9fe028d30a', '....', 0, 0, '2023-02-06 19:03:26', 0, 0, '', '6009'),
+(148, '', '9209115947', '829425e374094aa922118a20b5c6f2bf', '....', 0, 0, '2023-02-06 20:05:52', 0, 0, '', '6007');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tb_newbee_mall_user_address`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_user_address` (
+  `address_id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '用户主键id',
   `user_name` varchar(30) NOT NULL DEFAULT '' COMMENT '收货人姓名',
-  `user_phone` varchar(11) NOT NULL DEFAULT '' COMMENT '收货人手机号',
+  `user_phone` varchar(30) NOT NULL DEFAULT '' COMMENT '收货人手机号',
   `default_flag` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否为默认 0-非默认 1-是默认',
   `province_name` varchar(32) NOT NULL DEFAULT '' COMMENT '省',
   `city_name` varchar(32) NOT NULL DEFAULT '' COMMENT '城',
@@ -1015,43 +2241,459 @@ CREATE TABLE `tb_newbee_mall_user_address` (
   `detail_address` varchar(64) NOT NULL DEFAULT '' COMMENT '收件详细地址(街道/楼宇/单元)',
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标识字段(0-未删除 1-已删除)',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-  PRIMARY KEY (`address_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='收货地址表';
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间'
+) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8 COMMENT='收货地址表';
 
--- ----------------------------
--- Records of tb_newbee_mall_user_address
--- ----------------------------
-BEGIN;
-INSERT INTO `tb_newbee_mall_user_address` (`address_id`, `user_id`, `user_name`, `user_phone`, `default_flag`, `province_name`, `city_name`, `region_name`, `detail_address`, `is_deleted`, `create_time`, `update_time`) VALUES (16, 7, '23123', '1231', 1, '', '', '', '3213', 0, '2022-11-23 22:40:43', '2022-11-23 22:40:43');
-COMMIT;
+--
+-- 转存表中的数据 `tb_newbee_mall_user_address`
+--
 
--- ----------------------------
--- Table structure for tb_newbee_mall_user_token
--- ----------------------------
-DROP TABLE IF EXISTS `tb_newbee_mall_user_token`;
-CREATE TABLE `tb_newbee_mall_user_token` (
+INSERT INTO `tb_newbee_mall_user_address` (`address_id`, `user_id`, `user_name`, `user_phone`, `default_flag`, `province_name`, `city_name`, `region_name`, `detail_address`, `is_deleted`, `create_time`, `update_time`) VALUES
+(22, 7, 'noe', '13211111', 1, '', '', '', 'fsfsdfs', 0, '2022-12-22 23:32:32', '2022-12-22 23:32:32'),
+(23, 14, '1111111', '2222222222', 1, '', '', '', '3333333333', 0, '2023-01-14 14:00:52', '2023-01-14 14:00:52'),
+(24, 15, 'Александра', '89501237859', 1, '', '', '', 'Иркутская область г.Усть-Кут ул.Пушкина 55-16 ', 0, '2023-01-17 18:02:47', '2023-01-17 18:02:47'),
+(25, 16, 'fsdfssg', 'fdgfdgfd', 1, '', '', '', 'hgfhfghgfh', 0, '2023-01-17 18:07:04', '2023-01-17 18:07:04'),
+(26, 17, 'Евгения ', '+79085945017', 1, '', '', '', '480227', 0, '2023-01-28 16:59:15', '2023-01-28 16:59:15'),
+(27, 18, 'Денис ', '+7 919 465-08-97 ', 1, '', '', '', 'Краснокамск ул пр. Мира 14', 0, '2023-01-28 17:03:34', '2023-01-28 17:03:34'),
+(28, 19, 'Евгений', '89087095087', 1, '', '', '', 'Доставка по безопасному адресу', 0, '2023-01-28 17:19:31', '2023-01-28 17:19:31'),
+(29, 20, 'Александр', '89087869147', 1, '', '', '', 'Белгородская область. Город Губкин. Улица Звездная дом 14', 0, '2023-01-28 17:40:51', '2023-01-28 17:40:51'),
+(30, 21, 'Татьяна ', '+79517861543', 1, '', '', '', 'ул Пирогова, д 2', 0, '2023-01-28 20:54:29', '2023-01-28 20:54:29'),
+(31, 22, 'Юлия', '79630789138', 1, '', '', '', 'ЛенинскийСаратов ул. Антонова 17 А', 0, '2023-01-29 01:39:08', '2023-01-29 01:39:08'),
+(32, 24, 'Мария', '89278115524', 1, '', '', '', 'Г. Когалым ', 0, '2023-01-29 17:31:01', '2023-01-29 17:31:01'),
+(33, 23, 'Татьяна', '79041209790', 1, '', '', '', 'Иркутск ', 0, '2023-01-29 17:31:28', '2023-01-29 17:31:28'),
+(35, 26, '12', '12', 1, '', '', '', '12', 0, '2023-01-29 21:08:22', '2023-01-29 21:08:22'),
+(36, 25, 'Видади', '+79996000505', 1, '', '', '', 'г. Астрахань, ул. Ахшарумова, дом 3 корпус. 1 квартира 6 ', 0, '2023-01-29 21:10:04', '2023-01-29 21:10:04'),
+(38, 27, 'Владимир', '89961380877', 1, '', '', '', 'Республика Марий Эл, г. Йошкар-Ола, ул. Петрова д 31 кв 106.', 0, '2023-01-30 17:41:41', '2023-01-30 17:41:41'),
+(39, 29, 'Максим ', '+79038559494', 1, '', '', '', 'Воронеж. ул.1Мая. д.77', 0, '2023-01-30 17:42:09', '2023-01-30 17:42:09'),
+(40, 28, 'Юлия', '89065107960', 1, '', '', '', 'Г. Южа Советская 42', 0, '2023-01-30 17:51:24', '2023-01-30 17:51:24'),
+(41, 30, 'Светлана Янченко', '+79041124583', 1, '', '', '', 'Усть-Кут ул Речников 15', 0, '2023-01-30 17:56:22', '2023-01-30 17:56:22'),
+(42, 32, 'Алина', '+79033020693', 1, '', '', '', 'Даяна Мурзина д. 11 кв. 275', 0, '2023-01-31 16:30:12', '2023-01-31 16:30:12'),
+(43, 33, 'Егор', '89062905598', 1, '', '', '', 'Мурманск пер Якорный 8', 0, '2023-01-31 16:38:08', '2023-01-31 16:38:08'),
+(44, 35, 'Виктория', '+79114577333', 1, '', '', '', 'Г. Калининград, ул. Курганская, д. 3,кв 185', 0, '2023-01-31 16:56:58', '2023-01-31 16:56:58'),
+(45, 36, 'Яна', '+79966190811', 1, '', '', '', 'район Волжский, улица Земская 17, квартира 41', 0, '2023-01-31 16:57:14', '2023-01-31 16:57:14'),
+(46, 34, 'Михаил', '+79951517419', 1, '', '', '', 'Москва, ул.приорова КВ,108', 0, '2023-01-31 17:02:51', '2023-01-31 17:02:51'),
+(47, 39, 'Алëна', '+79050879820', 1, '', '', '', 'г. Ачинск Красноярский край ', 0, '2023-01-31 17:10:59', '2023-01-31 17:10:59'),
+(48, 37, 'Наталья', '+79501252978', 1, '', '', '', 'Г. Иркутск ул Байкальская д 217 кв 46', 0, '2023-01-31 17:11:41', '2023-01-31 17:11:41'),
+(49, 38, 'Галенька', '89526323862', 1, '', '', '', 'Иркутская область, город Черемхово ', 0, '2023-01-31 17:16:44', '2023-01-31 17:16:44'),
+(50, 40, 'Ксения ', '89603680268', 1, '', '', '', 'Г Ульяновск, Маршала Устинова 26-17', 0, '2023-01-31 17:27:51', '2023-01-31 17:27:51'),
+(51, 50, 'Марина ', '89511650037 ', 1, '', '', '', 'Пгт яшкино ул комарова 28 кв 61 ', 0, '2023-01-31 17:53:47', '2023-01-31 17:53:47'),
+(52, 42, 'igibaevaalia160gmail.com', '+79225426247', 1, '', '', '', 'Новоорск ковыльная 21', 0, '2023-01-31 18:02:06', '2023-01-31 18:02:06'),
+(53, 51, 'Виктория', '+79511160853', 1, '', '', '', 'Макеева 28', 0, '2023-01-31 18:14:01', '2023-01-31 18:14:01'),
+(54, 52, 'Мария', '89200116625', 1, '', '', '', 'Г. Нижний Новгород, ул. Ковпака, 22', 0, '2023-01-31 18:27:48', '2023-01-31 18:27:48'),
+(56, 53, 'Варданян Самвел', '89086425444', 1, '', '', '', 'Иркутская область город Черемхово улица Шевченко 64', 0, '2023-01-31 20:55:19', '2023-01-31 20:55:19'),
+(57, 55, 'Алена', '89821911070', 1, '', '', '', '628285 ХМАО, город Урай,ул.Весенняя 1', 0, '2023-01-31 22:01:07', '2023-01-31 22:01:07'),
+(58, 57, 'Максат', '89620736675', 1, '', '', '', 'КрасРаб 147', 0, '2023-02-01 16:37:19', '2023-02-01 16:37:19'),
+(59, 59, 'Михаил', '+79836984402', 1, '', '', '', 'Иркутская обл, г Тулун, ул загот-зерно 5-2 ', 0, '2023-02-01 17:26:58', '2023-02-01 17:26:58'),
+(60, 58, 'Стыценко Екатерина', '89678003741', 1, '', '', '', 'Татищева Крупская 21а', 0, '2023-02-01 18:00:17', '2023-02-01 18:00:17'),
+(61, 61, 'Андрей ', '+79516262024', 1, '', '', '', 'г Улан-Удэ, мкр. Энергетик ', 0, '2023-02-01 18:20:46', '2023-02-01 18:20:46'),
+(62, 60, 'Олеся', '89301630727 ', 1, '', '', '', 'Д. Колесниково', 0, '2023-02-01 18:31:36', '2023-02-01 18:31:36'),
+(63, 64, 'nine', 'zhe shi wo de ce shi hao', 1, '', '', '', '98876552626622', 0, '2023-02-01 20:44:28', '2023-02-01 20:44:28'),
+(64, 65, 'Кевра Марта Александровна', '+79915886803', 1, '', '', '', 'Каширское шоссе д1 к 2', 0, '2023-02-02 17:03:13', '2023-02-02 17:03:13'),
+(65, 66, 'Валерий', '+79052257725', 1, '', '', '', 'СПБ, Колпинское шоссе 40 кв 1061', 0, '2023-02-02 17:04:52', '2023-02-02 17:04:52'),
+(66, 67, 'Кристина ', '+7 (952) 625-22-16', 1, '', '', '', 'Черемхово', 0, '2023-02-02 17:32:14', '2023-02-02 17:32:14'),
+(67, 68, 'Karine', '+79017103696', 1, '', '', '', 'Г. Лобня ул спортивная 5', 0, '2023-02-02 17:54:17', '2023-02-02 17:54:17'),
+(68, 69, 'Зурия', '+79178105309', 1, '', '', '', 'Тинькофф банк', 0, '2023-02-02 17:55:52', '2023-02-02 17:55:52'),
+(69, 70, 'Марианна ', '89834508183 ', 1, '', '', '', 'Улан-удэ, Гагарина 73,кв.56', 0, '2023-02-02 20:14:04', '2023-02-02 20:14:04'),
+(70, 54, 'Анастасия Викторовна Г', '89149523452', 1, '', '', '', 'Г. Иркутск', 0, '2023-02-03 14:31:07', '2023-02-03 14:31:07'),
+(71, 72, 'Екатерина ', '89603147979', 1, '', '', '', 'г Новочебоксарск ул Терешковой 12-23', 0, '2023-02-03 16:28:47', '2023-02-03 16:28:47'),
+(72, 73, 'Елена', '+79850391729', 1, '', '', '', 'Московская область, Наро-Фоминсий р-н, рп. Селятино, ул. Госпита', 0, '2023-02-03 16:37:34', '2023-02-03 16:37:34'),
+(73, 76, 'Ирина', '89278036178', 1, '', '', '', 'р п Радищево', 0, '2023-02-03 16:45:11', '2023-02-03 16:45:11'),
+(74, 74, 'Сергей Кондратьев', '+79028609444', 1, '', '', '', 'Екатеринбург Краснолесья 155-73', 0, '2023-02-03 16:47:17', '2023-02-03 16:47:17'),
+(75, 75, 'Юлия', '79782260158', 1, '', '', '', 'Симферополь, ул. Иртышская 4', 0, '2023-02-03 16:48:00', '2023-02-03 16:48:00'),
+(76, 77, 'Екатерина ', '89042557936', 1, '', '', '', 'Г.Муром ул.Московская 112', 0, '2023-02-03 16:51:17', '2023-02-03 16:51:17'),
+(77, 79, 'Наталья', '89012356965', 1, '', '', '', 'Республика хакасия,г.Абаза,Лазо-2', 0, '2023-02-03 17:07:35', '2023-02-03 17:07:35'),
+(78, 80, 'Ляля', '9091961624 ', 1, '', '', '', 'Омская обл, город Тара ', 0, '2023-02-03 17:15:57', '2023-02-03 17:15:57'),
+(79, 81, 'Нарине ', '89252253744', 1, '', '', '', 'Проспект Ленина 010', 0, '2023-02-03 17:25:42', '2023-02-03 17:25:42'),
+(80, 82, 'Наталья', '89833782778', 1, '', '', '', 'Республика хакасия,г.Абаза,Лазо-2', 0, '2023-02-03 17:25:56', '2023-02-03 17:25:56'),
+(81, 83, 'Анастасия', '89539476366', 1, '', '', '', 'г Киров ул дзержинского 9', 0, '2023-02-03 17:32:12', '2023-02-03 17:32:12'),
+(82, 78, 'Валерия', '79788431467', 1, '', '', '', 'Г. Симферополь, ул. сочинская д.34', 0, '2023-02-03 17:37:33', '2023-02-03 17:37:33'),
+(83, 84, 'Андрей', '89247019900', 1, '', '', '', 'Иркутская обл. Город Свирск Улица Денисенко дом 17 квартира 2', 0, '2023-02-03 17:47:43', '2023-02-03 17:47:43'),
+(84, 85, 'АНАСТАСИЯ ', '+79246119191', 1, '', '', '', 'г.Иркутск , ул. Красноказачья 52, кв 25', 0, '2023-02-03 19:17:55', '2023-02-03 19:17:55'),
+(87, 90, 'Татьяна ', '+7 950 620-24-37 ', 1, '', '', '', 'НИЖНИЙ НОВГОРОД, УЛ РАДИО, Д 25', 0, '2023-02-03 20:28:46', '2023-02-03 20:28:46'),
+(88, 91, 'Иван Куцубаев', '9084992724', 1, '', '', '', 'Салехард ', 0, '2023-02-03 20:36:02', '2023-02-03 20:36:02'),
+(89, 94, 'Анастасия', '89101743439', 1, '', '', '', 'Г. Муром ул. Куйбышева 28-58', 0, '2023-02-04 16:27:28', '2023-02-04 16:27:28'),
+(90, 93, 'Радий', '+79061369712', 1, '', '', '', 'г. Дмитров, мкр. Махалина 37', 0, '2023-02-04 16:32:51', '2023-02-04 16:32:51'),
+(91, 95, 'Александр.', '+79048846340', 1, '', '', '', 'Город Нижневартовск. Улица школьная, 14.', 0, '2023-02-04 16:33:48', '2023-02-04 16:33:48'),
+(92, 96, 'Альбина', '+79823394679', 1, '', '', '', 'Абзелиловский район с. Аскарово', 0, '2023-02-04 16:38:15', '2023-02-04 16:38:15'),
+(93, 97, 'Екатерина', '+79771114242', 1, '', '', '', 'Ялтинская 10, к. 1', 0, '2023-02-04 16:44:42', '2023-02-04 16:44:42'),
+(95, 99, 'Анна', '89307151408', 1, '', '', '', '.г Дзержинск,Нижегородской обл по -т Циолковского 37 в 30', 0, '2023-02-04 16:48:45', '2023-02-04 16:48:45'),
+(96, 100, 'Сергей ', '79376514612', 1, '', '', '', 'Самара ', 0, '2023-02-04 17:05:15', '2023-02-04 17:05:15'),
+(97, 101, 'Сергей', '+79785175184', 1, '', '', '', 'Симферополь', 0, '2023-02-04 17:07:00', '2023-02-04 17:07:00'),
+(98, 102, 'Мила', '89836110013', 1, '', '', '', 'Славы 11', 0, '2023-02-04 17:10:20', '2023-02-04 17:10:20'),
+(99, 104, 'Александр', '89148412842', 1, '', '', '', 'Г Улан-Удэ днт Дружба ул 3-я дом 163', 0, '2023-02-04 17:53:29', '2023-02-04 17:53:29'),
+(100, 103, 'Татьяна', '89379533713', 1, '', '', '', '429956, чувашия, г.Новочебоксарск, ул.Пионерская, д.8, кВ.28', 0, '2023-02-04 18:05:33', '2023-02-04 18:05:33'),
+(101, 105, 'Юлия', '89131839008', 1, '', '', '', '26 бакинских комиссаров 19', 0, '2023-02-04 20:03:03', '2023-02-04 20:03:03'),
+(102, 106, 'Евгений ', '89036337682', 1, '', '', '', 'Курск , Карла Маркса 61а, кв13', 0, '2023-02-04 20:11:19', '2023-02-04 20:11:19'),
+(103, 107, 'Руслан', '9377156540', 1, '', '', '', 'Г. Волгоград, ул. Балыклейская, д.29', 0, '2023-02-04 20:15:35', '2023-02-04 20:15:35'),
+(104, 109, 'Анастасия ', '79526195169', 1, '', '', '', 'Розы люксембург 162', 0, '2023-02-04 20:50:51', '2023-02-04 20:50:51'),
+(105, 110, 'Александра', '89068436163', 1, '', '', '', 'Высоцкого 35а', 0, '2023-02-04 23:16:47', '2023-02-04 23:16:47'),
+(106, 116, 'Sergei', '89033437323', 1, '', '', '', 'Город Тула проспект Ленина 127', 0, '2023-02-05 16:41:57', '2023-02-05 16:41:57'),
+(107, 114, 'Александр', '+79085771599', 1, '', '', '', 'Челябинск Гагарина 10', 0, '2023-02-05 16:42:21', '2023-02-05 16:42:21'),
+(108, 115, 'Евгения ', '+79875763463', 1, '', '', '', 'Город Цивильск улица Просвещения ', 0, '2023-02-05 16:49:41', '2023-02-05 16:49:41'),
+(109, 119, 'Татьяна', '+79091160004', 1, '', '', '', 'Пермь, Ул. Клары Цеткин, д. 16, кв. 87', 0, '2023-02-05 16:52:34', '2023-02-05 16:52:34'),
+(110, 118, 'Алена', '89821332473', 1, '', '', '', 'г. Тюмень ', 0, '2023-02-05 16:57:00', '2023-02-05 16:57:00'),
+(111, 117, 'Андрей', '89649733118', 1, '', '', '', 'Тольятти. Свердлова 48-326', 0, '2023-02-05 16:58:01', '2023-02-05 16:58:01'),
+(112, 121, 'Влада Шарова', '89523435304', 1, '', '', '', 'Тюменская область Уватский район с Уват ', 0, '2023-02-05 17:01:32', '2023-02-05 17:01:32'),
+(113, 123, 'Наталья ', '+79103874805', 1, '', '', '', 'Нижегородская обл, Ваческий район, рп. Вача', 0, '2023-02-05 17:03:48', '2023-02-05 17:03:48'),
+(114, 120, 'Ирина ', '89621384738', 1, '', '', '', 'Г. Брянск ул Дуки 75 кВ 306', 0, '2023-02-05 17:13:51', '2023-02-05 17:13:51'),
+(115, 122, 'Надежда', '89374488803', 1, '', '', '', 'С. Засечное ул Семейная 14-85', 0, '2023-02-05 17:17:42', '2023-02-05 17:17:42'),
+(116, 124, 'Владимир ', '89205507200', 1, '', '', '', 'Белгород, ул Архиерейская 5а', 0, '2023-02-05 17:17:53', '2023-02-05 17:17:53'),
+(117, 125, 'Елена ', '89512652091', 1, '', '', '', 'Город Шадринск ул Свердлова 88', 0, '2023-02-05 17:29:39', '2023-02-05 17:29:39'),
+(119, 127, 'Наталья', '89021726665', 1, '', '', '', 'Иркутская область, Ангарск', 0, '2023-02-05 18:23:02', '2023-02-05 18:23:02'),
+(120, 128, 'Галина', '+79182564596', 1, '', '', '', 'Амет Хана султана 7 кв 422 Ростов', 0, '2023-02-05 20:06:37', '2023-02-05 20:06:37'),
+(121, 126, 'Наталия ', '9097842870', 1, '', '', '', 'Россия г Калининград ул Парковый пер д7 к1 ка45', 0, '2023-02-05 21:46:44', '2023-02-05 21:46:44'),
+(122, 112, 'noe', '13211111', 1, '', '', '', 'fsfsdfs', 0, '2023-02-05 22:24:19', '2023-02-05 22:24:19'),
+(123, 89, 'Егор', '89042593133', 1, '', '', '', 'Ногинск, Южная 5', 0, '2023-02-06 02:09:59', '2023-02-06 02:09:59'),
+(124, 131, 'Евгений', '+79203555183', 1, '', '', '', 'Нижний Новгород , Рубо 1 КВ 18', 0, '2023-02-06 16:23:48', '2023-02-06 16:23:48'),
+(125, 133, 'Иван', '9649735075', 1, '', '', '', 'Тополиная -23 квартира 210', 0, '2023-02-06 16:27:25', '2023-02-06 16:27:25'),
+(126, 130, 'Екатерина', '9504359544', 1, '', '', '', 'Г.Красноярск ул.Джамбульская 2б кв.106', 0, '2023-02-06 16:28:13', '2023-02-06 16:28:13'),
+(127, 135, 'Юлия', '9631112503', 1, '', '', '', 'Пензенскаяобл.г . Нижний Ломов ул. Октябрьская 33', 0, '2023-02-06 16:28:29', '2023-02-06 16:28:29'),
+(128, 134, 'Евгения', '89527691745', 1, '', '', '', 'Г. Нижний Новгород, ул. Архангельская, д. 100,кв.5', 0, '2023-02-06 16:28:36', '2023-02-06 16:28:36'),
+(129, 132, 'Мария', '89129258777', 1, '', '', '', 'Тюменская область,город Ишим,Ленина,дом 11 кв10', 0, '2023-02-06 16:34:29', '2023-02-06 16:34:29'),
+(130, 137, 'Анастасия ', '+7920907390 ', 1, '', '', '', 'Г. Владимир, пр. Ленина, 36', 0, '2023-02-06 16:36:51', '2023-02-06 16:36:51'),
+(131, 136, 'Юлия', '79233407902', 1, '', '', '', 'г. Дивногорск ул 30 лет Победы 1', 0, '2023-02-06 16:40:25', '2023-02-06 16:40:25'),
+(132, 138, 'Соболева Татьяна', '+79021720894', 1, '', '', '', 'Иркутская обл., г. Ангарск', 0, '2023-02-06 16:44:53', '2023-02-06 16:44:53'),
+(133, 140, 'Елена', '79028582947', 1, '', '', '', 'Сбер банк', 0, '2023-02-06 16:48:35', '2023-02-06 16:48:35'),
+(134, 139, 'Александр', '+79200047838', 1, '', '', '', 'Нижегородская область, город Навашино, улица Воровского, дом 51 ', 0, '2023-02-06 16:51:12', '2023-02-06 16:51:12'),
+(135, 141, 'Алексей', '+79832018320', 1, '', '', '', '660005,Красноярский край,город Красноярск г.о.,Красноярск г,Крас', 0, '2023-02-06 16:54:16', '2023-02-06 16:54:16'),
+(136, 142, 'Тарабрина Оксана', '+79103420014', 1, '', '', '', 'Воронежская область, г. Борисоглебск ул. Трусова, 41', 0, '2023-02-06 17:03:32', '2023-02-06 17:03:32'),
+(137, 143, 'Ружена ', '+79787138941', 1, '', '', '', 'Симферополь ул.Фененли 46', 0, '2023-02-06 17:08:52', '2023-02-06 17:08:52'),
+(138, 144, 'Елена', '+79199406587', 1, '', '', '', '627033, обл. Тюменская, р-н. Ялуторовский, с. Киева, ул. Тюменск', 0, '2023-02-06 17:10:54', '2023-02-06 17:10:54'),
+(139, 145, 'Алина', '89950503565', 1, '', '', '', 'Островского 33', 0, '2023-02-06 17:35:01', '2023-02-06 17:35:01'),
+(140, 146, 'Владимир', '+79785028506', 1, '', '', '', 'С.Аладиславовка ул.Привогзальная дом 5а', 0, '2023-02-06 18:15:14', '2023-02-06 18:15:14'),
+(141, 98, 'Любовь', '89671971880', 1, '', '', '', 'Московская обл., Барышникова д.20, кв.52', 0, '2023-02-06 19:35:48', '2023-02-06 19:35:48'),
+(142, 147, 'agnesa', '8903 498 6787 ', 1, '', '', '', 'Приморская 23 Каспийск ', 0, '2023-02-06 20:04:22', '2023-02-06 20:04:22'),
+(143, 148, 'Наталья', '88209115947', 1, '', '', '', '4276100023817064', 0, '2023-02-06 20:10:17', '2023-02-06 20:10:17');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tb_newbee_mall_user_bank`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_user_bank` (
+  `bank_id` int(11) NOT NULL COMMENT '银行id',
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户id',
+  `bank_name` char(50) NOT NULL DEFAULT '0' COMMENT '开户行名称',
+  `user_name` char(50) NOT NULL DEFAULT '0' COMMENT '账户持有人名字',
+  `bank_number` char(50) NOT NULL DEFAULT '0' COMMENT '银行卡号码',
+  `default` tinyint(3) unsigned zerofill NOT NULL DEFAULT '000' COMMENT '是否 默认选项',
+  `is_deleted` tinyint(3) NOT NULL COMMENT '是否删除'
+) ENGINE=InnoDB AUTO_INCREMENT=290 DEFAULT CHARSET=utf8 COMMENT='用户银行账户';
+
+--
+-- 转存表中的数据 `tb_newbee_mall_user_bank`
+--
+
+INSERT INTO `tb_newbee_mall_user_bank` (`bank_id`, `user_id`, `bank_name`, `user_name`, `bank_number`, `default`, `is_deleted`) VALUES
+(39, 7, 'citybank', 'www', '6767677787733', 000, 0),
+(41, 6, 'Cujbg', 'wozyu', '4445664456676444334', 000, 0),
+(42, 15, 'Сбербанк', 'Александра Юрьевна Н', '4276181087864481', 000, 0),
+(43, 16, '梵蒂冈的非官方的g', '发的广泛地', '梵蒂冈地方', 000, 0),
+(44, 15, 'Сбербанк', 'Александра Юрьевна Н', '4276181087864481', 000, 0),
+(46, 18, 'Сбербанк', 'Денис Епишин', '2202200529944835', 000, 0),
+(50, 20, 'Сбербанк', 'Александр Сергеевич К.', '5336690356219503', 000, 0),
+(51, 17, 'Сбербанк', 'Бурятской отделение номер 8601 Пао сбербанк', '40817810409163629559', 000, 0),
+(52, 17, 'Сбербанк', 'Бурятской отделение номер 8601 Пао сбербанк', '2202 2005 4524 8336', 000, 0),
+(55, 19, 'Сбербанк', 'ПАО', '4276722058697606', 000, 0),
+(56, 21, 'Тинькофф', 'Татьяна', '5536913916464346', 000, 0),
+(57, 22, 'Сбербанк', 'Юлия', '5469400909319266', 000, 0),
+(65, 23, 'Сбербанк', 'Михалева Татьяна Петровна', '4817760338445376', 000, 0),
+(66, 23, 'Сбербанк', 'Михалева Татьяна Петровна', '4817760338445376', 000, 0),
+(67, 24, 'Сбер', 'Сбербанк', '5336690309660415', 000, 0),
+(69, 24, '40817810869000948803', 'Сбербанк', '5336690309660415', 000, 0),
+(70, 25, 'Сбербанк', 'VIDADI AZIZOV', '2202 2023 0740 5427', 000, 0),
+(71, 25, 'Сбербанк', 'VIDADI AZIZOV', '2202 2023 0740 5427', 000, 0),
+(72, 30, 'Сбербанк', 'SVETLANA YANCHENKO', '2202201303648287', 000, 0),
+(73, 27, 'Сбербанк', 'Куклин Владимир Александрович', '40817810837001504213', 000, 0),
+(75, 28, 'СБЕРБАНК', 'Руб', '40817810617008074350', 000, 0),
+(76, 28, 'СБЕРБАНК', 'Руб', '4276170018775379', 000, 0),
+(77, 29, 'АО «Тинькофф Банк»', 'Борисенко Максим Владимирович', '2200700142561694', 000, 0),
+(81, 33, 'Сбербанк', 'Сбербанк', '5469410010375461', 000, 0),
+(82, 35, 'АО "ПОЧТА БАНК"', 'Виктория', '40817810300401201434', 000, 0),
+(85, 34, 'Сбербанк', 'Михаил Васильевич Митрохин', '2202203624466928', 000, 0),
+(92, 35, 'АО "ПОЧТА БАНК"', 'Виктория', '2200770279842423', 000, 0),
+(93, 35, 'АО "ПОЧТА БАНК"', 'Виктория', '2200770279842423', 000, 0),
+(94, 40, 'Сбербанк', 'ШАФИКОВА КСЕНИЯ АЛЕКСАНДРОВНА', '2202200664180906', 000, 0),
+(95, 40, 'Сбербанк', 'ШАФИКОВА КСЕНИЯ АЛЕКСАНДРОВНА', '2202200664180906', 000, 0),
+(96, 37, 'АО «Тинькофф Банк»', 'Наталья Николаевна Барсукова', '40817810000079431575', 000, 0),
+(99, 39, 'Сбербанк', 'ALENA SUCHKOVA', '2202205071164807', 000, 0),
+(101, 42, 'Сбербанк', 'Игибаева Алия', '5469460014964851', 000, 0),
+(104, 37, 'АО «Тинькофф Банк»', 'Наталья Николаевна Барсукова', '2200700731328752', 000, 0),
+(107, 52, 'ПАО Сбербанк', 'Николай', '2202202351462647', 000, 0),
+(108, 54, 'Сбербанк', 'Анастасия Викторовна Г', '5469180022365665', 000, 0),
+(109, 53, 'Сбербанк', 'Samvel Vardanyan', '4276181164535533', 000, 0),
+(110, 50, 'Сбербанк', 'Марине', '5469980108967643', 000, 0),
+(111, 7, '刷空间设计时间看手机', '27377:83828282', '刷几十块', 000, 0),
+(112, 7, '刷空间设计时间看手机', '27377:83828282', '刷几十块', 000, 0),
+(113, 7, '刷空间设计时间看手机', '27377:83828282', '刷几十块', 000, 0),
+(114, 55, 'Сбербанк', 'Сберегательный', '4276673813268672', 000, 0),
+(115, 40, 'Сбербанк', 'ШАФИКОВА КСЕНИЯ АЛЕКСАНДРОВНА', '2202200664180906', 000, 0),
+(116, 57, 'Сбербанк', 'Максат М', '4279380674625423', 000, 0),
+(118, 59, 'Тенькоф', 'Валберис', '2200700484396576', 000, 0),
+(119, 58, 'Сбербанк', ' Стыценко Екатерина', '2202 2018 7650 4289', 000, 0),
+(122, 61, 'Альфа банк', 'Андрей Федорович Михайлов', '2200150909581982', 000, 0),
+(123, 34, 'Сбербанк', 'Михаил', '40820810138060410740', 000, 0),
+(124, 60, 'Альфа банк', 'Олеся', '2200150238487067', 000, 0),
+(125, 42, 'Сбербанк', 'игибаев', '2202205623433403', 000, 0),
+(131, 65, 'Tinkoff Black', 'Кевра Марта Александровна', '2200 7004 8598 8108', 000, 0),
+(136, 66, 'Сбер', 'СЕВЕРО-ЗАПАДНЫЙ БАНК ПАО СБЕРБАНК', '2202205076576336', 000, 0),
+(137, 69, 'Тинькофф банк', 'Zuriya Davronshoeva', '2200700703205079', 000, 0),
+(138, 61, 'Тинькофф банк', 'ANDREY MIKHAYLOV', '5536913980429480', 000, 0),
+(142, 70, 'Тинькофф', 'Марианна', '40817810600044037715', 000, 0),
+(143, 70, 'Тинькофф', 'Марианна', '5536914048917722', 000, 0),
+(149, 64, 'faff', 'noe', '1111111111 111111', 000, 0),
+(151, 64, 'citybank', 'noe', '3333333333333333', 000, 0),
+(152, 64, 'fsdf', 'fasdf', '2121212121212121', 000, 0),
+(153, 72, 'Сбербанк', 'Екатерина Евдокимова', '2202205075179769', 000, 0),
+(154, 74, 'УРАЛЬСКИЙ БАНК ПАО СБЕРБАНК', 'Сергей Владимирович Кондратьев', '2202202308954332', 000, 0),
+(155, 75, 'Тинькофф', 'Юлия', '5536914149553152', 000, 0),
+(157, 76, 'ПАО СБЕРБАНК', '2202201456004874', '2202201456004874', 000, 0),
+(158, 73, 'Сбербанк ПАО', 'Емельянова Елена Александровна', '4279400011553839', 000, 0),
+(161, 75, 'Тинькофф', 'Юлия', '5536914149553152', 000, 0),
+(162, 79, 'Сбербанк', 'NATALIA TEREHOVA', '2202200412696500', 000, 0),
+(163, 81, 'Tinkoff', 'Narine Sarksyan', '2200700495561903', 000, 0),
+(164, 82, 'Сбербанк', 'NATALIA TEREHOVA', '2202200412696500', 000, 0),
+(165, 83, 'Сбербанк', 'Анастасия Николаевна К', '4276270022335630', 000, 0),
+(166, 80, 'Сбербанк', 'Анастасия Ниязова', '2202201557521800', 000, 0),
+(168, 78, 'Рнкб', 'Валерия', '2200020216039877', 000, 0),
+(169, 77, 'Тинькофф', 'Екатерина', '5536914059695589', 000, 0),
+(170, 84, 'Тинькофф', 'Andrei bushlanov', '5536913946635436', 000, 0),
+(172, 85, 'РЕНЕССАНС-КРЕДИТ БАНК', 'АНАСТАСИЯ . Получатель Евгения Владимировна Ч', '2203410112018454', 000, 0),
+(174, 85, 'РЕНЕССАНС-КРЕДИТ БАНК', 'АНАСТАСИЯ! Получатель : Евгения Владимировна Ч.', '2203410112018454', 000, 0),
+(176, 89, 'Сбербанк', 'У', '2202206132022372', 000, 0),
+(178, 90, 'СБЕРБАНК', 'Татьяна Сергеевна Б', '5469980420961282', 000, 0),
+(179, 90, 'СБЕРБАНК', 'Татьяна Сергеевна Б', '5469980420961282', 000, 0),
+(180, 26, '11111', '1111', '1111111111111111', 000, 0),
+(181, 26, '11111', '1111', '1111111111111111', 000, 0),
+(182, 94, 'Сбербанк', 'ANASTASIA EGEREVA', '4006800607084836', 000, 0),
+(183, 95, 'Сбербанк.', 'Александр.', '2202203635178264', 000, 0),
+(187, 93, 'Сбер', 'Радий Александрович Ш', '4276750015945388', 000, 0),
+(188, 96, 'Сбербанк', 'Альбина Зайнуллина', '2202203682551397', 000, 0),
+(189, 97, 'Сбербанк', 'Сбербанк', '5469380093787298', 000, 0),
+(190, 97, 'Сбербанк', 'Сбербанк', '5469380093787298', 000, 0),
+(191, 98, 'Сбербанк', 'LUBOV NALIVAYKO', '4276160980671334', 000, 0),
+(192, 99, 'Сбербанк', 'Анна Корытко', '4276160919651514', 000, 0),
+(193, 91, 'Сбербанк', 'Иван Куцубаев', '2202205348095024', 000, 0),
+(195, 85, 'РЕНЕССАНС-КРЕДИТ БАНК', 'АНАСТАСИЯ . Получатель Евгения Владимировна Ч', '2203410112018454', 000, 0),
+(196, 101, 'Рнкб', 'Точёный Сергей', '2200020237214269', 000, 0),
+(197, 102, 'Альфа банк', 'Denisova Liudmila', '2200150978137039', 000, 0),
+(198, 104, 'Тинькофф', '9148412842', '2200700175986156', 000, 0),
+(201, 100, 'Сбербанк', 'Sergey Maganev', '2202205301961659', 000, 0),
+(202, 103, 'Сбербанк', 'Татьяна', '2202201029581333', 000, 0),
+(203, 95, 'Тинькофф.', 'Александр.', '5536914158121735', 000, 0),
+(206, 107, 'СберБанк', 'Карта моя', '2202203656714831', 000, 0),
+(208, 106, 'Открытие', 'Evgeny Babaskin', '5586200067829744', 000, 0),
+(213, 109, 'Сбербанк', 'CARD DIGITAL', '4274320058344238', 000, 0),
+(214, 105, 'Сбербанк', '2202200437449471', '2202200437449471', 000, 0),
+(216, 110, 'Сбербанк', 'Alexandra Aboimova', '2202200479755751', 000, 0),
+(217, 114, 'Hom credit bank', 'ALEKSANDR PODREZOV', '2200500210146950', 000, 0),
+(218, 115, 'Сбербанк', 'EVGENIA AFANASEVA', '2202202043020415', 000, 0),
+(219, 115, 'Сбербанк', 'EVGENIA AFANASEVA', '2202202043020415', 000, 0),
+(220, 118, 'Тинькофф', 'Ремезова Алена Александровна', '2200700415080521', 000, 0),
+(221, 116, 'Втб', 'Сергей', '5543860015998859', 000, 0),
+(222, 117, 'Сбербанк', 'Карта', '5469540021382062', 000, 0),
+(223, 97, 'Тиньков', 'Тиньков', '5213244073799104', 000, 0),
+(224, 123, 'Сбербанк', 'Natalya SERKOVA', '2202203223062466', 000, 0),
+(225, 119, 'АО "Тинькофф банк"', 'ТБ', '5536913997334327', 000, 0),
+(226, 109, 'Сбербанк', 'A. KOLOMEETS', '2202200707797443', 000, 0),
+(227, 122, 'Сбербанк', 'Надежда', '2202200827918150', 000, 0),
+(228, 124, 'Сбербанк', 'Карта', '5469070011324437', 000, 0),
+(229, 110, 'Сбербанк', 'Alexandra Aboimova', '2202200479755751', 000, 0),
+(230, 120, 'Сбербанк', 'Мир', '2202200832824716', 000, 0),
+(231, 124, 'Сбербанк', 'Карта1', '5469070011324437', 000, 0),
+(234, 124, 'Сбербанк', 'Карта 2', '5469070011324437', 000, 0),
+(235, 124, 'Сбербанк', 'Карта3', '5469070011324437', 000, 0),
+(237, 125, 'Сбербанк', 'Колесникова Елена Владимировна', '2202200129588107', 000, 0),
+(239, 126, 'Тинькофф', 'Nataliya Egorova', '4377731488936060', 000, 0),
+(240, 121, 'ЗАПАДНО-СИБИРСКОЕ ОТДЕЛЕНИЕ№8647 ПАО СБЕРБАНК', 'VLADA SHAROVA', '2202201289006245', 000, 0),
+(241, 127, 'Тинькофф', 'Наталья', '4377723781454289', 000, 0),
+(242, 123, 'QIWI', 'Natalya SERKOVA', '2200730243871684', 000, 0),
+(243, 110, 'Сбербанк', 'Igor Aboimov', '4817760251591107', 000, 0),
+(244, 128, 'Сбербанк', 'Галина Александровна М.', '4817760300241308', 000, 0),
+(245, 112, 'citybank', '3ixec9ar', '1111111111111111', 000, 0),
+(246, 78, 'Тинькофф', 'Виталина', '5536914103315168', 000, 0),
+(247, 131, 'Тинькофф', 'Евгений', '4377727808491307', 000, 0),
+(250, 133, 'Альфа банк', 'Иван Матвеев', '4584432822003894', 000, 0),
+(251, 134, '89527691745', 'Евгения', '5336690168056630', 000, 0),
+(252, 132, ' Сбербанк', 'Мария', '2202202291114548', 000, 0),
+(254, 136, 'Альфа-банк', 'Юлия', '2200150368829179', 000, 0),
+(255, 138, 'Сбербанк', 'T. Soboleva', '2202200651720649', 000, 0),
+(258, 137, 'Сбербанк', 'КАЛИНИНА АНАСТАСИЯ НИКОЛАЕВНА', '4274320066201271', 000, 0),
+(260, 135, 'ПАО Сбербанк', 'Юлия', '2202201494181866', 000, 0),
+(261, 140, 'Сбер банк', 'Elena Shumanova', '4276671149761048', 000, 0),
+(262, 141, 'Тинькофф', 'Алексей Смоляков', '2200700730951901', 000, 0),
+(264, 139, 'Сбербанк', 'Сбер', '5469400902986863', 000, 0),
+(265, 139, 'Сбербанк', 'Сбер', '5469400902986863', 000, 0),
+(266, 143, 'Тинькофф', 'Ruzhena Fazylova', '5536913959784378', 000, 0),
+(267, 142, 'Sberbank', 'Sberbank', '2202200685003855', 000, 0),
+(268, 144, 'ЗАПАДНО-СИБИРСКОЕ ОТДЕЛЕНИЕ№8647 ПАО СБЕРБАНК', 'ПОДВАЛЬНЫХ ЕЛЕНА ГРИГОРЬЕВНА', '2202203222705206', 000, 0),
+(270, 130, 'ВТБ', '40817810623464003233', '4893470495508985', 000, 0),
+(272, 130, 'ВТБ', '40817810623464003233', '4893470495508985', 000, 0),
+(273, 130, 'ВТБ', '40817810623464003233', '4893470495508985', 000, 0),
+(275, 145, 'Тиннькоф банк', 'Алина', '5536914161406164', 000, 0),
+(278, 146, 'РНКБ', 'Владимир', '2200020237155074', 000, 0),
+(280, 135, 'ПАО Сбербанк', 'Моментум', '2202202431530264', 000, 0),
+(281, 135, 'ПАО Сбербанк', 'Моментум', '2202202431530264', 000, 0),
+(282, 135, 'ПАО Сбербанк', 'Моментум', '2202202431530264', 000, 0),
+(283, 135, 'ПАО Сбербанк', 'Моментум', '2202202431530264', 000, 0),
+(284, 147, 'Сбербанк', 'AGNESA GABRELYAN', '2202201014649574', 000, 0),
+(285, 147, 'Сбербанк', 'AGNESA GABRELYAN', '2202201014649574', 000, 0),
+(286, 147, 'Сбербанк', 'AGNESA GABRELYAN', '2202201014649574', 000, 0),
+(287, 135, 'ПАО Сбербанк', 'Моментум', '2202202431530264', 000, 0),
+(288, 135, 'ПАО Сбербанк', 'Моментум', '2202202431530264', 000, 0),
+(289, 119, 'ПАО "Сбер"', 'Сбер', '4276490025677115', 000, 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tb_newbee_mall_user_token`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_user_token` (
   `user_id` bigint(20) NOT NULL COMMENT '用户主键id',
   `token` varchar(32) NOT NULL COMMENT 'token值(32位字符串)',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   `expire_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'token过期时间',
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `uq_token` (`token`)
+  `agent_id` varchar(20) DEFAULT '0' COMMENT '代理号码'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of tb_newbee_mall_user_token
--- ----------------------------
-BEGIN;
-INSERT INTO `tb_newbee_mall_user_token` (`user_id`, `token`, `update_time`, `expire_time`) VALUES (7, '89e59b547c1c1c29ea108ca4bc888dec', '2022-12-02 19:17:19', '2022-12-06 23:17:19');
-COMMIT;
+--
+-- 转存表中的数据 `tb_newbee_mall_user_token`
+--
 
--- ----------------------------
--- Table structure for tb_newbee_mall_user_withdraw
--- ----------------------------
-DROP TABLE IF EXISTS `tb_newbee_mall_user_withdraw`;
-CREATE TABLE `tb_newbee_mall_user_withdraw` (
-  `withdraw_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户主键id。提款编号',
+INSERT INTO `tb_newbee_mall_user_token` (`user_id`, `token`, `update_time`, `expire_time`, `agent_id`) VALUES
+(9, '6741fe002b73bdd83a3c5b2857d7cfa0', '2022-12-24 13:42:33', '2022-12-28 17:42:33', '0'),
+(10, 'ffc7b398fa93d44ad3e941a7b13b4205', '2022-12-24 14:13:35', '2022-12-28 18:13:35', '0'),
+(11, '4e92737168693794c471f2207dbf07ea', '2022-12-25 15:36:13', '2022-12-29 19:36:13', '0'),
+(13, '4826c7e2df8ba0da44fc5d52d6d69b6f', '2023-01-06 16:26:42', '2023-01-19 04:26:42', '0'),
+(15, 'ad4161a1c9770b6923fee2da0cb1eb0e', '2023-01-17 17:23:47', '2023-01-30 05:23:47', '6001'),
+(16, '7b3aad2bda267164a6714b8da582fd58', '2023-01-17 17:42:38', '2023-01-30 05:42:38', '6001'),
+(17, '0336bf1fe57121edf60c20fc0adba474', '2023-02-01 17:56:00', '2023-02-14 05:56:00', '6002'),
+(18, 'ec51665e2ccc5868beb634fbe4e487b8', '2023-01-28 17:12:10', '2023-02-10 05:12:10', '6002'),
+(19, 'eef2581567238c0c91ce0f852089c060', '2023-01-28 22:20:00', '2023-02-10 10:20:00', '6001'),
+(20, '44f02ec3795659a3ccedd6b38cb211f4', '2023-01-28 17:14:12', '2023-02-10 05:14:12', '6002'),
+(21, '617e3adb397e4f274c1c6672d8b6ffeb', '2023-01-29 11:56:06', '2023-02-10 23:56:06', '6002'),
+(22, '5b38c0759b536672abaddc762cc2af0a', '2023-02-06 01:26:22', '2023-02-18 13:26:22', '6003'),
+(23, 'd3d2cbdb1614465995ff61fa98802dae', '2023-02-01 21:39:40', '2023-02-14 09:39:40', '6002'),
+(24, 'd61ee2772ada981ff77de97a66969a84', '2023-01-29 18:11:26', '2023-02-11 06:11:26', '6002'),
+(25, 'd81ce8f6f021a7c9ac60c23c99de6ee1', '2023-01-30 18:04:01', '2023-02-12 06:04:01', '6001'),
+(26, '99d7299fdb2d89a9012e2f1a5142027e', '2023-02-02 18:39:06', '2023-02-15 06:39:06', '6001'),
+(27, 'fda360edd0cad9a7de4069459282156b', '2023-01-30 21:44:40', '2023-02-12 09:44:40', '6001'),
+(28, '3ea90d0a5cd49bad7e5141231ac3bbc0', '2023-02-03 01:52:44', '2023-02-15 13:52:44', '6002'),
+(29, '1eafc7626172dff87143df5315482111', '2023-01-30 17:37:17', '2023-02-12 05:37:17', '6002'),
+(30, 'ee25477f7863f517e682043622b62bde', '2023-01-31 20:05:45', '2023-02-13 08:05:45', '6001'),
+(31, '320f1c4c8ebee9fc9189a91f42b47d2c', '2023-02-06 19:27:12', '2023-02-19 07:27:12', '123'),
+(32, '7c7bc144d40991927e856b8a0a3faecf', '2023-01-31 16:24:52', '2023-02-13 04:24:52', '6003'),
+(33, 'd939ae9644be44f5e43c7abf18742779', '2023-01-31 16:38:30', '2023-02-13 04:38:30', '6007'),
+(34, 'fc36f17f81e38c951460ad3e6e959dae', '2023-02-01 03:04:39', '2023-02-13 15:04:39', '6002'),
+(35, '451d4cb729fc01a0c8afd7c2708a9552', '2023-01-31 16:34:11', '2023-02-13 04:34:11', '6002'),
+(36, 'd9f9f0d701184df62f1980be5e103761', '2023-02-03 16:55:56', '2023-02-16 04:55:56', '6006'),
+(37, '11763227e991b734d48adba61c17c9f7', '2023-01-31 17:10:02', '2023-02-13 05:10:02', '6006'),
+(38, '52bd7d514dc25b22d1da43e4e818413a', '2023-02-01 23:15:30', '2023-02-14 11:15:30', '6001'),
+(39, 'db96ba2a8a813ed4422aeacd82535fcf', '2023-02-06 10:11:23', '2023-02-18 22:11:23', '6007'),
+(40, '94c5cd1bd84f14121023f3e765be2753', '2023-01-31 22:35:50', '2023-02-13 10:35:50', '6006'),
+(50, '91c219f3c4ef160fc254712ea236b8cd', '2023-01-31 22:02:54', '2023-02-13 10:02:54', '6001'),
+(51, 'e9b81567844d8d753442dc48455969b6', '2023-01-31 22:29:31', '2023-02-13 10:29:31', '6001'),
+(52, '843ec803f8c346a107c72aa0ed81c973', '2023-01-31 18:53:45', '2023-02-13 06:53:45', '6003'),
+(54, '1f9b6479133fdc2682c83ca499cfb9dd', '2023-02-04 14:43:48', '2023-02-17 02:43:48', '6007'),
+(55, '9ab6d35b77ae3375e752f091e9d7c9ec', '2023-02-01 18:03:45', '2023-02-14 06:03:45', '6006'),
+(57, 'aebd7ffd1a7249192e4c102452c8d886', '2023-02-01 16:34:32', '2023-02-14 04:34:32', '6003'),
+(58, '52f9832fd76cbfb02fc18a99f0677268', '2023-02-05 13:30:16', '2023-02-18 01:30:16', '6007'),
+(59, '618b82e3f85be9ef0159a8d4a3dc1733', '2023-02-01 19:43:34', '2023-02-14 07:43:34', '6005'),
+(60, 'df26ed94b5bd7822a1f567bc8a5706f2', '2023-02-03 21:37:07', '2023-02-16 09:37:07', '6006'),
+(61, '9fa4a17cb8e12338354abe367ceab0a2', '2023-02-06 01:58:44', '2023-02-18 13:58:44', '6006'),
+(62, '96cef21dc28108deedc7c3bb13e88a3e', '2023-02-01 19:32:36', '2023-02-14 07:32:36', '1'),
+(63, 'e9692b063e3e594620b32a8f83a334d7', '2023-02-01 19:53:35', '2023-02-14 07:53:35', '6007'),
+(65, '35a6137b47113f039e72bedf2ac368a3', '2023-02-02 16:43:26', '2023-02-15 04:43:26', '6003'),
+(66, '3c271a8b706e969a3d242fda835d0447', '2023-02-02 20:17:38', '2023-02-15 08:17:38', '6006'),
+(67, '2c435430c4461dbd7b6e2af8b6eeb7ed', '2023-02-04 16:34:11', '2023-02-17 04:34:11', '6003'),
+(68, '86cda547271634f4cdf343669d31b42c', '2023-02-03 16:52:45', '2023-02-16 04:52:45', '6003'),
+(69, 'd2c95df9398eb184bd98e1b702377d31', '2023-02-02 18:12:00', '2023-02-15 06:12:00', '6005'),
+(70, '0b2d2b3144fd8ecdba6185f207e46a2c', '2023-02-02 20:10:00', '2023-02-15 08:10:00', '6006'),
+(72, 'e22803ba9968cc08c4c0d0ea3fd2b773', '2023-02-05 01:18:41', '2023-02-17 13:18:41', '6005'),
+(73, 'c288c7a9562cb3f23b52d4a816a71f54', '2023-02-05 18:09:30', '2023-02-18 06:09:30', '6005'),
+(74, 'de749235f9de691ae608fb2c5a94cdd8', '2023-02-05 00:09:45', '2023-02-17 12:09:45', '6007'),
+(75, '9765852d3e5c025003cbe191bdd47e18', '2023-02-03 16:39:24', '2023-02-16 04:39:24', '6007'),
+(76, '5fcbabe06bf5a41988d451a779672334', '2023-02-03 20:33:09', '2023-02-16 08:33:09', '6007'),
+(77, 'c7cbd72a53b8290dea1837e7b3913938', '2023-02-07 12:06:21', '2023-02-20 00:06:21', '6005'),
+(78, 'bf1a3c85448c7496ac5b86cd07510335', '2023-02-03 18:05:40', '2023-02-16 06:05:40', '6007'),
+(79, '930098c1d7cf70a9a3940533a63840b6', '2023-02-03 17:20:01', '2023-02-16 05:20:01', '6067'),
+(80, '9208cb5f196e8bb865a20ad1b505ecd9', '2023-02-03 20:52:07', '2023-02-16 08:52:07', '6005'),
+(81, 'ee9bc12fb7072c9aa320e942d74bb4e9', '2023-02-04 23:34:36', '2023-02-17 11:34:36', '6007'),
+(82, '2ac38f53358d452d58c7c1c0d01ffb73', '2023-02-03 17:23:00', '2023-02-16 05:23:00', '6007'),
+(83, '52bf40d13213afb3f6754175034911f8', '2023-02-03 17:38:24', '2023-02-16 05:38:24', '6002'),
+(84, '803fa8a197c64a96105a81246e3c7134', '2023-02-03 17:42:14', '2023-02-16 05:42:14', '6001'),
+(85, 'dd0a772829226fc94e4133678605b0b4', '2023-02-05 00:58:47', '2023-02-17 12:58:47', '6003'),
+(86, '14c8110622b191c197c0f602b1524326', '2023-02-03 20:09:46', '2023-02-16 08:09:46', '6003'),
+(89, '9506e3fcaf99df925b9baa7933487aea', '2023-02-06 03:07:32', '2023-02-18 15:07:32', '6006'),
+(90, 'a8302d13dd0857f72a00bc97d4b3eddd', '2023-02-04 16:44:06', '2023-02-17 04:44:06', '6003'),
+(91, '9a49eebe403b326cf786a6f6154b2db5', '2023-02-04 03:48:01', '2023-02-16 15:48:01', '6005'),
+(92, 'fab0e3c7a5ff1574bfd18063fb04e977', '2023-02-03 20:35:59', '2023-02-16 08:35:59', '6001'),
+(93, 'c9cbb96c2ddfea4c6d9da7092efd4b36', '2023-02-05 19:27:26', '2023-02-18 07:27:26', '6001'),
+(94, '60aa49020a67308ea6c560d891a302f6', '2023-02-04 16:25:39', '2023-02-17 04:25:39', '6007'),
+(95, 'e4e0c1cf04bc909d5fa35febee59543e', '2023-02-04 22:26:50', '2023-02-17 10:26:50', '6007'),
+(96, '4a01aaf4c5c40067b37b6fc923025fab', '2023-02-05 19:55:09', '2023-02-18 07:55:09', '6005'),
+(97, '01bbc9d982227b571c8c9e7b527baa1f', '2023-02-06 18:10:39', '2023-02-19 06:10:39', '6006'),
+(98, '57fbb354b64fc05b2b8e0200543eccdb', '2023-02-04 16:42:53', '2023-02-17 04:42:53', '6006'),
+(99, '394e1f7360715debf0daf69f9b6aa629', '2023-02-06 21:34:34', '2023-02-19 09:34:34', '6007'),
+(100, 'c3b3f81929b937bdbe051b49caf049d7', '2023-02-04 18:30:55', '2023-02-17 06:30:55', '6006'),
+(101, '362d0073193e6a211c6b0d745cfb0b6f', '2023-02-05 16:15:17', '2023-02-18 04:15:17', '6005'),
+(102, '1632f5cddccaf32bd551660c80adfb5e', '2023-02-04 20:43:41', '2023-02-17 08:43:41', '6006'),
+(103, '1aae6cd92cf34878a1457624db188bd6', '2023-02-05 01:59:44', '2023-02-17 13:59:44', '6005'),
+(104, '72942f8c44733e82f57ca1437cc2f692', '2023-02-05 21:24:21', '2023-02-18 09:24:21', '6006'),
+(105, '98a0dc50b1a3c253dbacb67ce32ce1e4', '2023-02-06 16:18:44', '2023-02-19 04:18:44', '6001'),
+(106, 'ec7bc363169ba977b400f183aac407d2', '2023-02-04 20:21:22', '2023-02-17 08:21:22', '6001'),
+(107, 'e34b6bf7a7ee9af7d01d2727aa2c8a9a', '2023-02-04 20:57:24', '2023-02-17 08:57:24', '6005'),
+(109, 'b23b002e1d552107ec8afc203f0da198', '2023-02-07 01:39:48', '2023-02-19 13:39:48', '6007'),
+(110, '943af0f7f4c77681f9d3c4c99083a00d', '2023-02-06 04:55:54', '2023-02-18 16:55:54', '6005'),
+(111, '87a53eb1db133d9c83520085827bd868', '2023-02-05 01:16:08', '2023-02-17 13:16:08', '6005'),
+(112, '7161790260204afe61cfd2ff287a9989', '2023-02-07 14:09:01', '2023-02-20 02:09:01', 'test'),
+(113, 'bfabcc3d778802efb04e6774c011aea3', '2023-02-05 02:23:09', '2023-02-17 14:23:09', '6005'),
+(114, '6bf16ce31089e472b662819de91f8132', '2023-02-05 16:40:17', '2023-02-18 04:40:17', '6003'),
+(115, '70051bea8af215a605724d5aa30cd1fe', '2023-02-06 17:20:40', '2023-02-19 05:20:40', '6001'),
+(116, '0a90f034219fe42528caf0161045f52c', '2023-02-06 16:20:55', '2023-02-19 04:20:55', '6003'),
+(117, 'dd8ce8cf74ff7a3d5d3569d842b38607', '2023-02-06 17:15:35', '2023-02-19 05:15:35', '6002'),
+(118, 'cde26fbf551d57452a393ecc7cc69de0', '2023-02-05 16:50:32', '2023-02-18 04:50:32', '6002'),
+(119, '8385939c6309bbebdb04f99e8e72d2fc', '2023-02-07 11:27:57', '2023-02-19 23:27:57', '6001'),
+(120, 'd928732a3a53b123fb5f691b7613751a', '2023-02-06 20:43:50', '2023-02-19 08:43:50', '6003'),
+(121, '1523b49232d4bfbb2ce1367aa8b8694d', '2023-02-05 17:19:45', '2023-02-18 05:19:45', '6003'),
+(122, '2e1f9ec5b3d7cf46c6365e7b333bb507', '2023-02-05 17:43:05', '2023-02-18 05:43:05', '6005'),
+(123, 'bc2102cf1aacb4fed3afa650fb0a90f9', '2023-02-05 17:00:24', '2023-02-18 05:00:24', '6007'),
+(124, '56eb971cbdae097ab29a88dd76944c33', '2023-02-06 16:23:49', '2023-02-19 04:23:49', '6001'),
+(125, 'b800372970c25b54458f34cccee157f9', '2023-02-06 16:16:09', '2023-02-19 04:16:09', '6003'),
+(126, 'a4ba87e21637f655dab809d0aaa8f21d', '2023-02-06 17:21:40', '2023-02-19 05:21:40', '6002'),
+(127, '398efcfd82e9ed0bb7bc5bd6b1c2f475', '2023-02-06 16:20:03', '2023-02-19 04:20:03', '6007'),
+(128, 'fb81ba8835d438472cff9e54314e26aa', '2023-02-05 20:51:53', '2023-02-18 08:51:53', '6003'),
+(129, 'be54c38f24ff07f4e730350af7d31d79', '2023-02-06 11:34:22', '2023-02-18 23:34:22', 'test'),
+(130, '60c136ed199730da1a4851d0e4db422e', '2023-02-06 22:41:58', '2023-02-19 10:41:58', '6001'),
+(131, '5799a306aa37e689b1fc020fcda67667', '2023-02-06 16:22:05', '2023-02-19 04:22:05', '6007'),
+(132, 'dbe75edab1497f6fdd591e7adbaef519', '2023-02-06 21:09:49', '2023-02-19 09:09:49', '6001'),
+(133, '7d03002a5fdde0a11242984e6c11f798', '2023-02-06 16:46:12', '2023-02-19 04:46:12', '6006'),
+(134, 'c89f45243bc328a8d5d34d6e4ab31bdd', '2023-02-06 16:32:34', '2023-02-19 04:32:34', '6005'),
+(135, 'df40016b436c474755d68f23b7253d5a', '2023-02-06 20:04:47', '2023-02-19 08:04:47', '6008'),
+(136, '25703091ceefda09eafbcfa4be4d1b06', '2023-02-06 20:04:21', '2023-02-19 08:04:21', '6002'),
+(137, 'e595ca7939ca88138ae92ebf22593fcc', '2023-02-06 20:42:17', '2023-02-19 08:42:17', '6005'),
+(138, 'd5fe71a04fc7854a24b7ee1020979c30', '2023-02-06 20:01:24', '2023-02-19 08:01:24', '6007'),
+(139, 'a5c602596cdda36582ac44683e4b4dc8', '2023-02-06 16:43:13', '2023-02-19 04:43:13', '6006'),
+(140, '51a01c3ad8f02c8c9b2871d7145363c3', '2023-02-06 19:42:45', '2023-02-19 07:42:45', '6007'),
+(141, '425a83f170a614a8e5ce0459de5055fa', '2023-02-06 16:50:58', '2023-02-19 04:50:58', '6008'),
+(142, '9b753969a5618e3fa4187810e43de896', '2023-02-06 17:22:14', '2023-02-19 05:22:14', '6008'),
+(143, '31e6b295211c405d17bd27314d61ce4c', '2023-02-07 13:03:23', '2023-02-20 01:03:23', '6001'),
+(144, '776d99c6da936a96fc6b44cae9d917be', '2023-02-06 17:08:49', '2023-02-19 05:08:49', '6005'),
+(145, '65316de31788bbdf7937270108848635', '2023-02-06 19:03:18', '2023-02-19 07:03:18', '6003'),
+(146, 'b900616b4fc7f0a2f2984c443e9e99af', '2023-02-06 18:09:26', '2023-02-19 06:09:26', '6005'),
+(147, '0315bcd583b2338a31dbb3c0ee41b5c3', '2023-02-06 20:03:45', '2023-02-19 08:03:45', '6009'),
+(148, '1f4782008df2125233ed3d07e7f50ebc', '2023-02-07 04:55:52', '2023-02-19 16:55:52', '6007');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tb_newbee_mall_user_withdraw`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_newbee_mall_user_withdraw` (
+  `withdraw_id` int(11) NOT NULL COMMENT '用户主键id。提款编号',
   `user_id` mediumint(9) NOT NULL COMMENT '用户ID',
   `login_name` varchar(11) DEFAULT '' COMMENT '登陆名称(默认为手机号)',
   `deal_flag` tinyint(4) DEFAULT '0' COMMENT '出款处理状态(0-未处理 1-已出款 2-取消出款)',
@@ -1060,14 +2702,586 @@ CREATE TABLE `tb_newbee_mall_user_withdraw` (
   `user_level` tinyint(4) DEFAULT '0',
   `withdraw_money` mediumint(9) NOT NULL COMMENT '提款金额',
   `user_ip_addr` varchar(40) DEFAULT NULL COMMENT '用户ip地址',
-  PRIMARY KEY (`withdraw_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+  `bank_id` int(11) DEFAULT NULL COMMENT '银行id ',
+  `agent_id` varchar(10) DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=523 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Records of tb_newbee_mall_user_withdraw
--- ----------------------------
-BEGIN;
-INSERT INTO `tb_newbee_mall_user_withdraw` (`withdraw_id`, `user_id`, `login_name`, `deal_flag`, `create_time`, `user_money`, `user_level`, `withdraw_money`, `user_ip_addr`) VALUES (1, 7, 'noe', 0, '2022-12-07 23:38:14', 0, 0, 400, NULL);
-COMMIT;
+--
+-- 转存表中的数据 `tb_newbee_mall_user_withdraw`
+--
 
-SET FOREIGN_KEY_CHECKS = 1;
+INSERT INTO `tb_newbee_mall_user_withdraw` (`withdraw_id`, `user_id`, `login_name`, `deal_flag`, `create_time`, `user_money`, `user_level`, `withdraw_money`, `user_ip_addr`, `bank_id`, `agent_id`) VALUES
+(108, 34, '9951517419', 2, '2023-02-01 00:23:11', 0, 0, 6, '', 85, '6002'),
+(109, 50, '9041124586', 2, '2023-02-01 00:35:21', 616, 0, 5000, '', 110, '6001'),
+(110, 28, '9065107960', 2, '2023-02-01 01:23:07', 0, 0, 30111, '', 76, '6002'),
+(111, 55, '9821911070', 2, '2023-02-01 16:20:02', 36, 0, 68900, '', 114, '6006'),
+(112, 37, '9501252978', 2, '2023-02-01 16:24:19', 0, 0, 5136, '', 104, '6006'),
+(113, 54, '9149523452', 2, '2023-02-01 16:25:46', 0, 0, 25215, '', 108, '6007'),
+(114, 37, '9501252978', 2, '2023-02-01 16:50:44', 0, 0, 10272, '', 104, '6006'),
+(115, 57, '9620736675', 1, '2023-02-01 16:55:24', 0, 0, 960, '', 116, '6003'),
+(116, 33, '9062905598', 2, '2023-02-01 17:10:04', 0, 0, 34122, '', 81, '6007'),
+(117, 32, '9033020693', 2, '2023-02-01 17:15:40', 0, 0, 20200, '', 88, '6003'),
+(118, 59, '9836984402', 1, '2023-02-01 17:42:04', 0, 0, 960, '', 118, '6005'),
+(119, 39, '9050879820', 2, '2023-02-01 17:45:06', 0, 0, 30111, '', 99, '6007'),
+(120, 54, '9149523452', 2, '2023-02-01 18:15:19', 0, 0, 303926, '', 108, '6007'),
+(121, 58, '9678003841', 1, '2023-02-01 18:19:10', 0, 0, 960, '', 119, '6007'),
+(122, 54, '9149523452', 2, '2023-02-01 18:31:18', 0, 0, 303926, '', 108, '6007'),
+(123, 61, '9516262024', 2, '2023-02-01 18:52:15', 0, 0, 1536, '', 121, '6006'),
+(124, 34, '9951517419', 2, '2023-02-01 18:58:07', 6, 0, 1530, '', 85, '6002'),
+(125, 61, '9516262024', 1, '2023-02-01 19:05:44', 0, 0, 1536, '', 122, '6006'),
+(126, 54, '9149523452', 2, '2023-02-01 19:22:47', 0, 0, 303926, '', 108, '6007'),
+(127, 34, '9951517419', 2, '2023-02-01 19:26:37', 0, 0, 1536, '', 123, '6002'),
+(128, 42, '9225426247', 2, '2023-02-01 19:29:41', 340, 0, 175000, '', 101, '6006'),
+(129, 42, '9225426247', 2, '2023-02-01 19:53:15', 375340, 0, 150000, '', 101, '6006'),
+(130, 58, '9678003841', 1, '2023-02-01 19:54:01', 0, 0, 2832, '', 119, '6007'),
+(131, 42, '9225426247', 2, '2023-02-01 20:00:14', 245340, 0, 130000, '', 101, '6006'),
+(132, 60, '9301630727', 1, '2023-02-01 20:16:19', 0, 0, 1536, '', 124, '6006'),
+(133, 61, '9516262024', 1, '2023-02-01 20:17:34', 0, 0, 4536, '', 122, '6006'),
+(134, 42, '9225426247', 2, '2023-02-01 20:18:44', 125340, 0, 120000, '', 101, '6006'),
+(135, 32, '9033020693', 2, '2023-02-01 20:22:11', 0, 0, 20200, '', 88, '6003'),
+(136, 57, '9620736675', 2, '2023-02-01 20:22:56', 0, 0, 1536, '', 116, '6003'),
+(137, 42, '9225426247', 2, '2023-02-01 20:29:12', 0, 0, 125340, '', 101, '6006'),
+(138, 57, '9620736675', 2, '2023-02-01 20:42:50', 1536, 0, 0, '', 116, '6003'),
+(139, 60, '9301630727', 2, '2023-02-01 20:46:31', 0, 0, 3000, '', 124, '6006'),
+(140, 57, '9620736675', 2, '2023-02-01 20:52:07', 0, 0, 1536, '', 116, '6003'),
+(141, 32, '9033020693', 2, '2023-02-01 20:52:10', 0, 0, 20200, '', 88, '6003'),
+(142, 42, '9225426247', 2, '2023-02-01 21:01:47', 95340, 0, 150000, '', 101, '6006'),
+(143, 42, '9225426247', 2, '2023-02-01 21:02:27', 45340, 0, 50000, '', 101, '6006'),
+(144, 42, '9225426247', 2, '2023-02-01 21:04:58', 30340, 0, 15000, '', 101, '6006'),
+(145, 60, '9301630727', 1, '2023-02-01 21:07:02', 0, 0, 4536, '', 124, '6006'),
+(146, 54, '9149523452', 2, '2023-02-01 21:21:50', 0, 0, 303926, '', 108, '6007'),
+(147, 42, '9225426247', 2, '2023-02-01 21:28:34', 340, 0, 30000, '', 101, '6006'),
+(148, 50, '9041124586', 2, '2023-02-01 21:39:37', 6, 0, 29700, '', 110, '6001'),
+(149, 23, '9041209790', 2, '2023-02-01 21:40:11', 0, 0, 5136, '', 66, '6002'),
+(150, 35, '9114577333', 2, '2023-02-01 21:55:26', 0, 0, 114991, '', 93, '6002'),
+(151, 42, '9225426247', 2, '2023-02-01 22:00:30', 0, 0, 340, '', 101, '6006'),
+(152, 50, '9041124586', 2, '2023-02-01 22:16:53', 0, 0, 29706, '', 110, '6001'),
+(153, 35, '9114577333', 2, '2023-02-01 23:24:45', 0, 0, 0, '', 93, '6002'),
+(154, 57, '9620736675', 2, '2023-02-02 09:23:23', 0, 0, 1536, '', 116, '6003'),
+(155, 54, '9149523452', 2, '2023-02-02 14:51:07', 0, 0, 303926, '', 108, '6007'),
+(156, 42, '9225426247', 2, '2023-02-02 16:29:59', 85340, 0, 200000, '', 101, '6006'),
+(157, 42, '9225426247', 2, '2023-02-02 16:35:24', 340, 0, 85000, '', 101, '6006'),
+(158, 60, '9301630727', 2, '2023-02-02 16:36:18', 0, 0, 5340, '', 124, '6006'),
+(159, 61, '9516262024', 2, '2023-02-02 16:47:25', 0, 0, 16840, '', 122, '6006'),
+(160, 58, '9678003841', 2, '2023-02-02 16:49:37', 0, 0, 3600, '', 119, '6007'),
+(161, 42, '9225426247', 2, '2023-02-02 16:58:47', 5340, 0, 280000, '', 125, '6006'),
+(162, 58, '9678003841', 2, '2023-02-02 17:02:17', 0, 0, 3600, '', 119, '6007'),
+(163, 60, '9301630727', 2, '2023-02-02 17:03:08', 0, 0, 30330, '', 124, '6006'),
+(164, 42, '9225426247', 0, '2023-02-02 17:06:52', 565340, 0, 0, '', 101, '6006'),
+(165, 42, '9225426247', 2, '2023-02-02 17:07:46', 465340, 0, 100000, '', 125, '6006'),
+(166, 60, '9301630727', 2, '2023-02-02 17:08:24', 0, 0, 30330, '', 124, '6006'),
+(167, 42, '9225426247', 0, '2023-02-02 17:10:43', 465340, 0, 0, '', 125, '6006'),
+(168, 67, '9526252216', 2, '2023-02-02 17:24:17', 0, 0, 600, '', 130, '6003'),
+(169, 65, '9915886803', 1, '2023-02-02 17:32:04', 0, 0, 960, '', 131, '6003'),
+(170, 67, '9526252216', 2, '2023-02-02 17:41:41', 0, 0, 960, '', 130, '6003'),
+(171, 66, '9052257725', 2, '2023-02-02 17:42:26', 36, 0, 1500, '', 126, '6006'),
+(172, 66, '9052257725', 2, '2023-02-02 17:47:49', 0, 0, 1536, '', 126, '6006'),
+(173, 67, '9526252216', 1, '2023-02-02 17:52:30', 0, 0, 960, '', 133, '6003'),
+(174, 69, '9178105309', 2, '2023-02-02 18:07:56', 0, 0, 960, '', 134, '6005'),
+(175, 68, '9017103696', 1, '2023-02-02 18:08:05', 0, 0, 960, '', 135, '6003'),
+(176, 66, '9052257725', 2, '2023-02-02 18:08:11', 72, 0, 3000, '', 136, '6006'),
+(177, 69, '9178105309', 1, '2023-02-02 18:15:51', 0, 0, 960, '', 137, '6005'),
+(178, 66, '9052257725', 1, '2023-02-02 18:26:28', 0, 0, 1608, '', 136, '6006'),
+(179, 61, '9516262024', 2, '2023-02-02 18:31:22', 0, 0, 177890, '', 122, '6006'),
+(180, 67, '9526252216', 2, '2023-02-02 20:10:16', 0, 0, 1536, '', 141, '6003'),
+(181, 68, '9017103696', 2, '2023-02-02 20:11:46', 0, 0, 3000, '', 135, '6003'),
+(182, 65, '9915886803', 2, '2023-02-02 20:12:24', 0, 0, 3000, '', 131, '6003'),
+(183, 66, '9052257725', 2, '2023-02-02 20:18:15', 0, 0, 3000, '', 136, '6006'),
+(184, 67, '9526252216', 2, '2023-02-02 20:19:08', 0, 0, 1536, '', 141, '6003'),
+(185, 66, '9052257725', 2, '2023-02-02 20:21:29', 0, 0, 4080, '', 136, '6006'),
+(186, 70, '9834508183', 2, '2023-02-02 20:24:16', 0, 0, 960, '', 142, '6006'),
+(187, 66, '9052257725', 1, '2023-02-02 20:34:07', 0, 0, 4296, '', 136, '6006'),
+(188, 68, '9017103696', 1, '2023-02-02 20:36:31', 0, 0, 4350, '', 135, '6003'),
+(189, 65, '9915886803', 1, '2023-02-02 20:46:11', 0, 0, 4350, '', 131, '6003'),
+(190, 70, '9834508183', 1, '2023-02-02 20:46:18', 0, 0, 960, '', 143, '6006'),
+(191, 67, '9526252216', 2, '2023-02-02 20:47:45', 0, 0, 2886, '', 141, '6003'),
+(192, 67, '9526252216', 1, '2023-02-02 21:00:21', 0, 0, 2886, '', 145, '6003'),
+(193, 70, '9834508183', 2, '2023-02-02 22:25:29', 0, 0, 1536, '', 143, '6006'),
+(194, 70, '9834508183', 2, '2023-02-02 22:49:20', 0, 0, 1536, '', 143, '6006'),
+(201, 28, '9065107960', 2, '2023-02-03 01:53:00', 20111, 0, 10000, '', 76, '6002'),
+(206, 60, '9301630727', 2, '2023-02-03 02:51:59', 0, 0, 30330, '', 124, '6006'),
+(207, 36, '9966190811', 0, '2023-02-03 11:35:46', 406466, 0, 100000, '', 84, '6006'),
+(208, 36, '9966190811', 0, '2023-02-03 11:39:13', 100574, 0, 129000, '', 117, '6006'),
+(209, 54, '9149523452', 2, '2023-02-03 14:30:14', 0, 0, 303926, '', 108, '6007'),
+(210, 66, '9052257725', 2, '2023-02-03 16:25:52', 0, 0, 24216, '', 136, '6006'),
+(211, 72, '9603147979', 1, '2023-02-03 16:36:38', 0, 0, 960, '', 153, '6005'),
+(212, 65, '9915886803', 2, '2023-02-03 16:42:11', 0, 0, 16176, '', 131, '6003'),
+(213, 68, '9017103696', 2, '2023-02-03 16:47:24', 0, 0, 3600, '', 135, '6003'),
+(214, 68, '9017103696', 2, '2023-02-03 16:53:08', 0, 0, 3600, '', 135, '6003'),
+(215, 73, '9850391729', 1, '2023-02-03 16:58:58', 0, 0, 960, '', 158, '6005'),
+(216, 68, '9017103696', 2, '2023-02-03 17:00:44', 0, 0, 3600, '', 135, '6003'),
+(217, 76, '9278036178', 1, '2023-02-03 17:03:57', 0, 0, 960, '', 157, '6007'),
+(218, 68, '9017103696', 2, '2023-02-03 17:07:13', 0, 0, 3600, '', 135, '6003'),
+(219, 66, '9052257725', 2, '2023-02-03 17:09:29', 0, 0, 24216, '', 136, '6006'),
+(220, 68, '9017103696', 0, '2023-02-03 17:11:32', 0, 0, 3600, '', 135, '6003'),
+(221, 67, '9526252216', 2, '2023-02-03 17:11:46', 0, 0, 3600, '', 145, '6003'),
+(222, 74, '9028609444', 1, '2023-02-03 17:14:31', 0, 0, 1536, '', 154, '6007'),
+(223, 75, '9782260158', 1, '2023-02-03 17:15:12', 0, 0, 1536, '', 161, '6007'),
+(224, 81, '9252253744', 1, '2023-02-03 17:34:16', 0, 0, 960, '', 163, '6007'),
+(225, 77, '9042557936', 1, '2023-02-03 17:35:57', 0, 0, 1536, '', 169, '6005'),
+(226, 80, '9091961624 ', 1, '2023-02-03 17:36:45', 0, 0, 960, '', 166, '6005'),
+(227, 82, '9833782778', 1, '2023-02-03 17:38:14', 0, 0, 960, '', 164, '6007'),
+(228, 83, '79539476366', 1, '2023-02-03 17:38:53', 0, 0, 960, '', 165, '6002'),
+(229, 61, '9516262024', 2, '2023-02-03 17:48:21', 0, 0, 639720, '', 138, '6006'),
+(230, 58, '9678003841', 2, '2023-02-03 17:54:13', 0, 0, 20200, '', 119, '6007'),
+(231, 84, '9247019900', 2, '2023-02-03 18:05:46', 0, 0, 960, '', 170, '6001'),
+(232, 78, '9788431467', 1, '2023-02-03 18:05:57', 0, 0, 1080, '', 168, '6007'),
+(233, 61, '9516262024', 2, '2023-02-03 18:15:48', 0, 0, 639720, '', 122, '6006'),
+(234, 67, '9526252216', 2, '2023-02-03 18:23:38', 2100, 0, 1500, '', 145, '6003'),
+(235, 67, '9526252216', 2, '2023-02-03 19:42:27', 1500, 0, 2100, '', 145, '6003'),
+(236, 76, '9278036178', 2, '2023-02-03 19:59:56', 0, 0, 1536, '', 157, '6007'),
+(237, 73, '9850391729', 2, '2023-02-03 20:02:52', 0, 0, 3000, '', 158, '6005'),
+(238, 77, '9042557936', 2, '2023-02-03 20:05:31', 0, 0, 3000, '', 169, '6005'),
+(239, 81, '9252253744', 2, '2023-02-03 20:07:25', 0, 0, 3000, '', 163, '6007'),
+(240, 78, '9788431467', 2, '2023-02-03 20:10:59', 0, 0, 1536, '', 168, '6007'),
+(241, 85, '9246119191', 1, '2023-02-03 20:11:50', 36, 0, 1500, '', 174, '6003'),
+(242, 80, '9091961624 ', 2, '2023-02-03 20:12:09', 0, 0, 3000, '', 166, '6005'),
+(243, 77, '9042557936', 2, '2023-02-03 20:12:51', 0, 0, 3000, '', 169, '6005'),
+(244, 74, '9028609444', 2, '2023-02-03 20:12:58', 0, 0, 3000, '', 154, '6007'),
+(245, 78, '9788431467', 2, '2023-02-03 20:13:13', 0, 0, 1536, '', 168, '6007'),
+(246, 73, '9850391729', 2, '2023-02-03 20:17:48', 0, 0, 3000, '', 158, '6005'),
+(247, 74, '9028609444', 2, '2023-02-03 20:22:46', 0, 0, 3000, '', 154, '6007'),
+(248, 75, '9782260158', 1, '2023-02-03 20:23:58', 0, 0, 3048, '', 161, '6007'),
+(249, 77, '9042557936', 2, '2023-02-03 20:24:26', 0, 0, 3000, '', 169, '6005'),
+(250, 74, '9028609444', 1, '2023-02-03 20:27:06', 0, 0, 4296, '', 154, '6007'),
+(251, 73, '9850391729', 1, '2023-02-03 20:27:16', 0, 0, 4350, '', 158, '6005'),
+(252, 77, '9042557936', 2, '2023-02-03 20:27:41', 0, 0, 3000, '', 169, '6005'),
+(253, 76, '9278036178', 1, '2023-02-03 20:33:28', 0, 0, 2832, '', 157, '6007'),
+(254, 77, '9042557936', 1, '2023-02-03 20:35:51', 1350, 0, 3000, '', 169, '6005'),
+(255, 77, '9042557936', 1, '2023-02-03 20:36:04', 0, 0, 1350, '', 169, '6005'),
+(256, 78, '9788431467', 1, '2023-02-03 20:43:08', 0, 0, 2832, '', 168, '6007'),
+(257, 89, '9042593149', 2, '2023-02-03 20:45:31', 40, 0, 3700, '', 176, '6006'),
+(258, 72, '9603147979', 1, '2023-02-03 20:47:25', 0, 0, 4350, '', 153, '6005'),
+(259, 89, '9042593149', 2, '2023-02-03 20:47:48', 40, 0, 3700, '', 176, '6006'),
+(260, 81, '9252253744', 1, '2023-02-03 20:50:56', 0, 0, 4350, '', 163, '6007'),
+(261, 80, '9091961624 ', 1, '2023-02-03 20:52:46', 0, 0, 4350, '', 166, '6005'),
+(262, 86, '9021675944', 1, '2023-02-03 20:57:06', 0, 0, 4350, '', 177, '6003'),
+(263, 85, '9246119191', 1, '2023-02-03 21:13:03', 0, 0, 2922, '', 174, '6003'),
+(264, 89, '9042593149', 2, '2023-02-03 21:21:58', 0, 0, 3140, '', 176, '6006'),
+(265, 61, '9516262024', 2, '2023-02-03 21:38:27', 600000, 0, 39720, '', 122, '6006'),
+(266, 90, '9506202437', 1, '2023-02-03 22:09:08', 0, 0, 2886, '', 179, '6003'),
+(267, 26, '12', 2, '2023-02-04 01:53:36', 0, 0, 88885, '', 181, '6001'),
+(268, 26, '12', 0, '2023-02-04 01:54:54', 0, 0, 88885, '', 181, '6001'),
+(269, 77, '9042557936', 2, '2023-02-04 16:31:38', 0, 0, 9552, '', 169, '6005'),
+(270, 73, '9850391729', 2, '2023-02-04 16:33:45', 0, 0, 3600, '', 158, '6005'),
+(271, 90, '9506202437', 2, '2023-02-04 16:35:58', 800, 0, 2800, '', 179, '6003'),
+(272, 84, '9247019900', 0, '2023-02-04 16:40:13', 0, 0, 1536, '', 186, '6001'),
+(273, 90, '9506202437', 2, '2023-02-04 16:41:06', 800, 0, 2800, '', 179, '6003'),
+(274, 90, '9506202437', 2, '2023-02-04 16:44:36', 800, 0, 2800, '', 179, '6003'),
+(275, 93, '79061369712', 1, '2023-02-04 16:48:30', 0, 0, 960, '', 187, '6001'),
+(276, 94, '9101743439', 1, '2023-02-04 16:54:36', 0, 0, 960, '', 182, '6007'),
+(277, 50, '9041124586', 2, '2023-02-04 16:54:53', 112, 0, 1000, '', 110, '6001'),
+(278, 96, '9823394679', 1, '2023-02-04 16:56:07', 0, 0, 1536, '', 188, '6005'),
+(279, 97, '9771114242', 1, '2023-02-04 16:58:21', 0, 0, 1536, '', 190, '6006'),
+(280, 72, '9603147979', 2, '2023-02-04 16:58:31', 0, 0, 3600, '', 153, '6005'),
+(282, 91, '9084992724', 1, '2023-02-04 17:00:39', 0, 0, 4350, '', 193, '6005'),
+(283, 95, '9048846340', 1, '2023-02-04 17:00:41', 0, 0, 960, '', 184, '6007'),
+(284, 99, '9307151408', 1, '2023-02-04 17:01:17', 0, 0, 960, '', 192, '6007'),
+(285, 73, '9850391729', 2, '2023-02-04 17:04:28', 0, 0, 20200, '', 158, '6005'),
+(286, 86, '9021675944', 2, '2023-02-04 17:06:28', 0, 0, 28575, '', 177, '6003'),
+(287, 77, '9042557936', 2, '2023-02-04 17:15:50', 270, 0, 34257, '', 169, '6005'),
+(288, 73, '9850391729', 2, '2023-02-04 17:17:45', 0, 0, 20200, '', 158, '6005'),
+(289, 102, '9836110013', 2, '2023-02-04 17:17:47', 0, 0, 600, '', 197, '6006'),
+(290, 77, '9042557936', 2, '2023-02-04 17:21:08', 0, 0, 34527, '', 169, '6005'),
+(291, 100, '9376514612', 2, '2023-02-04 17:21:46', 0, 0, 960, '', 194, '6006'),
+(292, 101, '9788489778', 1, '2023-02-04 17:24:21', 36, 0, 1500, '', 196, '6005'),
+(293, 102, '9836110013', 1, '2023-02-04 17:24:25', 0, 0, 960, '', 197, '6006'),
+(294, 98, '9671971880', 1, '2023-02-04 17:25:35', 0, 0, 960, '', 191, '6006'),
+(295, 77, '9042557936', 2, '2023-02-04 17:34:11', 0, 0, 34527, '', 169, '6005'),
+(296, 100, '9376514612', 2, '2023-02-04 17:48:26', 0, 0, 960, '', 194, '6006'),
+(297, 104, '9148412842', 1, '2023-02-04 18:07:22', 0, 0, 960, '', 198, '6006'),
+(298, 89, '9042593149', 2, '2023-02-04 18:09:39', 0, 0, 4100, '', 176, '6006'),
+(299, 77, '9042557936', 2, '2023-02-04 18:19:25', 0, 0, 34527, '', 169, '6005'),
+(300, 77, '9042557936', 2, '2023-02-04 18:23:04', 0, 0, 34527, '', 169, '6005'),
+(301, 77, '9042557936', 2, '2023-02-04 18:25:33', 0, 0, 34527, '', 169, '6005'),
+(302, 100, '9376514612', 1, '2023-02-04 18:34:53', 0, 0, 960, '', 201, '6006'),
+(303, 90, '9506202437', 2, '2023-02-04 19:00:04', 0, 0, 13300, '', 179, '6003'),
+(304, 103, '9379533713', 1, '2023-02-04 19:01:47', 0, 0, 960, '', 202, '6005'),
+(305, 73, '9850391729', 2, '2023-02-04 19:06:22', 35, 0, 33500, '', 158, '6005'),
+(306, 81, '9252253744', 2, '2023-02-04 19:12:23', 0, 0, 3600, '', 163, '6007'),
+(307, 73, '9850391729', 2, '2023-02-04 19:29:37', 0, 0, 33535, '', 158, '6005'),
+(308, 84, '9247019900', 1, '2023-02-04 19:30:44', 0, 0, 3835, '', 170, '6001'),
+(309, 97, '9771114242', 2, '2023-02-04 20:00:45', 0, 0, 3000, '', 190, '6006'),
+(310, 73, '9850391729', 2, '2023-02-04 20:03:35', 0, 0, 33535, '', 158, '6005'),
+(311, 96, '9823394679', 2, '2023-02-04 20:08:05', 0, 0, 3000, '', 188, '6005'),
+(312, 97, '9771114242', 2, '2023-02-04 20:09:37', 0, 0, 4080, '', 190, '6006'),
+(313, 96, '9823394679', 2, '2023-02-04 20:11:54', 0, 0, 3000, '', 188, '6005'),
+(314, 101, '9788489778', 0, '2023-02-04 20:15:11', 72, 0, 1500, '', 205, '6005'),
+(315, 97, '9771114242', 1, '2023-02-04 20:18:57', 0, 0, 4350, '', 190, '6006'),
+(316, 95, '9048846340', 1, '2023-02-04 20:19:34', 7592, 0, 1000, '', 203, '6007'),
+(317, 98, '9671971880', 1, '2023-02-04 20:19:53', 0, 0, 4350, '', 191, '6006'),
+(318, 95, '9048846340', 2, '2023-02-04 20:21:31', 0, 0, 4296, '', 183, '6007'),
+(319, 104, '9148412842', 2, '2023-02-04 20:21:32', 0, 0, 1536, '', 198, '6006'),
+(320, 96, '9823394679', 1, '2023-02-04 20:23:02', 0, 0, 4350, '', 212, '6005'),
+(321, 100, '9376514612', 2, '2023-02-04 20:26:19', 0, 0, 3000, '', 201, '6006'),
+(322, 95, '9048846340', 2, '2023-02-04 20:27:11', 0, 0, 4296, '', 183, '6007'),
+(323, 106, '9036337682', 2, '2023-02-04 20:27:40', 136, 0, 1400, '', 208, '6001'),
+(324, 94, '9101743439', 1, '2023-02-04 20:29:02', 0, 0, 4350, '', 182, '6007'),
+(325, 95, '9048846340', 2, '2023-02-04 20:32:40', 0, 0, 4296, '', 203, '6007'),
+(326, 100, '9376514612', 1, '2023-02-04 20:35:00', 0, 0, 4350, '', 201, '6006'),
+(327, 101, '9788489778', 1, '2023-02-04 20:37:42', 283, 0, 4200, '', 196, '6005'),
+(328, 99, '9307151408', 1, '2023-02-04 20:41:07', 0, 0, 2886, '', 192, '6007'),
+(329, 104, '9148412842', 1, '2023-02-04 20:41:36', 0, 0, 2886, '', 198, '6006'),
+(330, 107, '9377156540', 2, '2023-02-04 20:42:07', 0, 0, 1536, '', 206, '6005'),
+(331, 102, '9836110013', 1, '2023-02-04 20:43:55', 0, 0, 4350, '', 197, '6006'),
+(332, 107, '9377156540', 2, '2023-02-04 20:46:49', 36, 0, 1500, '', 206, '6005'),
+(333, 73, '9850391729', 2, '2023-02-04 20:47:06', 0, 0, 33535, '', 158, '6005'),
+(334, 107, '9377156540', 2, '2023-02-04 20:47:06', 36, 0, 1500, '', 206, '6005'),
+(335, 107, '9377156540', 2, '2023-02-04 20:47:58', 36, 0, 1500, '', 206, '6005'),
+(336, 107, '9377156540', 2, '2023-02-04 20:52:54', 0, 0, 36, '', 206, '6005'),
+(337, 73, '9850391729', 2, '2023-02-04 21:16:18', 0, 0, 33535, '', 158, '6005'),
+(338, 109, '9526195169', 1, '2023-02-04 21:17:06', 0, 0, 2886, '', 213, '6007'),
+(339, 105, '9131839008', 1, '2023-02-04 21:20:48', 0, 0, 4411, '', 214, '6001'),
+(340, 95, '9048846340', 2, '2023-02-04 21:26:33', 0, 0, 4296, '', 183, '6007'),
+(341, 90, '9506202437', 2, '2023-02-04 21:48:29', 0, 0, 13300, '', 179, '6003'),
+(342, 95, '9048846340', 2, '2023-02-04 22:04:30', 0, 0, 2616, '', 183, '6007'),
+(343, 93, '79061369712', 1, '2023-02-04 22:05:10', 0, 0, 4411, '', 187, '6001'),
+(344, 103, '9379533713', 2, '2023-02-04 22:21:25', 0, 0, 1536, '', 202, '6005'),
+(345, 95, '9048846340', 2, '2023-02-04 22:27:35', 0, 0, 2616, '', 203, '6007'),
+(346, 103, '9379533713', 2, '2023-02-04 23:15:12', 196, 0, 3500, '', 202, '6005'),
+(347, 95, '9048846340', 2, '2023-02-04 23:45:41', 0, 0, 2616, '', 183, '6007'),
+(348, 77, '9042557936', 2, '2023-02-04 23:48:51', 0, 0, 174527, '', 169, '6005'),
+(349, 90, '9506202437', 2, '2023-02-05 00:11:22', 0, 0, 13300, '', 179, '6003'),
+(350, 58, '9678003841', 2, '2023-02-05 00:15:51', 200, 0, 20000, '', 119, '6007'),
+(351, 77, '9042557936', 2, '2023-02-05 01:13:47', 0, 0, 174527, '', 169, '6005'),
+(352, 72, '9603147979', 2, '2023-02-05 01:19:03', 0, 0, 3600, '', 153, '6005'),
+(353, 103, '9379533713', 1, '2023-02-05 01:41:17', 11, 0, 4400, '', 202, '6005'),
+(354, 77, '9042557936', 2, '2023-02-05 02:31:53', 0, 0, 174527, '', 169, '6005'),
+(355, 90, '9506202437', 2, '2023-02-05 02:32:38', 10500, 0, 2800, '', 179, '6003'),
+(356, 81, '9252253744', 2, '2023-02-05 03:40:23', 0, 0, 10, '', 163, '6007'),
+(357, 77, '9042557936', 2, '2023-02-05 15:08:14', 0, 0, 174527, '', 169, '6005'),
+(358, 109, '9526195169', 2, '2023-02-05 16:33:52', 0, 0, 3600, '', 213, '6007'),
+(359, 109, '9526195169', 2, '2023-02-05 16:37:59', 0, 0, 3600, '', 213, '6007'),
+(360, 91, '9084992724', 2, '2023-02-05 16:44:26', 0, 0, 5136, '', 193, '6005'),
+(361, 104, '9148412842', 2, '2023-02-05 16:48:07', 0, 0, 5340, '', 198, '6006'),
+(362, 34, '9951517419', 2, '2023-02-05 16:49:08', 8, 0, 10, '', 85, '6002'),
+(363, 94, '9101743439', 2, '2023-02-05 16:50:25', 0, 0, 30111, '', 182, '6007'),
+(364, 101, '9788489778', 2, '2023-02-05 16:58:02', 0, 0, 3883, '', 196, '6005'),
+(365, 115, '9875763463', 1, '2023-02-05 17:00:59', 32, 0, 4000, '', 219, '6001'),
+(366, 116, '9156954343', 2, '2023-02-05 17:03:26', 0, 0, 960, '', 221, '6003'),
+(367, 114, '79085771599', 1, '2023-02-05 17:05:31', 0, 0, 960, '', 217, '6003'),
+(368, 117, '9649733118', 1, '2023-02-05 17:11:13', 0, 0, 960, '', 222, '6002'),
+(369, 123, '9103874805', 1, '2023-02-05 17:11:22', 0, 0, 960, '', 224, '6007'),
+(370, 118, '9821332473', 1, '2023-02-05 17:12:13', 0, 0, 960, '', 220, '6002'),
+(371, 97, '9771114242', 2, '2023-02-05 17:13:32', 0, 0, 49990, '', 190, '6006'),
+(372, 109, '9526195169', 2, '2023-02-05 17:19:43', 0, 0, 20200, '', 226, '6007'),
+(373, 91, '9084992724', 2, '2023-02-05 17:25:40', 0, 0, 5136, '', 193, '6005'),
+(374, 94, '9101743439', 2, '2023-02-05 17:26:19', 0, 0, 30111, '', 182, '6007'),
+(375, 109, '9526195169', 2, '2023-02-05 17:28:36', 0, 0, 20200, '', 226, '6007'),
+(376, 120, '9621384738', 1, '2023-02-05 17:34:01', 0, 0, 1536, '', 230, '6003'),
+(377, 125, '9512652091', 0, '2023-02-05 17:39:54', 0, 0, 1536, '', 233, '6003'),
+(378, 119, '9091160004', 1, '2023-02-05 17:40:22', 0, 0, 960, '', 225, '6001'),
+(379, 124, '9205507200', 1, '2023-02-05 17:40:34', 0, 0, 960, '', 235, '6001'),
+(380, 96, '9823394679', 2, '2023-02-05 17:40:55', 0, 0, 30111, '', 236, '6005'),
+(381, 122, '9374488803', 1, '2023-02-05 17:43:39', 0, 0, 960, '', 227, '6005'),
+(382, 91, '9084992724', 2, '2023-02-05 17:52:36', 0, 0, 5136, '', 193, '6005'),
+(383, 96, '9823394679', 2, '2023-02-05 17:55:22', 0, 0, 30111, '', 188, '6005'),
+(384, 78, '9788431467', 2, '2023-02-05 17:59:14', 0, 0, 3600, '', 168, '6007'),
+(385, 121, '9523435304', 1, '2023-02-05 18:03:36', 0, 0, 960, '', 240, '6003'),
+(386, 73, '9850391729', 2, '2023-02-05 18:09:51', 0, 0, 33535, '', 158, '6005'),
+(387, 93, '79061369712', 2, '2023-02-05 18:20:14', 0, 0, 30111, '', 187, '6001'),
+(388, 126, '9097852870', 1, '2023-02-05 18:20:22', 0, 0, 960, '', 239, '6002'),
+(389, 97, '9771114242', 2, '2023-02-05 18:20:48', 0, 0, 124740, '', 190, '6006'),
+(390, 93, '79061369712', 2, '2023-02-05 18:33:07', 0, 0, 30111, '', 187, '6001'),
+(391, 109, '9526195169', 2, '2023-02-05 18:34:26', 0, 0, 20200, '', 226, '6007'),
+(392, 109, '9526195169', 2, '2023-02-05 18:40:32', 0, 0, 20200, '', 226, '6007'),
+(393, 125, '9512652091', 2, '2023-02-05 18:41:57', 0, 0, 1536, '', 237, '6003'),
+(394, 78, '9788431467', 2, '2023-02-05 18:52:21', 0, 0, 3600, '', 168, '6007'),
+(395, 125, '9512652091', 2, '2023-02-05 18:56:42', 0, 0, 1536, '', 237, '6003'),
+(396, 127, '9021726665', 1, '2023-02-05 19:07:09', 0, 0, 960, '', 241, '6007'),
+(397, 96, '9823394679', 2, '2023-02-05 19:09:41', 0, 0, 30111, '', 188, '6005'),
+(398, 78, '9788431467', 2, '2023-02-05 19:28:36', 0, 0, 3600, '', 168, '6007'),
+(399, 97, '9771114242', 2, '2023-02-05 20:00:10', 0, 0, 124740, '', 190, '6006'),
+(400, 126, '9097852870', 2, '2023-02-05 20:04:01', 0, 0, 3000, '', 239, '6002'),
+(401, 126, '9097852870', 2, '2023-02-05 20:07:41', 0, 0, 3000, '', 239, '6002'),
+(402, 115, '9875763463', 2, '2023-02-05 20:16:19', 32, 0, 3000, '', 219, '6001'),
+(403, 123, '9103874805', 2, '2023-02-05 20:16:36', 0, 0, 1536, '', 242, '6007'),
+(404, 126, '9097852870', 1, '2023-02-05 20:17:45', 1350, 0, 3000, '', 239, '6002'),
+(405, 126, '9097852870', 1, '2023-02-05 20:18:17', 0, 0, 1350, '', 239, '6002'),
+(406, 117, '9649733118', 2, '2023-02-05 20:19:11', 0, 0, 1536, '', 222, '6002'),
+(407, 116, '9156954343', 2, '2023-02-05 20:23:53', 0, 0, 3000, '', 221, '6003'),
+(408, 125, '9512652091', 1, '2023-02-05 20:26:55', 0, 0, 2886, '', 237, '6003'),
+(409, 116, '9156954343', 2, '2023-02-05 20:28:57', 0, 0, 3000, '', 221, '6003'),
+(410, 119, '9091160004', 2, '2023-02-05 20:37:07', 0, 0, 4536, '', 225, '6001'),
+(411, 93, '79061369712', 2, '2023-02-05 20:45:03', 0, 0, 30111, '', 187, '6001'),
+(412, 115, '9875763463', 1, '2023-02-05 20:45:08', 2, 0, 4380, '', 219, '6001'),
+(413, 119, '9091160004', 1, '2023-02-05 20:51:24', 0, 0, 4536, '', 225, '6001'),
+(414, 97, '9771114242', 2, '2023-02-05 20:51:30', 0, 0, 34940, '', 190, '6006'),
+(415, 117, '9649733118', 1, '2023-02-05 20:51:48', 0, 0, 2886, '', 222, '6002'),
+(416, 122, '9374488803', 1, '2023-02-05 20:56:25', 0, 0, 4411, '', 227, '6005'),
+(417, 124, '9205507200', 1, '2023-02-05 21:00:10', 0, 0, 4411, '', 235, '6001'),
+(418, 118, '9821332473', 2, '2023-02-05 21:12:16', 0, 0, 1536, '', 220, '6002'),
+(419, 116, '9156954343', 1, '2023-02-05 21:14:39', 0, 0, 4350, '', 221, '6003'),
+(420, 109, '9526195169', 2, '2023-02-05 21:18:54', 0, 0, 20200, '', 213, '6007'),
+(421, 104, '9148412842', 2, '2023-02-05 21:47:24', 48990, 0, 1000, '', 198, '6006'),
+(422, 127, '9021726665', 2, '2023-02-05 22:12:50', 0, 0, 1536, '', 241, '6007'),
+(423, 109, '9526195169', 2, '2023-02-05 22:28:16', 0, 0, 20200, '', 213, '6007'),
+(424, 97, '9771114242', 2, '2023-02-05 22:28:38', 0, 0, 34940, '', 223, '6006'),
+(425, 110, '9068436163', 2, '2023-02-05 22:35:12', 491, 0, 79000, '', 229, '6005'),
+(426, 100, '9376514612', 2, '2023-02-05 22:36:02', 0, 0, 671250, '', 201, '6006'),
+(427, 120, '9621384738', 1, '2023-02-05 22:47:02', 0, 0, 2886, '', 230, '6003'),
+(428, 100, '9376514612', 2, '2023-02-05 22:47:10', 0, 0, 671250, '', 201, '6006'),
+(429, 94, '9101743439', 2, '2023-02-05 22:47:41', 29111, 0, 1000, '', 182, '6007'),
+(430, 123, '9103874805', 2, '2023-02-05 22:50:32', 0, 0, 1536, '', 242, '6007'),
+(431, 110, '9068436163', 2, '2023-02-05 22:53:24', 1, 0, 490, '', 243, '6005'),
+(432, 123, '9103874805', 2, '2023-02-05 23:08:55', 0, 0, 1536, '', 242, '6007'),
+(433, 78, '9788431467', 2, '2023-02-05 23:11:58', 0, 0, 3600, '', 168, '6007'),
+(434, 128, '79182564596', 1, '2023-02-05 23:15:57', 0, 0, 2310, '', 244, '6003'),
+(435, 100, '9376514612', 2, '2023-02-05 23:27:00', 471250, 0, 200000, '', 201, '6006'),
+(436, 77, '9042557936', 2, '2023-02-05 23:53:59', 173527, 0, 1000, '', 169, '6005'),
+(437, 78, '9788431467', 2, '2023-02-05 23:58:22', 0, 0, 3600, '', 168, '6007'),
+(438, 127, '9021726665', 1, '2023-02-06 00:08:36', 0, 0, 2886, '', 241, '6007'),
+(439, 97, '9771114242', 2, '2023-02-06 00:10:43', 0, 0, 34940, '', 223, '6006'),
+(440, 109, '9526195169', 2, '2023-02-06 00:18:41', 0, 0, 20200, '', 226, '6007'),
+(441, 78, '9788431467', 2, '2023-02-06 00:52:51', 0, 0, 3600, '', 168, '6007'),
+(442, 97, '9771114242', 2, '2023-02-06 01:08:32', 0, 0, 34940, '', 223, '6006'),
+(443, 123, '9103874805', 2, '2023-02-06 01:24:01', 0, 0, 1536, '', 224, '6007'),
+(444, 94, '9101743439', 2, '2023-02-06 02:02:04', 0, 0, 30111, '', 182, '6007'),
+(445, 89, '9042593149', 2, '2023-02-06 02:10:32', 100, 0, 4000, '', 176, '6006'),
+(446, 100, '9376514612', 2, '2023-02-06 04:42:36', 0, 0, 671250, '', 201, '6006'),
+(447, 39, '9050879820', 2, '2023-02-06 10:12:47', 0, 0, 29031, '', 99, '6007'),
+(448, 77, '9042557936', 2, '2023-02-06 14:12:45', 527, 0, 23000, '', 169, '6005'),
+(449, 95, '9048846340', 2, '2023-02-06 15:33:50', 0, 0, 2616, '', 183, '6007'),
+(450, 125, '9512652091', 2, '2023-02-06 16:18:22', 0, 0, 5136, '', 237, '6003'),
+(451, 126, '9097852870', 2, '2023-02-06 16:28:11', 0, 0, 9552, '', 239, '6002'),
+(452, 105, '9131839008', 2, '2023-02-06 16:29:57', 0, 0, 21736, '', 214, '6001'),
+(453, 131, '9203555183', 1, '2023-02-06 16:31:01', 0, 0, 1536, '', 247, '6007'),
+(454, 116, '9156954343', 2, '2023-02-06 16:41:07', 11596, 0, 56780, '', 221, '6003'),
+(455, 133, '9649735075', 1, '2023-02-06 16:42:11', 0, 0, 960, '', 250, '6006'),
+(456, 135, '9631112503', 1, '2023-02-06 16:45:17', 0, 0, 960, '', 260, '6008'),
+(457, 132, '9129258777', 0, '2023-02-06 16:46:53', 0, 0, 960, '', 253, '6001'),
+(458, 134, '79527691745', 1, '2023-02-06 16:51:55', 0, 0, 960, '', 251, '6005'),
+(459, 138, '9021720894', 1, '2023-02-06 16:51:59', 536, 0, 1000, '', 255, '6007'),
+(460, 137, '9209073900', 1, '2023-02-06 16:54:38', 0, 0, 960, '', 258, '6005'),
+(461, 140, '9028582947', 1, '2023-02-06 16:58:36', 0, 0, 960, '', 261, '6007'),
+(462, 105, '9131839008', 2, '2023-02-06 16:59:14', 0, 0, 21736, '', 214, '6001'),
+(463, 139, '9200047838', 1, '2023-02-06 17:02:17', 0, 0, 960, '', 265, '6006'),
+(464, 141, '9832018320', 1, '2023-02-06 17:03:09', 0, 0, 960, '', 262, '6008'),
+(465, 117, '9649733118', 2, '2023-02-06 17:11:41', 0, 0, 21736, '', 222, '6002'),
+(466, 126, '9097852870', 2, '2023-02-06 17:12:25', 0, 0, 34527, '', 239, '6002'),
+(467, 125, '9512652091', 2, '2023-02-06 17:16:11', 0, 0, 57502, '', 237, '6003'),
+(468, 105, '9131839008', 2, '2023-02-06 17:18:18', 0, 0, 21736, '', 214, '6001'),
+(469, 144, '9199406587', 1, '2023-02-06 17:23:31', 0, 0, 960, '', 268, '6005'),
+(470, 142, '9103420014', 1, '2023-02-06 17:27:12', 0, 0, 1536, '', 267, '6008'),
+(471, 125, '9512652091', 2, '2023-02-06 17:31:12', 0, 0, 57502, '', 237, '6003'),
+(472, 136, '9233407902', 1, '2023-02-06 17:31:57', 0, 0, 960, '', 254, '6002'),
+(473, 143, '9787138941', 1, '2023-02-06 17:32:11', 0, 0, 960, '', 266, '6001'),
+(474, 126, '9097852870', 2, '2023-02-06 17:38:29', 0, 0, 34527, '', 239, '6002'),
+(475, 119, '9091160004', 2, '2023-02-06 17:59:24', 0, 0, 5136, '', 225, '6001'),
+(476, 125, '9512652091', 2, '2023-02-06 18:03:57', 0, 0, 29112, '', 237, '6003'),
+(477, 145, '9950503565', 0, '2023-02-06 18:19:10', 0, 0, 1536, '', 277, '6003'),
+(478, 146, '9785028506', 1, '2023-02-06 18:32:53', 0, 0, 960, '', 278, '6005'),
+(479, 99, '9307151408', 2, '2023-02-06 18:44:30', 0, 0, 4896, '', 192, '6007'),
+(480, 145, '9950503565', 1, '2023-02-06 18:44:38', 0, 0, 1536, '', 275, '6003'),
+(481, 130, '9504359544', 1, '2023-02-06 18:50:25', 60, 0, 900, '', 273, '6001'),
+(482, 117, '9649733118', 2, '2023-02-06 18:50:48', 0, 0, 1836, '', 222, '6002'),
+(483, 130, '9504359544', 1, '2023-02-06 18:51:26', 0, 0, 60, '', 273, '6001'),
+(484, 99, '9307151408', 2, '2023-02-06 19:00:34', 0, 0, 4896, '', 192, '6007'),
+(485, 146, '9785028506', 2, '2023-02-06 19:01:11', 0, 0, 1536, '', 278, '6005'),
+(486, 91, '9084992724', 2, '2023-02-06 19:45:52', 0, 0, 30111, '', 193, '6005'),
+(487, 139, '9200047838', 2, '2023-02-06 19:53:50', 0, 0, 1536, '', 265, '6006'),
+(488, 144, '9199406587', 2, '2023-02-06 20:01:02', 0, 0, 3000, '', 268, '6005'),
+(489, 132, '9129258777', 2, '2023-02-06 20:05:28', 0, 0, 1536, '', 252, '6001'),
+(490, 137, '9209073900', 2, '2023-02-06 20:05:52', 0, 0, 3000, '', 258, '6005'),
+(491, 135, '9631112503', 2, '2023-02-06 20:08:23', 0, 0, 1536, '', 281, '6008'),
+(492, 144, '9199406587', 2, '2023-02-06 20:09:24', 0, 0, 3000, '', 268, '6005'),
+(493, 144, '9199406587', 2, '2023-02-06 20:10:18', 0, 0, 3000, '', 268, '6005'),
+(494, 144, '9199406587', 2, '2023-02-06 20:12:46', 0, 0, 3000, '', 268, '6005'),
+(495, 139, '9200047838', 1, '2023-02-06 20:13:23', 0, 0, 2886, '', 265, '6006'),
+(496, 138, '9021720894', 1, '2023-02-06 20:15:05', 0, 0, 4886, '', 255, '6007'),
+(497, 142, '9103420014', 2, '2023-02-06 20:16:29', 0, 0, 3000, '', 267, '6008'),
+(498, 144, '9199406587', 1, '2023-02-06 20:16:45', 0, 0, 4350, '', 268, '6005'),
+(499, 136, '9233407902', 1, '2023-02-06 20:17:12', 0, 0, 4350, '', 254, '6002'),
+(500, 134, '79527691745', 1, '2023-02-06 20:19:07', 0, 0, 4350, '', 251, '6005'),
+(501, 137, '9209073900', 2, '2023-02-06 20:19:15', 0, 0, 3000, '', 258, '6005'),
+(502, 135, '9631112503', 2, '2023-02-06 20:21:54', 0, 0, 1536, '', 283, '6008'),
+(503, 147, '9034986787', 1, '2023-02-06 20:40:17', 0, 0, 960, '', 286, '6009'),
+(504, 119, '9091160004', 2, '2023-02-06 20:43:01', 1056, 0, 4080, '', 225, '6001'),
+(505, 142, '9103420014', 1, '2023-02-06 20:43:13', 0, 0, 4350, '', 267, '6008'),
+(506, 137, '9209073900', 1, '2023-02-06 20:43:38', 0, 0, 4350, '', 258, '6005'),
+(507, 143, '9787138941', 2, '2023-02-06 20:47:46', 0, 0, 2300, '', 266, '6001'),
+(508, 117, '9649733118', 0, '2023-02-06 21:02:07', 0, 0, 1836, '', 222, '6002'),
+(509, 141, '9832018320', 1, '2023-02-06 21:04:47', 11, 0, 4400, '', 262, '6008'),
+(510, 135, '9631112503', 1, '2023-02-06 21:04:55', 0, 0, 4411, '', 288, '6008'),
+(511, 140, '9028582947', 1, '2023-02-06 21:05:41', 0, 0, 2886, '', 261, '6007'),
+(512, 105, '9131839008', 2, '2023-02-06 21:09:28', 0, 0, 21736, '', 214, '6001'),
+(513, 132, '9129258777', 1, '2023-02-06 21:10:05', 0, 0, 4411, '', 252, '6001'),
+(514, 91, '9084992724', 0, '2023-02-06 21:14:40', 10111, 0, 20000, '', 193, '6005'),
+(515, 130, '9504359544', 1, '2023-02-06 21:27:49', 0, 0, 4411, '', 273, '6001'),
+(516, 143, '9787138941', 1, '2023-02-06 21:31:47', 0, 0, 4350, '', 266, '6001'),
+(517, 99, '9307151408', 0, '2023-02-06 21:34:59', 96, 0, 4800, '', 192, '6007'),
+(518, 91, '9084992724', 0, '2023-02-06 23:31:49', 9111, 0, 1000, '', 193, '6005'),
+(519, 119, '9091160004', 0, '2023-02-06 23:52:36', 0, 0, 5136, '', 289, '6001'),
+(520, 125, '9512652091', 0, '2023-02-07 00:04:05', 0, 0, 29112, '', 237, '6003'),
+(521, 109, '9526195169', 0, '2023-02-07 00:21:26', 0, 0, 20200, '', 213, '6007'),
+(522, 146, '9785028506', 0, '2023-02-07 01:51:53', 0, 0, 1536, '', 278, '6005');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tb_newbee_mall_admin_user`
+--
+ALTER TABLE `tb_newbee_mall_admin_user`
+  ADD PRIMARY KEY (`admin_user_id`) USING BTREE;
+
+--
+-- Indexes for table `tb_newbee_mall_admin_user_token`
+--
+ALTER TABLE `tb_newbee_mall_admin_user_token`
+  ADD PRIMARY KEY (`admin_user_id`),
+  ADD UNIQUE KEY `uq_token` (`token`);
+
+--
+-- Indexes for table `tb_newbee_mall_carousel`
+--
+ALTER TABLE `tb_newbee_mall_carousel`
+  ADD PRIMARY KEY (`carousel_id`) USING BTREE;
+
+--
+-- Indexes for table `tb_newbee_mall_goods_category`
+--
+ALTER TABLE `tb_newbee_mall_goods_category`
+  ADD PRIMARY KEY (`category_id`) USING BTREE;
+
+--
+-- Indexes for table `tb_newbee_mall_goods_info`
+--
+ALTER TABLE `tb_newbee_mall_goods_info`
+  ADD PRIMARY KEY (`goods_id`) USING BTREE;
+
+--
+-- Indexes for table `tb_newbee_mall_index_config`
+--
+ALTER TABLE `tb_newbee_mall_index_config`
+  ADD PRIMARY KEY (`config_id`);
+
+--
+-- Indexes for table `tb_newbee_mall_order`
+--
+ALTER TABLE `tb_newbee_mall_order`
+  ADD PRIMARY KEY (`order_id`);
+
+--
+-- Indexes for table `tb_newbee_mall_order_address`
+--
+ALTER TABLE `tb_newbee_mall_order_address`
+  ADD PRIMARY KEY (`order_id`);
+
+--
+-- Indexes for table `tb_newbee_mall_order_item`
+--
+ALTER TABLE `tb_newbee_mall_order_item`
+  ADD PRIMARY KEY (`order_item_id`);
+
+--
+-- Indexes for table `tb_newbee_mall_service`
+--
+ALTER TABLE `tb_newbee_mall_service`
+  ADD PRIMARY KEY (`chat_id`);
+
+--
+-- Indexes for table `tb_newbee_mall_shopping_cart_item`
+--
+ALTER TABLE `tb_newbee_mall_shopping_cart_item`
+  ADD PRIMARY KEY (`cart_item_id`);
+
+--
+-- Indexes for table `tb_newbee_mall_user`
+--
+ALTER TABLE `tb_newbee_mall_user`
+  ADD PRIMARY KEY (`user_id`) USING BTREE;
+
+--
+-- Indexes for table `tb_newbee_mall_user_address`
+--
+ALTER TABLE `tb_newbee_mall_user_address`
+  ADD PRIMARY KEY (`address_id`);
+
+--
+-- Indexes for table `tb_newbee_mall_user_bank`
+--
+ALTER TABLE `tb_newbee_mall_user_bank`
+  ADD PRIMARY KEY (`bank_id`);
+
+--
+-- Indexes for table `tb_newbee_mall_user_token`
+--
+ALTER TABLE `tb_newbee_mall_user_token`
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `uq_token` (`token`);
+
+--
+-- Indexes for table `tb_newbee_mall_user_withdraw`
+--
+ALTER TABLE `tb_newbee_mall_user_withdraw`
+  ADD PRIMARY KEY (`withdraw_id`) USING BTREE;
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tb_newbee_mall_admin_user`
+--
+ALTER TABLE `tb_newbee_mall_admin_user`
+  MODIFY `admin_user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '管理员id',AUTO_INCREMENT=6011;
+--
+-- AUTO_INCREMENT for table `tb_newbee_mall_carousel`
+--
+ALTER TABLE `tb_newbee_mall_carousel`
+  MODIFY `carousel_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '首页轮播图主键id',AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `tb_newbee_mall_goods_category`
+--
+ALTER TABLE `tb_newbee_mall_goods_category`
+  MODIFY `category_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '分类id',AUTO_INCREMENT=47;
+--
+-- AUTO_INCREMENT for table `tb_newbee_mall_goods_info`
+--
+ALTER TABLE `tb_newbee_mall_goods_info`
+  MODIFY `goods_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品表主键id',AUTO_INCREMENT=10105;
+--
+-- AUTO_INCREMENT for table `tb_newbee_mall_index_config`
+--
+ALTER TABLE `tb_newbee_mall_index_config`
+  MODIFY `config_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '首页配置项主键id',AUTO_INCREMENT=36;
+--
+-- AUTO_INCREMENT for table `tb_newbee_mall_order`
+--
+ALTER TABLE `tb_newbee_mall_order`
+  MODIFY `order_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '订单表主键id',AUTO_INCREMENT=535;
+--
+-- AUTO_INCREMENT for table `tb_newbee_mall_order_item`
+--
+ALTER TABLE `tb_newbee_mall_order_item`
+  MODIFY `order_item_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '订单关联购物项主键id',AUTO_INCREMENT=544;
+--
+-- AUTO_INCREMENT for table `tb_newbee_mall_shopping_cart_item`
+--
+ALTER TABLE `tb_newbee_mall_shopping_cart_item`
+  MODIFY `cart_item_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '购物项主键id',AUTO_INCREMENT=704;
+--
+-- AUTO_INCREMENT for table `tb_newbee_mall_user`
+--
+ALTER TABLE `tb_newbee_mall_user`
+  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户主键id',AUTO_INCREMENT=149;
+--
+-- AUTO_INCREMENT for table `tb_newbee_mall_user_address`
+--
+ALTER TABLE `tb_newbee_mall_user_address`
+  MODIFY `address_id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=144;
+--
+-- AUTO_INCREMENT for table `tb_newbee_mall_user_bank`
+--
+ALTER TABLE `tb_newbee_mall_user_bank`
+  MODIFY `bank_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '银行id',AUTO_INCREMENT=290;
+--
+-- AUTO_INCREMENT for table `tb_newbee_mall_user_withdraw`
+--
+ALTER TABLE `tb_newbee_mall_user_withdraw`
+  MODIFY `withdraw_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户主键id。提款编号',AUTO_INCREMENT=523;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
