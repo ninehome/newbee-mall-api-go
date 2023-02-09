@@ -19,7 +19,7 @@ func (m *MallUserAddressService) GetMyAddress(token string) (err error, userAddr
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("Несуществующие пользователи"), userAddress
+		return errors.New("Non-existent users"), userAddress
 	}
 	global.GVA_DB.Where("user_id=? and is_deleted=0", userToken.UserId).Find(&userAddress)
 	return
@@ -30,7 +30,7 @@ func (m *MallUserAddressService) GetMyBankList(token string) (err error, userBan
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("Несуществующие потребители"), userBank
+		return errors.New("Non-existent consumers"), userBank
 	}
 	global.GVA_DB.Where("user_id=? ", userToken.UserId).Find(&userBank)
 	return
@@ -51,7 +51,7 @@ func (m *MallUserAddressService) GetChatList(token string) (err error, userBank 
 func (m *MallUserAddressService) SaveUserBank(token string, req mallReq.BankParam) (err error) {
 	var userToken mall.MallUserToken
 	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
-		return errors.New("Несуществующие пользователи")
+		return errors.New("Non-existent users")
 	}
 	var defaultAddress mall.MallUserBank
 	var newAddress mall.MallUserBank
@@ -89,7 +89,7 @@ func (m *MallUserAddressService) SaveUserBank(token string, req mallReq.BankPara
 func (m *MallUserAddressService) SaveUserAddress(token string, req mallReq.AddAddressParam) (err error) {
 	var userToken mall.MallUserToken
 	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
-		return errors.New("Несуществующие пользователи")
+		return errors.New("Non-existent users")
 	}
 	var defaultAddress mall.MallUserAddress
 	var newAddress mall.MallUserAddress
