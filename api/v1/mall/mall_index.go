@@ -16,22 +16,22 @@ func (m *MallIndexApi) MallIndexInfo(c *gin.Context) {
 	err, _, mallCarouseInfo := mallCarouselService.GetCarouselsForIndex(5)
 	if err != nil {
 		global.GVA_LOG.Error("轮播图获取失败"+err.Error(), zap.Error(err))
-		response.FailWithMessage("Не удалось получить вращающееся изображение", c)
+		response.FailWithMessage("Unable to obtain a rotating image", c)
 	}
 	err, hotGoodses := mallIndexConfigService.GetConfigGoodsForIndex(enum.IndexGoodsHot.Code(), 8)
 	if err != nil {
 		global.GVA_LOG.Error("热销商品获取失败"+err.Error(), zap.Error(err))
-		response.FailWithMessage("Неудача при приобретении горячего продукта", c)
+		response.FailWithMessage("Failure to buy a hot product", c)
 	}
 	err, newGoodses := mallIndexConfigService.GetConfigGoodsForIndex(enum.IndexGoodsNew.Code(), 8)
 	if err != nil {
 		global.GVA_LOG.Error("新品获取失败"+err.Error(), zap.Error(err))
-		response.FailWithMessage("Неудачное приобретение новой продукции", c)
+		response.FailWithMessage("Unsuccessful purchase of new products", c)
 	}
 	err, recommendGoodses := mallIndexConfigService.GetConfigGoodsForIndex(enum.IndexGoodsRecommond.Code(), 16)
 	if err != nil {
 		global.GVA_LOG.Error("推荐商品获取失败"+err.Error(), zap.Error(err))
-		response.FailWithMessage("Не удалось получить рекомендованные продукты", c)
+		response.FailWithMessage("Unable to obtain recommended products", c)
 	}
 	indexResult := make(map[string]interface{})
 	indexResult["carousels"] = mallCarouseInfo

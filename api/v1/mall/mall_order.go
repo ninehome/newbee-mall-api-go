@@ -26,27 +26,27 @@ func (m *MallOrderApi) SaveOrder(c *gin.Context) {
 	priceTotal := 0
 	err, itemsForSave := mallShopCartService.GetCartItemsForSettle(token, saveOrderParam.CartItemIds)
 	if len(itemsForSave) < 1 {
-		response.FailWithMessage("Нет данных:"+err.Error(), c)
+		response.FailWithMessage("No data:"+err.Error(), c)
 	} else {
 		//总价
 		for _, newBeeMallShoppingCartItemVO := range itemsForSave {
 			priceTotal = priceTotal + newBeeMallShoppingCartItemVO.GoodsCount*newBeeMallShoppingCartItemVO.SellingPrice
 		}
 		if priceTotal < 1 {
-			response.FailWithMessage("Ценовые аномалии", c)
+			response.FailWithMessage("Price anomalies", c)
 			return
 		}
 		errAddress, userAddress := mallUserAddressService.GetMallUserDefaultAddress(token) //查询用户收货地址是否存在，不存在的不能支付
 
 		if userAddress == (mall.MallUserAddress{}) {
-			response.FailWithMessage("Не заполнен адрес доставки:"+errAddress.Error(), c)
+			response.FailWithMessage("Delivery address not filled in:"+errAddress.Error(), c)
 			return
 
 		}
 
 		if err, saveOrderResult := mallOrderService.SaveOrder(token, userAddress, itemsForSave); err != nil {
 			global.GVA_LOG.Error("生成订单失败", zap.Error(err)) //写入日志
-			response.FailWithMessage("Не удалось сформировать заказ:"+err.Error(), c)
+			response.FailWithMessage("Unable to generate an order:"+err.Error(), c)
 		} else {
 			response.OkWithData(saveOrderResult, c)
 		}
@@ -59,10 +59,10 @@ func (m *MallOrderApi) PaySuccess(c *gin.Context) {
 	payType, _ := strconv.Atoi(c.Query("payType"))
 	if err := mallOrderService.PaySuccess(orderNo, payType); err != nil {
 		global.GVA_LOG.Error("订单支付失败", zap.Error(err))
-		response.FailWithMessage("Сбой оплаты заказа:"+err.Error(), c)
+		response.FailWithMessage("Order payment failure:"+err.Error(), c)
 		return
 	}
-	response.OkWithMessage("Заказ успешно оплачен", c)
+	response.OkWithMessage("Order successfully paid", c)
 }
 
 func (m *MallOrderApi) FinishOrder(c *gin.Context) {
@@ -70,7 +70,7 @@ func (m *MallOrderApi) FinishOrder(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err := mallOrderService.FinishOrder(token, orderNo); err != nil {
 		global.GVA_LOG.Error("申请回购失败", zap.Error(err))
-		response.FailWithMessage("Невыполненная заявка на выкуп:"+err.Error(), c)
+		response.FailWithMessage("Unfulfilled redemption request:"+err.Error(), c)
 	}
 	response.OkWithMessage("Успешная заявка на выкуп", c)
 
@@ -81,9 +81,9 @@ func (m *MallOrderApi) CancelOrder(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err := mallOrderService.CancelOrder(token, orderNo); err != nil {
 		global.GVA_LOG.Error("订单签收失败", zap.Error(err))
-		response.FailWithMessage("Не удалось расписаться в получении заказа:"+err.Error(), c)
+		response.FailWithMessage("Failed to sign for the order:"+err.Error(), c)
 	}
-	response.OkWithMessage("Заказ успешно подписан", c)
+	response.OkWithMessage("Order successfully signed", c)
 
 }
 func (m *MallOrderApi) OrderDetailPage(c *gin.Context) {
@@ -91,7 +91,7 @@ func (m *MallOrderApi) OrderDetailPage(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err, orderDetail := mallOrderService.GetOrderDetailByOrderNo(token, orderNo); err != nil {
 		global.GVA_LOG.Error("查询订单详情接口", zap.Error(err))
-		response.FailWithMessage("Интерфейс для проверки деталей заказа:"+err.Error(), c)
+		response.FailWithMessage("Interface for checking order details:"+err.Error(), c)
 	} else {
 		response.OkWithData(orderDetail, c)
 	}

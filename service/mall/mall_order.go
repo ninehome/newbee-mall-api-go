@@ -23,7 +23,7 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 	var userInfo mall.MallUser
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("Несуществующие пользователи"), orderNo
+		return errors.New("Non-existent users"), orderNo
 	}
 
 	err = global.GVA_DB.Where("user_id =?", userToken.UserId).First(&userInfo).Error
@@ -204,7 +204,7 @@ func (m *MallOrderService) GetOrderDetailByOrderNo(token string, orderNo string)
 	var userToken mall.MallUserToken
 	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
 	if err != nil {
-		return errors.New("Несуществующие пользователи"), orderDetail
+		return errors.New("Non-existent users"), orderDetail
 	}
 	var mallOrder manage.MallOrder
 	if err = global.GVA_DB.Where("order_no=? and is_deleted = 0", orderNo).First(&mallOrder).Error; err != nil {
