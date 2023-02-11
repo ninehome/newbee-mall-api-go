@@ -72,7 +72,7 @@ func (m *MallOrderApi) FinishOrder(c *gin.Context) {
 		global.GVA_LOG.Error("申请回购失败", zap.Error(err))
 		response.FailWithMessage("Unfulfilled redemption request:"+err.Error(), c)
 	}
-	response.OkWithMessage("Успешная заявка на выкуп", c)
+	response.OkWithMessage("Successful redemption application", c)
 
 }
 
