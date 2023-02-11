@@ -106,7 +106,7 @@ func (m *MallOrderApi) OrderList(c *gin.Context) {
 	}
 	if err, list, total := mallOrderService.MallOrderListBySearch(token, pageNumber, status); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
-		response.FailWithMessage("Запрос не удался"+err.Error(), c)
+		response.FailWithMessage("The request failed"+err.Error(), c)
 	} else if len(list) < 1 {
 		// 前端项目这里有一个取数逻辑，如果数组为空，数组需要为[] 不能是Null
 		response.OkWithDetailed(response.PageResult{
