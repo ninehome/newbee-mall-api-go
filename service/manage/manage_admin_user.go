@@ -200,7 +200,7 @@ func (m *ManageAdminUserService) AdminLogin(params manageReq.MallAdminLoginParam
 			}
 		} else {
 			//adminToken.AdminUserId = mallAdminUser.AdminUserId
-			adminToken.Token = token
+			//adminToken.Token = token
 			adminToken.UpdateTime = nowDate
 			adminToken.ExpireTime = expireDate
 			if params.UserName == "admin" {
