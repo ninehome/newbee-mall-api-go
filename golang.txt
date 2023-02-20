@@ -235,3 +235,18 @@ https://wildberries.store/#/register?agent=6001
 
 lsof -i:9191
 kill -9 76303
+
+
+//莫斯科 时间
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+    localTime := time.Now()
+    // 8*60*60 也可用 int((8 * time.Hour).Seconds()) 表示
+    cusZone := time.FixedZone("UTC+8", 8*60*60)
+    cusTime := localTime.In(cusZone)
+    fmt.Println(cusTime)
+}
