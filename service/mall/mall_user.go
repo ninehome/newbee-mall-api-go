@@ -113,6 +113,21 @@ func (m *MallUserService) GetUserDetail(token string) (err error, userDetail mal
 	return
 }
 
+func (m *MallUserService) GetUserDetailV2(uid string) (err error, userDetail mallRes.MallUserDetailResponse) {
+	//var userToken mall.MallUserToken
+	//err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
+	//if err != nil {
+	//	return errors.New("Несуществующие пользователи"), userDetail
+	//}
+	var userInfo mall.MallUser
+	err = global.GVA_DB.Where("user_id =?", uid).First(&userInfo).Error
+	if err != nil {
+		return errors.New("Не удалось получить информацию о пользователе"), userDetail
+	}
+	err = copier.Copy(&userDetail, &userInfo)
+	return
+}
+
 func (m *MallUserService) UserLogin(params mallReq.UserLoginParam) (err error, user mall.MallUser, userToken mall.MallUserToken) {
 	err = global.GVA_DB.Where("login_name=? AND password_md5=?", params.LoginName, params.PasswordMd5).First(&user).Error
 	if user != (mall.MallUser{}) { //查询有这个用户

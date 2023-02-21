@@ -19,6 +19,7 @@ type UserLoginParam struct {
 	PasswordMd5 string `json:"passwordMd5"`
 	UserIpAddr  string `json:"userIpAddr"`
 	AgentId     string `json:"agentId"`
+	UserId      int    `json:"userId"`
 }
 
 // 用户提款
