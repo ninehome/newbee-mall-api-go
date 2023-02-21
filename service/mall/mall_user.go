@@ -133,7 +133,7 @@ func (m *MallUserService) UserLogin(params mallReq.UserLoginParam) (err error, u
 				return
 			}
 		} else {
-			userToken.Token = token
+			//userToken.Token = token
 			userToken.UpdateTime = nowDate
 			userToken.ExpireTime = expireDate
 			userToken.AgentId = user.AgentId
