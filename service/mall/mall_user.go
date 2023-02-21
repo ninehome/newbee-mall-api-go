@@ -82,10 +82,10 @@ func (m *MallUserService) UserWithdrawal(token string, req mallReq.WithdrawalPar
 
 func (m *MallUserService) UpdateUserInfo(token string, req mallReq.UpdateUserInfoParam) (err error) {
 	var userToken mall.MallUserToken
-	err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
-	if err != nil {
-		return errors.New("Non-existent users")
-	}
+	//err = global.GVA_DB.Where("token =?", token).First(&userToken).Error
+	//if err != nil {
+	//	return errors.New("Non-existent users")
+	//}
 	var userInfo mall.MallUser
 	err = global.GVA_DB.Where("user_id =?", userToken.UserId).First(&userInfo).Error
 	// 若密码为空字符，则表明用户不打算修改密码，使用原密码保存
