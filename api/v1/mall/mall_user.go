@@ -127,6 +127,17 @@ func (m *MallUserApi) UserLogin(c *gin.Context) {
 	}
 }
 
+func (m *MallUserApi) GetUserInfoV2(c *gin.Context) {
+	//token := c.GetHeader("token")
+	userId := c.GetHeader("userId")
+	if err, userDetail := mallUserService.GetUserDetailV2(userId); err != nil {
+		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
+		response.FailWithMessage("Записи не изучались", c)
+	} else {
+		response.OkWithData(userDetail, c)
+	}
+}
+
 func (m *MallUserApi) UserLogout(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err := mallUserTokenService.DeleteMallUserToken(token); err != nil {
