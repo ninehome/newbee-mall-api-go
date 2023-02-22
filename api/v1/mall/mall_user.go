@@ -6,7 +6,6 @@ import (
 	"main.go/global"
 	"main.go/model/common/response"
 	mallReq "main.go/model/mall/request"
-	"main.go/utils"
 	"strconv"
 )
 
@@ -16,10 +15,12 @@ type MallUserApi struct {
 func (m *MallUserApi) UserRegister(c *gin.Context) {
 	var req mallReq.RegisterUserParam
 	_ = c.ShouldBindJSON(&req)
-	if err := utils.Verify(req, utils.MallUserRegisterVerify); err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
+
+	//验证 输入是否合法
+	//if err := utils.Verify(req, utils.MallUserRegisterVerify); err != nil {
+	//	response.FailWithMessage(err.Error(), c)
+	//	return
+	//}
 	if err := mallUserService.RegisterUser(req); err != nil {
 		global.GVA_LOG.Error("创建失败", zap.Error(err))
 		response.FailWithMessage("Не удалось создать:"+err.Error(), c)
