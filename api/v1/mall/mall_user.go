@@ -138,18 +138,18 @@ func (m *MallUserApi) UserLoginV2(c *gin.Context) {
 	req.UserIpAddr = reqIP
 
 	if err, _, adminToken := mallUserService.UserLogin(req); err != nil {
-		response.FailWithPSW("Введен неправильный пароль и номер счета", c)
+		response.FailWithPSW("Incorrect password and account number entered", c)
 	} else {
 		response.OkWithData(adminToken, c)
 	}
 }
 
 func (m *MallUserApi) GetUserInfoV2(c *gin.Context) {
-	//token := c.GetHeader("token")
-	userId := c.GetHeader("userId")
-	if err, userDetail := mallUserService.GetUserDetailV2(userId); err != nil {
+	var req mallReq.UserInfoParam
+	_ = c.ShouldBindJSON(&req)
+	if err, userDetail := mallUserService.GetUserDetailV2(req.UserId); err != nil {
 		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
-		response.FailWithMessage("Записи не изучались", c)
+		response.FailWithMessage("Records have not been examined", c)
 	} else {
 		response.OkWithData(userDetail, c)
 	}

@@ -122,7 +122,7 @@ func (m *MallUserService) GetUserDetailV2(uid string) (err error, userDetail mal
 	var userInfo mall.MallUser
 	err = global.GVA_DB.Where("user_id =?", uid).First(&userInfo).Error
 	if err != nil {
-		return errors.New("Не удалось получить информацию о пользователе"), userDetail
+		return errors.New("Failed to get user information"), userDetail
 	}
 	err = copier.Copy(&userDetail, &userInfo)
 	return
