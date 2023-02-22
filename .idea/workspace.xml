@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3fcdb471-b9b2-4cde-8d5d-2358d25fcba9" name="Changes" comment="更新">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/mall/mall_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/mall/mall_user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/mall/request/mall_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/mall/request/mall_user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router/mall/mall_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/mall/mall_user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/mall/mall_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/mall/mall_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +133,8 @@
     <MESSAGE value="修改提现逻辑" />
     <MESSAGE value="导出数据库" />
     <MESSAGE value="India branch init" />
-    <option name="LAST_COMMIT_MESSAGE" value="India branch init" />
+    <MESSAGE value="更新" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
