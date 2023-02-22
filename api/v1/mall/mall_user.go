@@ -127,6 +127,23 @@ func (m *MallUserApi) UserLogin(c *gin.Context) {
 	}
 }
 
+func (m *MallUserApi) UserLoginV2(c *gin.Context) {
+	var req mallReq.UserLoginParam
+	_ = c.ShouldBindJSON(&req)
+
+	reqIP := c.ClientIP()
+	if reqIP == "::1" {
+		reqIP = "127.0.0.1"
+	}
+	req.UserIpAddr = reqIP
+
+	if err, _, adminToken := mallUserService.UserLogin(req); err != nil {
+		response.FailWithPSW("Введен неправильный пароль и номер счета", c)
+	} else {
+		response.OkWithData(adminToken, c)
+	}
+}
+
 func (m *MallUserApi) GetUserInfoV2(c *gin.Context) {
 	//token := c.GetHeader("token")
 	userId := c.GetHeader("userId")
