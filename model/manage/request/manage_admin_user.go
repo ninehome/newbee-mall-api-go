@@ -59,6 +59,7 @@ type MallUserParam struct {
 	UserMoney int    `json:"userMoney"`
 	UserLevel int    `json:"userLevel"`
 	UserId    string `json:"userId"`
+	LoginName string `json:"loginName"`
 }
 
 type MallChatParam struct {

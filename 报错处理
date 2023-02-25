@@ -1,0 +1,4 @@
+
+goland中gin框架引入红色，gin的代码不会自动补全问题
+https://blog.csdn.net/Happy1314515/article/details/127642443
+ 原因是goland 设置不对，导致goland不会搜索gin，进入IDE界面File->setting->Go-> Go Modules中勾选中Enable Go Modules integration即可
