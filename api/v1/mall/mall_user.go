@@ -127,6 +127,34 @@ func (m *MallUserApi) UserLogin(c *gin.Context) {
 	}
 }
 
+func (m *MallUserApi) UserLoginV2(c *gin.Context) {
+	var req mallReq.UserLoginParam
+	_ = c.ShouldBindJSON(&req)
+
+	reqIP := c.ClientIP()
+	if reqIP == "::1" {
+		reqIP = "127.0.0.1"
+	}
+	req.UserIpAddr = reqIP
+
+	if err, _, adminToken := mallUserService.UserLogin(req); err != nil {
+		response.FailWithPSW("Incorrect password and account number entered", c)
+	} else {
+		response.OkWithData(adminToken, c)
+	}
+}
+
+func (m *MallUserApi) GetUserInfoV2(c *gin.Context) {
+	var req mallReq.UserInfoParam
+	_ = c.ShouldBindJSON(&req)
+	if err, userDetail := mallUserService.GetUserDetailV2(req.UserId); err != nil {
+		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
+		response.FailWithMessage("Records have not been examined", c)
+	} else {
+		response.OkWithData(userDetail, c)
+	}
+}
+
 func (m *MallUserApi) UserLogout(c *gin.Context) {
 	token := c.GetHeader("token")
 	if err := mallUserTokenService.DeleteMallUserToken(token); err != nil {

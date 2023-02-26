@@ -17,23 +17,23 @@ const (
 func GetNewBeeMallOrderStatusEnumByStatus(status int) (int, string) {
 	switch status {
 	case 0:
-		return 0, "Ожидание оплаты" //"待支付"
+		return 0, "Waiting to pay" //"待支付"
 	case 1:
-		return 1, "Выкуп товаров" //"待回购" //(已支付)
+		return 1, "Paid for, awaiting buyback" //"待回购" //(已支付)
 	case 2:
-		return 2, "Выкуп товаров" // "配货完成"
+		return 2, "Distribution is complete" // "配货完成"
 	case 3:
-		return 3, "Выкуп товаров" // "出库成功"
+		return 3, "Product is out of stock" // "出库成功"
 	case 4:
-		return 4, "Запрос на выкуп был подан и ожидает обработки сотрудниками..." // 已经支付,并且确认回购 ,交易完成
+		return 4, "Transaction complete..." // 已经支付,并且确认回购 ,交易完成
 	case 5:
-		return 5, "Завершить сделку" //已经回款
+		return 5, "Already paid back" //已经回款
 	case -1:
-		return -1, "Ручное закрытие" //"手动关闭"
+		return -1, "Manual shutdown" //"手动关闭"
 	case -2:
-		return -2, "Закрытие тайм-аута" //"超时关闭"
+		return -2, "Timeout Shutdown" //"超时关闭"
 	case -3:
-		return -3, "Закрытие торговца" // "商家关闭"
+		return -3, "Closing Merchant" // "商家关闭"
 	default:
 		return -9, "error"
 	}

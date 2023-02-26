@@ -26,3 +26,7 @@ type WithdrawalParam struct {
 	WithdrawMoney int `json:"withdrawMoney"`
 	BankId        int `json:"bankId"`
 }
+
+type UserInfoParam struct {
+	UserId string `json:"userId"`
+}
