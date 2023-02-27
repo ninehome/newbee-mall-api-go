@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93f90206-d453-4f0f-9e4e-9bb471da0e71" name="Changes" comment="更新" />
+    <list default="true" id="b9b8ce7a-dea3-4ab8-a1dc-bce8703a688f" name="Changes" comment="更新">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/golang.txt" beforeDir="false" afterPath="$PROJECT_DIR$/golang.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
