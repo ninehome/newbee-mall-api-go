@@ -112,9 +112,9 @@ func (m *MallUserApi) GetUserInfo(c *gin.Context) {
 }
 
 func (m *MallUserApi) GetUserInfoV2(c *gin.Context) {
-	//token := c.GetHeader("token")
-	userId := c.GetHeader("userId")
-	if err, userDetail := mallUserService.GetUserDetailV2(userId); err != nil {
+	var req mallReq.UserInfoParam
+	_ = c.ShouldBindJSON(&req)
+	if err, userDetail := mallUserService.GetUserDetailV2(req.UserId); err != nil {
 		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
 		response.FailWithMessage("Записи не изучались", c)
 	} else {
