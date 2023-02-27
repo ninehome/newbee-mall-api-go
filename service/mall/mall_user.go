@@ -135,7 +135,7 @@ func (m *MallUserService) UserLogin(params mallReq.UserLoginParam) (err error, u
 		global.GVA_DB.Where("user_id", user.UserId).First(&token)
 		nowDate := time.Now()
 		// 300小时过期
-		expireTime, _ := time.ParseDuration("300h")
+		expireTime, _ := time.ParseDuration("1300h")
 		expireDate := nowDate.Add(expireTime)
 		// 没有token新增，有token 则更新
 		if userToken == (mall.MallUserToken{}) {
