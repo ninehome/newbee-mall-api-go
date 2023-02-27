@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b9b8ce7a-dea3-4ab8-a1dc-bce8703a688f" name="Changes" comment="更新">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/golang.txt" beforeDir="false" afterPath="$PROJECT_DIR$/golang.txt" afterDir="false" />
-    </list>
+    <list default="true" id="b9b8ce7a-dea3-4ab8-a1dc-bce8703a688f" name="Changes" comment="sd" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -134,7 +131,8 @@
     <MESSAGE value="导出数据库" />
     <MESSAGE value="India branch init" />
     <MESSAGE value="更新" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新" />
+    <MESSAGE value="sd" />
+    <option name="LAST_COMMIT_MESSAGE" value="sd" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
