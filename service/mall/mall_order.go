@@ -131,7 +131,7 @@ func (m *MallOrderService) PaySuccess(orderNo string, payType int) (err error) {
 	err = global.GVA_DB.Where("order_no = ? and is_deleted=0 ", orderNo).First(&mallOrder).Error
 
 	if mallOrder != (manage.MallOrder{}) {
-		errors.New("Failure in order formation！")
+		errors.New("Order production failed, please buy again！")
 	}
 
 	//查出用户的钱
@@ -146,7 +146,7 @@ func (m *MallOrderService) PaySuccess(orderNo string, payType int) (err error) {
 	if userBalance >= 0 {
 		global.GVA_DB.Model(&userInfo).Update("user_money", userBalance)
 	} else {
-		return errors.New("Failed to execute order user request！")
+		return errors.New("Insufficient balance, please recharge！")
 	}
 
 	loc, _ := time.LoadLocation("Asia/Kolkata")
