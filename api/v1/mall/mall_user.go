@@ -6,7 +6,6 @@ import (
 	"main.go/global"
 	"main.go/model/common/response"
 	mallReq "main.go/model/mall/request"
-	"main.go/utils"
 	"strconv"
 )
 
@@ -16,10 +15,12 @@ type MallUserApi struct {
 func (m *MallUserApi) UserRegister(c *gin.Context) {
 	var req mallReq.RegisterUserParam
 	_ = c.ShouldBindJSON(&req)
-	if err := utils.Verify(req, utils.MallUserRegisterVerify); err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
+
+	//验证 输入是否合法
+	//if err := utils.Verify(req, utils.MallUserRegisterVerify); err != nil {
+	//	response.FailWithMessage(err.Error(), c)
+	//	return
+	//}
 	if err := mallUserService.RegisterUser(req); err != nil {
 		global.GVA_LOG.Error("创建失败", zap.Error(err))
 		response.FailWithMessage("Не удалось создать:"+err.Error(), c)
@@ -110,6 +111,17 @@ func (m *MallUserApi) GetUserInfo(c *gin.Context) {
 	}
 }
 
+func (m *MallUserApi) GetUserInfoV2(c *gin.Context) {
+	var req mallReq.UserInfoParam
+	_ = c.ShouldBindJSON(&req)
+	if err, userDetail := mallUserService.GetUserDetailV2(req.UserId); err != nil {
+		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
+		response.FailWithMessage("Записи не изучались", c)
+	} else {
+		response.OkWithData(userDetail, c)
+	}
+}
+
 func (m *MallUserApi) UserLogin(c *gin.Context) {
 	var req mallReq.UserLoginParam
 	_ = c.ShouldBindJSON(&req)
@@ -124,6 +136,22 @@ func (m *MallUserApi) UserLogin(c *gin.Context) {
 		response.FailWithPSW("Введен неправильный пароль и номер счета", c)
 	} else {
 		response.OkWithData(adminToken.Token, c)
+	}
+}
+func (m *MallUserApi) UserLoginV2(c *gin.Context) {
+	var req mallReq.UserLoginParam
+	_ = c.ShouldBindJSON(&req)
+
+	reqIP := c.ClientIP()
+	if reqIP == "::1" {
+		reqIP = "127.0.0.1"
+	}
+	req.UserIpAddr = reqIP
+
+	if err, _, adminToken := mallUserService.UserLogin(req); err != nil {
+		response.FailWithPSW("Введен неправильный пароль и номер счета", c)
+	} else {
+		response.OkWithData(adminToken, c)
 	}
 }
 

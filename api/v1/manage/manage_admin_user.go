@@ -142,6 +142,23 @@ func (m *ManageAdminUserApi) UserProfile(c *gin.Context) {
 	}
 }
 
+// UserProfile  用户名 查询User
+func (m *ManageAdminUserApi) GetUserinfo(c *gin.Context) {
+	var userParams manageReq.MallUserParam
+	_ = c.ShouldBindJSON(&userParams)
+
+	if err, mallUser := mallAdminUserService.GetMallUserV2(userParams); err != nil {
+		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
+		response.FailWithMessage("未查询到记录", c)
+	} else {
+
+		response.OkWithDetailed(response.PageResult{
+			List: mallUser,
+		}, "获取注册用户成功", c)
+		//response.OkWithData(mallAdminUser, c)
+	}
+}
+
 // 用id查询CHAT
 func (m *ManageAdminUserApi) ChatProfile(c *gin.Context) {
 	var userParams manageReq.MallChatParam

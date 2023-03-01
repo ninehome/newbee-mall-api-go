@@ -234,6 +234,8 @@ func (m *ManageOrderService) GetMallOrderInfoListV2(info request.PageInfo, order
 	if err != nil {
 		return
 	}
+
+	limit = 1000
 	if adminUserToken.AgentId == "8888" { //8888是最高管理权限
 		err = db.Limit(limit).Offset(offset).Order("update_time desc").Find(&mallOrders).Error
 	} else {
@@ -241,28 +243,93 @@ func (m *ManageOrderService) GetMallOrderInfoListV2(info request.PageInfo, order
 	}
 
 	//获取订单详情
-
+	var OrderS []manageRes.NewBeeMallOrderDetailVO
 	for _, value := range mallOrders {
+
 		var orderItems []manage.MallOrderItem
+		var newBeeMallOrderDetailVO manageRes.NewBeeMallOrderDetailVO
 		if err = global.GVA_DB.Where("order_id = ?", value.OrderId).Find(&orderItems).Error; err != nil {
 			return
 		}
 		//获取订单项数据
-		//if len(orderItems) > 0 {
-		//	var newBeeMallOrderItemVOS []manageRes.NewBeeMallOrderItemVO
-		//	copier.Copy(&newBeeMallOrderItemVOS, &orderItems)
-		//	copier.Copy(&newBeeMallOrderDetailVO, &value)
-		//
-		//	_, OrderStatusStr := enum.GetNewBeeMallOrderStatusEnumByStatus(newBeeMallOrderDetailVO.OrderStatus)
-		//	_, payTapStr := enum.GetNewBeeMallOrderStatusEnumByStatus(newBeeMallOrderDetailVO.PayType)
-		//	newBeeMallOrderDetailVO.OrderStatusString = OrderStatusStr
-		//	newBeeMallOrderDetailVO.PayTypeString = payTapStr
-		//	newBeeMallOrderDetailVO.NewBeeMallOrderItemVOS = newBeeMallOrderItemVOS
-		//}
+		if len(orderItems) > 0 {
+			var newBeeMallOrderItemVOS []manageRes.NewBeeMallOrderItemVO
+			copier.Copy(&newBeeMallOrderItemVOS, &orderItems)
+			copier.Copy(&newBeeMallOrderDetailVO, &value)
+
+			_, OrderStatusStr := enum.GetNewBeeMallOrderStatusEnumByStatus(newBeeMallOrderDetailVO.OrderStatus)
+			_, payTapStr := enum.GetNewBeeMallOrderStatusEnumByStatus(newBeeMallOrderDetailVO.PayType)
+			newBeeMallOrderDetailVO.OrderStatusString = OrderStatusStr
+			newBeeMallOrderDetailVO.PayTypeString = payTapStr
+			newBeeMallOrderDetailVO.NewBeeMallOrderItemVOS = newBeeMallOrderItemVOS
+
+			OrderS = append(OrderS, newBeeMallOrderDetailVO)
+		}
 
 	}
 
-	return err, mallOrders, total
+	return err, OrderS, total
+}
+
+// 获取订单记录 v2-包括订单详情信息
+func (m *ManageOrderService) GetMallOrderInfoListV3(info request.PageInfo, orderNo string, orderStatus string, token string) (err error, list interface{}, total int64) {
+	var adminUserToken manage.MallAdminUserToken
+	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
+	if err != nil {
+		return errors.New("不存在的token  " + err.Error()), list, total
+	}
+	limit := info.PageSize
+	offset := info.PageSize * (info.PageNumber - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&manage.MallOrder{})
+	if orderNo != "" {
+		db.Where("order_no", orderNo)
+	}
+	// 0.待支付 1.已支付 2.配货完成 3:出库成功 4.交易成功(申请回购，) 5.回购完成(已经退款) -1.手动关闭 -2.超时关闭 -3.商家关闭
+	if orderStatus != "" {
+		status, _ := strconv.Atoi(orderStatus)
+		db.Where("order_status", status)
+	}
+
+	var mallOrders []manage.MallOrder
+	// 如果有条件搜索 下方会自动创建搜索语句
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+	if adminUserToken.AgentId == "8888" { //8888是最高管理权限
+		err = db.Limit(limit).Offset(offset).Order("update_time desc").Find(&mallOrders).Error
+	} else {
+		err = db.Limit(limit).Offset(offset).Where("agent_id", adminUserToken.AgentId).Order("update_time desc").Find(&mallOrders).Error
+	}
+
+	//获取订单详情
+	var OrderS []manageRes.NewBeeMallOrderDetailVO
+	for _, value := range mallOrders {
+
+		var orderItems []manage.MallOrderItem
+		var newBeeMallOrderDetailVO manageRes.NewBeeMallOrderDetailVO
+		if err = global.GVA_DB.Where("order_id = ?", value.OrderId).Find(&orderItems).Error; err != nil {
+			return
+		}
+		//获取订单项数据
+		if len(orderItems) > 0 {
+			var newBeeMallOrderItemVOS []manageRes.NewBeeMallOrderItemVO
+			copier.Copy(&newBeeMallOrderItemVOS, &orderItems)
+			copier.Copy(&newBeeMallOrderDetailVO, &value)
+
+			_, OrderStatusStr := enum.GetNewBeeMallOrderStatusEnumByStatus(newBeeMallOrderDetailVO.OrderStatus)
+			_, payTapStr := enum.GetNewBeeMallOrderStatusEnumByStatus(newBeeMallOrderDetailVO.PayType)
+			newBeeMallOrderDetailVO.OrderStatusString = OrderStatusStr
+			newBeeMallOrderDetailVO.PayTypeString = payTapStr
+			newBeeMallOrderDetailVO.NewBeeMallOrderItemVOS = newBeeMallOrderItemVOS
+
+			OrderS = append(OrderS, newBeeMallOrderDetailVO)
+		}
+
+	}
+
+	return err, OrderS, total
 }
 
 // 获取回购记录
@@ -290,6 +357,8 @@ func (m *ManageOrderService) GetMallOrderBuyBackList(info request.PageInfo, orde
 	if err != nil {
 		return
 	}
+
+	limit = 2000
 
 	if adminUserToken.AgentId == "8888" { //8888是最高管理权限
 		err = db.Limit(limit).Offset(offset).Order("update_time desc").Find(&mallOrders).Error

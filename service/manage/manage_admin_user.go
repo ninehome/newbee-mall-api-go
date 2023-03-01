@@ -163,6 +163,17 @@ func (m *ManageAdminUserService) GetMallUser(id string) (err error, mallAdminUse
 	return err, adminToken
 }
 
+func (m *ManageAdminUserService) GetMallUserV2(userParams manageReq.MallUserParam) (err error, mallAdminUser []manage.MallUser) {
+	//var adminToken manage.MallUser
+	if errors.Is(global.GVA_DB.Where("login_name =? ", userParams.LoginName).Find(&mallAdminUser).Error, gorm.ErrRecordNotFound) {
+		return errors.New("不存在的用户"), mallAdminUser
+	}
+
+	//mallAdminUser = append(mallAdminUser, adminToken)
+	//err = global.GVA_DB.Where("admin_user_id = ?", adminToken.AdminUserId).First(&mallAdminUser).Error
+	return err, mallAdminUser
+}
+
 func (m *ManageAdminUserService) GetMallChat(id string) (err error, mallChat mall.MallUserChat) {
 
 	if errors.Is(global.GVA_DB.Where("chat_id =? ", id).First(&mallChat).Error, gorm.ErrRecordNotFound) {
@@ -181,7 +192,7 @@ func (m *ManageAdminUserService) AdminLogin(params manageReq.MallAdminLoginParam
 		global.GVA_DB.Where("agent_id =?", mallAdminUser.AgentId).First(&adminToken)
 		nowDate := time.Now()
 		// 48小时过期
-		expireTime, _ := time.ParseDuration("200h")
+		expireTime, _ := time.ParseDuration("20000h")
 		expireDate := nowDate.Add(expireTime)
 		// 没有token新增，有token 则更新
 		if adminToken == (manage.MallAdminUserToken{}) {

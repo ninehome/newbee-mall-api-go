@@ -131,3 +131,26 @@ func (m *ManageGoodsInfoService) GetMallGoodsInfoInfoList(info manageReq.MallGoo
 	err = db.Limit(limit).Offset(offset).Order("goods_id desc").Find(&mallGoodsInfos).Error
 	return err, mallGoodsInfos, total
 }
+
+func (m *ManageGoodsInfoService) GetMallGoodsInfoInfoListOrder(info manageReq.MallGoodsInfoSearch, goodsName string, goodsSellStatus string) (err error, list interface{}, total int64) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.PageNumber - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&manage.MallGoodsInfo{})
+	var mallGoodsInfos []manage.MallGoodsInfo
+	// 如果有条件搜索 下方会自动创建搜索语句
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+	if goodsName != "" {
+		db.Where("goods_name =?", goodsName)
+	}
+	if goodsSellStatus != "" {
+		db.Where("goods_sell_status =?", goodsSellStatus)
+	}
+	//err = db.Limit(limit).Offset(offset).Order("goods_id desc").Find(&mallGoodsInfos).Error
+
+	err = db.Limit(limit).Offset(offset).Order(" selling_price ").Find(&mallGoodsInfos).Error
+	return err, mallGoodsInfos, total
+}

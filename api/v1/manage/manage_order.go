@@ -116,13 +116,7 @@ func (m *ManageOrderApi) GetMallBuyBackListV2(c *gin.Context) {
 	var pageInfo request.PageInfo
 	_ = c.ShouldBindQuery(&pageInfo)
 	userToken := c.GetHeader("token")
-	//orderNo := c.Query("orderNo")
-	//orderStatus := c.Query("orderStatus")
-	//fmt.Println(111111111111111111)
-	//fmt.Println(pageInfo.PageNumber)
-	//fmt.Println(pageInfo.OrderStatus)
-	//fmt.Println(22222222222222222)
-	if err, list, total := mallOrderService.GetMallOrderBuyBackList(pageInfo, pageInfo.OrderNo, pageInfo.OrderStatus, userToken); err != nil {
+	if err, list, total := mallOrderService.GetMallOrderInfoListV2(pageInfo, pageInfo.OrderNo, pageInfo.OrderStatus, userToken); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

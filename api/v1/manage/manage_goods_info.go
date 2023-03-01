@@ -85,13 +85,32 @@ func (m *ManageGoodsInfoApi) FindGoodsInfo(c *gin.Context) {
 
 }
 
-// GetMallGoodsInfoList 分页获取MallGoodsInfo列表
+// 商品列表按 id 排序
 func (m *ManageGoodsInfoApi) GetGoodsInfoList(c *gin.Context) {
 	var pageInfo manageReq.MallGoodsInfoSearch
 	_ = c.ShouldBindQuery(&pageInfo)
 	goodsName := c.Query("goodsName")
 	goodsSellStatus := c.Query("goodsSellStatus")
 	if err, list, total := mallGoodsInfoService.GetMallGoodsInfoInfoList(pageInfo, goodsName, goodsSellStatus); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败"+err.Error(), c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:       list,
+			TotalCount: total,
+			CurrPage:   pageInfo.PageNumber,
+			PageSize:   pageInfo.PageSize,
+		}, "获取成功", c)
+	}
+}
+
+// 价格排序
+func (m *ManageGoodsInfoApi) GetGoodsInfoListV2(c *gin.Context) {
+	var pageInfo manageReq.MallGoodsInfoSearch
+	_ = c.ShouldBindQuery(&pageInfo)
+	goodsName := c.Query("goodsName")
+	goodsSellStatus := c.Query("goodsSellStatus")
+	if err, list, total := mallGoodsInfoService.GetMallGoodsInfoInfoListOrder(pageInfo, goodsName, goodsSellStatus); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败"+err.Error(), c)
 	} else {
