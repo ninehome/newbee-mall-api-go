@@ -9,12 +9,15 @@ import (
 	"main.go/initialize"
 	"os"
 	"strconv"
+	"sync"
 )
+
+var a int
+var once sync.Once
 
 func main() {
 
 	//initPhoneNumber(1234567, 2)
-
 	global.GVA_VP = core.Viper()      // 初始化Viper
 	global.GVA_LOG = core.Zap()       // 初始化zap日志库
 	global.GVA_DB = initialize.Gorm() // gorm连接数据库
@@ -23,8 +26,6 @@ func main() {
 	//测试git更新
 
 }
-
-//http://wa.me/9241234567
 
 func readTXT() {
 	//打开文件

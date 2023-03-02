@@ -6,7 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="b9b8ce7a-dea3-4ab8-a1dc-bce8703a688f" name="Changes" comment="更新">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/golang.txt" beforeDir="false" afterPath="$PROJECT_DIR$/golang.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/mall/mall_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/mall/mall_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main-linux" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/router/mall/mall_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/mall/mall_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/mall/mall_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/mall/mall_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/数据资源.txt" beforeDir="false" afterPath="$PROJECT_DIR$/数据资源.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +25,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../../Program Files/Go" />
+  <component name="GOROOT" url="file:///usr/local/go" />
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -64,13 +69,14 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/wwwe/Desktop/shopmall/go/model/mall&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/laser/Work/go_mall/newbee-mall-api-go&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;go&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -81,26 +87,54 @@
       <recent name="C:\Users\wwwe\Desktop\shopmall\go\static-files\goodimgs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="C:\Users\wwwe\Desktop\shopmall\go" />
       <recent name="C:\Users\wwwe\Desktop\shopmall\go\static-files" />
       <recent name="C:\Users\wwwe\Desktop\shopmall\go\static-files\h5" />
       <recent name="C:\Users\wwwe\Desktop\shopmall\go\static-files\img" />
-      <recent name="C:\Users\wwwe\Desktop\shopmall\go\router\mall" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="go" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
       <package value="main.go" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
-      <output_directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
+      <module name="go" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="go" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
       <method v="2" />
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b9b8ce7a-dea3-4ab8-a1dc-bce8703a688f" name="Changes" comment="更新" />
+      <created>1677723934751</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1677723934751</updated>
+      <workItem from="1677723935971" duration="16000" />
+    </task>
+    <servers />
+  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>

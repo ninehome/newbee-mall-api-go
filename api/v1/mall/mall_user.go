@@ -7,10 +7,13 @@ import (
 	"main.go/model/common/response"
 	mallReq "main.go/model/mall/request"
 	"strconv"
+	"sync"
 )
 
 type MallUserApi struct {
 }
+
+var once sync.Once
 
 func (m *MallUserApi) UserRegister(c *gin.Context) {
 	var req mallReq.RegisterUserParam
@@ -21,11 +24,21 @@ func (m *MallUserApi) UserRegister(c *gin.Context) {
 	//	response.FailWithMessage(err.Error(), c)
 	//	return
 	//}
+
+	//once.Do(func() {
+	//	if err := mallUserService.RegisterUser(req); err != nil {
+	//		global.GVA_LOG.Error("创建失败", zap.Error(err))
+	//		response.FailWithMessage("Не удалось создать:"+err.Error(), c)
+	//		return
+	//	}
+	//})
+
 	if err := mallUserService.RegisterUser(req); err != nil {
 		global.GVA_LOG.Error("创建失败", zap.Error(err))
 		response.FailWithMessage("Не удалось создать:"+err.Error(), c)
 		return
 	}
+
 	response.OkWithMessage("Создано успешно", c)
 }
 
@@ -116,7 +129,7 @@ func (m *MallUserApi) GetUserInfoV2(c *gin.Context) {
 	_ = c.ShouldBindJSON(&req)
 	if err, userDetail := mallUserService.GetUserDetailV2(req.UserId); err != nil {
 		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
-		response.FailWithMessage("Записи не изучались", c)
+		response.FailWithMessage("Записи не изучались122", c)
 	} else {
 		response.OkWithData(userDetail, c)
 	}

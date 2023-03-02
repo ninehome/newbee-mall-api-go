@@ -23,7 +23,6 @@ func (m *MallUserService) RegisterUser(req mallReq.RegisterUserParam) (err error
 	if !errors.Is(global.GVA_DB.Where("login_name =?", req.LoginName).First(&mall.MallUser{}).Error, gorm.ErrRecordNotFound) {
 		return errors.New("Этот номер уже зарегистрирован, пожалуйста, измените его")
 	}
-
 	return global.GVA_DB.Create(&mall.MallUser{
 		LoginName:     req.LoginName,
 		PasswordMd5:   utils.MD5V([]byte(req.Password)),
