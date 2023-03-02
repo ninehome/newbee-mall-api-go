@@ -2,6 +2,7 @@ package mall
 
 import (
 	"errors"
+	"fmt"
 	"github.com/jinzhu/copier"
 	"main.go/global"
 	"main.go/model/common"
@@ -87,8 +88,14 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 			if priceTotal < 1 {
 				return errors.New("priceTotal < 1 ！"), orderNo
 			}
-			newBeeMallOrder.CreateTime = common.JSONTime{Time: time.Now()}
-			newBeeMallOrder.UpdateTime = common.JSONTime{Time: time.Now()}
+
+			//印度实际
+			loc, _ := time.LoadLocation("Asia/Kolkata")
+			now := time.Now().In(loc)
+			fmt.Println("Location : ", loc, " Time : ", now)
+
+			newBeeMallOrder.CreateTime = common.JSONTime{Time: now}
+			newBeeMallOrder.UpdateTime = common.JSONTime{Time: now}
 			newBeeMallOrder.TotalPrice = priceTotal
 			newBeeMallOrder.ExtraInfo = ""
 			//生成订单项并保存订单项纪录
@@ -105,7 +112,7 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 				var newBeeMallOrderItem manage.MallOrderItem
 				copier.Copy(&newBeeMallOrderItem, &newBeeMallShoppingCartItemVO)
 				newBeeMallOrderItem.OrderId = newBeeMallOrder.OrderId
-				newBeeMallOrderItem.CreateTime = common.JSONTime{Time: time.Now()}
+				newBeeMallOrderItem.CreateTime = common.JSONTime{Time: now}
 				newBeeMallOrderItems = append(newBeeMallOrderItems, newBeeMallOrderItem)
 			}
 			if err = global.GVA_DB.Save(&newBeeMallOrderItems).Error; err != nil {
@@ -124,7 +131,7 @@ func (m *MallOrderService) PaySuccess(orderNo string, payType int) (err error) {
 	err = global.GVA_DB.Where("order_no = ? and is_deleted=0 ", orderNo).First(&mallOrder).Error
 
 	if mallOrder != (manage.MallOrder{}) {
-		errors.New("Failure in order formation！")
+		errors.New("Order production failed, please buy again！")
 	}
 
 	//查出用户的钱
@@ -139,16 +146,20 @@ func (m *MallOrderService) PaySuccess(orderNo string, payType int) (err error) {
 	if userBalance >= 0 {
 		global.GVA_DB.Model(&userInfo).Update("user_money", userBalance)
 	} else {
-		return errors.New("Failed to execute order user request！")
+		return errors.New("Insufficient balance, please recharge！")
 	}
+
+	loc, _ := time.LoadLocation("Asia/Kolkata")
+	now := time.Now().In(loc)
+	fmt.Println("Location : ", loc, " Time : ", now)
 
 	mallOrder.OrderStatus = enum.ORDER_PAID.Code()
 	mallOrder.PayType = payType
 	mallOrder.PayStatus = 1
 	mallOrder.AgentId = userInfo.AgentId
 	mallOrder.UserName = userInfo.LoginName
-	mallOrder.PayTime = common.JSONTime{time.Now()}
-	mallOrder.UpdateTime = common.JSONTime{time.Now()}
+	mallOrder.PayTime = common.JSONTime{now}
+	mallOrder.UpdateTime = common.JSONTime{now}
 	err = global.GVA_DB.Save(&mallOrder).Error
 
 	return
@@ -169,7 +180,11 @@ func (m *MallOrderService) FinishOrder(token string, orderNo string) (err error)
 		return errors.New("Disable this operation！")
 	}
 	mallOrder.OrderStatus = enum.ORDER_SUCCESS.Code()
-	mallOrder.UpdateTime = common.JSONTime{time.Now()}
+	loc, _ := time.LoadLocation("Asia/Kolkata")
+	now := time.Now().In(loc)
+	fmt.Println("Location : ", loc, " Time : ", now)
+
+	mallOrder.UpdateTime = common.JSONTime{now}
 	err = global.GVA_DB.Save(&mallOrder).Error
 	return
 }

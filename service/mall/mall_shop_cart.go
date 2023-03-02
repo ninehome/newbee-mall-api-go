@@ -80,12 +80,16 @@ func (m *MallShopCartService) SaveMallCartItem(token string, req mallReq.SaveCar
 		return errors.New("Exceeds the maximum capacity of a shopping cart！")
 	}
 	var shopCartItem mall.MallShoppingCartItem
+
+	loc, _ := time.LoadLocation("Asia/Kolkata")
+	now := time.Now().In(loc)
+
 	if err = copier.Copy(&shopCartItem, &req); err != nil {
 		return err
 	}
 	shopCartItem.UserId = userToken.UserId
-	shopCartItem.CreateTime = common.JSONTime{Time: time.Now()}
-	shopCartItem.UpdateTime = common.JSONTime{Time: time.Now()}
+	shopCartItem.CreateTime = common.JSONTime{Time: now}
+	shopCartItem.UpdateTime = common.JSONTime{Time: now}
 	err = global.GVA_DB.Save(&shopCartItem).Error
 	return
 }
@@ -108,7 +112,12 @@ func (m *MallShopCartService) UpdateMallCartItem(token string, req mallReq.Updat
 		return errors.New("Disable this operation！")
 	}
 	shopCartItem.GoodsCount = req.GoodsCount
-	shopCartItem.UpdateTime = common.JSONTime{time.Now()}
+
+	loc, _ := time.LoadLocation("Asia/Kolkata")
+	now := time.Now().In(loc)
+	fmt.Println("Location : ", loc, " Time : ", now)
+
+	shopCartItem.UpdateTime = common.JSONTime{Time: now}
 	err = global.GVA_DB.Save(&shopCartItem).Error
 	return
 }
