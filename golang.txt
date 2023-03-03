@@ -229,6 +229,9 @@ https://ebaybuy.top/user.php?mod=do&act=register&tguser=235
 //免费云存储
 https://www.websiterating.com/zh-CN/cloud-storage/best-free-cloud-storage/
 
+mac 显示隐藏文件
+1.打开「访达」对应文件夹。
+2.同时按下键盘三个按键 “Shift+Command+(.)”，即可显示隐藏文件。
 
 //云存储管理软件
 https://github.com/willnewii/qiniuClient
