@@ -56,7 +56,8 @@ func UserJWTAuth() gin.HandlerFunc {
 			return
 		}
 		if time.Now().After(mallUserToken.ExpireTime) {
-			response.FailWithDetailed(nil, "授权已过期", c)
+			//response.FailWithDetailed(nil, "授权已过期", c)
+			response.UnLogin(nil, c)
 			err = mallUserTokenService.DeleteMallUserToken(token)
 			if err != nil {
 				return

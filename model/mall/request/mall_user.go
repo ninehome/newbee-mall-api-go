@@ -19,10 +19,15 @@ type UserLoginParam struct {
 	PasswordMd5 string `json:"passwordMd5"`
 	UserIpAddr  string `json:"userIpAddr"`
 	AgentId     string `json:"agentId"`
+	UserId      int    `json:"userId"`
 }
 
 // 用户提款
 type WithdrawalParam struct {
 	WithdrawMoney int `json:"withdrawMoney"`
 	BankId        int `json:"bankId"`
+}
+
+type UserInfoParam struct {
+	UserId string `json:"userId"`
 }

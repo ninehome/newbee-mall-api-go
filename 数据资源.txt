@@ -1,27 +1,8 @@
-@kj668668
-
-全球数据
-
-@duo677
-
 
 
 //号码检测
 http://guoji.konghao.net.cn/index.html
 
-//网页检测 WS
-https://watools.io/check-numbers
-
-//数据检测是否有WS  API
-https://www.nxcloud.com/document/whats-app/get-phone
-
-
-ws 协议 筛号检测
-
-https://www.jianshu.com/p/637ddadc185f
-
-数字星球
-https://xingqiu.pro/detail-32.shtml
 
 
 
@@ -30,17 +11,3 @@ https://xingqiu.pro/detail-32.shtml
 
 
 
-
-
-WS 机器人
-https://github.com/adiwajshing/Baileys
-脚本 使用 WS 发送消息给whatsapp用户-
-//海洋数据
-@w12325
-
-//俄罗斯 号段
-<a>MTS: 910-19, 980-988</a>
-
-<a>MegaFon: 920-931, 937</a>
-
-<a>BeeLine: 903, 905, 906, 909,  960 ,961 ,962, 963, 964  </a>
