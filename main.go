@@ -2,8 +2,10 @@ package main
 
 import (
 	"bufio"
+	"encoding/csv"
 	"fmt"
 	"io"
+	"log"
 	"main.go/core"
 	"main.go/global"
 	"main.go/initialize"
@@ -17,6 +19,8 @@ var once sync.Once
 
 func main() {
 
+	readCsv()
+
 	//initPhoneNumber(1234567, 2)
 	global.GVA_VP = core.Viper()      // 初始化Viper
 	global.GVA_LOG = core.Zap()       // 初始化zap日志库
@@ -24,6 +28,58 @@ func main() {
 	core.RunWindowsServer()           //设置路由,启动端口监听
 
 	//测试git更新
+
+}
+
+func readCsv() {
+
+	//创建一个新文件，写入内容
+	filePath := "./5000.txt"
+	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Printf("打开文件错误= %v \n", err)
+		return
+	}
+	//及时关闭
+	defer file.Close()
+
+	// Open the file
+	csvfile, err := os.Open("rudata.csv")
+	if err != nil {
+		log.Fatalln("Couldn't open the csv file", err)
+	}
+	defer csvfile.Close()
+	//写入时，使用带缓存的 *Writer
+	writer := bufio.NewWriter(file)
+	// Parse the file
+	r := csv.NewReader(csvfile)
+
+	// Iterate through the records
+	for {
+		// Read each record from csv
+		record, err := r.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		//fmt.Printf("Record has %d columns.\n", len(record))
+		//city, _ := iconv.ConvertString(record[2], "gb2312", "utf-8")
+
+		if record[3] == "女" {
+			fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
+
+			writer.WriteString(record[0] + "\n")
+
+		}
+
+	}
+
+	//因为 writer 是带缓存的，因此在调用 WriterString 方法时，内容是先写入缓存的
+	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
+	writer.Flush()
 
 }
 
