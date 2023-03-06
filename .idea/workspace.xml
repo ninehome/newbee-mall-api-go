@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5477dd5-1a35-415a-8b96-0fb02bcfb419" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/rudata.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/go.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="c5477dd5-1a35-415a-8b96-0fb02bcfb419" name="Changes" comment="资源处理">
+      <change afterPath="$PROJECT_DIR$/2w-发送到-筛性别年龄(全部数据)-2023_3_6.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/数据资源.txt" beforeDir="false" afterPath="$PROJECT_DIR$/数据资源.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +77,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="资源处理" />
+    <option name="LAST_COMMIT_MESSAGE" value="资源处理" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

@@ -20,6 +20,7 @@ var once sync.Once
 func main() {
 
 	readCsv()
+	//readTXT2w()
 
 	//initPhoneNumber(1234567, 2)
 	global.GVA_VP = core.Viper()      // 初始化Viper
@@ -34,7 +35,7 @@ func main() {
 func readCsv() {
 
 	//创建一个新文件，写入内容
-	filePath := "./5000.txt"
+	filePath := "./ws3000.txt"
 	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Printf("打开文件错误= %v \n", err)
@@ -44,7 +45,7 @@ func readCsv() {
 	defer file.Close()
 
 	// Open the file
-	csvfile, err := os.Open("rudata.csv")
+	csvfile, err := os.Open("2w-发送到-筛性别年龄(全部数据)-2023_3_6.csv")
 	if err != nil {
 		log.Fatalln("Couldn't open the csv file", err)
 	}
@@ -103,6 +104,47 @@ func readTXT() {
 	fmt.Println("文件读取结束...")
 }
 
+func readTXT2w() {
+	//打开文件
+	file, err := os.Open("./俄罗斯20w.txt")
+	if err != nil {
+		fmt.Println("文件打开失败 = ", err)
+	}
+	//及时关闭 file 句柄，否则会有内存泄漏
+	defer file.Close()
+	//创建一个 *Reader ， 是带缓冲的
+	reader := bufio.NewReader(file)
+	var name = 0
+	filePath := "./output.txt"
+	files, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+	//写入内容
+	//写入时，使用带缓存的 *Writer
+	writer := bufio.NewWriter(files)
+	if err != nil {
+		fmt.Printf("打开文件错误= %v \n", err)
+		return
+	}
+	//及时关闭
+	defer file.Close()
+	for {
+		if name == 20000 {
+			break
+		}
+		str, err := reader.ReadString('\n') //读到一个换行就结束
+		if err == io.EOF {                  //io.EOF 表示文件的末尾
+			break
+		}
+
+		writer.WriteString(str)
+
+		name++
+	}
+	//因为 writer 是带缓存的，因此在调用 WriterString 方法时，内容是先写入缓存的
+	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
+	writer.Flush()
+	fmt.Println("文件读取结束...")
+}
+
 func writerTxt() {
 	//创建一个新文件，写入内容
 	filePath := "./output.txt"
@@ -120,6 +162,28 @@ func writerTxt() {
 	for i := 0; i < 3; i++ {
 		writer.WriteString(str)
 	}
+	//因为 writer 是带缓存的，因此在调用 WriterString 方法时，内容是先写入缓存的
+	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
+	writer.Flush()
+
+}
+
+func writerTxtOneLine(str string) {
+	//创建一个新文件，写入内容
+	filePath := "./output.txt"
+	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Printf("打开文件错误= %v \n", err)
+		return
+	}
+	//及时关闭
+	defer file.Close()
+	//写入内容
+	//写入时，使用带缓存的 *Writer
+	writer := bufio.NewWriter(file)
+
+	writer.WriteString(str)
+
 	//因为 writer 是带缓存的，因此在调用 WriterString 方法时，内容是先写入缓存的
 	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
 	writer.Flush()
