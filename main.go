@@ -19,7 +19,7 @@ var once sync.Once
 
 func main() {
 
-	readCsv()
+	//readCsv()
 
 	//initPhoneNumber(1234567, 2)
 	global.GVA_VP = core.Viper()      // 初始化Viper

@@ -3,8 +3,6 @@ module main.go
 go 1.17
 
 require (
-	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394
-	github.com/djimenez/iconv-go v0.0.0-20160305225143-8960e66bd3da
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
 	github.com/gin-gonic/gin v1.8.1

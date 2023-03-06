@@ -25,14 +25,6 @@ func (m *MallUserApi) UserRegister(c *gin.Context) {
 	//	return
 	//}
 
-	//once.Do(func() {
-	//	if err := mallUserService.RegisterUser(req); err != nil {
-	//		global.GVA_LOG.Error("创建失败", zap.Error(err))
-	//		response.FailWithMessage("Не удалось создать:"+err.Error(), c)
-	//		return
-	//	}
-	//})
-
 	if err := mallUserService.RegisterUser(req); err != nil {
 		global.GVA_LOG.Error("创建失败", zap.Error(err))
 		response.FailWithMessage("Не удалось создать:"+err.Error(), c)
