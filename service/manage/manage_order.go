@@ -249,7 +249,10 @@ func (m *ManageOrderService) GetMallOrderInfoListV2(info request.PageInfo, order
 		return
 	}
 
-	limit = 1000
+	if limit == 0 {
+		limit = 30
+	}
+
 	if adminUserToken.AgentId == "8888" { //8888是最高管理权限
 		err = db.Limit(limit).Offset(offset).Order("update_time desc").Find(&mallOrders).Error
 	} else {

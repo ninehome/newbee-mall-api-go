@@ -5,7 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dec1bae8-5f0e-472e-a80d-0ed7719f102d" name="Changes" comment="测试">
-      <change afterPath="$PROJECT_DIR$/俄电话运营商" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/List.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static-files/cdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/study_website" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5000.txt" beforeDir="false" afterPath="$PROJECT_DIR$/static-files/5000.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUG.txt" beforeDir="false" afterPath="$PROJECT_DIR$/static-files/BUG.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airbnb" beforeDir="false" afterPath="$PROJECT_DIR$/static-files/airbnb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android.txt" beforeDir="false" afterPath="$PROJECT_DIR$/static-files/android.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/mall/mall_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/mall/mall_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/manage/manage_order.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/manage/manage_order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/manage/manage_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/manage/manage_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/video.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,25 +38,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "/Users/laser",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/laser/Work/go_mall/newbee-mall-api-go&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static-files" />
       <recent name="$PROJECT_DIR$/static-files/apk" />
     </key>
   </component>

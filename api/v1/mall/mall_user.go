@@ -121,7 +121,7 @@ func (m *MallUserApi) GetUserInfoV2(c *gin.Context) {
 	_ = c.ShouldBindJSON(&req)
 	if err, userDetail := mallUserService.GetUserDetailV2(req.UserId); err != nil {
 		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
-		response.FailWithMessage("Записи не изучались122", c)
+		response.FailWithMessage("Записи не изучались122"+err.Error(), c)
 	} else {
 		response.OkWithData(userDetail, c)
 	}
