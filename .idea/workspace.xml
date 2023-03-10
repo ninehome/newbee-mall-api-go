@@ -5,21 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dec1bae8-5f0e-472e-a80d-0ed7719f102d" name="Changes" comment="测试">
-      <change afterPath="$PROJECT_DIR$/List.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static-files/cdn" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/study_website" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5000.txt" beforeDir="false" afterPath="$PROJECT_DIR$/static-files/5000.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BUG.txt" beforeDir="false" afterPath="$PROJECT_DIR$/static-files/BUG.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airbnb" beforeDir="false" afterPath="$PROJECT_DIR$/static-files/airbnb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android.txt" beforeDir="false" afterPath="$PROJECT_DIR$/static-files/android.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/mall/mall_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/mall/mall_user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/manage/manage_order.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/manage/manage_order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/manage/manage_admin_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/manage/manage_admin_user.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/manage/manage_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/manage/manage_user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/video.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

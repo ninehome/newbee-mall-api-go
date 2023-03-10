@@ -226,7 +226,7 @@ func (m *ManageAdminUserApi) AdminLogout(c *gin.Context) {
 func (m *ManageAdminUserApi) UserList(c *gin.Context) {
 	token := c.GetHeader("token")
 	var pageInfo manageReq.MallUserSearch
-	_ = c.ShouldBindQuery(&pageInfo)
+	_ = c.ShouldBindQuery(&pageInfo) //get 参数
 	if err, list, total := mallUserService.GetMallUserInfoList(pageInfo, token); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取注册用户失败", c)
@@ -246,7 +246,7 @@ func (m *ManageAdminUserApi) WithdrawalHistory(c *gin.Context) {
 	//var pageInfo manageReq.WithdrawalSearch
 	var param manageReq.PageInfo
 	//获取分页参数
-	_ = c.ShouldBindQuery(&param)
+	_ = c.ShouldBindJSON(&param)
 
 	if err, list, total := mallUserService.GetMallUserWithdrawaList(param, token); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
