@@ -21,7 +21,7 @@ var once sync.Once
 func main() {
 
 	//readCsv()
-
+	End4Number()
 	//readCvsV2()
 
 	//initPhoneNumber(1234567, 2)
@@ -84,6 +84,33 @@ func readCsv() {
 	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
 	writer.Flush()
 
+}
+
+func End4Number() {
+	totalCount := 0
+	/*以下为三重循环*/
+	for i := 0; i <= 9; i++ {
+		for j := 0; j <= 9; j++ {
+			for k := 0; k <= 9; k++ {
+
+				for m := 0; m <= 9; m++ {
+					/*确保 i 、j 、k 三位互不相同*/
+					if i != k && i != j && j != k {
+						totalCount++
+
+						stri := strconv.Itoa(i)
+						strj := strconv.Itoa(j)
+						strk := strconv.Itoa(k)
+						strm := strconv.Itoa(m)
+
+						strall := stri + strj + strk + strm
+						fmt.Println("第", totalCount, "方案", strall)
+					}
+				}
+
+			}
+		}
+	}
 }
 
 func readCvsV2() {
