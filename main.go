@@ -87,30 +87,76 @@ func readCsv() {
 }
 
 func End4Number() {
+	//数据表
+	numbers_1 := [10]int{1, 3, 5, 4, 9, 0, 7, 8, 6, 2}
+	numbers_2 := [10]int{0, 7, 8, 4, 9, 6, 2, 1, 3, 5}
+	numbers_3 := [10]int{6, 2, 1, 8, 4, 9, 3, 5, 0, 7}
+	numbers_4 := [10]int{9, 1, 8, 5, 7, 6, 2, 3, 4, 0}
+	//创建一个新文件，写入内容
+	filePath := "./随机4位尾数.txt"
+	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Printf("打开文件错误= %v \n", err)
+		return
+	}
+	//及时关闭
+	defer file.Close()
+	//写入时，使用带缓存的 *Writer
+	writer := bufio.NewWriter(file)
+
 	totalCount := 0
 	/*以下为三重循环*/
-	for i := 0; i <= 9; i++ {
-		for j := 0; j <= 9; j++ {
-			for k := 0; k <= 9; k++ {
 
-				for m := 0; m <= 9; m++ {
+	for _, s := range numbers_1 {
+		for _, j := range numbers_2 {
+			for _, k := range numbers_3 {
+				for _, m := range numbers_4 {
+
 					/*确保 i 、j 、k 三位互不相同*/
-					if i != k && i != j && j != k {
+					if s != k && s != j && j != k {
 						totalCount++
-
-						stri := strconv.Itoa(i)
+						stri := strconv.Itoa(s)
 						strj := strconv.Itoa(j)
 						strk := strconv.Itoa(k)
 						strm := strconv.Itoa(m)
-
 						strall := stri + strj + strk + strm
-						fmt.Println("第", totalCount, "方案", strall)
+						writer.WriteString(strall + "\n")
+						//fmt.Printf("%s \n", strall)
+
 					}
 				}
 
 			}
 		}
 	}
+
+	//for i := 0; i <= 9; i++ {
+	//	for j := 0; j <= 9; j++ {
+	//		for k := 0; k <= 9; k++ {
+	//
+	//			for m := 0; m <= 9; m++ {
+	//				/*确保 i 、j 、k 三位互不相同*/
+	//				if i != k && i != j && j != k {
+	//					totalCount++
+	//
+	//					stri := strconv.Itoa(i)
+	//					strj := strconv.Itoa(j)
+	//					strk := strconv.Itoa(k)
+	//					strm := strconv.Itoa(m)
+	//
+	//					strall := stri + strj + strk + strm
+	//					writer.WriteString(strall + "\n")
+	//					//fmt.Printf("%s \n", strall)
+	//
+	//				}
+	//			}
+	//
+	//		}
+	//	}
+	//}
+
+	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
+	writer.Flush()
 }
 
 func readCvsV2() {
