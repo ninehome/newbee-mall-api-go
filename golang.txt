@@ -1,7 +1,6 @@
 
-https://isc.codes/deanlayy/venom_android2.0
+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
 
-nine  / 183183
 
 yaml 转json
 https://www.bejson.com/validators/yaml_editor/
@@ -242,6 +241,8 @@ https://github.com/willnewii/qiniuClient
 
 https://wildberries.store/#/register?agent=6001
 
+关闭 ipv6
+https://blog.51cto.com/u_15075516/4527708
 
 lsof -i:9191
 kill -9 76303

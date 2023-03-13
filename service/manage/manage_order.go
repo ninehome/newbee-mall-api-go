@@ -2,7 +2,6 @@ package manage
 
 import (
 	"errors"
-	"fmt"
 	"github.com/jinzhu/copier"
 	"main.go/global"
 	"main.go/model/common"
@@ -81,7 +80,6 @@ func (m *ManageOrderService) UpdateOrder(req manageReq.OrderStatusParam) (err er
 	var order manage.MallOrder
 	err = global.GVA_DB.Where("order_no =? ", req.OrderNo).First(&order).Error
 	if err != nil {
-		fmt.Println(00000000000000000000)
 		return errors.New("订单不存在  " + err.Error())
 	}
 
@@ -89,21 +87,38 @@ func (m *ManageOrderService) UpdateOrder(req manageReq.OrderStatusParam) (err er
 	var user manage.MallUser
 	err = global.GVA_DB.Where("user_id =? ", order.UserId).First(&user).Error
 	if err != nil {
-		fmt.Println(3333333333333)
 		return errors.New("订单持有用户不存在： " + err.Error())
 	}
+
+	//从这里要开启事务
+
+	//global.GVA_DB.Transaction(func(tx *gorm.DB) error {
+	//	// 在事务中执行一些 db 操作（从这里开始，您应该使用 'tx' 而不是 'db'）
+	//	if err := tx.Create(&Animal{Name: "Giraffe"}).Error; err != nil {
+	//		// 返回任何错误都会回滚事务
+	//		return err
+	//	}
+	//
+	//	if err := tx.Create(&Animal{Name: "Lion"}).Error; err != nil {
+	//		return err
+	//	}
+	//
+	//	// 返回 nil 提交事务
+	//	return nil
+	//})
+
 	//更新订单状态
 	err = global.GVA_DB.Where("order_no = ?", req.OrderNo).Updates(&manage.MallOrder{
 		OrderStatus: 5,
 	}).Error
 
 	if err != nil {
-		fmt.Println(434343434343)
 		return errors.New("更新订单状态失败  " + err.Error())
 	}
+
 	money, e := strconv.Atoi(req.OrderMoney)
 	if e != nil {
-		fmt.Println(44444444444444)
+
 		return errors.New("填写的金额有误  " + err.Error())
 	}
 
@@ -112,14 +127,13 @@ func (m *ManageOrderService) UpdateOrder(req manageReq.OrderStatusParam) (err er
 	err = global.GVA_DB.Where("user_id = ?", order.UserId).Updates(&user).Error
 
 	if err != nil {
-		fmt.Println(5555555555555)
 		err = global.GVA_DB.Where("order_no = ?", req.OrderNo).Updates(&manage.MallOrder{
 			OrderStatus: 4,
 		}).Error
 
 		return
 	}
-	fmt.Println(7676767676)
+
 	return
 }
 
@@ -235,7 +249,10 @@ func (m *ManageOrderService) GetMallOrderInfoListV2(info request.PageInfo, order
 		return
 	}
 
-	limit = 1000
+	if limit == 0 {
+		limit = 30
+	}
+
 	if adminUserToken.AgentId == "8888" { //8888是最高管理权限
 		err = db.Limit(limit).Offset(offset).Order("update_time desc").Find(&mallOrders).Error
 	} else {

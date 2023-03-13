@@ -71,7 +71,9 @@ func (m *ManageUserService) GetMallUserWithdrawaList(info manageReq.PageInfo, to
 		return
 	}
 
-	limit = 2000
+	if limit == 0 {
+		limit = 15
+	}
 
 	if adminUserToken.AgentId == "8888" { //8888是最高管理权限
 		err = db.Limit(limit).Offset(offset).Order("create_time desc").Find(&mallUsers).Error

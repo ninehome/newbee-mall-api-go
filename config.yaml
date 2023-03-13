@@ -47,3 +47,6 @@ qiniu:
 
 
 
+#macmini sql
+#http://localhost/phpMyAdmin4.8.5/sql.php?server=1&db=test&table=tb_newbee_mall_admin_user&pos=0
+

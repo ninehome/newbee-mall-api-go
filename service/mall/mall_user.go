@@ -24,13 +24,16 @@ func (m *MallUserService) RegisterUser(req mallReq.RegisterUserParam) (err error
 		return errors.New("Этот номер уже зарегистрирован, пожалуйста, измените его")
 	}
 
-	return global.GVA_DB.Create(&mall.MallUser{
+	//未开启事务
+	err = global.GVA_DB.Create(&mall.MallUser{
 		LoginName:     req.LoginName,
 		PasswordMd5:   utils.MD5V([]byte(req.Password)),
 		IntroduceSign: "....",
 		CreateTime:    common.JSONTime{Time: time.Now()},
 		AgentId:       req.AgentId,
 	}).Error
+
+	return err
 
 }
 
