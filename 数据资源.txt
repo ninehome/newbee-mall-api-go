@@ -32,15 +32,3 @@ https://xingqiu.pro/detail-32.shtml
 
 
 
-WS 机器人
-https://github.com/adiwajshing/Baileys
-脚本 使用 WS 发送消息给whatsapp用户-
-//海洋数据
-@w12325
-
-//俄罗斯 号段
-<a>MTS: 910-19, 980-988</a>
-
-<a>MegaFon: 920-931, 937</a>
-
-<a>BeeLine: 903, 905, 906, 909,  960 ,961 ,962, 963, 964  </a>
