@@ -21,8 +21,8 @@ var once sync.Once
 func main() {
 
 	//readCsv()
-	End4Number()
-	//readCvsV2()
+	//End4Number()
+	//readCvsV2()     //筛选 女性
 
 	//initPhoneNumber(1234567, 2)
 	global.GVA_VP = core.Viper()      // 初始化Viper
@@ -37,7 +37,7 @@ func main() {
 func readCsv() {
 
 	//创建一个新文件，写入内容
-	filePath := "./5000.txt"
+	filePath := "./10000.txt"
 	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Printf("打开文件错误= %v \n", err)
