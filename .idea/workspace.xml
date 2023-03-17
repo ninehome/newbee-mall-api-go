@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dec1bae8-5f0e-472e-a80d-0ed7719f102d" name="Changes" comment="测试">
-      <change afterPath="$PROJECT_DIR$/vpn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5000.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/List.csv" beforeDir="false" afterPath="$PROJECT_DIR$/List.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-    </list>
+    <list default="true" id="dec1bae8-5f0e-472e-a80d-0ed7719f102d" name="Changes" comment="增加 住宅代理ip" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,9 +64,21 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="测试" />
-    <option name="LAST_COMMIT_MESSAGE" value="测试" />
+    <MESSAGE value="增加 住宅代理ip" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加 住宅代理ip" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
