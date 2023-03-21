@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dec1bae8-5f0e-472e-a80d-0ed7719f102d" name="Changes" comment="增加 住宅代理ip">
-      <change afterPath="$PROJECT_DIR$/前端集成im" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/自建cdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/俄罗斯手机号码洗" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static-files/社区.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2w-发送到-筛性别年龄(全部数据)-2023_3_6.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +82,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="资源处理" />
-    <option name="LAST_COMMIT_MESSAGE" value="资源处理" />
+    <MESSAGE value="增加 住宅代理ip" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加 住宅代理ip" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

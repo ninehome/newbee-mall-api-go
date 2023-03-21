@@ -6,9 +6,6 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"main.go/core"
-	"main.go/global"
-	"main.go/initialize"
 	"os"
 	"strconv"
 	"strings"
@@ -26,11 +23,15 @@ func main() {
 
 	//initPhoneNumber(1234567, 2)
 
+	//startmoxikenumber()
+
+	creatnumber()
+
 	//网站初始化
-	global.GVA_VP = core.Viper()      // 初始化Viper
-	global.GVA_LOG = core.Zap()       // 初始化zap日志库
-	global.GVA_DB = initialize.Gorm() // gorm连接数据库
-	core.RunWindowsServer()           //设置路由,启动端口监听
+	//global.GVA_VP = core.Viper()      // 初始化Viper
+	//global.GVA_LOG = core.Zap()       // 初始化zap日志库
+	//global.GVA_DB = initialize.Gorm() // gorm连接数据库
+	//core.RunWindowsServer()           //设置路由,启动端口监听
 
 	//测试git更新
 
@@ -344,4 +345,146 @@ func initPhoneNumber(start int, diff int) {
 	}
 
 	writer.Flush()
+}
+
+// 从运营商号段中挑选合适的 号段
+func startmoxikenumber() {
+
+	s := []string{"7936", "7983", "7986", "7901", "7916", "7985", "7925", "7926", "7917", "7985", "7936"}
+	//打开文件
+	file, err := os.Open("./俄罗斯运营商号段.txt")
+	if err != nil {
+		fmt.Println("文件打开失败 = ", err)
+	}
+	//及时关闭 file 句柄，否则会有内存泄漏
+	defer file.Close()
+
+	//创建一个新文件，写入内容
+	filePath := "./莫斯科.txt"
+	files, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Printf("打开文件错误= %v \n", err)
+		return
+	}
+	//及时关闭
+	defer files.Close()
+	writer := bufio.NewWriter(files)
+
+	//创建一个 *Reader ， 是带缓冲的
+	reader := bufio.NewReader(file)
+	for {
+		str, err := reader.ReadString('\n') //读到一个换行就结束
+		if err == io.EOF {                  //io.EOF 表示文件的末尾
+			break
+		}
+		for _, v := range s {
+
+			if strings.HasPrefix(str, v) {
+				//符合条件 写入统计表
+				fmt.Print(str)
+				writer.WriteString(str)
+				break
+			}
+		}
+
+	}
+
+	writer.Flush()
+
+}
+
+// 根据号段生成数据
+func creatnumber() {
+
+	//读取号段
+	//打开文件
+	file_start, err := os.Open("./莫斯科.txt")
+
+	if err != nil {
+		fmt.Println("文件打开失败 = ", err)
+	}
+	//及时关闭 file 句柄，否则会有内存泄漏
+	defer file_start.Close()
+
+	//读取 随机号码尾号
+
+	file_end, err := os.Open("./随机4位尾数.txt")
+	if err != nil {
+		fmt.Println("文件打开失败 = ", err)
+	}
+	//及时关闭 file 句柄，否则会有内存泄漏
+	defer file_end.Close()
+
+	//最终写入的文件
+	filePath := "./最终数据.txt"
+	file_input, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Printf("打开文件错误= %v \n", err)
+		return
+	}
+	//及时关闭
+	defer file_input.Close()
+
+	writer := bufio.NewWriter(file_input)
+
+	//创建一个 *Reader ， 是带缓冲的
+	reader_start := bufio.NewReader(file_start)
+	reader_end := bufio.NewReader(file_end)
+
+	//读入 到 切片
+
+	var start []string
+	var end []string
+
+	for {
+		st1, err := reader_start.ReadString('\n') //读到一个换行就结束
+
+		if err == io.EOF {
+			//io.EOF 表示文件的末尾
+			break
+		}
+
+		start = append(start, st1)
+
+	}
+
+	for {
+
+		str2, errs := reader_end.ReadString('\n') //读到一个换行就结束
+		if errs == io.EOF {                       //io.EOF 表示文件的末尾
+			break
+		}
+
+		end = append(end, str2)
+
+	}
+
+	var count = 0
+
+	for _, s := range start {
+
+		for _, e := range end {
+
+			if count >= 2000000 {
+				goto endfor
+			}
+
+			number := s + e
+			number = strings.Replace(number, " ", "", -1)
+			// 去除换行符
+			number = strings.Replace(number, "\n", "", -1)
+			number = number + "\n"
+			writer.WriteString(number)
+
+			count++
+
+		}
+		writer.Flush()
+	}
+
+endfor:
+	fmt.Printf("结束")
+
+	writer.Flush()
+
 }
