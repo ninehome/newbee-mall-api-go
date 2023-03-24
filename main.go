@@ -20,9 +20,9 @@ func main() {
 	//readCsv()
 	//End4Number()
 	//readCvsV2()     //筛选 女性
-	readTXT2w()
+	//readTXT2w()
 	//initPhoneNumber(1234567, 2)
-	//readCsvDays()
+	readCsvDays()
 	//startmoxikenumber()
 
 	//creatnumber()
@@ -102,7 +102,7 @@ func readCsvDays() {
 	defer file.Close()
 
 	// Open the file
-	csvfile, err := os.Open("123.csv")
+	csvfile, err := os.Open("22.csv")
 	if err != nil {
 		log.Fatalln("Couldn't open the csv file", err)
 	}
@@ -126,7 +126,14 @@ func readCsvDays() {
 		//fmt.Printf("Record has %d columns.\n", len(record))
 		//city, _ := iconv.ConvertString(record[2], "gb2312", "utf-8")
 
-		if record[2] == "1" || record[2] == "2" || record[2] == "3" || record[2] == "4" || record[2] == "5" {
+		//if record[2] == "1" || record[2] == "2" {
+		//	//fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
+		//
+		//	writer.WriteString(record[0] + "\n")
+		//
+		//}
+
+		if record[2] == "1" {
 			//fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
 
 			writer.WriteString(record[0] + "\n")
