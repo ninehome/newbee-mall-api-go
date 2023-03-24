@@ -20,12 +20,12 @@ func main() {
 	//readCsv()
 	//End4Number()
 	//readCvsV2()     //筛选 女性
-
+	readTXT2w()
 	//initPhoneNumber(1234567, 2)
-
+	//readCsvDays()
 	//startmoxikenumber()
 
-	creatnumber()
+	//creatnumber()
 
 	//网站初始化
 	//global.GVA_VP = core.Viper()      // 初始化Viper
@@ -76,6 +76,58 @@ func readCsv() {
 
 		if record[3] == "女" {
 			fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
+
+			writer.WriteString(record[0] + "\n")
+
+		}
+
+	}
+
+	//因为 writer 是带缓存的，因此在调用 WriterString 方法时，内容是先写入缓存的
+	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
+	writer.Flush()
+
+}
+
+func readCsvDays() {
+
+	//创建一个新文件，写入内容
+	filePath := "./3000.txt"
+	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Printf("打开文件错误= %v \n", err)
+		return
+	}
+	//及时关闭
+	defer file.Close()
+
+	// Open the file
+	csvfile, err := os.Open("123.csv")
+	if err != nil {
+		log.Fatalln("Couldn't open the csv file", err)
+	}
+	defer csvfile.Close()
+	//写入时，使用带缓存的 *Writer
+	writer := bufio.NewWriter(file)
+	// Parse the file
+	r := csv.NewReader(csvfile)
+
+	// Iterate through the records
+	for {
+		// Read each record from csv
+		record, err := r.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		//fmt.Printf("Record has %d columns.\n", len(record))
+		//city, _ := iconv.ConvertString(record[2], "gb2312", "utf-8")
+
+		if record[2] == "1" || record[2] == "2" || record[2] == "3" || record[2] == "4" || record[2] == "5" {
+			//fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
 
 			writer.WriteString(record[0] + "\n")
 
@@ -216,7 +268,7 @@ func readCvsV2() {
 
 func readTXT() {
 	//打开文件
-	file, err := os.Open("./output.txt")
+	file, err := os.Open("./2w.txt")
 	if err != nil {
 		fmt.Println("文件打开失败 = ", err)
 	}
@@ -236,7 +288,7 @@ func readTXT() {
 
 func readTXT2w() {
 	//打开文件
-	file, err := os.Open("./俄罗斯20w.txt")
+	file, err := os.Open("./57w.txt")
 	if err != nil {
 		fmt.Println("文件打开失败 = ", err)
 	}
@@ -245,7 +297,7 @@ func readTXT2w() {
 	//创建一个 *Reader ， 是带缓冲的
 	reader := bufio.NewReader(file)
 	var name = 0
-	filePath := "./output.txt"
+	filePath := "./7w.txt"
 	files, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	//写入内容
 	//写入时，使用带缓存的 *Writer
@@ -257,7 +309,12 @@ func readTXT2w() {
 	//及时关闭
 	defer file.Close()
 	for {
-		if name == 20000 {
+		if name <= 30000 {
+			name++
+			continue
+		}
+
+		if name > 100000 {
 			break
 		}
 		str, err := reader.ReadString('\n') //读到一个换行就结束
@@ -277,7 +334,7 @@ func readTXT2w() {
 
 func writerTxt() {
 	//创建一个新文件，写入内容
-	filePath := "./output.txt"
+	filePath := "./2w.txt"
 	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Printf("打开文件错误= %v \n", err)
@@ -300,7 +357,7 @@ func writerTxt() {
 
 func writerTxtOneLine(str string) {
 	//创建一个新文件，写入内容
-	filePath := "./output.txt"
+	filePath := "./2w.txt"
 	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Printf("打开文件错误= %v \n", err)
@@ -325,7 +382,7 @@ func initPhoneNumber(start int, diff int) {
 	s := []int{903, 905, 906, 909, 960, 961, 962, 963, 964, 910, 911, 912, 913, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 925, 926, 927, 928, 929, 930, 931, 937, 980, 981, 982, 983, 984, 985, 986, 987, 988}
 
 	//创建一个新文件，写入内容
-	filePath := "./output.txt"
+	filePath := "./2w.txt"
 	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Printf("打开文件错误= %v \n", err)
