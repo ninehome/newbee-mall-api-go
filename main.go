@@ -5,7 +5,10 @@ import (
 	"encoding/csv"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
+	"net/http"
+	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -22,9 +25,10 @@ func main() {
 	//readCvsV2()     //筛选 女性
 	//readTXT2w()
 	//initPhoneNumber(1234567, 2)
-	readCsvDays()
+	//readCsvDays()
 	//startmoxikenumber()
 
+	sendWhatsappMessage() //发送 ws 消息
 	//creatnumber()
 
 	//网站初始化
@@ -454,6 +458,31 @@ func startmoxikenumber() {
 	}
 
 	writer.Flush()
+
+}
+
+func sendWhatsappMessage() {
+
+	var msg string
+	var tel string
+	apiurl := "https://api.ultramsg.com/instance41376/messages/chat"
+	data := url.Values{}
+	data.Set("token", "tjggg963uyjuugez")
+	data.Set("to", tel)
+	data.Set("body", msg)
+
+	payload := strings.NewReader(data.Encode())
+
+	req, _ := http.NewRequest("POST", apiurl, payload)
+
+	req.Header.Add("content-type", "application/x-www-form-urlencoded")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(string(body))
 
 }
 
