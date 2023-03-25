@@ -5,7 +5,10 @@ import (
 	"encoding/csv"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
+	"net/http"
+	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -20,11 +23,12 @@ func main() {
 	//readCsv()
 	//End4Number()
 	//readCvsV2()     //筛选 女性
-	readTXT2w()
+	//readTXT2w()
 	//initPhoneNumber(1234567, 2)
 	//readCsvDays()
 	//startmoxikenumber()
 
+	sendWhatsappMessage() //发送 ws 消息
 	//creatnumber()
 
 	//网站初始化
@@ -102,7 +106,7 @@ func readCsvDays() {
 	defer file.Close()
 
 	// Open the file
-	csvfile, err := os.Open("123.csv")
+	csvfile, err := os.Open("22.csv")
 	if err != nil {
 		log.Fatalln("Couldn't open the csv file", err)
 	}
@@ -126,7 +130,14 @@ func readCsvDays() {
 		//fmt.Printf("Record has %d columns.\n", len(record))
 		//city, _ := iconv.ConvertString(record[2], "gb2312", "utf-8")
 
-		if record[2] == "1" || record[2] == "2" || record[2] == "3" || record[2] == "4" || record[2] == "5" {
+		//if record[2] == "1" || record[2] == "2" {
+		//	//fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
+		//
+		//	writer.WriteString(record[0] + "\n")
+		//
+		//}
+
+		if record[2] == "1" {
 			//fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
 
 			writer.WriteString(record[0] + "\n")
@@ -447,6 +458,31 @@ func startmoxikenumber() {
 	}
 
 	writer.Flush()
+
+}
+
+func sendWhatsappMessage() {
+
+	var msg string
+	var tel string
+	apiurl := "https://api.ultramsg.com/instance41376/messages/chat"
+	data := url.Values{}
+	data.Set("token", "tjggg963uyjuugez")
+	data.Set("to", tel)
+	data.Set("body", msg)
+
+	payload := strings.NewReader(data.Encode())
+
+	req, _ := http.NewRequest("POST", apiurl, payload)
+
+	req.Header.Add("content-type", "application/x-www-form-urlencoded")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(string(body))
 
 }
 
