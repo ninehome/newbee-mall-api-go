@@ -463,11 +463,12 @@ func startmoxikenumber() {
 
 func sendWhatsappMessage() {
 
-	var msg string
-	var tel string
+	var msg string = "hjaha"
+	var tel string = "+639289876"
+
 	apiurl := "https://api.ultramsg.com/instance41376/messages/chat"
 	data := url.Values{}
-	data.Set("token", "tjggg963uyjuugez")
+	data.Set("token", "warning44FF")
 	data.Set("to", tel)
 	data.Set("body", msg)
 
