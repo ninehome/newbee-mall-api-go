@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dec1bae8-5f0e-472e-a80d-0ed7719f102d" name="Changes" comment="增加 住宅代理ip">
-      <change afterPath="$PROJECT_DIR$/aws" afterDir="false" />
+    <list default="true" id="dec1bae8-5f0e-472e-a80d-0ed7719f102d" name="Changes" comment="aws">
+      <change afterPath="$PROJECT_DIR$/static-files/aws存储桶.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/海外做粉" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/golang.txt" beforeDir="false" afterPath="$PROJECT_DIR$/golang.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +83,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="资源处理" />
     <MESSAGE value="增加 住宅代理ip" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加 住宅代理ip" />
+    <MESSAGE value="aws" />
+    <option name="LAST_COMMIT_MESSAGE" value="aws" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
