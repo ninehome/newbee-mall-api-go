@@ -7,6 +7,9 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"main.go/core"
+	"main.go/global"
+	"main.go/initialize"
 	"net/http"
 	"net/url"
 	"os"
@@ -28,14 +31,14 @@ func main() {
 	//readCsvDays()
 	//startmoxikenumber()
 
-	sendWhatsappMessage() //发送 ws 消息
+	//sendWhatsappMessage() //发送 ws 消息
 	//creatnumber()
 
 	//网站初始化
-	//global.GVA_VP = core.Viper()      // 初始化Viper
-	//global.GVA_LOG = core.Zap()       // 初始化zap日志库
-	//global.GVA_DB = initialize.Gorm() // gorm连接数据库
-	//core.RunWindowsServer()           //设置路由,启动端口监听
+	global.GVA_VP = core.Viper()      // 初始化Viper
+	global.GVA_LOG = core.Zap()       // 初始化zap日志库
+	global.GVA_DB = initialize.Gorm() // gorm连接数据库
+	core.RunWindowsServer()           //设置路由,启动端口监听
 
 	//测试git更新
 
