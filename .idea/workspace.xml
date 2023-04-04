@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ebf94944-a8ac-4b11-96f5-1147558b8203" name="Changes" comment="111">
-      <change afterPath="$PROJECT_DIR$/1.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/俄罗斯女1天3k.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/俄罗斯女28+3k-2.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-    </list>
+    <list default="true" id="ebf94944-a8ac-4b11-96f5-1147558b8203" name="Changes" comment="111" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
