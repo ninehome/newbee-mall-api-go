@@ -21,7 +21,7 @@ var once sync.Once
 func main() {
 
 	//readCsv()
-	End4Number()
+	//End4Number()
 	//readCvsV2()
 
 	//initPhoneNumber(1234567, 2)
