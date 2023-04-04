@@ -4,12 +4,10 @@ import (
 	"bufio"
 	"encoding/csv"
 	"fmt"
+	"github.com/xuri/excelize/v2"
 	"io"
 	"io/ioutil"
 	"log"
-	"main.go/core"
-	"main.go/global"
-	"main.go/initialize"
 	"net/http"
 	"net/url"
 	"os"
@@ -33,12 +31,13 @@ func main() {
 
 	//sendWhatsappMessage() //发送 ws 消息
 	//creatnumber()
-
+	//WriteXLSX()
+	ReadXlsx()
 	//网站初始化
-	global.GVA_VP = core.Viper()      // 初始化Viper
-	global.GVA_LOG = core.Zap()       // 初始化zap日志库
-	global.GVA_DB = initialize.Gorm() // gorm连接数据库
-	core.RunWindowsServer()           //设置路由,启动端口监听
+	//global.GVA_VP = core.Viper()      // 初始化Viper
+	//global.GVA_LOG = core.Zap()       // 初始化zap日志库
+	//global.GVA_DB = initialize.Gorm() // gorm连接数据库
+	//core.RunWindowsServer()           //设置路由,启动端口监听
 
 	//测试git更新
 
@@ -93,6 +92,112 @@ func readCsv() {
 	//因为 writer 是带缓存的，因此在调用 WriterString 方法时，内容是先写入缓存的
 	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
 	writer.Flush()
+
+}
+
+func WriteXLSX() {
+
+	f := excelize.NewFile()
+	// 创建一个工作表
+	index, _ := f.NewSheet("Sheet1")
+	// 设置单元格的值
+	f.SetCellValue("Sheet1", "A2", 100)
+	f.SetCellValue("Sheet1", "B2", 100)
+	// 设置工作簿的默认工作表
+	f.SetActiveSheet(index)
+	// 根据指定路径保存文件
+	if err := f.SaveAs("Book1.xlsx"); err != nil {
+		println(err.Error())
+	}
+
+}
+
+func ReadXlsx() {
+	f, err := excelize.OpenFile("3500.xlsx")
+	if err != nil {
+		println(err.Error())
+		return
+	}
+
+	//创建文本
+
+	WF := excelize.NewFile()
+	// 创建一个工作表
+	index, _ := WF.NewSheet("Sheet1")
+	// 设置单元格的值
+	WF.SetCellValue("Sheet1", "A2", 100)
+	WF.SetCellValue("Sheet1", "B2", 100)
+	// 设置工作簿的默认工作表
+	WF.SetActiveSheet(index)
+	// 根据指定路径保存文件
+	if err := WF.SaveAs("Book1.xlsx"); err != nil {
+		println(err.Error())
+	}
+
+	// 获取工作表中指定单元格的值
+	//cell, err := f.GetCellValue("Sheet1", "B2")
+	//if err != nil {
+	//	println(err.Error())
+	//	return
+	//}
+	//println(cell)
+	// 获取 Sheet1 上所有单元格
+	rows, err := f.GetRows("Sheet1")
+	for num, row := range rows { //行数
+
+		print(num, "sss", "\t")
+		for index, colCell := range row { //某一行 所有列
+
+			if index == 1 {
+				print(index, "sss", "\t")
+				var strc = ""
+				if strings.Contains(colCell, "2023-03-24") {
+					strc = strings.ReplaceAll(colCell, "2023-03-24", "2023-04-04")
+				}
+
+				if strings.Contains(colCell, "2023-02-20") {
+					strc = strings.ReplaceAll(colCell, "2023-03-20", "2023-04-04")
+				}
+
+				if strings.Contains(colCell, "2023-03-19") {
+					strc = strings.ReplaceAll(colCell, "2023-03-19", "2023-04-04")
+				}
+
+				if strings.Contains(colCell, "2023-03-23") {
+					strc = strings.ReplaceAll(colCell, "2023-03-23", "2023-04-04")
+				}
+
+				if strings.Contains(colCell, "2023-03-26") {
+					strc = strings.ReplaceAll(colCell, "2023-03-26", "2023-04-04")
+				}
+
+				print(strc, "\t")
+
+				// 设置单元格的值
+				WF.SetCellValue("Sheet1", "B"+strconv.Itoa(num), strc)
+				//WF.SetCellValue("Sheet1", "B2", 100)
+
+			}
+
+			if index == 0 {
+				WF.SetCellValue("Sheet1", "A"+strconv.Itoa(num), colCell)
+			}
+
+			if index == 2 {
+				WF.SetCellValue("Sheet1", "C"+strconv.Itoa(num), "1")
+			}
+			//print(colCell, "\t")
+
+			// 设置工作簿的默认工作表
+			WF.SetActiveSheet(index)
+			// 根据指定路径保存文件
+			if err := WF.SaveAs("Book1.xlsx"); err != nil {
+				println(err.Error())
+			}
+
+		}
+		println()
+	}
 
 }
 
