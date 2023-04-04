@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ebf94944-a8ac-4b11-96f5-1147558b8203" name="Changes" comment="111">
+      <change afterPath="$PROJECT_DIR$/1.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/俄罗斯女1天3k.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/俄罗斯女28+3k-2.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
@@ -46,6 +49,11 @@
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\wwwe\Desktop\shopmall\go" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="go" />

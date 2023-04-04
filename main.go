@@ -2,6 +2,9 @@ package main
 
 import (
 	"bufio"
+	"math/rand"
+	"time"
+
 	"encoding/csv"
 	"fmt"
 	"github.com/xuri/excelize/v2"
@@ -95,25 +98,25 @@ func readCsv() {
 
 }
 
-func WriteXLSX() {
-
-	f := excelize.NewFile()
-	// 创建一个工作表
-	index, _ := f.NewSheet("Sheet1")
-	// 设置单元格的值
-	f.SetCellValue("Sheet1", "A2", 100)
-	f.SetCellValue("Sheet1", "B2", 100)
-	// 设置工作簿的默认工作表
-	f.SetActiveSheet(index)
-	// 根据指定路径保存文件
-	if err := f.SaveAs("Book1.xlsx"); err != nil {
-		println(err.Error())
-	}
-
-}
+//func WriteXLSX() {
+//
+//	f := excelize.NewFile()
+//	// 创建一个工作表
+//	index, _ := f.NewSheet("Sheet1")
+//	// 设置单元格的值
+//	f.SetCellValue("Sheet1", "A2", 100)
+//	f.SetCellValue("Sheet1", "B2", 100)
+//	// 设置工作簿的默认工作表
+//	f.SetActiveSheet(index)
+//	// 根据指定路径保存文件
+//	if err := f.SaveAs("俄罗斯(女)2023-04-04+6K.xlsx"); err != nil {
+//		println(err.Error())
+//	}
+//
+//}
 
 func ReadXlsx() {
-	f, err := excelize.OpenFile("3500.xlsx")
+	f, err := excelize.OpenFile("1.xlsx")
 	if err != nil {
 		println(err.Error())
 		return
@@ -130,9 +133,9 @@ func ReadXlsx() {
 	//// 设置工作簿的默认工作表
 	WF.SetActiveSheet(index)
 	//// 根据指定路径保存文件
-	//if err := WF.SaveAs("Book1.xlsx"); err != nil {
-	//	println(err.Error())
-	//}
+	if err := WF.SaveAs("2000女.xlsx"); err != nil {
+		println(err.Error())
+	}
 
 	// 获取工作表中指定单元格的值
 	//cell, err := f.GetCellValue("Sheet1", "B2")
@@ -141,11 +144,12 @@ func ReadXlsx() {
 	//	return
 	//}
 	//println(cell)
+
 	// 获取 Sheet1 上所有单元格
 	rows, err := f.GetRows("Sheet1")
 	for num, row := range rows { //行数
 
-		if num < 6501 {
+		if num < 4000 {
 			continue
 		}
 
@@ -153,32 +157,19 @@ func ReadXlsx() {
 		for index, colCell := range row { //某一行 所有列
 
 			if index == 1 {
-				print(index, "sss", "\t")
-				var strc = ""
-				if strings.Contains(colCell, "2023-03-24") {
-					strc = strings.ReplaceAll(colCell, "2023-03-24", "2023-04-04")
-				}
 
-				if strings.Contains(colCell, "2023-02-20") {
-					strc = strings.ReplaceAll(colCell, "2023-03-20", "2023-04-04")
-				}
+				//当前时间戳
+				timestamp := time.Now().Unix()
 
-				if strings.Contains(colCell, "2023-03-19") {
-					strc = strings.ReplaceAll(colCell, "2023-03-19", "2023-04-04")
-				}
+				rantimes := rand.Intn(15*60*60) + (30 * 60) //(88-15 )+15
+				timestamp = timestamp - int64(rantimes)
+				// 再格式化时间戳转化为日期
+				datetime := time.Unix(timestamp, 0).Format("2006-01-02 15:04:05")
 
-				if strings.Contains(colCell, "2023-03-23") {
-					strc = strings.ReplaceAll(colCell, "2023-03-23", "2023-04-04")
-				}
-
-				if strings.Contains(colCell, "2023-03-26") {
-					strc = strings.ReplaceAll(colCell, "2023-03-26", "2023-04-04")
-				}
-
-				print(strc, "\t")
+				print(datetime, "\t")
 
 				// 设置单元格的值
-				WF.SetCellValue("Sheet1", "B"+strconv.Itoa(num), strc)
+				WF.SetCellValue("Sheet1", "B"+strconv.Itoa(num), datetime)
 				//WF.SetCellValue("Sheet1", "B2", 100)
 
 			}
@@ -195,7 +186,7 @@ func ReadXlsx() {
 			// 设置工作簿的默认工作表
 			WF.SetActiveSheet(index)
 			// 根据指定路径保存文件
-			if err := WF.SaveAs("Book1.xlsx"); err != nil {
+			if err := WF.SaveAs("2000女.xlsx"); err != nil {
 				println(err.Error())
 			}
 
