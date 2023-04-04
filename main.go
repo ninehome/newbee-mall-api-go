@@ -125,14 +125,14 @@ func ReadXlsx() {
 	// 创建一个工作表
 	index, _ := WF.NewSheet("Sheet1")
 	// 设置单元格的值
-	WF.SetCellValue("Sheet1", "A2", 100)
-	WF.SetCellValue("Sheet1", "B2", 100)
-	// 设置工作簿的默认工作表
+	//WF.SetCellValue("Sheet1", "A2", 100)
+	//WF.SetCellValue("Sheet1", "B2", 100)
+	//// 设置工作簿的默认工作表
 	WF.SetActiveSheet(index)
-	// 根据指定路径保存文件
-	if err := WF.SaveAs("Book1.xlsx"); err != nil {
-		println(err.Error())
-	}
+	//// 根据指定路径保存文件
+	//if err := WF.SaveAs("Book1.xlsx"); err != nil {
+	//	println(err.Error())
+	//}
 
 	// 获取工作表中指定单元格的值
 	//cell, err := f.GetCellValue("Sheet1", "B2")
@@ -144,6 +144,10 @@ func ReadXlsx() {
 	// 获取 Sheet1 上所有单元格
 	rows, err := f.GetRows("Sheet1")
 	for num, row := range rows { //行数
+
+		if num < 6501 {
+			continue
+		}
 
 		print(num, "sss", "\t")
 		for index, colCell := range row { //某一行 所有列
