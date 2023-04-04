@@ -5,10 +5,13 @@ import (
 	"encoding/csv"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"main.go/core"
 	"main.go/global"
 	"main.go/initialize"
+	"net/http"
+	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -22,9 +25,16 @@ func main() {
 
 	//readCsv()
 	//End4Number()
-	//readCvsV2()
-
+	//readCvsV2()     //筛选 女性
+	//readTXT2w()
 	//initPhoneNumber(1234567, 2)
+	//readCsvDays()
+	//startmoxikenumber()
+
+	//sendWhatsappMessage() //发送 ws 消息
+	//creatnumber()
+
+	//网站初始化
 	global.GVA_VP = core.Viper()      // 初始化Viper
 	global.GVA_LOG = core.Zap()       // 初始化zap日志库
 	global.GVA_DB = initialize.Gorm() // gorm连接数据库
@@ -37,7 +47,7 @@ func main() {
 func readCsv() {
 
 	//创建一个新文件，写入内容
-	filePath := "./5000.txt"
+	filePath := "./10000.txt"
 	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Printf("打开文件错误= %v \n", err)
@@ -47,7 +57,7 @@ func readCsv() {
 	defer file.Close()
 
 	// Open the file
-	csvfile, err := os.Open("rudata.csv")
+	csvfile, err := os.Open("2w-发送到-筛性别年龄(全部数据)-2023_3_6.csv")
 	if err != nil {
 		log.Fatalln("Couldn't open the csv file", err)
 	}
@@ -73,6 +83,65 @@ func readCsv() {
 
 		if record[3] == "女" {
 			fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
+
+			writer.WriteString(record[0] + "\n")
+
+		}
+
+	}
+
+	//因为 writer 是带缓存的，因此在调用 WriterString 方法时，内容是先写入缓存的
+	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
+	writer.Flush()
+
+}
+
+func readCsvDays() {
+
+	//创建一个新文件，写入内容
+	filePath := "./3000.txt"
+	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Printf("打开文件错误= %v \n", err)
+		return
+	}
+	//及时关闭
+	defer file.Close()
+
+	// Open the file
+	csvfile, err := os.Open("22.csv")
+	if err != nil {
+		log.Fatalln("Couldn't open the csv file", err)
+	}
+	defer csvfile.Close()
+	//写入时，使用带缓存的 *Writer
+	writer := bufio.NewWriter(file)
+	// Parse the file
+	r := csv.NewReader(csvfile)
+
+	// Iterate through the records
+	for {
+		// Read each record from csv
+		record, err := r.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		//fmt.Printf("Record has %d columns.\n", len(record))
+		//city, _ := iconv.ConvertString(record[2], "gb2312", "utf-8")
+
+		//if record[2] == "1" || record[2] == "2" {
+		//	//fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
+		//
+		//	writer.WriteString(record[0] + "\n")
+		//
+		//}
+
+		if record[2] == "1" {
+			//fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
 
 			writer.WriteString(record[0] + "\n")
 
@@ -213,7 +282,7 @@ func readCvsV2() {
 
 func readTXT() {
 	//打开文件
-	file, err := os.Open("./output.txt")
+	file, err := os.Open("./2w.txt")
 	if err != nil {
 		fmt.Println("文件打开失败 = ", err)
 	}
@@ -231,9 +300,55 @@ func readTXT() {
 	fmt.Println("文件读取结束...")
 }
 
+func readTXT2w() {
+	//打开文件
+	file, err := os.Open("./57w.txt")
+	if err != nil {
+		fmt.Println("文件打开失败 = ", err)
+	}
+	//及时关闭 file 句柄，否则会有内存泄漏
+	defer file.Close()
+	//创建一个 *Reader ， 是带缓冲的
+	reader := bufio.NewReader(file)
+	var name = 0
+	filePath := "./7w.txt"
+	files, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+	//写入内容
+	//写入时，使用带缓存的 *Writer
+	writer := bufio.NewWriter(files)
+	if err != nil {
+		fmt.Printf("打开文件错误= %v \n", err)
+		return
+	}
+	//及时关闭
+	defer file.Close()
+	for {
+		if name <= 30000 {
+			name++
+			continue
+		}
+
+		if name > 100000 {
+			break
+		}
+		str, err := reader.ReadString('\n') //读到一个换行就结束
+		if err == io.EOF {                  //io.EOF 表示文件的末尾
+			break
+		}
+
+		writer.WriteString(str)
+
+		name++
+	}
+	//因为 writer 是带缓存的，因此在调用 WriterString 方法时，内容是先写入缓存的
+	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
+	writer.Flush()
+	fmt.Println("文件读取结束...")
+}
+
 func writerTxt() {
 	//创建一个新文件，写入内容
-	filePath := "./output.txt"
+	filePath := "./2w.txt"
 	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Printf("打开文件错误= %v \n", err)
@@ -254,12 +369,34 @@ func writerTxt() {
 
 }
 
+func writerTxtOneLine(str string) {
+	//创建一个新文件，写入内容
+	filePath := "./2w.txt"
+	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Printf("打开文件错误= %v \n", err)
+		return
+	}
+	//及时关闭
+	defer file.Close()
+	//写入内容
+	//写入时，使用带缓存的 *Writer
+	writer := bufio.NewWriter(file)
+
+	writer.WriteString(str)
+
+	//因为 writer 是带缓存的，因此在调用 WriterString 方法时，内容是先写入缓存的
+	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
+	writer.Flush()
+
+}
+
 func initPhoneNumber(start int, diff int) {
 	//41
 	s := []int{903, 905, 906, 909, 960, 961, 962, 963, 964, 910, 911, 912, 913, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 925, 926, 927, 928, 929, 930, 931, 937, 980, 981, 982, 983, 984, 985, 986, 987, 988}
 
 	//创建一个新文件，写入内容
-	filePath := "./output.txt"
+	filePath := "./2w.txt"
 	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Printf("打开文件错误= %v \n", err)
@@ -279,4 +416,172 @@ func initPhoneNumber(start int, diff int) {
 	}
 
 	writer.Flush()
+}
+
+// 从运营商号段中挑选合适的 号段
+func startmoxikenumber() {
+
+	s := []string{"7936", "7983", "7986", "7901", "7916", "7985", "7925", "7926", "7917", "7985", "7936"}
+	//打开文件
+	file, err := os.Open("./俄罗斯运营商号段.txt")
+	if err != nil {
+		fmt.Println("文件打开失败 = ", err)
+	}
+	//及时关闭 file 句柄，否则会有内存泄漏
+	defer file.Close()
+
+	//创建一个新文件，写入内容
+	filePath := "./莫斯科.txt"
+	files, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Printf("打开文件错误= %v \n", err)
+		return
+	}
+	//及时关闭
+	defer files.Close()
+	writer := bufio.NewWriter(files)
+
+	//创建一个 *Reader ， 是带缓冲的
+	reader := bufio.NewReader(file)
+	for {
+		str, err := reader.ReadString('\n') //读到一个换行就结束
+		if err == io.EOF {                  //io.EOF 表示文件的末尾
+			break
+		}
+		for _, v := range s {
+
+			if strings.HasPrefix(str, v) {
+				//符合条件 写入统计表
+				fmt.Print(str)
+				writer.WriteString(str)
+				break
+			}
+		}
+
+	}
+
+	writer.Flush()
+
+}
+
+func sendWhatsappMessage() {
+
+	var msg string = "hjaha"
+	var tel string = "+639289876"
+
+	apiurl := "https://api.ultramsg.com/instance41376/messages/chat"
+	data := url.Values{}
+	data.Set("token", "warning44FF")
+	data.Set("to", tel)
+	data.Set("body", msg)
+
+	payload := strings.NewReader(data.Encode())
+
+	req, _ := http.NewRequest("POST", apiurl, payload)
+
+	req.Header.Add("content-type", "application/x-www-form-urlencoded")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(string(body))
+
+}
+
+// 根据号段生成数据
+func creatnumber() {
+
+	//读取号段
+	//打开文件
+	file_start, err := os.Open("./莫斯科.txt")
+
+	if err != nil {
+		fmt.Println("文件打开失败 = ", err)
+	}
+	//及时关闭 file 句柄，否则会有内存泄漏
+	defer file_start.Close()
+
+	//读取 随机号码尾号
+
+	file_end, err := os.Open("./随机4位尾数.txt")
+	if err != nil {
+		fmt.Println("文件打开失败 = ", err)
+	}
+	//及时关闭 file 句柄，否则会有内存泄漏
+	defer file_end.Close()
+
+	//最终写入的文件
+	filePath := "./最终数据.txt"
+	file_input, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Printf("打开文件错误= %v \n", err)
+		return
+	}
+	//及时关闭
+	defer file_input.Close()
+
+	writer := bufio.NewWriter(file_input)
+
+	//创建一个 *Reader ， 是带缓冲的
+	reader_start := bufio.NewReader(file_start)
+	reader_end := bufio.NewReader(file_end)
+
+	//读入 到 切片
+
+	var start []string
+	var end []string
+
+	for {
+		st1, err := reader_start.ReadString('\n') //读到一个换行就结束
+
+		if err == io.EOF {
+			//io.EOF 表示文件的末尾
+			break
+		}
+
+		start = append(start, st1)
+
+	}
+
+	for {
+
+		str2, errs := reader_end.ReadString('\n') //读到一个换行就结束
+		if errs == io.EOF {                       //io.EOF 表示文件的末尾
+			break
+		}
+
+		end = append(end, str2)
+
+	}
+
+	var count = 0
+
+	for _, s := range start {
+
+		for _, e := range end {
+
+			if count >= 2000000 {
+				goto endfor
+			}
+
+			number := s + e
+			number = strings.Replace(number, " ", "", -1)
+			// 去除换行符
+			number = strings.Replace(number, "\n", "", -1)
+			number = number + "\n"
+			writer.WriteString(number)
+
+			count++
+
+		}
+		writer.Flush()
+	}
+
+endfor:
+	fmt.Printf("结束")
+
+	writer.Flush()
+
 }
