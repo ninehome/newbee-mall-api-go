@@ -161,12 +161,13 @@ func ReadXlsx() {
 				//当前时间戳
 				timestamp := time.Now().Unix()
 
-				rantimes := rand.Intn(15*60*60) + (30 * 60) //(88-15 )+15
+				rantimes := rand.Intn(15*60*60) + (10 * 60) //(88-15 )+15
 				timestamp = timestamp - int64(rantimes)
 				// 再格式化时间戳转化为日期
 				datetime := time.Unix(timestamp, 0).Format("2006-01-02 15:04:05")
 
-				print(datetime, "\t")
+				//日志输出
+				//print(datetime, "\t")
 
 				// 设置单元格的值
 				WF.SetCellValue("Sheet1", "B"+strconv.Itoa(num), datetime)
