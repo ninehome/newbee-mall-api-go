@@ -11,6 +11,7 @@ require (
 	github.com/qiniu/go-sdk/v7 v7.13.0
 	github.com/spf13/viper v1.10.1
 	github.com/unrolled/secure v1.10.0
+	github.com/xuri/excelize/v2 v2.7.0
 	go.uber.org/zap v1.21.0
 	gorm.io/driver/mysql v1.3.2
 	gorm.io/gorm v1.23.3
@@ -46,7 +47,6 @@ require (
 	github.com/subosito/gotenv v1.2.0 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	github.com/xuri/efp v0.0.0-20220603152613-6918739fd470 // indirect
-	github.com/xuri/excelize/v2 v2.7.0 // indirect
 	github.com/xuri/nfp v0.0.0-20220409054826-5e722a1d9e22 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
