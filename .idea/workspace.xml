@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="dec1bae8-5f0e-472e-a80d-0ed7719f102d" name="Changes" comment="aws">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/golang.txt" beforeDir="false" afterPath="$PROJECT_DIR$/golang.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/mall/response/mall_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/mall/response/mall_user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ws3000.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/common/request/common.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/common/request/common.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/manage/manage_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/manage/manage_user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

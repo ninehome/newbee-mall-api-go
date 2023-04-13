@@ -20,7 +20,9 @@ func (m *ManageUserService) LockUser(idReq request.IdsReq, lockStatus int) (err 
 		return errors.New("操作非法！")
 	}
 	//更新字段为0时，不能直接UpdateColumns
-	err = global.GVA_DB.Model(&manage.MallUser{}).Where("user_id in ?", idReq.Ids).Update("locked_flag", lockStatus).Error
+	err = global.GVA_DB.Model(&manage.MallUser{}).Where(" user_id = ? ", idReq.Ids).Update("locked_flag", lockStatus).Error
+
+	//err = global.GVA_DB.Model(mall.MallUser{}).Where("user_id = ?", idReq.Ids).Updates(map[string]interface{}{"user_money": req.UserMoney, "user_level": req.UserLevel}).Error
 	return err
 }
 
