@@ -6,4 +6,5 @@ type MallUserDetailResponse struct {
 	IntroduceSign string `json:"introduceSign"`
 	UserMoney     int    `json:"userMoney"`
 	UserLevel     int    `json:"userLevel"`
+	LockedFlag    int    `json:"lockedFlag"`
 }
