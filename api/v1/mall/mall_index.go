@@ -13,22 +13,22 @@ type MallIndexApi struct {
 
 // MallIndexInfo 加载首页信息
 func (m *MallIndexApi) MallIndexInfo(c *gin.Context) {
-	err, _, mallCarouseInfo := mallCarouselService.GetCarouselsForIndex(5)
+	err, _, mallCarouseInfo := mallCarouselService.GetCarouselsForIndex(16)
 	if err != nil {
 		global.GVA_LOG.Error("轮播图获取失败"+err.Error(), zap.Error(err))
 		response.FailWithMessage("Unable to obtain a rotating image", c)
 	}
-	err, hotGoodses := mallIndexConfigService.GetConfigGoodsForIndex(enum.IndexGoodsHot.Code(), 8)
+	err, hotGoodses := mallIndexConfigService.GetConfigGoodsForIndex(enum.IndexGoodsHot.Code(), 36)
 	if err != nil {
 		global.GVA_LOG.Error("热销商品获取失败"+err.Error(), zap.Error(err))
 		response.FailWithMessage("Failure to buy a hot product", c)
 	}
-	err, newGoodses := mallIndexConfigService.GetConfigGoodsForIndex(enum.IndexGoodsNew.Code(), 8)
+	err, newGoodses := mallIndexConfigService.GetConfigGoodsForIndex(enum.IndexGoodsNew.Code(), 36)
 	if err != nil {
 		global.GVA_LOG.Error("新品获取失败"+err.Error(), zap.Error(err))
 		response.FailWithMessage("Unsuccessful purchase of new products", c)
 	}
-	err, recommendGoodses := mallIndexConfigService.GetConfigGoodsForIndex(enum.IndexGoodsRecommond.Code(), 16)
+	err, recommendGoodses := mallIndexConfigService.GetConfigGoodsForIndex(enum.IndexGoodsRecommond.Code(), 30)
 	if err != nil {
 		global.GVA_LOG.Error("推荐商品获取失败"+err.Error(), zap.Error(err))
 		response.FailWithMessage("Unable to obtain recommended products", c)

@@ -1,5 +1,5 @@
-keys
-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
+
+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
 
 
 yaml 转json
@@ -114,6 +114,13 @@ https://www.freepik.com/search?format=search&query=space
  go build -o main-linux main.go    //main-linux =>文件名
 
 
+ 方式二
+ set CGO_ENABLED=0
+ set GOOS=linux
+ set GOARCH=amd64
+ go build -o main-linux main.go    //main-linux =>文件名
+
+
 
 //mac 打包go
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
@@ -179,7 +186,7 @@ https://learnku.com/articles/43236
 https://didi.github.io/cube-ui/#/zh-CN
 
 
-//区块链地址监控
+//区块链地址监控  9603832866
 https://services.tokenview.io/cn/login
 
 
@@ -228,17 +235,43 @@ https://ebaybuy.top/user.php?mod=do&act=register&tguser=235
 //免费云存储
 https://www.websiterating.com/zh-CN/cloud-storage/best-free-cloud-storage/
 
-mac 显示隐藏文件
-1.打开「访达」对应文件夹。
-2.同时按下键盘三个按键 “Shift+Command+(.)”，即可显示隐藏文件。
 
 //云存储管理软件
 https://github.com/willnewii/qiniuClient
 
 https://wildberries.store/#/register?agent=6001
 
+关闭 ipv6
+https://blog.51cto.com/u_15075516/4527708
 
 lsof -i:9191
 kill -9 76303
 
 
+//莫斯科 时间
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+    localTime := time.Now()
+    // 8*60*60 也可用 int((8 * time.Hour).Seconds()) 表示
+    cusZone := time.FixedZone("UTC+8", 8*60*60)
+    cusTime := localTime.In(cusZone)
+    fmt.Println(cusTime)
+}
+
+
+俄罗斯 服务器   neo123
+https://dexun.tw/home/Index/reg.html
+https://dexun.tw/home/Product/fother.html?pid=63
+
+
+884613242
+//ws 短链接  https://wa.me/639289876432
+https://goo.su/lang/zh
+
+
+
+http://localhost/phpMyAdmin4.8.5/sql.php?
