@@ -2,14 +2,18 @@ package main
 
 import (
 	"bufio"
-	"encoding/csv"
-	"fmt"
-	"io"
-	"io/ioutil"
-	"log"
 	"main.go/core"
 	"main.go/global"
 	"main.go/initialize"
+	"math/rand"
+	"time"
+
+	"encoding/csv"
+	"fmt"
+	"github.com/xuri/excelize/v2"
+	"io"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -33,7 +37,8 @@ func main() {
 
 	//sendWhatsappMessage() //发送 ws 消息
 	//creatnumber()
-
+	//WriteXLSX()
+	//ReadXlsx()
 	//网站初始化
 	global.GVA_VP = core.Viper()      // 初始化Viper
 	global.GVA_LOG = core.Zap()       // 初始化zap日志库
@@ -93,6 +98,105 @@ func readCsv() {
 	//因为 writer 是带缓存的，因此在调用 WriterString 方法时，内容是先写入缓存的
 	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
 	writer.Flush()
+
+}
+
+//func WriteXLSX() {
+//
+//	f := excelize.NewFile()
+//	// 创建一个工作表
+//	index, _ := f.NewSheet("Sheet1")
+//	// 设置单元格的值
+//	f.SetCellValue("Sheet1", "A2", 100)
+//	f.SetCellValue("Sheet1", "B2", 100)
+//	// 设置工作簿的默认工作表
+//	f.SetActiveSheet(index)
+//	// 根据指定路径保存文件
+//	if err := f.SaveAs("俄罗斯(女)2023-04-04+6K.xlsx"); err != nil {
+//		println(err.Error())
+//	}
+//
+//}
+
+func ReadXlsx() {
+	f, err := excelize.OpenFile("1.xlsx")
+	if err != nil {
+		println(err.Error())
+		return
+	}
+
+	//创建文本
+
+	WF := excelize.NewFile()
+	// 创建一个工作表
+	index, _ := WF.NewSheet("Sheet1")
+	// 设置单元格的值
+	//WF.SetCellValue("Sheet1", "A2", 100)
+	//WF.SetCellValue("Sheet1", "B2", 100)
+	//// 设置工作簿的默认工作表
+	WF.SetActiveSheet(index)
+	//// 根据指定路径保存文件
+	if err := WF.SaveAs("2000女.xlsx"); err != nil {
+		println(err.Error())
+	}
+
+	// 获取工作表中指定单元格的值
+	//cell, err := f.GetCellValue("Sheet1", "B2")
+	//if err != nil {
+	//	println(err.Error())
+	//	return
+	//}
+	//println(cell)
+
+	// 获取 Sheet1 上所有单元格
+	rows, err := f.GetRows("Sheet1")
+	for num, row := range rows { //行数
+
+		if num < 4000 {
+			continue
+		}
+
+		print(num, "sss", "\t")
+		for index, colCell := range row { //某一行 所有列
+
+			if index == 1 {
+
+				//当前时间戳
+				timestamp := time.Now().Unix()
+
+				rantimes := rand.Intn(15*60*60) + (10 * 60) //(88-15 )+15
+				timestamp = timestamp - int64(rantimes)
+				// 再格式化时间戳转化为日期
+				datetime := time.Unix(timestamp, 0).Format("2006-01-02 15:04:05")
+
+				//日志输出
+				//print(datetime, "\t")
+
+				// 设置单元格的值
+				WF.SetCellValue("Sheet1", "B"+strconv.Itoa(num), datetime)
+				//WF.SetCellValue("Sheet1", "B2", 100)
+
+			}
+
+			if index == 0 {
+				WF.SetCellValue("Sheet1", "A"+strconv.Itoa(num), colCell)
+			}
+
+			if index == 2 {
+				WF.SetCellValue("Sheet1", "C"+strconv.Itoa(num), "1")
+			}
+			//print(colCell, "\t")
+
+			// 设置工作簿的默认工作表
+			WF.SetActiveSheet(index)
+			// 根据指定路径保存文件
+			if err := WF.SaveAs("2000女.xlsx"); err != nil {
+				println(err.Error())
+			}
+
+		}
+		println()
+	}
 
 }
 
