@@ -2,6 +2,9 @@ package main
 
 import (
 	"bufio"
+	"main.go/core"
+	"main.go/global"
+	"main.go/initialize"
 	"math/rand"
 	"time"
 
@@ -36,15 +39,15 @@ func main() {
 	//creatnumber()
 	//WriteXLSX()
 	//ReadXlsx()
-	FenGeShuJu()
+	//FenGeShuJu()
 
 	//网站初始化
 
 	//
-	//global.GVA_VP = core.Viper()      // 初始化Viper
-	//global.GVA_LOG = core.Zap()       // 初始化zap日志库
-	//global.GVA_DB = initialize.Gorm() // gorm连接数据库
-	//core.RunWindowsServer()           //设置路由,启动端口监听
+	global.GVA_VP = core.Viper()      // 初始化Viper
+	global.GVA_LOG = core.Zap()       // 初始化zap日志库
+	global.GVA_DB = initialize.Gorm() // gorm连接数据库
+	core.RunWindowsServer()           //设置路由,启动端口监听
 
 	//测试git更新
 
@@ -235,15 +238,54 @@ func readCsvDays() {
 			log.Fatal(err)
 		}
 
-		//fmt.Printf("Record has %d columns.\n", len(record))
-		//city, _ := iconv.ConvertString(record[2], "gb2312", "utf-8")
+		if record[2] == "1" {
+			//fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
 
-		//if record[2] == "1" || record[2] == "2" {
-		//	//fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
-		//
-		//	writer.WriteString(record[0] + "\n")
-		//
-		//}
+			writer.WriteString(record[0] + "\n")
+
+		}
+
+	}
+
+	//因为 writer 是带缓存的，因此在调用 WriterString 方法时，内容是先写入缓存的
+	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
+	writer.Flush()
+
+}
+
+func readCsvDaysData() {
+
+	//创建一个新文件，写入内容
+	filePath := "./1.csv"
+	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Printf("打开文件错误= %v \n", err)
+		return
+	}
+	//及时关闭
+	defer file.Close()
+
+	// Open the file
+	csvfile, err := os.Open("./1.csv")
+	if err != nil {
+		log.Fatalln("Couldn't open the csv file", err)
+	}
+	defer csvfile.Close()
+	//写入时，使用带缓存的 *Writer
+	writer := bufio.NewWriter(file)
+	// Parse the file
+	r := csv.NewReader(csvfile)
+
+	// Iterate through the records
+	for {
+		// Read each record from csv
+		record, err := r.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Fatal(err)
+		}
 
 		if record[2] == "1" {
 			//fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
@@ -303,31 +345,6 @@ func End4Number() {
 			}
 		}
 	}
-
-	//for i := 0; i <= 9; i++ {
-	//	for j := 0; j <= 9; j++ {
-	//		for k := 0; k <= 9; k++ {
-	//
-	//			for m := 0; m <= 9; m++ {
-	//				/*确保 i 、j 、k 三位互不相同*/
-	//				if i != k && i != j && j != k {
-	//					totalCount++
-	//
-	//					stri := strconv.Itoa(i)
-	//					strj := strconv.Itoa(j)
-	//					strk := strconv.Itoa(k)
-	//					strm := strconv.Itoa(m)
-	//
-	//					strall := stri + strj + strk + strm
-	//					writer.WriteString(strall + "\n")
-	//					//fmt.Printf("%s \n", strall)
-	//
-	//				}
-	//			}
-	//
-	//		}
-	//	}
-	//}
 
 	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
 	writer.Flush()
@@ -416,7 +433,7 @@ func readTXT2w() {
 	//创建一个 *Reader ， 是带缓冲的
 	reader := bufio.NewReader(file)
 	var name = 0
-	filePath := "./7w.txt"
+	filePath := "./1万ws女性活跃.txt"
 	files, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	//写入内容
 	//写入时，使用带缓存的 *Writer
@@ -451,10 +468,9 @@ func readTXT2w() {
 	fmt.Println("文件读取结束...")
 }
 
-// 79910676551    79910676540     79910676529   79910676522
 func FenGeShuJu() {
 	//打开文件
-	file, err := os.Open("./4_15俄罗斯.txt")
+	file, err := os.Open("./16_10000.txt")
 	if err != nil {
 		fmt.Println("文件打开失败 = ", err)
 	}
@@ -463,11 +479,18 @@ func FenGeShuJu() {
 	//创建一个 *Reader ， 是带缓冲的
 	reader := bufio.NewReader(file)
 	var name = 0
-	filePath := "./a渠道.txt"
-	files, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+
 	//写入内容
 	//写入时，使用带缓存的 *Writer
+	filePath := "./a渠道.txt"
+	files, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	writer := bufio.NewWriter(files)
+
+	//第二个分割
+	filePath2 := "./b渠道.txt"
+	files2, err := os.OpenFile(filePath2, os.O_WRONLY|os.O_CREATE, 0666)
+	writer2 := bufio.NewWriter(files2)
+
 	if err != nil {
 		fmt.Printf("打开文件错误= %v \n", err)
 		return
@@ -476,18 +499,16 @@ func FenGeShuJu() {
 	defer file.Close()
 	for {
 
-		//if name > 3000 {
-		//	break
-		//}
 		str, err := reader.ReadString('\n') //读到一个换行就结束
 		if err == io.EOF {                  //io.EOF 表示文件的末尾
 			break
 		}
 
-		//79910676502   79910676398    79910676394     79910397806
+		//  79910676551    79910676540     79910676529   79910676522
 
-		if name > 3000 {
+		//  79910676502   79910676398    79910676394     79910397806
 
+		if name > 5000 {
 			if name == 3500 {
 				writer.WriteString("79910676502")
 				writer.WriteString("\r\n")
@@ -507,38 +528,45 @@ func FenGeShuJu() {
 				writer.WriteString("79910397806")
 				writer.WriteString("\r\n")
 			}
-
+			writer.WriteString("\r\n")
 			writer.WriteString(str)
+			writer.WriteString("\r\n")
 
 		}
 
-		//if name == 3500 {
-		//	writer.WriteString("79910676502")
-		//	writer.WriteString("\n")
-		//}
-		//
-		//if name == 4000 {
-		//	writer.WriteString("79910676398")
-		//	writer.WriteString("\n")
-		//}
-		//
-		//if name == 5000 {
-		//	writer.WriteString("79910676394")
-		//	writer.WriteString("\n")
-		//}
-		//
-		//if name == 5500 {
-		//	writer.WriteString("79910397806")
-		//	writer.WriteString("\n")
-		//}
-		//
-		//writer.WriteString(str)
-		//writer.WriteString("\n")
+		if name < 5000 {
+
+			if name == 800 {
+				writer2.WriteString("79910676551")
+				writer2.WriteString("\r\n")
+			}
+
+			if name == 1400 {
+				writer2.WriteString("79910676540")
+				writer2.WriteString("\r\n")
+			}
+
+			if name == 2400 {
+				writer2.WriteString("79910676529")
+				writer2.WriteString("\r\n")
+			}
+
+			if name == 3500 {
+				writer2.WriteString("79910676522")
+				writer2.WriteString("\r\n")
+			}
+			writer2.WriteString("\r\n")
+			writer2.WriteString(str)
+			writer2.WriteString("\r\n")
+
+		}
+
 		name++
 	}
 	//因为 writer 是带缓存的，因此在调用 WriterString 方法时，内容是先写入缓存的
 	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
 	writer.Flush()
+	writer2.Flush()
 	fmt.Println("文件读取结束...")
 }
 

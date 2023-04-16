@@ -4,13 +4,29 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fccc6447-dcfc-4752-9b71-783b16a01c11" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/4_15俄罗斯.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="fccc6447-dcfc-4752-9b71-783b16a01c11" name="Changes" comment="1">
+      <change afterPath="$PROJECT_DIR$/16_10000.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/1.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/123.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3000.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4_15俄罗斯.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/7w.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VUE前端UI" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android报毒问题" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/golang.txt" beforeDir="false" afterPath="$PROJECT_DIR$/golang.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/googds.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rudata.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/viber" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/云控系统" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/俄罗斯20w.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/俄罗斯社群" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/安卓改机" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/手机刷机" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/最终数据.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/爱彼迎" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +96,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="1" />
+    <option name="LAST_COMMIT_MESSAGE" value="1" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
