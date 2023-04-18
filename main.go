@@ -2,9 +2,6 @@ package main
 
 import (
 	"bufio"
-	"main.go/core"
-	"main.go/global"
-	"main.go/initialize"
 	"math/rand"
 	"time"
 
@@ -39,15 +36,15 @@ func main() {
 	//creatnumber()
 	//WriteXLSX()
 	//ReadXlsx()
-	//FenGeShuJu()
+	FenGeShuJu()
 
 	//网站初始化
 
 	//
-	global.GVA_VP = core.Viper()      // 初始化Viper
-	global.GVA_LOG = core.Zap()       // 初始化zap日志库
-	global.GVA_DB = initialize.Gorm() // gorm连接数据库
-	core.RunWindowsServer()           //设置路由,启动端口监听
+	//global.GVA_VP = core.Viper()      // 初始化Viper
+	//global.GVA_LOG = core.Zap()       // 初始化zap日志库
+	//global.GVA_DB = initialize.Gorm() // gorm连接数据库
+	//core.RunWindowsServer()           //设置路由,启动端口监听
 
 	//测试git更新
 
@@ -470,7 +467,7 @@ func readTXT2w() {
 
 func FenGeShuJu() {
 	//打开文件
-	file, err := os.Open("./16_10000.txt")
+	file, err := os.Open("./俄罗斯女77300.txt")
 	if err != nil {
 		fmt.Println("文件打开失败 = ", err)
 	}
@@ -482,7 +479,7 @@ func FenGeShuJu() {
 
 	//写入内容
 	//写入时，使用带缓存的 *Writer
-	filePath := "./a渠道.txt"
+	filePath := "./3w女性30活跃.txt"
 	files, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	writer := bufio.NewWriter(files)
 
@@ -508,58 +505,55 @@ func FenGeShuJu() {
 
 		//  79910676502   79910676398    79910676394     79910397806
 
-		if name > 5000 {
-			if name == 3500 {
-				writer.WriteString("79910676502")
-				writer.WriteString("\r\n")
-			}
-
-			if name == 4000 {
-				writer.WriteString("79910676398")
-				writer.WriteString("\r\n")
-			}
-
-			if name == 5000 {
-				writer.WriteString("79910676394")
-				writer.WriteString("\r\n")
-			}
-
-			if name == 5500 {
-				writer.WriteString("79910397806")
-				writer.WriteString("\r\n")
-			}
-			writer.WriteString("\r\n")
+		if name > 47000 {
+			//if name == 3500 {
+			//	writer.WriteString("79910676502")
+			//	writer.WriteString("\r\n")
+			//}
+			//
+			//if name == 4000 {
+			//	writer.WriteString("79910676398")
+			//	writer.WriteString("\r\n")
+			//}
+			//
+			//if name == 5000 {
+			//	writer.WriteString("79910676394")
+			//	writer.WriteString("\r\n")
+			//}
+			//
+			//if name == 5500 {
+			//	writer.WriteString("79910397806")
+			//	writer.WriteString("\r\n")
+			//}
 			writer.WriteString(str)
-			writer.WriteString("\r\n")
+			//writer.WriteString("\r\n")
 
 		}
 
-		if name < 5000 {
+		//if name < 5000 {
+		//
+		//	if name == 800 {
+		//		writer2.WriteString("79910676551")
+		//		writer2.WriteString("\r\n")
+		//	}
+		//
+		//	if name == 1400 {
+		//		writer2.WriteString("79910676540")
+		//		writer2.WriteString("\r\n")
+		//	}
+		//
+		//	if name == 2400 {
+		//		writer2.WriteString("79910676529")
+		//		writer2.WriteString("\r\n")
+		//	}
+		//
+		//	if name == 3500 {
+		//		writer2.WriteString("79910676522")
+		//		writer2.WriteString("\r\n")
+		//	}
+		//	writer2.WriteString(str)
 
-			if name == 800 {
-				writer2.WriteString("79910676551")
-				writer2.WriteString("\r\n")
-			}
-
-			if name == 1400 {
-				writer2.WriteString("79910676540")
-				writer2.WriteString("\r\n")
-			}
-
-			if name == 2400 {
-				writer2.WriteString("79910676529")
-				writer2.WriteString("\r\n")
-			}
-
-			if name == 3500 {
-				writer2.WriteString("79910676522")
-				writer2.WriteString("\r\n")
-			}
-			writer2.WriteString("\r\n")
-			writer2.WriteString(str)
-			writer2.WriteString("\r\n")
-
-		}
+		//}
 
 		name++
 	}
