@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="35b6d63d-2ac8-4826-a669-317706f11227" name="Changes" comment="add">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ws相关文档" beforeDir="false" afterPath="$PROJECT_DIR$/ws相关文档" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static-files/5000.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static-files/vpn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static-files/首页.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
