@@ -278,13 +278,3 @@ http://localhost/phpMyAdmin4.8.5/sql.php?
 
 
 
-面板地址: http://154.88.15.85:9898/a27b29e5
-
-username: ggs5xmch
-password: 9aa55782
-
-
-海网
-http://154.198.234.122:9898/a694b900
-username: yjojtnyj
-password: f56c2a51
