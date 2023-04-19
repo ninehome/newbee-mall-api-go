@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="35b6d63d-2ac8-4826-a669-317706f11227" name="Changes" comment="add">
+      <change afterPath="$PROJECT_DIR$/static-files/10001.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static-files/rubank.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static-files/5000.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static-files/vpn" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static-files/首页.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/manage/manage_order.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/manage/manage_order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/router/manage/manage_order.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/manage/manage_order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/manage/manage_order.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/manage/manage_order.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +46,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static-files" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
       <module name="study-go" />

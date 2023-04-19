@@ -222,6 +222,41 @@ func (m *ManageOrderService) GetMallOrderInfoList(info request.PageInfo, orderNo
 	return err, mallOrders, total
 }
 
+func (m *ManageOrderService) GetMallOrderFromNameList(info request.PageInfo, orderNo string, loginName string, token string) (err error, list interface{}, total int64) {
+	var adminUserToken manage.MallAdminUserToken
+	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
+	if err != nil {
+		return errors.New("不存在的token  " + err.Error()), list, total
+	}
+	limit := info.PageSize
+	offset := info.PageSize * (info.PageNumber - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&manage.MallOrder{})
+	if orderNo != "" {
+		db.Where("order_no", orderNo)
+	}
+	// 0.待支付 1.已支付 2.配货完成 3:出库成功 4.交易成功(申请回购，) 5.回购完成(已经退款) -1.手动关闭 -2.超时关闭 -3.商家关闭
+	//if orderStatus != "" {
+	//	status, _ := strconv.Atoi(orderStatus)
+	//	db.Where("order_status", status)
+	//}
+	var mallOrders []manage.MallOrder
+	// 如果有条件搜索 下方会自动创建搜索语句
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+	if adminUserToken.AgentId == "8888" { //8888是最高管理权限
+		err = db.Limit(limit).Offset(offset).Order("update_time desc").Where("user_name", loginName).Find(&mallOrders).Error
+	} else {
+		//err = db.Limit(limit).Offset(offset).Where("agent_id", adminUserToken.AgentId).Order("update_time desc").Find(&mallOrders).Error
+		err = db.Limit(limit).Offset(offset).Where(map[string]interface{}{"agent_id": adminUserToken.AgentId, "user_name": loginName}).Find(&mallOrders).Error
+
+	}
+
+	return err, mallOrders, total
+}
+
 // 获取订单记录 v2-包括订单详情信息
 func (m *ManageOrderService) GetMallOrderInfoListV2(info request.PageInfo, orderNo string, orderStatus string, token string) (err error, list interface{}, total int64) {
 	var adminUserToken manage.MallAdminUserToken
