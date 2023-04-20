@@ -246,11 +246,12 @@ func (m *ManageOrderService) GetMallOrderFromNameList(info request.PageInfo, ord
 	if err != nil {
 		return
 	}
+
 	if adminUserToken.AgentId == "8888" { //8888是最高管理权限
-		err = db.Limit(limit).Offset(offset).Order("update_time desc").Where("user_name", loginName).Find(&mallOrders).Error
+		err = db.Limit(limit).Offset(offset).Order("update_time desc").Where("user_name", "9017314501").Find(&mallOrders).Error
 	} else {
 		//err = db.Limit(limit).Offset(offset).Where("agent_id", adminUserToken.AgentId).Order("update_time desc").Find(&mallOrders).Error
-		err = db.Limit(limit).Offset(offset).Where(map[string]interface{}{"agent_id": adminUserToken.AgentId, "user_name": loginName}).Find(&mallOrders).Error
+		err = db.Limit(limit).Offset(offset).Where(map[string]interface{}{"agent_id": adminUserToken.AgentId, "user_name": "9017314501"}).Find(&mallOrders).Error
 
 	}
 

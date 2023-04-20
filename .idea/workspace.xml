@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35b6d63d-2ac8-4826-a669-317706f11227" name="Changes" comment="add">
-      <change afterPath="$PROJECT_DIR$/static-files/10001.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static-files/rubank.png" afterDir="false" />
+    <list default="true" id="35b6d63d-2ac8-4826-a669-317706f11227" name="Changes" comment="订单查询">
+      <change afterPath="$PROJECT_DIR$/payth" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3w女性30活跃.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/api/v1/manage/manage_order.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/manage/manage_order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/common/request/common.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/common/request/common.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/router/manage/manage_order.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/manage/manage_order.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/manage/manage_order.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/manage/manage_order.go" afterDir="false" />
     </list>
@@ -52,11 +54,10 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
+    <configuration name="go build study-go/" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
       <module name="study-go" />
       <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="main.go" />
+      <kind value="DIRECTORY" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <method v="2" />
@@ -66,9 +67,21 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add" />
-    <option name="LAST_COMMIT_MESSAGE" value="add" />
+    <MESSAGE value="订单查询" />
+    <option name="LAST_COMMIT_MESSAGE" value="订单查询" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
