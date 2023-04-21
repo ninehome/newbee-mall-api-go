@@ -1,7 +1,6 @@
 package manage
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"main.go/global"
@@ -95,14 +94,11 @@ func (m *ManageOrderApi) GetMallOrderList(c *gin.Context) {
 
 func (m *ManageOrderApi) GetMallUserAllOrder(c *gin.Context) {
 	var pageInfo request.PageInfo
-	_ = c.ShouldBindQuery(&pageInfo)
+	_ = c.ShouldBindJSON(&pageInfo)
 	userToken := c.GetHeader("token")
-	orderNo := c.Query("loginName")
+	//orderNo := c.Query("loginName"
 
-	fmt.Println("1111111111")
-	fmt.Println(pageInfo.LoginName)
-	fmt.Println("2222222222")
-	if err, list, total := mallOrderService.GetMallOrderFromNameList(pageInfo, orderNo, pageInfo.LoginName, userToken); err != nil {
+	if err, list, total := mallOrderService.GetMallOrderFromNameList(pageInfo, "", pageInfo.LoginName, userToken); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

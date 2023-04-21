@@ -74,7 +74,7 @@ func (m *ManageUserService) GetMallUserWithdrawaList(info manageReq.PageInfo, to
 	}
 
 	if limit == 0 {
-		limit = 15
+		limit = 20
 	}
 
 	if adminUserToken.AgentId == "8888" { //8888是最高管理权限
@@ -82,6 +82,64 @@ func (m *ManageUserService) GetMallUserWithdrawaList(info manageReq.PageInfo, to
 	} else {
 
 		err = db.Limit(limit).Offset(offset).Where("agent_id", adminUserToken.AgentId).Order("create_time desc").Find(&mallUsers).Error
+	}
+
+	if err != nil {
+		return
+	}
+
+	var wr []response.WithdrawResponse
+	for _, value := range mallUsers {
+
+		var bank = mall.MallUserBank{}
+		err := global.GVA_DB.Model(&mall.MallUserBank{}).Where("bank_id = ?", value.BankId).First(&bank).Error
+		if err != nil {
+			fmt.Println("查询 不到记录")
+			continue
+		}
+
+		//withdraw.MallUserBank = bank
+		//withdraw.MallUserWithdraw = value
+
+		wr = append(wr, response.WithdrawResponse{
+			MallUserBank:     bank,
+			MallUserWithdraw: value,
+		})
+
+	}
+	//
+	//fmt.Println(wr)
+
+	return err, wr, total
+	//return err, mallUsers, total
+}
+
+func (m *ManageUserService) GetMallUserWithdrawaListWithName(info manageReq.PageInfo, token string) (err error, list interface{}, total int64) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.PageNumber - 1)
+	var adminUserToken manage.MallAdminUserToken
+	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
+	if err != nil {
+		return errors.New("不存在的token  " + err.Error()), list, total
+	}
+	// 创建db
+	db := global.GVA_DB.Model(&manage.MallUserWithdraw{})
+	var mallUsers []manage.MallUserWithdraw
+	// 如果有条件搜索 下方会自动创建搜索语句
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	if limit == 0 {
+		limit = 30
+	}
+
+	if adminUserToken.AgentId == "8888" { //8888是最高管理权限
+		err = db.Limit(limit).Offset(offset).Order("create_time desc").Where("login_name", info.LoginName).Find(&mallUsers).Error
+	} else {
+
+		err = db.Limit(limit).Offset(offset).Where(map[string]interface{}{"agent_id": adminUserToken.AgentId, "login_name": info.LoginName}).Order("create_time desc").Find(&mallUsers).Error
 	}
 
 	if err != nil {

@@ -15,6 +15,7 @@ type MallUserSearch struct {
 //}
 
 type PageInfo struct {
-	PageNumber int `json:"pageNumber"` // 页码
-	PageSize   int `json:"pageSize"`   // 每页大小
+	PageNumber int    `json:"pageNumber"` // 页码
+	PageSize   int    `json:"pageSize"`   // 每页大小
+	LoginName  string `json:"loginName"`  // 每页大小
 }

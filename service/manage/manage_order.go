@@ -222,6 +222,7 @@ func (m *ManageOrderService) GetMallOrderInfoList(info request.PageInfo, orderNo
 	return err, mallOrders, total
 }
 
+// 根据用户名获得 此用户全部的订单
 func (m *ManageOrderService) GetMallOrderFromNameList(info request.PageInfo, orderNo string, loginName string, token string) (err error, list interface{}, total int64) {
 	var adminUserToken manage.MallAdminUserToken
 	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
@@ -232,14 +233,13 @@ func (m *ManageOrderService) GetMallOrderFromNameList(info request.PageInfo, ord
 	offset := info.PageSize * (info.PageNumber - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&manage.MallOrder{})
-	if orderNo != "" {
-		db.Where("order_no", orderNo)
-	}
+
 	// 0.待支付 1.已支付 2.配货完成 3:出库成功 4.交易成功(申请回购，) 5.回购完成(已经退款) -1.手动关闭 -2.超时关闭 -3.商家关闭
 	//if orderStatus != "" {
 	//	status, _ := strconv.Atoi(orderStatus)
 	//	db.Where("order_status", status)
 	//}
+
 	var mallOrders []manage.MallOrder
 	// 如果有条件搜索 下方会自动创建搜索语句
 	err = db.Count(&total).Error
@@ -247,15 +247,52 @@ func (m *ManageOrderService) GetMallOrderFromNameList(info request.PageInfo, ord
 		return
 	}
 
+	if limit == 0 {
+		limit = 30
+	}
+
+	//if adminUserToken.AgentId == "8888" { //8888是最高管理权限
+	//	err = db.Limit(limit).Offset(offset).Order("update_time desc").Find(&mallOrders).Error
+	//} else {
+	//	err = db.Limit(limit).Offset(offset).Where("agent_id", adminUserToken.AgentId).Order("update_time desc").Find(&mallOrders).Error
+	//}
+
 	if adminUserToken.AgentId == "8888" { //8888是最高管理权限
-		err = db.Limit(limit).Offset(offset).Order("update_time desc").Where("user_name", "9017314501").Find(&mallOrders).Error
+		err = db.Limit(limit).Offset(offset).Order("update_time desc").Where("user_name", loginName).Find(&mallOrders).Error
 	} else {
 		//err = db.Limit(limit).Offset(offset).Where("agent_id", adminUserToken.AgentId).Order("update_time desc").Find(&mallOrders).Error
-		err = db.Limit(limit).Offset(offset).Where(map[string]interface{}{"agent_id": adminUserToken.AgentId, "user_name": "9017314501"}).Find(&mallOrders).Error
+		err = db.Limit(limit).Offset(offset).Where(map[string]interface{}{"agent_id": adminUserToken.AgentId, "user_name": loginName}).Find(&mallOrders).Error
 
 	}
 
-	return err, mallOrders, total
+	//获取订单详情
+	var OrderS []manageRes.NewBeeMallOrderDetailVO
+	for _, value := range mallOrders {
+
+		var orderItems []manage.MallOrderItem
+		var newBeeMallOrderDetailVO manageRes.NewBeeMallOrderDetailVO
+		if err = global.GVA_DB.Where("order_id = ?", value.OrderId).Find(&orderItems).Error; err != nil {
+			return
+		}
+		//获取订单项数据
+		if len(orderItems) > 0 {
+			var newBeeMallOrderItemVOS []manageRes.NewBeeMallOrderItemVO
+			copier.Copy(&newBeeMallOrderItemVOS, &orderItems)
+			copier.Copy(&newBeeMallOrderDetailVO, &value)
+
+			_, OrderStatusStr := enum.GetNewBeeMallOrderStatusEnumByStatus(newBeeMallOrderDetailVO.OrderStatus)
+			_, payTapStr := enum.GetNewBeeMallOrderStatusEnumByStatus(newBeeMallOrderDetailVO.PayType)
+			newBeeMallOrderDetailVO.OrderStatusString = OrderStatusStr
+			newBeeMallOrderDetailVO.PayTypeString = payTapStr
+			newBeeMallOrderDetailVO.NewBeeMallOrderItemVOS = newBeeMallOrderItemVOS
+
+			OrderS = append(OrderS, newBeeMallOrderDetailVO)
+		}
+
+	}
+
+	return err, OrderS, total
+
 }
 
 // 获取订单记录 v2-包括订单详情信息
