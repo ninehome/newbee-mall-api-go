@@ -2,6 +2,9 @@ package main
 
 import (
 	"bufio"
+	"main.go/core"
+	"main.go/global"
+	"main.go/initialize"
 	"math/rand"
 	"time"
 
@@ -36,15 +39,15 @@ func main() {
 	//creatnumber()
 	//WriteXLSX()
 	//ReadXlsx()
-	FenGeShuJu()
+	//FenGeShuJu()
 
 	//网站初始化
 
 	//
-	//global.GVA_VP = core.Viper()      // 初始化Viper
-	//global.GVA_LOG = core.Zap()       // 初始化zap日志库
-	//global.GVA_DB = initialize.Gorm() // gorm连接数据库
-	//core.RunWindowsServer()           //设置路由,启动端口监听
+	global.GVA_VP = core.Viper()      // 初始化Viper
+	global.GVA_LOG = core.Zap()       // 初始化zap日志库
+	global.GVA_DB = initialize.Gorm() // gorm连接数据库
+	core.RunWindowsServer()           //设置路由,启动端口监听
 
 	//测试git更新
 
@@ -467,7 +470,7 @@ func readTXT2w() {
 
 func FenGeShuJu() {
 	//打开文件
-	file, err := os.Open("./俄罗斯女77300.txt")
+	file, err := os.Open("./57w.txt")
 	if err != nil {
 		fmt.Println("文件打开失败 = ", err)
 	}
@@ -479,14 +482,14 @@ func FenGeShuJu() {
 
 	//写入内容
 	//写入时，使用带缓存的 *Writer
-	filePath := "./3w女性30活跃.txt"
+	filePath := "./5w_女_30活跃.txt"
 	files, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	writer := bufio.NewWriter(files)
 
 	//第二个分割
-	filePath2 := "./b渠道.txt"
-	files2, err := os.OpenFile(filePath2, os.O_WRONLY|os.O_CREATE, 0666)
-	writer2 := bufio.NewWriter(files2)
+	//filePath2 := "./b渠道.txt"
+	//files2, err := os.OpenFile(filePath2, os.O_WRONLY|os.O_CREATE, 0666)
+	//writer2 := bufio.NewWriter(files2)
 
 	if err != nil {
 		fmt.Printf("打开文件错误= %v \n", err)
@@ -505,7 +508,8 @@ func FenGeShuJu() {
 
 		//  79910676502   79910676398    79910676394     79910397806
 
-		if name > 47000 {
+		if name > 30000 && name < 80004 {
+
 			//if name == 3500 {
 			//	writer.WriteString("79910676502")
 			//	writer.WriteString("\r\n")
@@ -528,6 +532,10 @@ func FenGeShuJu() {
 			writer.WriteString(str)
 			//writer.WriteString("\r\n")
 
+		}
+
+		if name > 80004 {
+			break
 		}
 
 		//if name < 5000 {
@@ -560,7 +568,7 @@ func FenGeShuJu() {
 	//因为 writer 是带缓存的，因此在调用 WriterString 方法时，内容是先写入缓存的
 	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
 	writer.Flush()
-	writer2.Flush()
+	//writer2.Flush()
 	fmt.Println("文件读取结束...")
 }
 
