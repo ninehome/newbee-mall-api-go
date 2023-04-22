@@ -11,6 +11,7 @@ type ManageOrderRouter struct {
 
 func (r *ManageOrderRouter) InitManageOrderRouter(Router *gin.RouterGroup) {
 	mallOrderRouter := Router.Group("v1").Use(middleware.AdminJWTAuth())
+	//mallAdminUserWithoutRouter := Router.Group("v1") //不鉴权
 	var mallOrderApi = v1.ApiGroupApp.ManageApiGroup.ManageOrderApi
 	{
 		mallOrderRouter.PUT("orders/checkDone", mallOrderApi.CheckDoneOrder)   // 发货
@@ -22,5 +23,8 @@ func (r *ManageOrderRouter) InitManageOrderRouter(Router *gin.RouterGroup) {
 		mallOrderRouter.GET("orders/v2", mallOrderApi.GetMallBuyBackListV2)    // 获取MallOrder列表
 		mallOrderRouter.GET("orders/buyback", mallOrderApi.GetMallBuyBackList) // 获取 回购的列表
 		mallOrderRouter.POST("orders/back", mallOrderApi.ChangeOrderStatus)    //订单回购接口
+		mallOrderRouter.POST("orders/name", mallOrderApi.GetMallUserAllOrder)  // 根据传入的用户名 获得此用户所有的订单列表
+		mallOrderRouter.GET("orders/name", mallOrderApi.GetMallUserAllOrder)   // 根据传入的用户名 获得此用户所有的订单列表
 	}
+
 }

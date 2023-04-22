@@ -261,6 +261,26 @@ func (m *ManageAdminUserApi) WithdrawalHistory(c *gin.Context) {
 	}
 }
 
+func (m *ManageAdminUserApi) WithdrawalHistoryWithName(c *gin.Context) {
+	token := c.GetHeader("token")
+	//var pageInfo manageReq.WithdrawalSearch
+	var param manageReq.PageInfo
+	//获取分页参数
+	_ = c.ShouldBindJSON(&param)
+
+	if err, list, total := mallUserService.GetMallUserWithdrawaListWithName(param, token); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:       list,
+			TotalCount: total,
+			CurrPage:   param.PageNumber,
+			PageSize:   param.PageSize,
+		}, "获取成功", c)
+	}
+}
+
 // LockUser 用户禁用与解除禁用(0-未锁定 1-已锁定)
 func (m *ManageAdminUserApi) LockUser(c *gin.Context) {
 	lockStatus, _ := strconv.Atoi(c.Param("lockStatus"))

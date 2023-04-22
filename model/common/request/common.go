@@ -6,6 +6,7 @@ type PageInfo struct {
 	PageSize    int    `json:"pageSize" form:"pageSize"`       // 每页大小
 	OrderStatus string `json:"orderStatus" form:"orderStatus"` //
 	OrderNo     string `json:"orderNo" form:"orderNo"`         //
+	LoginName   string `json:"loginName" form:"loginName"`     //
 }
 
 // GetById Find by id structure

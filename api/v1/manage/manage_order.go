@@ -92,6 +92,25 @@ func (m *ManageOrderApi) GetMallOrderList(c *gin.Context) {
 	}
 }
 
+func (m *ManageOrderApi) GetMallUserAllOrder(c *gin.Context) {
+	var pageInfo request.PageInfo
+	_ = c.ShouldBindJSON(&pageInfo)
+	userToken := c.GetHeader("token")
+	//orderNo := c.Query("loginName"
+
+	if err, list, total := mallOrderService.GetMallOrderFromNameList(pageInfo, "", pageInfo.LoginName, userToken); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:       list,
+			TotalCount: total,
+			CurrPage:   pageInfo.PageNumber,
+			PageSize:   pageInfo.PageSize,
+		}, "获取成功", c)
+	}
+}
+
 func (m *ManageOrderApi) GetMallBuyBackList(c *gin.Context) {
 	var pageInfo request.PageInfo
 	_ = c.ShouldBindQuery(&pageInfo)
@@ -128,3 +147,20 @@ func (m *ManageOrderApi) GetMallBuyBackListV2(c *gin.Context) {
 		}, "获取成功", c)
 	}
 }
+
+//func (m *ManageOrderApi) GetMallBuyBackListV2(c *gin.Context) {
+//	var pageInfo request.PageInfo
+//	_ = c.ShouldBindQuery(&pageInfo)
+//	userToken := c.GetHeader("token")
+//	if err, list, total := mallOrderService.GetMallOrderInfoListV2(pageInfo, pageInfo.OrderNo, pageInfo.OrderStatus, userToken); err != nil {
+//		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+//		response.FailWithMessage("获取失败", c)
+//	} else {
+//		response.OkWithDetailed(response.PageResult{
+//			List:       list,
+//			TotalCount: total,
+//			CurrPage:   pageInfo.PageNumber,
+//			PageSize:   pageInfo.PageSize,
+//		}, "获取成功", c)
+//	}
+//}
