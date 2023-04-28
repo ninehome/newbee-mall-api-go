@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="35b6d63d-2ac8-4826-a669-317706f11227" name="Changes" comment="订单查询">
-      <change afterPath="$PROJECT_DIR$/ws云控" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/manage/manage_goods_info.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/manage/manage_goods_info.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router/manage/manage_goods_info.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/manage/manage_goods_info.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/manage/manage_goods_info.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/manage/manage_goods_info.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,5 +81,16 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/service/manage/manage_goods_info.go</url>
+          <line>83</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
