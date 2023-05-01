@@ -61,7 +61,7 @@ func readCsv() {
 		fmt.Printf("打开文件错误= %v \n", err)
 		return
 	}
-	//及时关闭
+	//及时关闭qq
 	defer file.Close()
 
 	// Open the file
