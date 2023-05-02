@@ -508,7 +508,7 @@ func FenGeShuJu() {
 
 		//  79910676502   79910676398    79910676394     79910397806
 
-		if name > 30000 && name < 80004 {
+		if name > 80004 && name < 120004 {
 
 			//if name == 3500 {
 			//	writer.WriteString("79910676502")
