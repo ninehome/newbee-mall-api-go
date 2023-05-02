@@ -62,6 +62,28 @@ func (m *ManageGoodsInfoApi) UpdateGoodsInfo(c *gin.Context) {
 	}
 }
 
+func (m *ManageGoodsInfoApi) CountdownGoodsInfo(c *gin.Context) {
+	var mallGoodsInfo manageReq.GoodsInfoUpdateParamV2
+	_ = c.ShouldBindJSON(&mallGoodsInfo)
+	if err := mallGoodsInfoService.UpdateGoodsInfoTime(mallGoodsInfo); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败"+err.Error(), c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
+}
+
+func (m *ManageGoodsInfoApi) CountdownCancel(c *gin.Context) {
+	var mallGoodsInfo manageReq.GoodsInfoUpdateParamV2
+	_ = c.ShouldBindJSON(&mallGoodsInfo)
+	if err := mallGoodsInfoService.StopCountDownTime(mallGoodsInfo); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败"+err.Error(), c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
+}
+
 // FindMallGoodsInfo 用id查询MallGoodsInfo
 func (m *ManageGoodsInfoApi) FindGoodsInfo(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))

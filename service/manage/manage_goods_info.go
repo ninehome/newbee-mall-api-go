@@ -104,6 +104,30 @@ func (m *ManageGoodsInfoService) UpdateMallGoodsInfoV2(req manageReq.GoodsInfoUp
 	return err
 }
 
+// 商品倒计时
+func (m *ManageGoodsInfoService) UpdateGoodsInfoTime(req manageReq.GoodsInfoUpdateParamV2) (err error) {
+	goodsId, _ := strconv.Atoi(req.GoodsId)
+	//originalPrice, _ := strconv.Atoi(req.SellingPrice)
+	updateTime := time.Now().Unix() + 5*60
+
+	fmt.Println("开始时间戳")
+	fmt.Println(updateTime)
+	fmt.Println("时间戳时间戳")
+	fmt.Println(goodsId)
+	err = global.GVA_DB.Model(&manage.MallGoodsInfo{}).Where("goods_id = ?", goodsId).Update("count_time", int(updateTime)).Error
+
+	return err
+}
+
+// 商品 停止倒计时
+func (m *ManageGoodsInfoService) StopCountDownTime(req manageReq.GoodsInfoUpdateParamV2) (err error) {
+	goodsId, _ := strconv.Atoi(req.GoodsId)
+
+	err = global.GVA_DB.Model(&manage.MallGoodsInfo{}).Where("goods_id = ?", goodsId).Update("count_time", 0).Error
+
+	return err
+}
+
 // GetMallGoodsInfo 根据id获取MallGoodsInfo记录
 func (m *ManageGoodsInfoService) GetMallGoodsInfo(id int) (err error, mallGoodsInfo manage.MallGoodsInfo) {
 	err = global.GVA_DB.Where("goods_id = ?", id).First(&mallGoodsInfo).Error
