@@ -25,7 +25,7 @@ type MallGoodsInfo struct {
 	CreateTime         common.JSONTime `json:"createTime" form:"createTime" gorm:"column:create_time;comment:商品添加时间;type:datetime"`
 	UpdateUser         int             `json:"updateUser" form:"updateUser" gorm:"column:update_user;comment:修改者主键id;type:int"`
 	UpdateTime         common.JSONTime `json:"updateTime" form:"updateTime" gorm:"column:update_time;comment:商品修改时间;type:datetime"`
-	CountTime          int             `json:"countTime" form:"countTime" gorm:"column:count_time;comment:商品购购买过期时间戳;type:int"`
+	CountTime          int             `json:"countTime" form:"countTime"   gorm:"column:count_time;comment:商品购购买过期时间戳;type:bigint"`
 }
 
 // TableName MallGoodsInfo 表名

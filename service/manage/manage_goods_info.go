@@ -110,7 +110,11 @@ func (m *ManageGoodsInfoService) UpdateGoodsInfoTime(req manageReq.GoodsInfoUpda
 	//originalPrice, _ := strconv.Atoi(req.SellingPrice)
 	updateTime := time.Now().Unix() + 5*60
 
-	err = global.GVA_DB.Model(&manage.MallGoodsInfo{}).Where("goods_id = ?", goodsId).Update("count_time", updateTime).Error
+	fmt.Println("开始时间戳")
+	fmt.Println(updateTime)
+	fmt.Println("时间戳时间戳")
+	fmt.Println(goodsId)
+	err = global.GVA_DB.Model(&manage.MallGoodsInfo{}).Where("goods_id = ?", goodsId).Update("count_time", int(updateTime)).Error
 
 	return err
 }
