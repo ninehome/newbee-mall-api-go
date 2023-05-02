@@ -18,4 +18,5 @@ type GoodsInfoDetailResponse struct {
 	OriginalPrice      int      `json:"originalPrice" `
 	Tag                string   `json:"tag" form:"tag" `
 	GoodsCarouselList  []string `json:"goodsCarouselList" `
+	CountTime          int      `json:"countTime"`
 }
