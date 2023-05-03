@@ -27,7 +27,7 @@ var once sync.Once
 
 func main() {
 
-	//readCsv()
+	readCsv()
 	//End4Number()
 	//readCvsV2()     //筛选 女性
 	//readTXT2w()
@@ -36,7 +36,7 @@ func main() {
 	//startmoxikenumber()
 
 	//sendWhatsappMessage() //发送 ws 消息
-	//creatnumber()
+	//creatnumber() //通过号段生成号码·
 	//WriteXLSX()
 	//ReadXlsx()
 	//FenGeShuJu()
@@ -66,7 +66,7 @@ func readCsv() {
 	defer file.Close()
 
 	// Open the file
-	csvfile, err := os.Open("2w-发送到-筛性别年龄(全部数据)-2023_3_6.csv")
+	csvfile, err := os.Open("筛性5.4-筛性别-筛性别年龄(女性数据)-2023_5_3.csv")
 	if err != nil {
 		log.Fatalln("Couldn't open the csv file", err)
 	}
@@ -739,7 +739,7 @@ func creatnumber() {
 	defer file_end.Close()
 
 	//最终写入的文件
-	filePath := "./最终数据.txt"
+	filePath := "./190w.txt"
 	file_input, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Printf("打开文件错误= %v \n", err)
@@ -792,14 +792,21 @@ func creatnumber() {
 				goto endfor
 			}
 
-			number := s + e
-			number = strings.Replace(number, " ", "", -1)
-			// 去除换行符
-			number = strings.Replace(number, "\n", "", -1)
-			number = number + "\n"
-			writer.WriteString(number)
+			if count <= 100000 {
+				count++
+				continue
+			} else {
 
-			count++
+				number := s + e
+				number = strings.Replace(number, " ", "", -1)
+				// 去除换行符
+				number = strings.Replace(number, "\n", "", -1)
+				number = number + "\n"
+				writer.WriteString(number)
+
+				count++
+
+			}
 
 		}
 		writer.Flush()

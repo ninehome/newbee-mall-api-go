@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="340cde90-da5c-4f1e-bc80-408a993b29d7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/10000第二波.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2万28+女.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3万女28+活跃.txt" afterDir="false" />
+    <list default="true" id="340cde90-da5c-4f1e-bc80-408a993b29d7" name="Changes" comment="q">
+      <change afterPath="$PROJECT_DIR$/5.4_10w-筛ws活跃-活跃数据-短信格式-2023_5_3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/筛性5.4-筛性别-筛性别年龄(女性数据)-2023_5_3.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/57w.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/俄罗斯女77300.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +83,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="q" />
+    <option name="LAST_COMMIT_MESSAGE" value="q" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
