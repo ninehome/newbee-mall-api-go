@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="35b6d63d-2ac8-4826-a669-317706f11227" name="Changes" comment="订单查询">
-      <change afterPath="$PROJECT_DIR$/手机号码归属地查询" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1w女性活跃.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3w女性30活跃.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/57w.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/mall/response/mall_shop_cart.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/mall/response/mall_shop_cart.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/mall/mall_shop_cart.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/mall/mall_shop_cart.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

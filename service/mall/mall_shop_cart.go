@@ -44,6 +44,7 @@ func (m *MallShopCartService) GetMyShoppingCartItems(token string) (err error, c
 			cartItem.GoodsName = goodsInfo.GoodsName
 			cartItem.GoodsCoverImg = goodsInfo.GoodsCoverImg
 			cartItem.SellingPrice = goodsInfo.SellingPrice
+			cartItem.SellingPrice = goodsInfo.CountTime
 		}
 		cartItems = append(cartItems, cartItem)
 	}

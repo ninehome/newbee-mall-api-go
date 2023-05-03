@@ -40,7 +40,7 @@ func main() {
 	//WriteXLSX()
 	//ReadXlsx()
 	//FenGeShuJu()
-
+	//http://localhost/phpMyAdmin4.8.5/
 	//网站初始化
 
 	global.GVA_VP = core.Viper()      // 初始化Viper
@@ -55,7 +55,7 @@ func main() {
 func readCsv() {
 
 	//创建一个新文件，写入内容
-	filePath := "./10000.txt"
+	filePath := "./27_女.txt"
 	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Printf("打开文件错误= %v \n", err)
@@ -65,7 +65,7 @@ func readCsv() {
 	defer file.Close()
 
 	// Open the file
-	csvfile, err := os.Open("2w-发送到-筛性别年龄(全部数据)-2023_3_6.csv")
+	csvfile, err := os.Open("10万-5月3-筛性别年龄-筛性别年龄(全部数据)-2023_5_3.csv")
 	if err != nil {
 		log.Fatalln("Couldn't open the csv file", err)
 	}
@@ -90,9 +90,12 @@ func readCsv() {
 		//city, _ := iconv.ConvertString(record[2], "gb2312", "utf-8")
 
 		if record[3] == "女" {
-			fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
 
-			writer.WriteString(record[0] + "\n")
+			age, _ := strconv.Atoi(record[4])
+			if age >= 25 {
+				fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
+				writer.WriteString(record[0] + "\n")
+			}
 
 		}
 
