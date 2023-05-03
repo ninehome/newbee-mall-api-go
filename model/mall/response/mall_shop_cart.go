@@ -12,4 +12,6 @@ type CartItemResponse struct {
 	GoodsCoverImg string `json:"goodsCoverImg"`
 
 	SellingPrice int `json:"sellingPrice"`
+
+	CountTime int `json:"countTime"`
 }

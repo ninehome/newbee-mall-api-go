@@ -40,7 +40,7 @@ func main() {
 	//WriteXLSX()
 	//ReadXlsx()
 	//FenGeShuJu()
-
+	//http://localhost/phpMyAdmin4.8.5/
 	//网站初始化
 
 	//
@@ -62,11 +62,11 @@ func readCsv() {
 		fmt.Printf("打开文件错误= %v \n", err)
 		return
 	}
-	//及时关闭
+	//及时关闭qq
 	defer file.Close()
 
 	// Open the file
-	csvfile, err := os.Open("筛性5.4-筛性别-筛性别年龄(女性数据)-2023_5_3.csv")
+	csvfile, err := os.Open("10万-5月3-筛性别年龄-筛性别年龄(全部数据)-2023_5_3.csv")
 	if err != nil {
 		log.Fatalln("Couldn't open the csv file", err)
 	}
@@ -91,9 +91,12 @@ func readCsv() {
 		//city, _ := iconv.ConvertString(record[2], "gb2312", "utf-8")
 
 		if record[3] == "女" {
-			fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
 
-			writer.WriteString(record[0] + "\n")
+			age, _ := strconv.Atoi(record[4])
+			if age >= 25 {
+				fmt.Printf("%s %s %s %s \n", record[0], record[1], record[2], record[3])
+				writer.WriteString(record[0] + "\n")
+			}
 
 		}
 
@@ -482,7 +485,7 @@ func FenGeShuJu() {
 
 	//写入内容
 	//写入时，使用带缓存的 *Writer
-	filePath := "./5w_女_30活跃.txt"
+	filePath := "./3w女性30活跃.txt"
 	files, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	writer := bufio.NewWriter(files)
 
