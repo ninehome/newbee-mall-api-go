@@ -6,7 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="35b6d63d-2ac8-4826-a669-317706f11227" name="Changes" comment="订单查询">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/mall/mall_shop_cart.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/mall/mall_shop_cart.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b渠道.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vpn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web数据统计" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/work.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/云原生" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/俄罗斯女77300.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/俄罗斯手机号码洗" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/图片处理.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/手机号码归属地查询" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/流量.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/海外做粉" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/爬虫.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/电话呼叫中心" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/落地页" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,29 +62,12 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
-      <module name="study-go" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="FILE" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
     <configuration name="go build study-go/" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
       <module name="study-go" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="DIRECTORY" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
-      <module name="study-go" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="DIRECTORY" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
       <method v="2" />
     </configuration>
   </component>
