@@ -277,4 +277,26 @@ https://goo.su/lang/zh
 http://localhost/phpMyAdmin4.8.5/sql.php?
 
 
+主机名
+154.88.7.30
+主 IP 地址
+154.88.7.30
+分配的 IP 地址
+154.88.7.30
+端口
+Linux/Centos:22
+Windows:3389
+用户名
+root
+密码
+Q@21V4rp2
 
+
+
+
+用户名: root
+密码:
+Q@21V4rp2
+面板密码:
+uNRyE3b7
+端口: 22
