@@ -277,6 +277,14 @@ https://goo.su/lang/zh
 http://localhost/phpMyAdmin4.8.5/sql.php?
 
 
+
+
+外网面板地址: https://154.88.7.30:20153/7aa54ee9
+内网面板地址: https://10.1.132.2:20153/7aa54ee9
+username: tw2bchkj
+password: 0dfc939a
+
+
 主机名
 154.88.7.30
 主 IP 地址
