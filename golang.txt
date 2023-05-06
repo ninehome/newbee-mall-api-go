@@ -322,5 +322,5 @@ https://www.hostcli.com/
 Centos全新安装命令：根据系统执行框内命令开始安装（大约2分钟完成面板安装）升级后可能需要重启面板
 yum install -y wget && wget -O install.sh http://v7.hostcli.com/install/install_6.0.sh && sh install.sh
 
-查看面板地址
+查看面板宝塔地址
 /etc/init.d/bt  default
