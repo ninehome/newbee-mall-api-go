@@ -105,6 +105,7 @@ func (m *ManageAdminUserService) UpdateMallAdminMoney(token string, req manageRe
 			Money:      req.UserMoney,
 			CreateTime: common.JSONTime{Time: time.Now()},
 			UserName:   user.LoginName,
+			AgentId:    user.AgentId,
 		}
 
 		err = global.GVA_DB.Create(&recharge).Error
@@ -213,6 +214,17 @@ func (m *ManageAdminUserService) GetMallUser(id string) (err error, mallAdminUse
 func (m *ManageAdminUserService) GetMallUserV2(userParams manageReq.MallUserParam) (err error, mallAdminUser []manage.MallUser) {
 	//var adminToken manage.MallUser
 	if errors.Is(global.GVA_DB.Where("login_name =? ", userParams.LoginName).Find(&mallAdminUser).Error, gorm.ErrRecordNotFound) {
+		return errors.New("不存在的用户"), mallAdminUser
+	}
+
+	//mallAdminUser = append(mallAdminUser, adminToken)
+	//err = global.GVA_DB.Where("admin_user_id = ?", adminToken.AdminUserId).First(&mallAdminUser).Error
+	return err, mallAdminUser
+}
+
+func (m *ManageAdminUserService) GetUserAllRecharge(userParams manageReq.MallUserParam) (err error, mallAdminUser []mall.Recharge) {
+	//var adminToken manage.MallUser
+	if errors.Is(global.GVA_DB.Where("user_name =? ", userParams.LoginName).Find(&mallAdminUser).Error, gorm.ErrRecordNotFound) {
 		return errors.New("不存在的用户"), mallAdminUser
 	}
 

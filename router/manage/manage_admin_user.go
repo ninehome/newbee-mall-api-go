@@ -30,6 +30,8 @@ func (r *ManageAdminUserRouter) InitManageAdminUserRouter(Router *gin.RouterGrou
 		mallAdminUserRouter.POST("upload/file", mallAdminUserApi.UploadFile)                                //上传图片
 		mallAdminUserRouter.POST("upload/filev2", mallAdminUserApi.Upload)                                  //上传图片 七牛
 		mallAdminUserRouter.POST("/users/withdrawals", mallAdminUserApi.WithdrawalHistory)                  //提款列表
+		mallAdminUserRouter.POST("/users/recharges", mallAdminUserApi.RechargeHistory)                      //充值列表
+		mallAdminUserRouter.POST("/user/recharge/info", mallAdminUserApi.GetURecharge)                      // 根据用户名 获取充值列表
 		mallAdminUserRouter.POST("/users/withdrawals/withName", mallAdminUserApi.WithdrawalHistoryWithName) //根据用户名查询提款列表
 		mallAdminUserRouter.POST("/update/withdrawal", mallAdminUserApi.UpdateWithdrawal)                   // 更新提款状态
 		//mallAdminUserWithoutRouter.POST("adminUser/login", mallAdminUserApi.AdminLogin) //管理员登陆
