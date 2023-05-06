@@ -6,6 +6,7 @@ import (
 	"errors"
 	"gorm.io/gorm"
 	"main.go/global"
+	"main.go/model/common"
 	"main.go/model/mall"
 	"main.go/model/manage"
 	manageReq "main.go/model/manage/request"
@@ -74,6 +75,7 @@ func (m *ManageAdminUserService) UpdateMallAdminMoneyAndLevel(token string, req 
 
 func (m *ManageAdminUserService) UpdateMallAdminMoney(token string, req manageReq.MallUpdateMoneyLevelParam) (err error) {
 	var adminUserToken manage.MallAdminUserToken
+	var user manage.MallUser
 	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
 	if err != nil {
 		return errors.New("不存在的用户")
@@ -91,10 +93,18 @@ func (m *ManageAdminUserService) UpdateMallAdminMoney(token string, req manageRe
 			return errors.New("余额更新失败" + err.Error())
 		}
 
+		//查询用户id
+		err = global.GVA_DB.Where("user_id = ?", req.UserId).First(&user).Error
+		if err != nil {
+			return errors.New("没有这个用户")
+		}
+
 		//更新成功要记录 到数据库
 		recharge := mall.Recharge{
-			UserId: req.UserId,
-			Money:  req.UserMoney,
+			UserId:     req.UserId,
+			Money:      req.UserMoney,
+			CreateTime: common.JSONTime{Time: time.Now()},
+			UserName:   user.LoginName,
 		}
 
 		err = global.GVA_DB.Create(&recharge).Error
