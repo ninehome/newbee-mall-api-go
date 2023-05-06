@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="35b6d63d-2ac8-4826-a669-317706f11227" name="Changes" comment="订单查询">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/manage/manage_admin_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/manage/manage_admin_user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/mall/manage_user_recharge.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/mall/manage_user_recharge.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router/manage/manage_admin_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/manage/manage_admin_user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/manage/manage_admin_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/manage/manage_admin_user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/manage/manage_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/manage/manage_user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
