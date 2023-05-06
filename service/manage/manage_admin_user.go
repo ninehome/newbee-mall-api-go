@@ -72,6 +72,43 @@ func (m *ManageAdminUserService) UpdateMallAdminMoneyAndLevel(token string, req 
 	return err
 }
 
+func (m *ManageAdminUserService) UpdateMallAdminMoney(token string, req manageReq.MallUpdateMoneyLevelParam) (err error) {
+	var adminUserToken manage.MallAdminUserToken
+	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
+	if err != nil {
+		return errors.New("不存在的用户")
+	}
+	//这个方法只更新不为0值的
+	//err = global.GVA_DB.Where("user_id = ?", req.UserId).Update(&manage.MallUser{
+	//	UserMoney: req.UserMoney,
+	//	UserLevel: req.UserLevel,
+	//}).Error
+
+	err = global.GVA_DB.Transaction(func(tx *gorm.DB) error {
+		// 在事务中执行一些 db 操作（从这里开始，您应该使用 'tx' 而不是 'db'）
+		err = global.GVA_DB.Model(mall.MallUser{}).Where("user_id = ?", req.UserId).Updates(map[string]interface{}{"user_money": req.UserMoney}).Error
+		if err != nil {
+			return errors.New("余额更新失败" + err.Error())
+		}
+
+		//更新成功要记录 到数据库
+		recharge := mall.Recharge{
+			UserId: req.UserId,
+			Money:  req.UserMoney,
+		}
+
+		err = global.GVA_DB.Create(&recharge).Error
+		if err != nil {
+			return errors.New("充值失败" + err.Error())
+		}
+
+		// 返回 nil 提交事务
+		return nil
+	})
+
+	return err
+}
+
 // 更新提款状态
 func (m *ManageAdminUserService) UpdateWithdrawal(token string, req manageReq.MallUpdateWithdrawalParam) (err error) {
 	var userWithdraw mall.MallUserWithdraw
