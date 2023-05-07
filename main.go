@@ -27,7 +27,7 @@ var once sync.Once
 
 func main() {
 
-	readCsv()
+	//readCsv()
 	//End4Number()
 	//readCvsV2()     //筛选 女性
 	//readTXT2w()
