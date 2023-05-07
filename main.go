@@ -66,7 +66,7 @@ func readCsv() {
 	defer file.Close()
 
 	// Open the file
-	csvfile, err := os.Open("10万-5月3-筛性别年龄-筛性别年龄(全部数据)-2023_5_3.csv")
+	csvfile, err := os.Open("筛性5.4-筛性别-筛性别年龄(女性数据)-2023_5_3.csv")
 	if err != nil {
 		log.Fatalln("Couldn't open the csv file", err)
 	}
