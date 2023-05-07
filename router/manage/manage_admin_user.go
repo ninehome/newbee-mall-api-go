@@ -18,6 +18,7 @@ func (r *ManageAdminUserRouter) InitManageAdminUserRouter(Router *gin.RouterGrou
 		mallAdminUserRouter.POST("createMallAdminUser", mallAdminUserApi.CreateAdminUser)              // 新建MallAdminUser
 		mallAdminUserRouter.PUT("adminUser/name", mallAdminUserApi.UpdateAdminUserName)                // 更新MallAdminUser
 		mallAdminUserRouter.POST("adminUser/moneyAndLevel", mallAdminUserApi.UpdateAdminMoneyAndLevel) // 更新MallAdminUser 的等级和余额
+		mallAdminUserRouter.POST("adminUser/rechargeMoney", mallAdminUserApi.UpdateAdminMoney)         // 充值余额
 		mallAdminUserRouter.POST("update/password", mallAdminUserApi.UpdateAdminUserPsw)               // 更新MallAdminUser密码
 		mallAdminUserRouter.PUT("adminUser/password", mallAdminUserApi.UpdateAdminUserPassword)
 		mallAdminUserRouter.GET("users", mallAdminUserApi.UserList) //获取 注册用户列表
@@ -29,6 +30,8 @@ func (r *ManageAdminUserRouter) InitManageAdminUserRouter(Router *gin.RouterGrou
 		mallAdminUserRouter.POST("upload/file", mallAdminUserApi.UploadFile)                                //上传图片
 		mallAdminUserRouter.POST("upload/filev2", mallAdminUserApi.Upload)                                  //上传图片 七牛
 		mallAdminUserRouter.POST("/users/withdrawals", mallAdminUserApi.WithdrawalHistory)                  //提款列表
+		mallAdminUserRouter.POST("/users/recharges", mallAdminUserApi.RechargeHistory)                      //充值列表
+		mallAdminUserRouter.POST("/user/recharge/info", mallAdminUserApi.GetURecharge)                      // 根据用户名 获取充值列表
 		mallAdminUserRouter.POST("/users/withdrawals/withName", mallAdminUserApi.WithdrawalHistoryWithName) //根据用户名查询提款列表
 		mallAdminUserRouter.POST("/update/withdrawal", mallAdminUserApi.UpdateWithdrawal)                   // 更新提款状态
 		//mallAdminUserWithoutRouter.POST("adminUser/login", mallAdminUserApi.AdminLogin) //管理员登陆

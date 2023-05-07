@@ -93,6 +93,18 @@ func (m *ManageAdminUserApi) UpdateAdminMoneyAndLevel(c *gin.Context) {
 	}
 }
 
+func (m *ManageAdminUserApi) UpdateAdminMoney(c *gin.Context) {
+	var req manageReq.MallUpdateMoneyLevelParam
+	_ = c.ShouldBindJSON(&req)
+	userToken := c.GetHeader("token")
+	if err := mallAdminUserService.UpdateMallAdminMoney(userToken, req); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败", c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
+}
+
 func (m *ManageAdminUserApi) UpdateWithdrawal(c *gin.Context) {
 	var req manageReq.MallUpdateWithdrawalParam
 	_ = c.ShouldBindJSON(&req)
@@ -148,6 +160,22 @@ func (m *ManageAdminUserApi) GetUserinfo(c *gin.Context) {
 	_ = c.ShouldBindJSON(&userParams)
 
 	if err, mallUser := mallAdminUserService.GetMallUserV2(userParams); err != nil {
+		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
+		response.FailWithMessage("未查询到记录", c)
+	} else {
+
+		response.OkWithDetailed(response.PageResult{
+			List: mallUser,
+		}, "获取注册用户成功", c)
+		//response.OkWithData(mallAdminUser, c)
+	}
+}
+
+func (m *ManageAdminUserApi) GetURecharge(c *gin.Context) {
+	var userParams manageReq.MallUserParam
+	_ = c.ShouldBindJSON(&userParams)
+
+	if err, mallUser := mallAdminUserService.GetUserAllRecharge(userParams); err != nil {
 		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
 		response.FailWithMessage("未查询到记录", c)
 	} else {
@@ -249,6 +277,27 @@ func (m *ManageAdminUserApi) WithdrawalHistory(c *gin.Context) {
 	_ = c.ShouldBindJSON(&param)
 
 	if err, list, total := mallUserService.GetMallUserWithdrawaList(param, token); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:       list,
+			TotalCount: total,
+			CurrPage:   param.PageNumber,
+			PageSize:   param.PageSize,
+		}, "获取成功", c)
+	}
+}
+
+// 充值记录列表
+func (m *ManageAdminUserApi) RechargeHistory(c *gin.Context) {
+	token := c.GetHeader("token")
+	//var pageInfo manageReq.WithdrawalSearch
+	var param manageReq.PageInfo
+	//获取分页参数
+	_ = c.ShouldBindJSON(&param)
+
+	if err, list, total := mallUserService.GetUserRechargeList(param, token); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

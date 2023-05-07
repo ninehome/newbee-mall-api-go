@@ -6,6 +6,7 @@ import (
 	"errors"
 	"gorm.io/gorm"
 	"main.go/global"
+	"main.go/model/common"
 	"main.go/model/mall"
 	"main.go/model/manage"
 	manageReq "main.go/model/manage/request"
@@ -69,6 +70,53 @@ func (m *ManageAdminUserService) UpdateMallAdminMoneyAndLevel(token string, req 
 	if err != nil {
 		return errors.New("余额更新失败" + err.Error())
 	}
+	return err
+}
+
+func (m *ManageAdminUserService) UpdateMallAdminMoney(token string, req manageReq.MallUpdateMoneyLevelParam) (err error) {
+	var adminUserToken manage.MallAdminUserToken
+	var user manage.MallUser
+	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error
+	if err != nil {
+		return errors.New("不存在的用户")
+	}
+	//这个方法只更新不为0值的
+	//err = global.GVA_DB.Where("user_id = ?", req.UserId).Update(&manage.MallUser{
+	//	UserMoney: req.UserMoney,
+	//	UserLevel: req.UserLevel,
+	//}).Error
+
+	err = global.GVA_DB.Transaction(func(tx *gorm.DB) error {
+		// 在事务中执行一些 db 操作（从这里开始，您应该使用 'tx' 而不是 'db'）
+		err = global.GVA_DB.Model(mall.MallUser{}).Where("user_id = ?", req.UserId).Updates(map[string]interface{}{"user_money": req.UserMoney}).Error
+		if err != nil {
+			return errors.New("余额更新失败" + err.Error())
+		}
+
+		//查询用户id
+		err = global.GVA_DB.Where("user_id = ?", req.UserId).First(&user).Error
+		if err != nil {
+			return errors.New("没有这个用户")
+		}
+
+		//更新成功要记录 到数据库
+		recharge := mall.Recharge{
+			UserId:     req.UserId,
+			Money:      req.UserMoney,
+			CreateTime: common.JSONTime{Time: time.Now()},
+			UserName:   user.LoginName,
+			AgentId:    user.AgentId,
+		}
+
+		err = global.GVA_DB.Create(&recharge).Error
+		if err != nil {
+			return errors.New("充值失败" + err.Error())
+		}
+
+		// 返回 nil 提交事务
+		return nil
+	})
+
 	return err
 }
 
@@ -166,6 +214,17 @@ func (m *ManageAdminUserService) GetMallUser(id string) (err error, mallAdminUse
 func (m *ManageAdminUserService) GetMallUserV2(userParams manageReq.MallUserParam) (err error, mallAdminUser []manage.MallUser) {
 	//var adminToken manage.MallUser
 	if errors.Is(global.GVA_DB.Where("login_name =? ", userParams.LoginName).Find(&mallAdminUser).Error, gorm.ErrRecordNotFound) {
+		return errors.New("不存在的用户"), mallAdminUser
+	}
+
+	//mallAdminUser = append(mallAdminUser, adminToken)
+	//err = global.GVA_DB.Where("admin_user_id = ?", adminToken.AdminUserId).First(&mallAdminUser).Error
+	return err, mallAdminUser
+}
+
+func (m *ManageAdminUserService) GetUserAllRecharge(userParams manageReq.MallUserParam) (err error, mallAdminUser []mall.Recharge) {
+	//var adminToken manage.MallUser
+	if errors.Is(global.GVA_DB.Where("user_name =? ", userParams.LoginName).Find(&mallAdminUser).Error, gorm.ErrRecordNotFound) {
 		return errors.New("不存在的用户"), mallAdminUser
 	}
 
