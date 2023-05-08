@@ -36,13 +36,14 @@ func main() {
 	//startmoxikenumber()
 
 	//sendWhatsappMessage() //发送 ws 消息
-	//creatnumber()
+	//creatnumber() //通过号段生成号码·
 	//WriteXLSX()
 	//ReadXlsx()
 	//FenGeShuJu()
 	//http://localhost/phpMyAdmin4.8.5/
 	//网站初始化
 
+	//
 	global.GVA_VP = core.Viper()      // 初始化Viper
 	global.GVA_LOG = core.Zap()       // 初始化zap日志库
 	global.GVA_DB = initialize.Gorm() // gorm连接数据库
@@ -55,7 +56,7 @@ func main() {
 func readCsv() {
 
 	//创建一个新文件，写入内容
-	filePath := "./27_女.txt"
+	filePath := "./10000.txt"
 	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Printf("打开文件错误= %v \n", err)
@@ -65,7 +66,7 @@ func readCsv() {
 	defer file.Close()
 
 	// Open the file
-	csvfile, err := os.Open("10万-5月3-筛性别年龄-筛性别年龄(全部数据)-2023_5_3.csv")
+	csvfile, err := os.Open("筛性5.4-筛性别-筛性别年龄(女性数据)-2023_5_3.csv")
 	if err != nil {
 		log.Fatalln("Couldn't open the csv file", err)
 	}
@@ -489,9 +490,9 @@ func FenGeShuJu() {
 	writer := bufio.NewWriter(files)
 
 	//第二个分割
-	filePath2 := "./b渠道.txt"
-	files2, err := os.OpenFile(filePath2, os.O_WRONLY|os.O_CREATE, 0666)
-	writer2 := bufio.NewWriter(files2)
+	//filePath2 := "./b渠道.txt"
+	//files2, err := os.OpenFile(filePath2, os.O_WRONLY|os.O_CREATE, 0666)
+	//writer2 := bufio.NewWriter(files2)
 
 	if err != nil {
 		fmt.Printf("打开文件错误= %v \n", err)
@@ -510,7 +511,8 @@ func FenGeShuJu() {
 
 		//  79910676502   79910676398    79910676394     79910397806
 
-		if name > 100000 {
+		if name > 80004 && name < 120004 {
+
 			//if name == 3500 {
 			//	writer.WriteString("79910676502")
 			//	writer.WriteString("\r\n")
@@ -533,6 +535,10 @@ func FenGeShuJu() {
 			writer.WriteString(str)
 			//writer.WriteString("\r\n")
 
+		}
+
+		if name > 80004 {
+			break
 		}
 
 		//if name < 5000 {
@@ -565,7 +571,7 @@ func FenGeShuJu() {
 	//因为 writer 是带缓存的，因此在调用 WriterString 方法时，内容是先写入缓存的
 	//所以要调用 flush方法，将缓存的数据真正写入到文件中。
 	writer.Flush()
-	writer2.Flush()
+	//writer2.Flush()
 	fmt.Println("文件读取结束...")
 }
 
@@ -736,7 +742,7 @@ func creatnumber() {
 	defer file_end.Close()
 
 	//最终写入的文件
-	filePath := "./最终数据.txt"
+	filePath := "./190w.txt"
 	file_input, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Printf("打开文件错误= %v \n", err)
@@ -789,14 +795,21 @@ func creatnumber() {
 				goto endfor
 			}
 
-			number := s + e
-			number = strings.Replace(number, " ", "", -1)
-			// 去除换行符
-			number = strings.Replace(number, "\n", "", -1)
-			number = number + "\n"
-			writer.WriteString(number)
+			if count <= 100000 {
+				count++
+				continue
+			} else {
 
-			count++
+				number := s + e
+				number = strings.Replace(number, " ", "", -1)
+				// 去除换行符
+				number = strings.Replace(number, "\n", "", -1)
+				number = number + "\n"
+				writer.WriteString(number)
+
+				count++
+
+			}
 
 		}
 		writer.Flush()
