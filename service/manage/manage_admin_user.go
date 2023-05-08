@@ -102,7 +102,7 @@ func (m *ManageAdminUserService) UpdateMallAdminMoney(token string, req manageRe
 		//更新成功要记录 到数据库
 		recharge := mall.Recharge{
 			UserId:     req.UserId,
-			Money:      req.UserMoney,
+			Money:      req.RechargeMoney,
 			CreateTime: common.JSONTime{Time: time.Now()},
 			UserName:   user.LoginName,
 			AgentId:    user.AgentId,
