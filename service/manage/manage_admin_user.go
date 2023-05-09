@@ -4,7 +4,6 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"errors"
-	"fmt"
 	"gorm.io/gorm"
 	"main.go/global"
 	"main.go/model/common"

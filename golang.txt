@@ -281,9 +281,8 @@ http://localhost/phpMyAdmin4.8.5/sql.php?
 
 154.88.15.85
 外网面板地址: http://154.88.15.85:9898/a27b29e5
-内网面板地址: http://10.1.121.2:9898/a27b29e5
 username: ggs5xmch
-password: 9aa55782
+
 
 
 
@@ -296,5 +295,5 @@ https://www.hostcli.com/
 Centos全新安装命令：根据系统执行框内命令开始安装（大约2分钟完成面板安装）升级后可能需要重启面板
 yum install -y wget && wget -O install.sh http://v7.hostcli.com/install/install_6.0.sh && sh install.sh
 
-查看面板宝塔地址
+查看面板宝塔地址 9aa55782
 /etc/init.d/bt  default
