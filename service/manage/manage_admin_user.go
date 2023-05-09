@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"errors"
+	"fmt"
 	"gorm.io/gorm"
 	"main.go/global"
 	"main.go/model/common"
@@ -98,7 +99,6 @@ func (m *ManageAdminUserService) UpdateMallAdminMoney(token string, req manageRe
 		if err != nil {
 			return errors.New("没有这个用户")
 		}
-
 		//更新成功要记录 到数据库
 		recharge := mall.Recharge{
 			UserId:     req.UserId,
