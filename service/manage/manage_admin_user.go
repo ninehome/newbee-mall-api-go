@@ -88,13 +88,13 @@ func (m *ManageAdminUserService) UpdateMallAdminMoney(token string, req manageRe
 
 	err = global.GVA_DB.Transaction(func(tx *gorm.DB) error {
 		// 在事务中执行一些 db 操作（从这里开始，您应该使用 'tx' 而不是 'db'）
-		err = global.GVA_DB.Model(mall.MallUser{}).Where("user_id = ?", req.UserId).Updates(map[string]interface{}{"user_money": req.UserMoney}).Error
+		err = tx.Model(mall.MallUser{}).Where("user_id = ?", req.UserId).Updates(map[string]interface{}{"user_money": req.UserMoney}).Error
 		if err != nil {
 			return errors.New("余额更新失败" + err.Error())
 		}
 
 		//查询用户id
-		err = global.GVA_DB.Where("user_id = ?", req.UserId).First(&user).Error
+		err = tx.Where("user_id = ?", req.UserId).First(&user).Error
 		if err != nil {
 			return errors.New("没有这个用户")
 		}
@@ -107,7 +107,7 @@ func (m *ManageAdminUserService) UpdateMallAdminMoney(token string, req manageRe
 			AgentId:    user.AgentId,
 		}
 
-		err = global.GVA_DB.Create(&recharge).Error
+		err = tx.Create(&recharge).Error
 		if err != nil {
 			return errors.New("充值失败" + err.Error())
 		}
