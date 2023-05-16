@@ -279,41 +279,14 @@ http://localhost/phpMyAdmin4.8.5/sql.php?
 
 
 
-外网面板地址: https://154.88.7.30:20153/7aa54ee9
-内网面板地址: https://10.1.132.2:20153/7aa54ee9
-username: tw2bchkj
-password: 0dfc939a
-
-
-主机名
-154.88.7.30
-主 IP 地址
-154.88.7.30
-分配的 IP 地址
-154.88.7.30
-端口
-Linux/Centos:22
-Windows:3389
-用户名
-root
-密码
-Q@21V4rp2
+154.88.15.85
+外网面板地址: http://154.88.15.85:9898/a27b29e5
+username: ggs5xmch
 
 
 
 
-用户名: root
-密码:
-Q@21V4rp2
-面板密码:
-uNRyE3b7
-端口: 22
 
-
-外网面板地址: http://154.88.7.30:8888/57b0b8ba
-内网面板地址: http://10.1.132.2:8888/57b0b8ba
-username: iqd0vetn
-password: 7037fefc
 
 
 
@@ -322,5 +295,5 @@ https://www.hostcli.com/
 Centos全新安装命令：根据系统执行框内命令开始安装（大约2分钟完成面板安装）升级后可能需要重启面板
 yum install -y wget && wget -O install.sh http://v7.hostcli.com/install/install_6.0.sh && sh install.sh
 
-查看面板宝塔地址
+查看面板宝塔地址 9aa55782
 /etc/init.d/bt  default

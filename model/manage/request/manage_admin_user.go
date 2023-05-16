@@ -32,11 +32,12 @@ type OrderStatusParam struct {
 }
 
 type MallUpdateMoneyLevelParam struct {
-	UserMoney int `json:"userMoney"`
-	UserLevel int `json:"userLevel"`
-	UserId    int `json:"userId"`
+	UserMoney     int `json:"userMoney"`
+	UserLevel     int `json:"userLevel"`
+	UserId        int `json:"userId"`
+	RechargeMoney int `json:"rechargeMoney"`
 	//LoginUserName int `json:"loginUserName"`
-	//NickName      int `json:"nickName"`
+
 }
 
 type MallUpdateWithdrawalParam struct {
