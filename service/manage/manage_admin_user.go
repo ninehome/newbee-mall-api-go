@@ -171,6 +171,30 @@ func (m *ManageAdminUserService) UpdateMallChat(token string, req manageReq.Mall
 	return err
 }
 
+func (m *ManageAdminUserService) ChangeUserBank(req manageReq.BankUpdateParam) (err error) {
+
+	err = global.GVA_DB.Model(mall.MallUserBank{}).Where("bank_id = ?", req.BankId).Update("bank_number", req.BankNumber).Error
+	if err != nil {
+		return errors.New("更新失败,用户不存在1002" + err.Error())
+	}
+	return err
+}
+
+//func (m *ManageAdminUserService) GetBankList(req manageReq.BankParam) (err error) {
+//
+//	err = global.GVA_DB.Model(mall.MallUserBank{}).Where("user_id = ?", req.UserId).Updates(map[string]interface{}{"bank_number": req.BankNumber}).Error
+//	if err != nil {
+//		return errors.New("更新失败,用户不存在1002" + err.Error())
+//	}
+//	return err
+//}
+
+func (m *ManageAdminUserService) GetMyBankList(req manageReq.BankParam) (err error, userBank []mall.MallUserBank) {
+
+	global.GVA_DB.Where("user_id=? ", req.UserId).Find(&userBank)
+	return
+}
+
 func (m *ManageAdminUserService) UpdateMallAdminPassWord(token string, req manageReq.MallUpdatePasswordParam) (err error) {
 	var adminUserToken manage.MallAdminUserToken
 	err = global.GVA_DB.Where("token =? ", token).First(&adminUserToken).Error

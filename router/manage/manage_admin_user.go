@@ -34,6 +34,7 @@ func (r *ManageAdminUserRouter) InitManageAdminUserRouter(Router *gin.RouterGrou
 		mallAdminUserRouter.POST("/user/recharge/info", mallAdminUserApi.GetURecharge)                      // 根据用户名 获取充值列表
 		mallAdminUserRouter.POST("/users/withdrawals/withName", mallAdminUserApi.WithdrawalHistoryWithName) //根据用户名查询提款列表
 		mallAdminUserRouter.POST("/update/withdrawal", mallAdminUserApi.UpdateWithdrawal)                   // 更新提款状态
+		mallAdminUserRouter.POST("/userBank/update", mallAdminUserApi.UpdateUserBank)                       //修改银行账户
 		//mallAdminUserWithoutRouter.POST("adminUser/login", mallAdminUserApi.AdminLogin) //管理员登陆
 	}
 	{
@@ -43,5 +44,6 @@ func (r *ManageAdminUserRouter) InitManageAdminUserRouter(Router *gin.RouterGrou
 		mallAdminUserWithoutRouter.POST("/chat/profile", mallAdminUserApi.ChatProfile)    //根据chatId获得
 		mallAdminUserWithoutRouter.POST("/chat/update", mallAdminUserApi.UpdateMallChat)  //根据chatId修改
 
+		mallAdminUserWithoutRouter.POST("/userBank/list", mallAdminUserApi.GetBankList) //根据chatId修改
 	}
 }

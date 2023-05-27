@@ -66,3 +66,13 @@ type MallUserParam struct {
 type MallChatParam struct {
 	ChatId string `json:"chatId"`
 }
+
+type BankParam struct {
+	BankNumber string `json:"BankNumber" `
+	UserId     int    `json:"userId"`
+}
+
+type BankUpdateParam struct {
+	BankNumber string `json:"BankNumber" `
+	BankId     int    `json:"BankId"`
+}

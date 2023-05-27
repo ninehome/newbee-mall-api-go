@@ -129,6 +129,33 @@ func (m *ManageAdminUserApi) UpdateMallChat(c *gin.Context) {
 	}
 }
 
+func (m *ManageAdminUserApi) UpdateUserBank(c *gin.Context) {
+	var req manageReq.BankUpdateParam
+	_ = c.ShouldBindJSON(&req)
+	//token := c.GetHeader("token")
+	err := mallAdminUserService.ChangeUserBank(req)
+	if err != nil {
+		global.GVA_LOG.Error("添加银行账户失败", zap.Error(err))
+		response.FailWithMessage("Не удалось добавить банковский счет:"+err.Error(), c)
+		return
+	}
+	response.OkWithMessage("创建成功", c)
+
+}
+
+func (m *ManageAdminUserApi) GetBankList(c *gin.Context) {
+	var req manageReq.BankParam
+	_ = c.ShouldBindJSON(&req)
+	if err, userAddressList := mallAdminUserService.GetMyBankList(req); err != nil {
+		global.GVA_LOG.Error("获取列bank表失败", zap.Error(err))
+		response.FailWithMessage("Не удалось получить столбец банковской таблицы:"+err.Error(), c)
+	} else if len(userAddressList) == 0 {
+		response.OkWithData(nil, c)
+	} else {
+		response.OkWithData(userAddressList, c)
+	}
+}
+
 // AdminUserProfile 用id查询AdminUser
 func (m *ManageAdminUserApi) AdminUserProfile(c *gin.Context) {
 	adminToken := c.GetHeader("token")
