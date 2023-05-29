@@ -44,6 +44,12 @@ func (r *ManageAdminUserRouter) InitManageAdminUserRouter(Router *gin.RouterGrou
 		mallAdminUserWithoutRouter.POST("/chat/profile", mallAdminUserApi.ChatProfile)    //根据chatId获得
 		mallAdminUserWithoutRouter.POST("/chat/update", mallAdminUserApi.UpdateMallChat)  //根据chatId修改
 
-		mallAdminUserWithoutRouter.POST("/userBank/list", mallAdminUserApi.GetBankList) //根据chatId修改
+		mallAdminUserWithoutRouter.POST("/userBank/list", mallAdminUserApi.GetBankList) //获得用户绑定的银行账户
+
+		mallAdminUserWithoutRouter.POST("/user/msg/creat", mallAdminUserApi.CreateUserMsg) //新增或者修改用户私信
+
+		mallAdminUserWithoutRouter.POST("/user/msg/hide", mallAdminUserApi.GetBankList) //隐藏用户私信
+
+		mallAdminUserWithoutRouter.POST("/get/user/msg", mallAdminUserApi.GetUserMsg) //获得用户私信
 	}
 }

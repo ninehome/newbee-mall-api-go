@@ -76,3 +76,7 @@ type BankUpdateParam struct {
 	BankNumber string `json:"BankNumber" `
 	BankId     int    `json:"BankId"`
 }
+type MsgParam struct {
+	MsgTxt string `json:"MsgTxt" `
+	UserId int    `json:"userId"`
+}

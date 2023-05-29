@@ -28,6 +28,34 @@ func (m *ManageAdminUserService) CreateMallAdminUser(mallAdminUser manage.MallAd
 	return err
 }
 
+func (m *ManageAdminUserService) CreateUserMsg(params manageReq.MsgParam) (err error) {
+	var MallUserMsg manage.MallUserMsg
+	err = global.GVA_DB.Where("user_id = ?", params.UserId).First(&MallUserMsg).Error
+	if err != nil {
+		msg := manage.MallUserMsg{
+			UserId:   params.UserId,
+			MsgText:  params.MsgTxt,
+			ShowFlag: 0,
+		}
+
+		err = global.GVA_DB.Create(&msg).Error
+
+		if err != nil {
+			return errors.New("创建私信失败" + err.Error())
+		}
+
+		return err
+	}
+
+	//有记录 更新
+	err = global.GVA_DB.Model(&manage.MallUserMsg{}).Where("id = ?", MallUserMsg.Id).Updates(map[string]interface{}{"msg_text": params.MsgTxt, "show_flag": 0}).Error
+	if err != nil {
+		return errors.New("更新私信失败" + err.Error())
+	}
+
+	return err
+}
+
 // UpdateMallAdminName 更新MallAdminUser昵称
 func (m *ManageAdminUserService) UpdateMallAdminName(token string, req manageReq.MallUpdateNameParam) (err error) {
 	var adminUserToken manage.MallAdminUserToken
@@ -188,6 +216,12 @@ func (m *ManageAdminUserService) ChangeUserBank(req manageReq.BankUpdateParam) (
 //	}
 //	return err
 //}
+
+func (m *ManageAdminUserService) GetUserMsg(req manageReq.MsgParam) (err error, msg manage.MallUserMsg) {
+
+	global.GVA_DB.Where("user_id=? ", req.UserId).Find(&msg)
+	return
+}
 
 func (m *ManageAdminUserService) GetMyBankList(req manageReq.BankParam) (err error, userBank []mall.MallUserBank) {
 
