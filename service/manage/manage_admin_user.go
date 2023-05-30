@@ -56,6 +56,16 @@ func (m *ManageAdminUserService) CreateUserMsg(params manageReq.MsgParam) (err e
 	return err
 }
 
+func (m *ManageAdminUserService) HideUserMsg(params manageReq.MsgParam) (err error) {
+	//有记录 更新
+	err = global.GVA_DB.Model(&manage.MallUserMsg{}).Where("user_id = ?", params.UserId).Updates(map[string]interface{}{"show_flag": 1}).Error
+	if err != nil {
+		return errors.New("隐藏私信失败" + err.Error())
+	}
+
+	return err
+}
+
 // UpdateMallAdminName 更新MallAdminUser昵称
 func (m *ManageAdminUserService) UpdateMallAdminName(token string, req manageReq.MallUpdateNameParam) (err error) {
 	var adminUserToken manage.MallAdminUserToken

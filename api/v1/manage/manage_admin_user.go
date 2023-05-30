@@ -94,6 +94,19 @@ func (m *ManageAdminUserApi) CreateUserMsg(c *gin.Context) {
 	}
 }
 
+// 隐藏 用户私信
+func (m *ManageAdminUserApi) HideUserMsg(c *gin.Context) {
+	var params manageReq.MsgParam
+	_ = c.ShouldBindJSON(&params)
+
+	if err := mallAdminUserService.HideUserMsg(params); err != nil {
+		global.GVA_LOG.Error("隐藏私信失败:", zap.Error(err))
+		response.FailWithMessage("隐藏私信失败"+err.Error(), c)
+	} else {
+		response.OkWithMessage("隐藏私信成功", c)
+	}
+}
+
 func (m *ManageAdminUserApi) GetUserMsg(c *gin.Context) {
 	var req manageReq.MsgParam
 	_ = c.ShouldBindJSON(&req)

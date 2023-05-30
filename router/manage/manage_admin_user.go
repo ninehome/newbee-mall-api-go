@@ -48,7 +48,7 @@ func (r *ManageAdminUserRouter) InitManageAdminUserRouter(Router *gin.RouterGrou
 
 		mallAdminUserWithoutRouter.POST("/user/msg/creat", mallAdminUserApi.CreateUserMsg) //新增或者修改用户私信
 
-		mallAdminUserWithoutRouter.POST("/user/msg/hide", mallAdminUserApi.GetBankList) //隐藏用户私信
+		mallAdminUserWithoutRouter.POST("/user/msg/hide", mallAdminUserApi.HideUserMsg) //隐藏用户私信
 
 		mallAdminUserWithoutRouter.POST("/get/user/msg", mallAdminUserApi.GetUserMsg) //获得用户私信
 	}
