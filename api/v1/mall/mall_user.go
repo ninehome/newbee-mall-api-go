@@ -6,6 +6,7 @@ import (
 	"main.go/global"
 	"main.go/model/common/response"
 	mallReq "main.go/model/mall/request"
+	manageReq "main.go/model/manage/request"
 	"strconv"
 	"sync"
 )
@@ -68,6 +69,17 @@ func (m *MallUserApi) GetMallUserBank(c *gin.Context) {
 		response.FailWithMessage("Не удалось получить адрес:"+err.Error(), c)
 	} else {
 		response.OkWithData(userAddress, c)
+	}
+}
+
+func (m *MallUserApi) GetUserMsg(c *gin.Context) {
+	var req manageReq.MsgParam
+	_ = c.ShouldBindJSON(&req)
+	if err, userMsg := mallUserService.GetUserMsg(req); err != nil {
+		global.GVA_LOG.Error("此用户无私信", zap.Error(err))
+		response.FailWithMessage("此用户无私信:"+err.Error(), c)
+	} else {
+		response.OkWithData(userMsg, c)
 	}
 }
 

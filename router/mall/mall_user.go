@@ -21,6 +21,7 @@ func (m *MallUserRouter) InitMallUserRouter(Router *gin.RouterGroup) {
 		mallUserRouter.POST("/user/withdrawal", mallUserApi.UserWithdrawal) //提款
 		mallUserRouter.POST("/user/bankList", mallUserApi.UserBankList)     //银行卡列表
 		mallUserRouter.GET("/bank/:bankId", mallUserApi.GetMallUserBank)    //获取 单个银行账户
+		mallUserRouter.POST("/get/user/msg", mallUserApi.GetUserMsg)        //获得用户私信
 
 	}
 	{

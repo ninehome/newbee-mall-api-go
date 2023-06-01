@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d7e44263-0624-49e2-8953-ab7c2682cd08" name="Changes" comment="增加修改bank 功能">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/manage/manage_admin_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/manage/manage_admin_user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router/manage/manage_admin_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/manage/manage_admin_user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/manage/manage_admin_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/manage/manage_admin_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/mall/mall_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/mall/mall_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/manage/manage_msg_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/manage/manage_msg_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/router/mall/mall_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/mall/mall_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/mall/mall_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/mall/mall_user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

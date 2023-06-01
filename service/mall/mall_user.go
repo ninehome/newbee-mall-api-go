@@ -9,6 +9,8 @@ import (
 	"main.go/model/mall"
 	mallReq "main.go/model/mall/request"
 	mallRes "main.go/model/mall/response"
+	"main.go/model/manage"
+	manageReq "main.go/model/manage/request"
 	"main.go/utils"
 	"strconv"
 	"strings"
@@ -35,6 +37,11 @@ func (m *MallUserService) RegisterUser(req mallReq.RegisterUserParam) (err error
 
 	return err
 
+}
+func (m *MallUserService) GetUserMsg(req manageReq.MsgParam) (err error, msg manage.MallUserMsg) {
+
+	global.GVA_DB.Where("user_id=? ", req.UserId).Find(&msg)
+	return
 }
 
 // 提款
