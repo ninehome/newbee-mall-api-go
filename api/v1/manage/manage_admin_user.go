@@ -180,6 +180,20 @@ func (m *ManageAdminUserApi) UpdateUserBank(c *gin.Context) {
 
 }
 
+func (m *ManageAdminUserApi) DeleteUserBank(c *gin.Context) {
+	var req manageReq.BankUpdateParam
+	_ = c.ShouldBindJSON(&req)
+	//token := c.GetHeader("token")
+	err := mallAdminUserService.DeleteUserBank(req)
+	if err != nil {
+		global.GVA_LOG.Error("删除银行卡失败", zap.Error(err))
+		response.FailWithMessage("删除银行卡失败:"+err.Error(), c)
+		return
+	}
+	response.OkWithMessage("删除银行卡失败", c)
+
+}
+
 func (m *ManageAdminUserApi) GetBankList(c *gin.Context) {
 	var req manageReq.BankParam
 	_ = c.ShouldBindJSON(&req)

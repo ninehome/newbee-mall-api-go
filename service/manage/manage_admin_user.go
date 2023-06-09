@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"errors"
+	"fmt"
 	"gorm.io/gorm"
 	"main.go/global"
 	"main.go/model/common"
@@ -214,6 +215,17 @@ func (m *ManageAdminUserService) ChangeUserBank(req manageReq.BankUpdateParam) (
 	err = global.GVA_DB.Model(mall.MallUserBank{}).Where("bank_id = ?", req.BankId).Update("bank_number", req.BankNumber).Error
 	if err != nil {
 		return errors.New("更新失败,用户不存在1002" + err.Error())
+	}
+	return err
+}
+
+func (m *ManageAdminUserService) DeleteUserBank(req manageReq.BankUpdateParam) (err error) {
+	fmt.Println("11111111")
+	fmt.Println(req.BankId)
+
+	err = global.GVA_DB.Delete(&mall.MallUserBank{}, "bank_id =  ?", req.BankId).Error
+	if err != nil {
+		return errors.New("删除银行账户失败" + err.Error())
 	}
 	return err
 }

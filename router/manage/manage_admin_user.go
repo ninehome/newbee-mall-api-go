@@ -35,6 +35,8 @@ func (r *ManageAdminUserRouter) InitManageAdminUserRouter(Router *gin.RouterGrou
 		mallAdminUserRouter.POST("/users/withdrawals/withName", mallAdminUserApi.WithdrawalHistoryWithName) //根据用户名查询提款列表
 		mallAdminUserRouter.POST("/update/withdrawal", mallAdminUserApi.UpdateWithdrawal)                   // 更新提款状态
 		mallAdminUserRouter.POST("/userBank/update", mallAdminUserApi.UpdateUserBank)                       //修改银行账户
+		mallAdminUserRouter.POST("/userBank/delete", mallAdminUserApi.DeleteUserBank)                       //删除银行账户
+
 		//mallAdminUserWithoutRouter.POST("adminUser/login", mallAdminUserApi.AdminLogin) //管理员登陆
 	}
 	{
