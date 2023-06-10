@@ -21,10 +21,11 @@ func (m *MallUserRouter) InitMallUserRouter(Router *gin.RouterGroup) {
 		mallUserRouter.POST("/user/withdrawal", mallUserApi.UserWithdrawal) //提款
 		mallUserRouter.POST("/user/bankList", mallUserApi.UserBankList)     //银行卡列表
 		mallUserRouter.GET("/bank/:bankId", mallUserApi.GetMallUserBank)    //获取 单个银行账户
-		mallUserRouter.POST("/get/user/msg", mallUserApi.GetUserMsg)        //获得用户私信
+		//mallUserRouter.POST("/get/user/msg", mallUserApi.GetUserMsg)        //获得用户私信
 
 	}
 	{
+		userRouter.POST("/get/user/msg", mallUserApi.GetUserMsg)    //获得用户私信
 		userRouter.POST("/user/info/V2", mallUserApi.GetUserInfoV2) //获取用户信息
 		userRouter.POST("/user/register", mallUserApi.UserRegister) //用户注册
 		userRouter.POST("/user/login", mallUserApi.UserLogin)       //登陆
