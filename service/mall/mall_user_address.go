@@ -48,6 +48,44 @@ func (m *MallUserAddressService) GetChatList(token string) (err error, userBank 
 }
 
 // 保存 银行账户
+//func (m *MallUserAddressService) SaveUserBank(token string, req mallReq.BankParam) (err error) {
+//	var userToken mall.MallUserToken
+//	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
+//		return errors.New("Несуществующие пользователи")
+//	}
+//	var defaultAddress mall.MallUserBank
+//	var newAddress mall.MallUserBank
+//	// 是否新增了默认地址，将之前的默认地址设置为非默认
+//
+//	if err = global.GVA_DB.Where("user_id=? and default =1 and is_deleted = 0", userToken.UserId).First(&defaultAddress).Error; err != nil {
+//		//没有查到记录 ,新增记录
+//		copier.Copy(&newAddress, &req)
+//		//newAddress.CreateTime = common.JSONTime{Time: time.Now()}
+//		//newAddress.UpdateTime = common.JSONTime{Time: time.Now()}
+//		newAddress.UserId = userToken.UserId
+//		err = global.GVA_DB.Create(&newAddress).Error
+//		if err != nil {
+//			return
+//		}
+//	} else {
+//		//先更新 之前的记录 再新增
+//		global.GVA_DB.Model(&mall.MallUserAddress{}).Where("bank_id =?", defaultAddress.BankId).Update("default", 0)
+//
+//		copier.Copy(&newAddress, &req)
+//		//newAddress.CreateTime = common.JSONTime{Time: time.Now()}
+//		//newAddress.UpdateTime = common.JSONTime{Time: time.Now()}
+//		newAddress.UserId = userToken.UserId
+//		err = global.GVA_DB.Create(&newAddress).Error
+//		if err != nil {
+//			return
+//		}
+//
+//	}
+//
+//	return
+//}
+
+// 保存 银行账户
 func (m *MallUserAddressService) SaveUserBank(token string, req mallReq.BankParam) (err error) {
 	var userToken mall.MallUserToken
 	if err = global.GVA_DB.Where("token =?", token).First(&userToken).Error; err != nil {
@@ -55,10 +93,11 @@ func (m *MallUserAddressService) SaveUserBank(token string, req mallReq.BankPara
 	}
 	var defaultAddress mall.MallUserBank
 	var newAddress mall.MallUserBank
-	// 是否新增了默认地址，将之前的默认地址设置为非默认
 
-	if err = global.GVA_DB.Where("user_id=? and default =1 and is_deleted = 0", userToken.UserId).First(&defaultAddress).Error; err != nil {
-		//没有查到记录 ,新增记录
+	// 卡号 有记录
+	if err = global.GVA_DB.Where("bank_number = ? ", req.BankNumber).First(&defaultAddress).Error; err != nil {
+
+		//没有 记录 增加记录
 		copier.Copy(&newAddress, &req)
 		//newAddress.CreateTime = common.JSONTime{Time: time.Now()}
 		//newAddress.UpdateTime = common.JSONTime{Time: time.Now()}
@@ -67,20 +106,41 @@ func (m *MallUserAddressService) SaveUserBank(token string, req mallReq.BankPara
 		if err != nil {
 			return
 		}
-	} else {
-		//先更新 之前的记录 再新增
-		global.GVA_DB.Model(&mall.MallUserAddress{}).Where("bank_id =?", defaultAddress.BankId).Update("default", 0)
 
-		copier.Copy(&newAddress, &req)
-		//newAddress.CreateTime = common.JSONTime{Time: time.Now()}
-		//newAddress.UpdateTime = common.JSONTime{Time: time.Now()}
-		newAddress.UserId = userToken.UserId
-		err = global.GVA_DB.Create(&newAddress).Error
+	} else {
+		//有记录 更新
+		copier.Copy(&defaultAddress, &req)
+		err = global.GVA_DB.Save(&defaultAddress).Error
 		if err != nil {
 			return
 		}
 
 	}
+
+	//if err = global.GVA_DB.Where("user_id=? and default =1 and is_deleted = 0", userToken.UserId).First(&defaultAddress).Error; err != nil {
+	//	//没有查到记录 ,新增记录
+	//	copier.Copy(&newAddress, &req)
+	//	//newAddress.CreateTime = common.JSONTime{Time: time.Now()}
+	//	//newAddress.UpdateTime = common.JSONTime{Time: time.Now()}
+	//	newAddress.UserId = userToken.UserId
+	//	err = global.GVA_DB.Create(&newAddress).Error
+	//	if err != nil {
+	//		return
+	//	}
+	//} else {
+	//	//先更新 之前的记录 再新增
+	//	global.GVA_DB.Model(&mall.MallUserAddress{}).Where("bank_id =?", defaultAddress.BankId).Update("default", 0)
+	//
+	//	copier.Copy(&newAddress, &req)
+	//	//newAddress.CreateTime = common.JSONTime{Time: time.Now()}
+	//	//newAddress.UpdateTime = common.JSONTime{Time: time.Now()}
+	//	newAddress.UserId = userToken.UserId
+	//	err = global.GVA_DB.Create(&newAddress).Error
+	//	if err != nil {
+	//		return
+	//	}
+	//
+	//}
 
 	return
 }
