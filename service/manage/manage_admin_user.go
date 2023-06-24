@@ -144,6 +144,7 @@ func (m *ManageAdminUserService) UpdateMallAdminMoney(token string, req manageRe
 			CreateTime: common.JSONTime{Time: time.Now()},
 			UserName:   user.LoginName,
 			AgentId:    user.AgentId,
+			TimeAdd:    int(time.Now().Unix()),
 		}
 
 		err = tx.Create(&recharge).Error

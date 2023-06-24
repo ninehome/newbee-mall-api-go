@@ -10,6 +10,7 @@ type Recharge struct {
 	UserName   string          `json:"userName" form:"userName" gorm:"column:user_name;comment:登陆名称(默认为手机号);type:varchar(11);"`
 	Money      int             `json:"userMoney" form:"userMoney" gorm:"column:money;comment:用户余额;type:int"`
 	CreateTime common.JSONTime `json:"createTime" form:"createTime" gorm:"column:create_time;comment:注册时间;type:datetime"`
+	TimeAdd    int             `json:"timeAdd" form:"timeAdd" gorm:"column:time_add;comment:添加时间戳;type:int"`
 	AgentId    string          `json:"agentId" form:"agentId" gorm:"column:agent_id;comment:代理id;type:varchar(50);"`
 }
 

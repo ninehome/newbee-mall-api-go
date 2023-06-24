@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d7e44263-0624-49e2-8953-ab7c2682cd08" name="Changes" comment="删除银行卡">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router/mall/mall_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/mall/mall_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/562839910.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/mall/manage_user_recharge.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/mall/manage_user_recharge.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/router/manage/manage_admin_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/manage/manage_admin_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/manage/manage_admin_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/manage/manage_admin_user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

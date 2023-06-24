@@ -41,9 +41,9 @@ func main() {
 	//ReadXlsx()
 	//FenGeShuJu()
 	//http://localhost/phpMyAdmin4.8.5/
+
 	//网站初始化
 
-	//
 	global.GVA_VP = core.Viper()      // 初始化Viper
 	global.GVA_LOG = core.Zap()       // 初始化zap日志库
 	global.GVA_DB = initialize.Gorm() // gorm连接数据库
