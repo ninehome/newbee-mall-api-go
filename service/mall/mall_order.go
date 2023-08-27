@@ -28,7 +28,7 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 
 	err = global.GVA_DB.Where("user_id =?", userToken.UserId).First(&userInfo).Error
 	if userInfo != (mall.MallUser{}) {
-		errors.New("Не удалось выполнить запрос пользователя заказа！")
+		errors.New("Falha ao atender à solicitação do usuário do pedido")
 	}
 
 	var itemIdList []int
@@ -42,7 +42,7 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 	//检查是否包含已下架商品
 	for _, mallGoods := range newBeeMallGoods {
 		if mallGoods.GoodsSellStatus != enum.GOODS_UNDER.Code() {
-			return errors.New("Выставлен на продажу, не способен генерировать заказы"), orderNo
+			return errors.New("Colocado à venda, incapaz de gerar pedidos"), orderNo
 		}
 	}
 	newBeeMallGoodsMap := make(map[int]manage.MallGoodsInfo)
@@ -53,10 +53,10 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 	for _, shoppingCartItemVO := range myShoppingCartItems {
 		//查出的商品中不存在购物车中的这条关联商品数据，直接返回错误提醒
 		if _, ok := newBeeMallGoodsMap[shoppingCartItemVO.GoodsId]; !ok {
-			return errors.New("Исключения данных корзины покупок！"), orderNo
+			return errors.New("Exclusões de dados do carrinho de compras！"), orderNo
 		}
 		if shoppingCartItemVO.GoodsCount > newBeeMallGoodsMap[shoppingCartItemVO.GoodsId].StockNum {
-			return errors.New("Недостаточный запас！"), orderNo
+			return errors.New("Estoque insuficiente！"), orderNo
 		}
 	}
 	//删除购物车商品项
@@ -68,7 +68,7 @@ func (m *MallOrderService) SaveOrder(token string, userAddress mall.MallUserAddr
 				var goodsInfo manage.MallGoodsInfo
 				global.GVA_DB.Where("goods_id =?", stockNumDTO.GoodsId).First(&goodsInfo)
 				if err = global.GVA_DB.Where("goods_id =? and stock_num>= ? and goods_sell_status = 0", stockNumDTO.GoodsId, stockNumDTO.GoodsCount).Updates(manage.MallGoodsInfo{StockNum: goodsInfo.StockNum - stockNumDTO.GoodsCount}).Error; err != nil {
-					return errors.New("Недостаточный запас！" + err.Error()), orderNo
+					return errors.New("Estoque insuficiente！" + err.Error()), orderNo
 				}
 			}
 			//生成订单号

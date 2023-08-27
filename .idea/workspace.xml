@@ -6,6 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="373b3dab-3e4a-48ed-8d84-969954878bca" name="Changes" comment="x">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/mall/mall_goods_category.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/mall/mall_goods_category.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/mall/mall_goods_info.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/mall/mall_goods_info.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/mall/mall_index.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/mall/mall_index.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/mall/mall_order.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/mall/mall_order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/mall/mall_shop_cart.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/mall/mall_shop_cart.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/mall/mall_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/mall/mall_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/mall/mall_user_address.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/mall/mall_user_address.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/common/enum/mall_order_status.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/common/enum/mall_order_status.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/common/response/response.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/common/response/response.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/mall/mall_order.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/mall/mall_order.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +24,11 @@
   </component>
   <component name="GOROOT" url="file:///usr/local/go" />
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">

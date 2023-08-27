@@ -44,7 +44,7 @@ func OkWithDetailed(data interface{}, message string, c *gin.Context) {
 }
 
 func Fail(c *gin.Context) {
-	Result(ERROR, map[string]interface{}{}, "Операция не удалась code=12", c)
+	Result(ERROR, map[string]interface{}{}, "A operação falhou, código=12", c)
 }
 
 func FailWithMessage(message string, c *gin.Context) {
@@ -61,5 +61,5 @@ func FailWithDetailed(data interface{}, message string, c *gin.Context) {
 }
 
 func UnLogin(data interface{}, c *gin.Context) {
-	Result(UNLOGIN, data, "Не вошел в систему！code=11", c)
+	Result(UNLOGIN, data, "Não conectado！code=11", c)
 }
