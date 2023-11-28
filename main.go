@@ -652,7 +652,7 @@ func startmoxikenumber() {
 
 	s := []string{"7936", "7983", "7986", "7901", "7916", "7985", "7925", "7926", "7917", "7985", "7936"}
 	//打开文件
-	file, err := os.Open("./俄罗斯运营商号段.txt")
+	file, err := os.Open("./苹果企业账户.txt")
 	if err != nil {
 		fmt.Println("文件打开失败 = ", err)
 	}

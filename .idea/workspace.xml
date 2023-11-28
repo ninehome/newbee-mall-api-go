@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="373b3dab-3e4a-48ed-8d84-969954878bca" name="Changes" comment="x">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payApi" beforeDir="false" afterPath="$PROJECT_DIR$/payApi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/俄罗斯运营商号段.txt" beforeDir="false" afterPath="$PROJECT_DIR$/苹果企业账户.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/莫斯科.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/随机4位尾数.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
